@@ -1,0 +1,33 @@
+.cardSlider1 {
+  width: 560px;
+  height: 344px;
+  background: url(../images/testImg1.jpg) no-repeat;
+  background-size: cover;
+}
+
+.cardSlider1 .textCont {
+  height: 200px;
+  padding: 40px;
+  text-align: start;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 40px 100px 40px;
+      grid-template-rows: 40px 100px 40px;
+  margin-top: 20px;
+  width: 280px;
+}
+
+.cardSlider1 .textCont h4, .cardSlider1 .textCont p {
+  margin: 0px;
+  padding: 0px;
+}
+
+.cardSlider1 .textCont .title {
+  font-size: 27px;
+  height: 30px;
+}
+
+.cardSlider1 .textCont .desc {
+  font-size: 15px;
+}
+/*# sourceMappingURL=cardSlider1.css.map */

@@ -1,0 +1,33 @@
+.cardSlider1
+{
+    width: 560px;
+    height: 344px;
+    background:url(../images/testImg1.jpg) no-repeat;
+    background-size: cover;
+    .textCont
+    {
+        height: 200px;
+        padding: 40px;
+        text-align: start;
+        display: grid;
+        grid-template-rows: 40px 100px 40px;
+        margin-top: 20px;
+        width: 280px;
+        h4, p 
+        {
+            margin: 0px;
+            padding: 0px;
+        }
+        .title
+        {
+            font-size: 27px;
+            height: 30px;
+        }
+        .desc
+        {
+            font-size: 15px;
+        }
+        
+        
+    }
+}

@@ -1,0 +1,92 @@
+.itemCard
+{
+    width: 268px;
+    height: 397px;
+    box-shadow: 3px 3px 10px  rgba(0,0,0,0.3);
+    border-radius: 20px;
+    .imgCont
+    {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-around;
+        height: 263px;
+        width: 100%;
+        border-radius: 20px 20px 0 0 ;
+        padding-bottom: 5px;
+        .date 
+        {
+            width: 32px;
+            height: 32px;
+            background-color: red;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        div 
+        {
+            &:nth-child(1)
+            {
+                background-color: rgba(255, 142, 240, 0.8);
+            }
+            &:nth-child(2)
+            {
+                background-color: rgba(162, 88, 255, 0.8);
+            }
+            &:nth-child(3)
+            {
+                background-color: rgba(76, 195, 229, 0.8);
+            }
+            &:nth-child(4)
+            {
+                background-color:rgba(237, 182, 0, 0.8);
+            }
+            &:nth-child(5)
+            {
+                background-color:rgba(237, 182, 0, 0.8);
+            }
+            &:nth-child(6)
+            {
+                background-color:rgba(255, 122, 44, 0.8);
+            }
+            &:nth-child(7)
+            {
+                background-color:rgba(125, 191, 41, 0.8);
+            }
+        }
+    }
+    p 
+    {
+        margin: 0px;
+        text-align: start;
+    }
+    .titleItem
+    {
+        margin-top: 15px;
+        margin-left: 10px;
+        font-size: 14px;
+    }
+    .subTitleItem
+    {
+        margin-left: 10px;
+        font-size: 12px;
+    }
+    .textCont
+    {
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        .priceAndWeightItem
+        {
+            .element1
+            {
+                font-size: 20px;
+            }
+            .element2
+            {
+                font-size: 12px;
+            }
+        }
+    }
+}

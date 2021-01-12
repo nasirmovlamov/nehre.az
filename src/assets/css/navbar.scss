@@ -1,0 +1,18 @@
+.navbar
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+    height: 60px;
+    padding-left: 20%;
+    padding-right: 20%;
+    background:#e6e7e9;
+    a 
+    {
+        text-decoration: none;
+        color: black;
+        font-family: serif;
+        font-family: "DaxlineR";
+    }
+}

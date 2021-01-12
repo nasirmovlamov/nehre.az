@@ -1,0 +1,39 @@
+.downNavbar
+{
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    padding-left: 20%;
+    padding-right: 20%;
+    background:#F6F6F6;
+    .imgCont
+    {
+        width: 150px;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    p 
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 150px;
+        span 
+        {
+            font-family: serif;
+            font-family: "DaxlineR";
+            font-size: 12px;
+        }
+    }
+    a 
+    {
+        text-decoration: none;
+        color: black;
+        font-family: serif;
+        font-family: "DaxlineR";
+        font-size: 10px;
+    }
+}
