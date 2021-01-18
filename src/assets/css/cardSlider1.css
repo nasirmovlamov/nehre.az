@@ -1,18 +1,21 @@
 .cardSlider1 {
   width: 560px;
   height: 344px;
-  background: url(../images/testImg1.jpg) no-repeat;
-  background-size: cover;
+  border-radius: 20px;
+  transition: 1s box-shadow;
+}
+
+.cardSlider1:hover {
+  box-shadow: 1px 1px 10px 10px rgba(0, 0, 0, 0.2);
+  transition: 1s box-shadow;
 }
 
 .cardSlider1 .textCont {
   height: 200px;
   padding: 40px;
   text-align: start;
-  display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 40px 100px 40px;
-      grid-template-rows: 40px 100px 40px;
+  grid-template-rows: 40px 100px 40px;
   margin-top: 20px;
   width: 280px;
 }
@@ -30,4 +33,3 @@
 .cardSlider1 .textCont .desc {
   font-size: 15px;
 }
-/*# sourceMappingURL=cardSlider1.css.map */

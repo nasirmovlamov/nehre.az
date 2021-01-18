@@ -2,9 +2,7 @@
 {
     display: flex;
     justify-content: space-between;
-    width: 60%;
-    padding-left: 20%;
-    padding-right: 20%;
+    width: 1213px;
     background:#F6F6F6;
     .imgCont
     {
@@ -36,4 +34,12 @@
         font-family: "DaxlineR";
         font-size: 10px;
     }
+}
+.navCont
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background:#F6F6F6;
+    height: auto;
 }

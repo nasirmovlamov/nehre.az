@@ -14,10 +14,25 @@ function TopNavbar() {
             <div>
                 <div className="searchAndSelection">
                     <div className="selection">
-                        <button></button>
-                        <button></button>
-                        <button></button>
-                        <button></button>
+                     {/*  */}
+                        <button>
+
+                        </button>
+                    
+                    {/*  */}
+                        <button>
+
+                        </button>
+                    
+                    {/*  */}
+                        <button>
+
+                        </button>
+                    
+                    {/*  */}
+                        <button>
+
+                        </button>
                     </div>
                     <div className="inputAndIcon">
                         <button className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>

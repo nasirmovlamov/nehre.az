@@ -1,9 +1,22 @@
 .itemCard
 {
     width: 268px;
-    height: 397px;
+    height: 410px;
     box-shadow: 3px 3px 10px  rgba(0,0,0,0.3);
     border-radius: 20px;
+    transition: 1s box-shadow;
+    .modalCont
+    {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+    &:hover 
+    {
+        box-shadow: 5px 5px 10px 10px rgba(0,0,0,0.2);
+        transition: 1s box-shadow;
+    }
+    
     .imgCont
     {
         display: flex;
@@ -13,16 +26,51 @@
         width: 100%;
         border-radius: 20px 20px 0 0 ;
         padding-bottom: 5px;
+        .overlayImg
+        {
+            width: 14.6%;
+            height: 263px;
+            position: absolute;
+            border-radius: 20px 20px 0px 0px;
+            background-color: rgba(0,0,0,0.5) !important;
+            z-index: 2;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.5s opacity;
+            display: flex;
+                justify-content: center;
+                align-items: center;
+        }
+        &:hover 
+        {
+            .overlayImg
+            {
+                opacity: 1;
+                transition: 0.5s opacity;
+                
+            }
+        }
+        &:focus 
+        {
+            outline: none;
+            border: none;
+        }
+        border: none;
+        padding: 0px !important;
+        outline: none;
         .date 
         {
-            width: 32px;
-            height: 32px;
+            width: 25px;
+            height: 25px;
+            font-size: 9px;
             background-color: red;
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
+            z-index: 3;
+            margin-bottom: 5px;
         }
         div 
         {
@@ -77,6 +125,7 @@
         padding: 10px;
         display: flex;
         justify-content: space-between;
+        
         .priceAndWeightItem
         {
             .element1
@@ -88,5 +137,15 @@
                 font-size: 12px;
             }
         }
+        .priceStriked
+        {
+            color: red;
+            text-decoration-line: line-through;
+        }
+        .priceUnderStrike
+        {
+            color: black;
+        }
+
     }
 }

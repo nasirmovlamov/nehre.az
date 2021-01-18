@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AAAA,AAAA,MAAM,CACE;EACI,OAAO,EAAE,IAAI;EACb,eAAe,EAAC,MAAM;EACtB,WAAW,EAAC,MAAM;EAClB,aAAa,EAAE,IAAI;CACtB",
+    "mappings": "AAAA,AAAA,MAAM,CACN;EACI,OAAO,EAAE,IAAI;EACb,eAAe,EAAC,MAAM;EACtB,WAAW,EAAC,MAAM;EAClB,aAAa,EAAE,IAAI;CACtB",
     "sources": [
         "starSystem.scss"
     ],

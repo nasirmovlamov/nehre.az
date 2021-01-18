@@ -1,0 +1,103 @@
+.description {
+  margin-top: 20px;
+  padding-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.description .descAbout {
+  display: flex;
+}
+
+.description .part1 p {
+  margin: 0px;
+}
+
+.description .part1 .label {
+  width: 200px;
+  text-align: end;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.description .part1 .value {
+  width: 280px;
+  margin-left: 10px;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.description .part1 .textCont {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.description .part2 {
+  display: flex;
+}
+
+.description .part2 .imgCont {
+  width: 252px;
+  height: 252px;
+  border-radius: 10px;
+  margin-left: 20px;
+}
+
+.description .part2 .textCont {
+  width: 200px;
+  margin-left: 20px;
+}
+
+.description .part2 .textCont .name {
+  font-size: 21px;
+  opacity: 0.7;
+  font-weight: 700;
+  margin-bottom: 5px;
+  margin-top: 0px;
+}
+
+.description .part2 .textCont .about {
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+.description .part2 .textCont .moreAbout {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+}
+
+.description .similarProductsCont {
+  width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.description .similarProductsCont .similarProducts {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+  justify-content: center;
+  width: 100%;
+}
+
+.description .similarProductsCont .similarProducts .imgCont {
+  background-size: cover !important;
+  width: 246px;
+}
+
+.description .similarProductsCont .similarProducts .itemCard {
+  box-shadow: none;
+  background-color: #fff;
+}
+
+.description .similarProductsCont .similarProducts .itemCard .overlayImg {
+  width: 246px;
+}
+
+.description .similarProductsCont .title {
+  text-align: center;
+  margin-top: 20px;
+  margin-top: 30px;
+  font-size: 21px;
+}

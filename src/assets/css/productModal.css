@@ -1,0 +1,235 @@
+.productModal {
+  width: 1100px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  background-color: #f3f0eb;
+  border-radius: 20px;
+}
+
+.productModal .buttonCont {
+  width: 100%;
+  height: 50px;
+}
+
+.productModal .removeModalBtn {
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
+  border: none;
+  font-size: 45px;
+  color: rgba(0, 0, 0, 0.5);
+  transition: 0.2s color;
+}
+
+.productModal .removeModalBtn:hover {
+  color: rgba(0, 0, 0, 0.8);
+  transition: 0.2s color;
+}
+
+.productModal .sliderAndAbout {
+  display: flex;
+}
+
+.productModal .sliderAndAbout .sliderCont {
+  width: 50%;
+  background-color: #fff;
+}
+
+.productModal .sliderAndAbout .aboutCont {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.productModal .sliderAndAbout .aboutCont p {
+  margin: 0px;
+}
+
+.productModal .sliderAndAbout .aboutCont .titleItem {
+  font-size: 27px;
+  color: #7dbf29;
+  font-weight: bold;
+  font-family: "DaxlineR";
+}
+
+.productModal .sliderAndAbout .aboutCont .supllierName {
+  font-size: 16px;
+  color: #3b3b3b;
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+.productModal .sliderAndAbout .aboutCont .desc {
+  color: #585858;
+  width: 400px;
+  max-width: 400px;
+}
+
+.productModal .sliderAndAbout .aboutCont .ingredients {
+  margin-top: 20px;
+}
+
+.productModal .sliderAndAbout .aboutCont .ingredients .ingredientsText {
+  font-size: 16px;
+  color: #3b3b3b;
+  font-weight: 700;
+  font-family: "DaxlineR";
+}
+
+.productModal .sliderAndAbout .aboutCont .ingredients .ingredientsFront {
+  opacity: 0.7;
+}
+
+.productModal .sliderAndAbout .aboutCont .priceCont {
+  max-height: 40px;
+  margin-top: 20px;
+}
+
+.productModal .sliderAndAbout .aboutCont .priceCont .priceText {
+  font-size: 16px;
+  color: #3b3b3b;
+  font-weight: 700;
+  font-family: "DaxlineR";
+}
+
+.productModal .sliderAndAbout .aboutCont .priceCont .price {
+  font-size: 20px;
+  font-weight: 700;
+  margin-left: 20px;
+  color: #525252;
+}
+
+.productModal .sliderAndAbout .aboutCont .priceCont .weight {
+  font-size: 20px;
+  font-weight: 700;
+  color: #525252;
+}
+
+.productModal .sliderAndAbout .aboutCont .buttonsCont {
+  max-width: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.productModal .sliderAndAbout .aboutCont .buttonsCont .part1 {
+  display: flex;
+}
+
+.productModal .sliderAndAbout .aboutCont .buttonsCont .decBtn {
+  border-radius: 10px 0px 0px 10px;
+  border: none;
+  background-color: #7dbf29;
+  border: 0;
+  display: inline-block;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  width: 40px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.productModal .sliderAndAbout .aboutCont .buttonsCont .valueBtn {
+  width: 50px;
+  height: 40px;
+  border: none;
+  background-color: #E4EEE4;
+  font-size: 20px;
+  color: #3b3b3b;
+  font-weight: 700;
+}
+
+.productModal .sliderAndAbout .aboutCont .buttonsCont .incBtn {
+  border-radius: 0px 10px 10px 0px;
+  border: none;
+  background-color: #7dbf29;
+  border: 0;
+  display: inline-block;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  width: 40px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.productModal .sliderAndAbout .aboutCont .buttonsCont .part2 .moreAbout {
+  width: 200px;
+}
+
+.productModal .sliderAndAbout .aboutCont .reviewCont {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  width: 400px;
+}
+
+.productModal .sliderAndAbout .aboutCont .reviewCont .starsAndReviews {
+  display: flex;
+}
+
+.productModal .sliderAndAbout .aboutCont .reviewCont .stars {
+  width: 150px;
+  justify-content: flex-start;
+}
+
+.productModal .sliderAndAbout .aboutCont .reviewCont .stars img {
+  width: 24px;
+}
+
+.productModal .sliderAndAbout .aboutCont .reviewCont .favorites {
+  display: flex;
+  align-items: center;
+  color: #939598;
+}
+
+.productModal .sliderAndAbout .aboutCont .reviewCont .favorites svg {
+  margin-right: 5px;
+}
+
+.productModal .sliderAndAbout .aboutCont .reviewCont .reviews {
+  color: #847a76;
+}
+
+.productModal .btnContForLinks {
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+  margin-top: 20px;
+  background-color: #f3f0eb;
+}
+
+.productModal .btnContForLinks .button {
+  border: none;
+  color: #aebaa3;
+  padding: 15px;
+  margin: 0px;
+  font-size: 15px;
+  background-color: transparent;
+  margin: 1px;
+  border: 1px solid transparent;
+  border-bottom: 0px;
+  margin-bottom: 0px;
+  border-bottom: none;
+  color: #51c4e5;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.productModal .btnContForLinks .button:focus {
+  outline: none;
+}
+
+.productModal .btnContForLinks .button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.productModal .btnContForLinks hr {
+  margin: 0px;
+  opacity: 0.3;
+}

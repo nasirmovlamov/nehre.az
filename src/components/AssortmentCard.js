@@ -3,14 +3,14 @@ import "../assets/css/assortmentCard.css"
 function AssortmentCard(props) {
     const imgHandler = {
         background: `url(${props.image}) no-repeat`,
-        backgroundPosition: "cover",
-        backgroundSize: "100% 100%",
+        backgroundPosition: "center",
+        backgroundSize: "100% auto",
     }
     return (
         <div className="assortmentCard">
             <div style={imgHandler} className="imgContAssortment"></div>
-            <p>{props.title}</p>
-            <p>{props.desc}</p>
+            <p className="assortTitle">{props.title}</p>
+            <p className="assortSubTitle">{props.desc}</p>
         </div>
     )
 }
