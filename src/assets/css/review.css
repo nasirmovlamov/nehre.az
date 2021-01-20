@@ -15,10 +15,15 @@
 }
 
 .review .dateAndStar {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   height: 40px;
-  align-items: center;
-  column-gap: 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
   font-size: 16px;
   color: rgba(0, 0, 0, 0.6);
 }
@@ -27,3 +32,4 @@
   margin: 0px;
   margin-bottom: 5px;
 }
+/*# sourceMappingURL=review.css.map */

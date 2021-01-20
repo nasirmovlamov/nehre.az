@@ -33,6 +33,19 @@ function ProductModal(props) {
         
     }
 
+    const [value, setvalue] = useState(1)
+
+    const clickValueHandler = (num) => {
+        if(num===1)
+        {
+            setvalue(value--)
+        }
+        else if (num===3)
+        {
+            setvalue(value++)
+        }
+    }
+
     return (
 
         <div className="productModal">
@@ -58,9 +71,9 @@ function ProductModal(props) {
                     <div className="buttonsCont">
                         
                         <div className="part1">
-                            <button  className="decBtn">{<RemoveIcon style={{fontSize:"20px"}}/>}</button>
-                            <button  className="valueBtn">1</button>
-                            <button  className="incBtn">+</button>
+                            <button  value="1" onClick={() => clickValueHandler(value)}  className="decBtn">{<RemoveIcon style={{fontSize:"20px"}}/>}</button>
+                            <button   className="valueBtn">1</button>
+                            <button  value="3" onClick={() => clickValueHandler(value)}  className="incBtn">+</button>
                         </div>
 
                         <div className="part2"><Button1 value="Add to card" color="#FF7A2C"/></div>
@@ -79,7 +92,7 @@ function ProductModal(props) {
                             <hr/>
 
                             <div className="linkComponent">
-                                {checker === 1 ? <Description/> : "" }
+                                {checker === 1 ? <Description   /> : "" }
                                 {checker === 2 ? <Reviews/> : ""}
                                 {checker === 3 ? <Certificates/> : ""}
                             </div>

@@ -1,0 +1,38 @@
+.suppliersCont
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    .category
+    {
+        margin-top: 0px;
+        text-align: start;
+        margin-top: 20px;
+        span 
+        {
+            &:nth-child(1)
+            {
+                opacity: 0.33;
+                font-weight: 700;
+            }
+        }
+    }
+    .suppliersTitle
+    {
+        font-size: 48px;
+        color: #3d3d3d;
+    }
+    .suppliers
+    {
+    padding-left: 50px;
+
+        width: 1300px;
+        .supplier
+        {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            grid-gap: 30px;
+        }
+    }
+}

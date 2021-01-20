@@ -7,10 +7,11 @@ import dil from "../assets/images/dil.png"
 import member from "../assets/images/member.png"
 import sebet from "../assets/images/Sebet.png"
 import searchIcon from "../assets/images/searchIcon.png"
+import {Link} from "react-router-dom"
 function TopNavbar() {
     return (
         <div className="topNavbar">
-            <img src={logoNehre} alt="" width="200" height="auto"/>
+            <Link to="/"><img src={logoNehre} alt="" width="200" height="auto"/></Link>
             <div>
                 <div className="searchAndSelection">
                     <div className="selection">

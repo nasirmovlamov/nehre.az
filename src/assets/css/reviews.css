@@ -1,12 +1,22 @@
 .reviews .reviewsCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   row-gap: 20px;
 }
 
 .reviews .reviewsCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .reviews .titleReviews {
@@ -14,3 +24,4 @@
   font-size: 17px;
   margin-top: 15px;
 }
+/*# sourceMappingURL=reviews.css.map */

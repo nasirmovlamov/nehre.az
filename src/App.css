@@ -39,7 +39,16 @@ body
     transform: rotate(360deg);
   }
 }
-button , a
+
+button , a , select
 {
   cursor: pointer;   
+}
+button:focus
+{
+  outline: none;  
+}
+select:focus 
+{
+  outline: none;
 }

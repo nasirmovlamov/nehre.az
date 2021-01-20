@@ -1,4 +1,9 @@
+a, button
+{
+    text-decoration: none !important;
+    cursor: pointer;
 
+}
 .homePage
 {
     width: 1220px;
@@ -148,12 +153,19 @@
     {
         width: 100%;
         margin-top: 20px;
+        
         .itemsTitle
         {
+            color: #3d332d;
             text-align: start;
             font-size: 40px;
             font-family: "DaxlinePro";
             margin-bottom: 0;
+            font-weight: 700;
+            &:hover 
+            {
+                color: #ff7a2c;
+            }
         }
         
     }

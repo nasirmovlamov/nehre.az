@@ -1,6 +1,8 @@
 .certificates {
+  display: -ms-grid;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
   justify-items: start;
   grid-gap: 20px;
   margin-top: 40px;
@@ -11,3 +13,4 @@
   height: 300px;
   background-color: lightgray;
 }
+/*# sourceMappingURL=certificates.css.map */

@@ -1,0 +1,119 @@
+.productPage
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    .topPart
+    {
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        text-align: start;
+        background-color: #fff;
+        padding-bottom: 50px;
+        padding-top: 50px;
+        .titleProducts
+        {
+            padding-left: 10px;
+            width: 1290px;
+            height: auto;
+            .category
+            {
+                margin-top: 0px;
+                span 
+                {
+                    &:nth-child(1)
+                    {
+                        opacity: 0.33;
+                        font-weight: 700;
+                    }
+                }
+            }
+            .categoryName
+            {
+                font-size: 33px;
+                color: #3d332d;
+            }
+            .tags 
+            {
+                display: flex;
+                column-gap: 20px;
+                .tag 
+                {
+                    width: auto;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 30px;
+                    padding: 10px;
+                    background-color: #fff;
+                    border-radius: 30px;
+                    border: 1px solid lightgray;
+                    color: #3d332d;
+                }
+            }
+        }
+    }//topPart
+
+    .titleProductsCont
+    {
+        display: flex;
+        justify-content: space-between;
+        width: 1300px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding-left: 10px;
+        .dateAndItemCont
+        {
+            display: flex;
+            column-gap: 30px;
+            align-items: center;
+            .forDates 
+            {
+                width: 190px;
+                height: 40px;
+                background-color: #fff;
+                border:none;
+                box-shadow: 1px 3px 4px rgba(0 ,0,0,0.3);
+                border-radius: 50px;
+            }
+            .itemsNumber
+            {
+                font-weight: 700;
+                opacity: 0.3;
+            }
+        }//Date 
+
+        .selectionFilter
+        {
+            padding: 10px;
+            background-color: transparent;
+            border: none;
+            color: #3d332d;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0.7;
+            &::after
+            {
+                padding-top: 20px;
+            }
+        }
+    }//title products cont
+
+
+    .productsCont
+    {
+        display: grid;
+        width: 1300px;
+        grid-template-columns: repeat(4,1fr);
+        align-content: center;
+        grid-gap: 75px;
+        .overlayImg
+        {
+            width: 14%;
+        }
+    }
+}

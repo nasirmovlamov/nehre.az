@@ -18,15 +18,19 @@
   border: none;
   font-size: 45px;
   color: rgba(0, 0, 0, 0.5);
+  -webkit-transition: 0.2s color;
   transition: 0.2s color;
 }
 
 .productModal .removeModalBtn:hover {
   color: rgba(0, 0, 0, 0.8);
+  -webkit-transition: 0.2s color;
   transition: 0.2s color;
 }
 
 .productModal .sliderAndAbout {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -37,8 +41,13 @@
 
 .productModal .sliderAndAbout .aboutCont {
   width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .productModal .sliderAndAbout .aboutCont p {
@@ -107,13 +116,21 @@
 
 .productModal .sliderAndAbout .aboutCont .buttonsCont {
   max-width: 400px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-top: 20px;
 }
 
 .productModal .sliderAndAbout .aboutCont .buttonsCont .part1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -128,9 +145,15 @@
   line-height: 40px;
   width: 40px;
   color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .productModal .sliderAndAbout .aboutCont .buttonsCont .valueBtn {
@@ -154,9 +177,15 @@
   line-height: 40px;
   width: 40px;
   color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .productModal .sliderAndAbout .aboutCont .buttonsCont .part2 .moreAbout {
@@ -164,20 +193,30 @@
 }
 
 .productModal .sliderAndAbout .aboutCont .reviewCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 50px;
   width: 400px;
 }
 
 .productModal .sliderAndAbout .aboutCont .reviewCont .starsAndReviews {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
 .productModal .sliderAndAbout .aboutCont .reviewCont .stars {
   width: 150px;
-  justify-content: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .productModal .sliderAndAbout .aboutCont .reviewCont .stars img {
@@ -185,8 +224,12 @@
 }
 
 .productModal .sliderAndAbout .aboutCont .reviewCont .favorites {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: #939598;
 }
 
@@ -211,7 +254,7 @@
   padding: 15px;
   margin: 0px;
   font-size: 15px;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
   margin: 1px;
   border: 1px solid transparent;
   border-bottom: 0px;
@@ -233,3 +276,4 @@
   margin: 0px;
   opacity: 0.3;
 }
+/*# sourceMappingURL=productModal.css.map */

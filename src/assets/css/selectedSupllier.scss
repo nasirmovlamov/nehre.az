@@ -1,0 +1,125 @@
+.selectedSupllierCont
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: start;
+    .category
+    {
+        margin-top: 0px;
+        text-align: start;
+        margin-top: 20px;
+        span 
+        {
+            &:nth-child(1)
+            {
+                opacity: 0.33;
+                font-weight: 700;
+            }
+        }
+    }//category
+
+    .selectedSupplier
+    {
+        margin-top: 20px;
+        padding-left: 50px;
+        width: 1300px;
+    }
+
+    .videoAndAbout
+    {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+
+        .supplierVideo
+        {
+            width: 676px;
+            height: 405px;
+        }
+        .about
+        {
+            width: 483px;
+            padding-right: 100px;
+            .name
+            {
+                font-size: 33px;
+                margin: 0px;
+                font-weight: 700;
+                color: #3d332d;
+            }
+            .starAndReview
+            {
+                display: flex;
+                align-items: center;
+                height: 40px;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                margin-right: 10px;
+                p 
+                {
+                    margin-top:20px;
+                    margin-left: 10px;
+                    color: #3d332d;
+                    font-weight: 700;
+                    opacity: 0.5;
+                }
+                .stars 
+                {
+                    img 
+                    {
+                        width: 25px;
+                    }
+                }
+            }//Star and review 
+
+            .text
+            {
+                font-weight: 500;
+                opacity: 0.6;
+            }
+
+        }
+    }
+    .btnContForLinks
+    {
+        padding-left: 2.5%;
+        padding-right: 2.5%;
+        margin-top: 20px;
+        background-color: #f3f0eb;
+        .button 
+        {
+            border: none;
+            color: #aebaa3;
+            padding: 15px;
+            margin: 0px;
+            font-size: 15px;
+            background-color: rgba(0,0,0,0);
+            margin: 1px;
+            border: 1px solid transparent;
+            border-bottom: 0px;
+            margin-bottom: 0px;
+            border-bottom:none ;
+            color: #51c4e5;
+            border-radius: 10px 10px 0px 0px;
+            &:focus 
+            {   
+                outline: none;
+            }
+            &:hover 
+            {
+                background-color: rgba(0,0,0,0.1);
+            }
+        }
+        
+        
+        
+        hr 
+        {
+            margin: 0px;
+            opacity: 0.3;
+        }
+    }
+
+}

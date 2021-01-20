@@ -37,6 +37,8 @@ import AnswersCard from '../components/AnswersCard'
 import SupplierCard from '../components/SupplierCard'
 import OurSlider from '../components/OurSlider'
 import Footer from '../components/Footer'
+
+import {Link} from "react-router-dom"
 function HomePage() {
     
     const topCards = []
@@ -52,6 +54,7 @@ function HomePage() {
 
 
     return (
+
         <div className="homePage">
             <div className="slider1">
                 <OurSlider elements={topCards} numOfSld={2}/>
@@ -111,7 +114,7 @@ function HomePage() {
             </div>
 
             <div className="itemsCont">
-                <p className="itemsTitle">Our Suppliers </p>
+                <Link to="/suppliers"><p className="itemsTitle">Our Suppliers </p></Link>
                 <div className="itemSlider">
                     <OurSlider elements={suppliersCard} numOfSld={3}/>
                 </div>
@@ -124,8 +127,8 @@ function HomePage() {
                 </div>
             </div>
 
-            <Footer/>
         </div>
+
     )
 }
 

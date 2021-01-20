@@ -5,6 +5,8 @@
     box-shadow: 3px 3px 10px  rgba(0,0,0,0.3);
     border-radius: 20px;
     transition: 1s box-shadow;
+    background-color: white;
+    cursor: pointer;
     .modalCont
     {
         display: flex;
@@ -28,7 +30,7 @@
         padding-bottom: 5px;
         .overlayImg
         {
-            width: 14.6%;
+            width: 270px ;
             height: 263px;
             position: absolute;
             border-radius: 20px 20px 0px 0px;

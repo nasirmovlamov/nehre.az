@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState , useEffect} from 'react'
 import "../assets/css/itemCard.css"
 import BuyButton from './BuyButton'
 import StarSystem from './StarSystem'
@@ -54,10 +54,15 @@ function ItemCard(props) {
       const classes = useStyles();
       // getModalStyle is not a pure function, we roll the style only on the first render
       const [open, setOpen] = React.useState(false);
-      const handleOpen = () => {
+      
+    useEffect(() => {
+        handleClose()
+    }, [])
+
+    const handleOpen = () => {
         setOpen(true);
-      };
-    
+      }
+      
       const handleClose = () => {
         setOpen(false);
       };
