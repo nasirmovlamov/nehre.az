@@ -4,23 +4,59 @@
     column-gap: 10px;
     width: 1180px;
     margin-top: 25px;
-    column-gap: 20px;
+    column-gap: 40px;
     justify-content: center;
     aside 
     {
         width: 270px;
-        background-color: #fff;
+        background-color: #ffffff;
+        box-shadow: 3px 1px 40px  rgba(0,0,0,0.2);
         display: flex;
-        border-radius: 10px;
+        border-radius: 5px;
         flex-direction: column;
         justify-content: flex-start;
         padding-top: 10px;
         padding-bottom: 10px;
+        height: 550px;
+        
+        hr 
+        {
+            width: 76%;
+            height: 1px;
+            border: none;
+            background-color: lightgray;
+        }
         a
          {
             display: flex;
             justify-content: start;
-            padding: 8px 31px 8px 30px;
+            align-items: center;
+            button 
+            {
+
+                width: 100%;
+                height: 100%;
+                border: none;
+                display: flex;
+                align-items: center;
+                column-gap: 10px;
+                margin: 0px;
+                padding: 0px;
+                color: #7d7068;
+                font-size: 16px;
+                font-family: "DaxlineR";
+                background-color: transparent;
+                padding: 8px 31px 8px 30px;
+                border-left: 3px solid transparent;
+
+                &:hover 
+                {
+                    color: #ff7a2c;
+                    border-left: 3px solid #ff7a2c;
+                }
+                
+            }
+            
             color: #7d7068;
             font-size: 16px;
             font-family: "DaxlineR";
@@ -28,11 +64,96 @@
     }
     main 
     {
+        .contactCont
+        {
+            .gridCont
+            {
+                input
+                {
+                    padding: 5px;
+                    background-color: #ffff;
+                    width: 546px !important;
+                    height: 25px;
+                    border-radius: 5px;
+                    border: 1px solid lightgray;
+                    font-weight: 100;
+                    font-weight: 100 !important;
+                    font-size: 13px !important;
+                    &:focus 
+                    {
+                        outline: none;
+                    }
+                    &::placeholder
+                    {
+                        font-weight: 100;
+                    }
+                    
+                }
+                
+                
+            }
+            button 
+            {
+                align-self: flex-end;
+                height: 35px;
+                width: 100px;
+                margin-top: 20px;
+            }
+        }
+        .address
+        {
+            .myAdress
+            {
+                margin-top: 20px;
+                font-weight: 500;
+                color: gray;
+                font-size: 16px;
+                text-align: start;
+            }
+            button 
+            {
+                align-self: flex-end;
+                height: 35px;
+                width: 150px;
+                margin-top: 20px;
+            }
+        }
+
+        .bookmarks
+        {
+            .selection
+            {
+                align-self: flex-start;
+                .button 
+                {
+                    margin-top: 10px;
+                    display: flex;
+                    align-items: center;
+                    border-radius: 20px;
+                    padding: 10px;
+                    border: none;
+                    box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+                    background-color: #fff;
+                    font-size: 15px;
+                    column-gap: 15px;
+                    width: 260px;
+                    height: 40px;
+                    p 
+                    {
+                        margin: 0px;
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+            }
+        }
 
         padding: 35px;
         width: 780px;
-        background-color: #fff;
-        border-radius: 10px;
+        background-color: #ffffff;
+        box-shadow: 3px 1px 40px  rgba(0,0,0,0.2);
+        border-radius: 5px;
+        min-height: 350px;
         .title 
         {
             font-size: 27px;
@@ -98,8 +219,49 @@
                 }
             }
         }
+        .bookmarks
+        {
+            .gridCont1
+            {
+                margin-top: 20px;
+                display: grid;
+                grid-template-columns: repeat(3,1fr);
+                .itemCard
+                {
+                    transform: scale(0.9);
+                    margin-left: -5px;
+                }
+            }
+        }
+        .orders
+        {
+            text-align: start;
+            .gridCont1
+            {
+                margin-top: 0px;
+            }
+        }
 
-
-
+        .reminders
+        {
+            text-align: center;
+            .title
+            {
+                text-align: center
+            }
+            .subTitle
+            {
+                margin-top: 10px;
+                font-weight: 500;
+                color: gray;
+            }
+            .gridCont1
+            {
+                margin-top: 10px;
+                grid-template-columns: repeat(1,1fr) ;
+                color: #ff7a2c;
+                font-weight: 500;
+            }
+        }
     }
 }
