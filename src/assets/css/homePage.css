@@ -15,6 +15,7 @@ a, button {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  background-color: #fff;
 }
 
 .homePage .slider1 {
@@ -71,6 +72,8 @@ a, button {
   width: 33.3%;
   height: 366.66px;
   padding: 20px;
+  -webkit-box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+          box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
   padding-top: 10px;
   border-radius: 20px;
   background-color: #fff;
@@ -129,8 +132,12 @@ a, button {
 }
 
 .homePage .ourAssortment {
-  width: 100%;
+  width: 95%;
   margin-top: 50px;
+  background-color: #eaf4ee;
+  border-radius: 30px;
+  padding: 50px;
+  padding-top: 0px;
 }
 
 .homePage .ourAssortment .title3 {
@@ -177,8 +184,22 @@ a, button {
 }
 
 .homePage .itemsCont {
-  width: 100%;
+  width: 95%;
   margin-top: 20px;
+  background-color: #eaf4ee;
+  padding: 50px;
+  padding-top: 0px;
+  border-radius: 20px;
+}
+
+.homePage .itemsCont .itemCard {
+  -webkit-transform: scale(0.9) !important;
+          transform: scale(0.9) !important;
+}
+
+.homePage .itemsCont .supplierCard {
+  -webkit-transform: scale(0.9) !important;
+          transform: scale(0.9) !important;
 }
 
 .homePage .itemsCont .itemsTitle {
@@ -192,5 +213,15 @@ a, button {
 
 .homePage .itemsCont .itemsTitle:hover {
   color: #ff7a2c;
+}
+
+.homePage .modalCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 /*# sourceMappingURL=homePage.css.map */

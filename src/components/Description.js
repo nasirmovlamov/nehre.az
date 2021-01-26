@@ -50,9 +50,8 @@ function Description(props) {
             <div className="similarProductsCont">
                     <p className="title"> Similar products </p>
                     <div className="similarProducts">
-                        <ItemCard  image={xalisBal} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={10}/> 
+                        <ItemCard functionClose={props.functionClose} image={xalisBal} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={10}/> 
                         <ItemCard  image={xalisBal} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>  
-                        <ItemCard  image={xalisBal} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>
                         <ItemCard  image={xalisBal} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>
                     </div>
 

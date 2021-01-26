@@ -2,7 +2,7 @@
   width: 1100px;
   margin-top: 50px;
   margin-bottom: 20px;
-  background-color: #f3f0eb;
+  background-color: #f0f4f5;
   border-radius: 20px;
 }
 
@@ -20,6 +20,7 @@
   color: rgba(0, 0, 0, 0.5);
   -webkit-transition: 0.2s color;
   transition: 0.2s color;
+  background-color: transparent;
 }
 
 .productModal .removeModalBtn:hover {
@@ -36,7 +37,21 @@
 
 .productModal .sliderAndAbout .sliderCont {
   width: 50%;
+  margin-left: 30px;
   background-color: #fff;
+}
+
+.productModal .sliderAndAbout .sliderCont .slick-next {
+  margin-right: 50px;
+}
+
+.productModal .sliderAndAbout .sliderCont .slick-prev {
+  margin-left: 50px;
+  z-index: 10000000;
+}
+
+.productModal .sliderAndAbout .sliderCont .slick-track {
+  padding-bottom: 0px;
 }
 
 .productModal .sliderAndAbout .aboutCont {
@@ -245,7 +260,7 @@
   padding-left: 2.5%;
   padding-right: 2.5%;
   margin-top: 20px;
-  background-color: #f3f0eb;
+  background-color: #f0f4f5;
 }
 
 .productModal .btnContForLinks .button {

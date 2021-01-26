@@ -17,7 +17,9 @@ import {
 import Description from './Description';
 import Certificates from './Certificates';
 import Reviews from './Reviews';
-
+import testImg6 from "../assets/images/testImg6.jpg"
+import testImg7 from "../assets/images/testImg7.jpg"
+import SupplierCard from './SupplierCard';
 function ProductModal(props) {
 
     
@@ -46,12 +48,17 @@ function ProductModal(props) {
         }
     }
 
+    const suppliersCard = []
+    suppliersCard.push(  <SupplierCard image={avatar} title="Zinaida and Sergey Belan" supplier="Pickles and preserves " image2={testImg6} image3={testImg7}/>,<SupplierCard image={avatar} title="Zinaida and Sergey Belan" supplier="Pickles and preserves " image2={testImg6} image3={testImg7}/>,<SupplierCard image={avatar} title="Zinaida and Sergey Belan" supplier="Pickles and preserves " image2={testImg6} image3={testImg7}/>,<SupplierCard image={avatar} title="Zinaida and Sergey Belan" supplier="Pickles and preserves " image2={testImg6} image3={testImg7}/>)
+    
     return (
 
         <div className="productModal">
             <div className="buttonCont"><button onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
             <div className="sliderAndAbout">
-                <div className="sliderCont"></div>
+                <div className="sliderCont">
+                    {<OurSlider elements={suppliersCard} numOfSld={1}/>}
+                </div>
                 <div className="aboutCont">
                     <p className="titleItem">{props.title}</p>
                     <p className="supllierName">{props.desc}</p>
@@ -92,7 +99,7 @@ function ProductModal(props) {
                             <hr/>
 
                             <div className="linkComponent">
-                                {checker === 1 ? <Description   /> : "" }
+                                {checker === 1 ? <Description  functionClose={props.functionClose} /> : "" }
                                 {checker === 2 ? <Reviews/> : ""}
                                 {checker === 3 ? <Certificates/> : ""}
                             </div>

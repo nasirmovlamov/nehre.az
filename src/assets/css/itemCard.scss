@@ -7,12 +7,7 @@
     transition: 1s box-shadow;
     background-color: white;
     cursor: pointer;
-    .modalCont
-    {
-        display: flex;
-        width: 100%;
-        justify-content: center;
-    }
+    
     &:hover 
     {
         box-shadow: 5px 5px 10px 10px rgba(0,0,0,0.2);

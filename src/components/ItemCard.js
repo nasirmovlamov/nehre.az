@@ -9,6 +9,9 @@ import Modal from '@material-ui/core/Modal';
 import ProductModal from './ProductModal';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
 function ItemCard(props) {
+
+    const [checker, setchecker] = useState(false)
+
     const imgHandler = {
         background: `url(${props.image}) no-repeat`,
         backgroundPosition: "center",
@@ -61,18 +64,26 @@ function ItemCard(props) {
 
     const handleOpen = () => {
         setOpen(true);
+        setchecker(true)
       }
       
       const handleClose = () => {
         setOpen(false);
       };
 
+      const handler = () => {
+        if(checker)
+        {
+            
+        }
+        handleOpen()
+      }
       
     return (
         <div className="itemCard">
             
 
-            <button type="button" onClick={handleOpen} className="imgCont" style={imgHandler}>
+            <button type="button" onClick={() => handler()} className="imgCont" style={imgHandler}>
                     <div className="overlayImg">{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</div>
                     <DarkTT title="Delivery possible for" placement="top" arrow>
                         <div className="date">M</div>

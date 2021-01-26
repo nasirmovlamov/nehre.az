@@ -12,16 +12,6 @@
   cursor: pointer;
 }
 
-.itemCard .modalCont {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
 .itemCard:hover {
   -webkit-box-shadow: 5px 5px 10px 10px rgba(0, 0, 0, 0.2);
           box-shadow: 5px 5px 10px 10px rgba(0, 0, 0, 0.2);

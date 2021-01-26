@@ -10,6 +10,7 @@ a, button
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #fff;
     .slider1 
     {
         width:100%;
@@ -50,6 +51,8 @@ a, button
             width: 33.3%;
             height: 366.66px;
             padding: 20px;
+            box-shadow: 5px 5px 20px rgba(0,0,0,0.1);
+
             padding-top: 10px;
             border-radius: 20px;
             background-color: #fff;
@@ -103,8 +106,12 @@ a, button
 
     .ourAssortment
     {
-        width: 100%;
+        width: 95%;
         margin-top: 50px;
+        background-color: #eaf4ee;
+        border-radius: 30px;
+        padding: 50px;
+        padding-top: 0px;
         .title3
         {
             text-align: start;
@@ -151,9 +158,21 @@ a, button
 
     .itemsCont
     {
-        width: 100%;
+        width: 95%;
         margin-top: 20px;
-        
+        background-color: #eaf4ee;
+        padding: 50px;
+        padding-top: 0px;
+        border-radius: 20px;
+        .itemCard
+        {
+            transform: scale(0.9) !important;
+
+        }
+        .supplierCard
+        {
+            transform: scale(0.9) !important;
+        }
         .itemsTitle
         {
             color: #3d332d;
@@ -168,6 +187,13 @@ a, button
             }
         }
         
+    }
+
+    .modalCont
+    {
+        display: flex;
+        width: 100%;
+        justify-content: center;
     }
     
     

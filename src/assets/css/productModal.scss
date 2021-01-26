@@ -3,7 +3,7 @@
     width: 1100px;
     margin-top: 50px;
     margin-bottom: 20px;
-    background-color: #f3f0eb;
+    background-color: #f0f4f5;
     border-radius: 20px;
     .buttonCont
     {
@@ -20,7 +20,7 @@
         font-size: 45px;
         color: rgba(0,0,0,0.5);
         transition: 0.2s color;
-
+        background-color: transparent;
         &:hover 
         {
             color:  rgba(0,0,0,0.8);
@@ -34,7 +34,22 @@
         .sliderCont
         {
             width: 50%;
+            margin-left: 30px;
             background-color: #fff;
+             
+                .slick-next
+                {
+                    margin-right: 50px;
+                }
+                .slick-prev
+                {
+                    margin-left: 50px;
+                    z-index: 10000000;
+                }
+                .slick-track
+                {
+                    padding-bottom: 0px;
+                }
         }
         .aboutCont
         {
@@ -113,6 +128,7 @@
                 justify-content: space-between;
                 align-items: center;
                 margin-top: 20px;
+
                 .part1
                 {
                     display: flex;
@@ -212,7 +228,7 @@
         padding-left: 2.5%;
         padding-right: 2.5%;
         margin-top: 20px;
-        background-color: #f3f0eb;
+        background-color: #f0f4f5;
         .button 
         {
             border: none;

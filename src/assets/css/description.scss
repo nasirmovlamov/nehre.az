@@ -75,38 +75,37 @@
 
     .similarProductsCont
     {
-        width: 900px;
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
+        background-image: url("../images/element.png");
+        background-repeat: no-repeat;
+        background-size: 400px;
+        background-position: 105% 120% ;
+
         .similarProducts
         {
             display: flex;
-            flex-direction: row;
-            column-gap: 20px;
-            justify-content: center;
+            column-gap: 10px;
             width: 100%;
-            .imgCont
-            {
-                background-size:cover !important;
-                width: 246px;
-            }
+            
             .itemCard
             {
                 box-shadow: none;
                 background-color: #fff;
-                .overlayImg
-                {
-                    width: 246px;
-                }
+                transform: scale(0.85);
+                margin-left: -35px;
             }
         }
         .title
         {
             text-align: center;
-            margin-top: 20px;
-            margin-top: 30px;
-            font-size: 21px;
+            margin-top: 35px;
+            margin-bottom: 0px;
+            font-size: 24px;
+            width: 690px;
+            align-self: flex-start;
         }
     }
 
