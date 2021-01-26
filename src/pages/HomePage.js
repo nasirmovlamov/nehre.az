@@ -107,7 +107,7 @@ function HomePage() {
             </div>
             
             <div className="itemsCont">
-                <p className="itemsTitle">Special Offers </p>
+                <Link to="/promotions"><p className="itemsTitle">Special Offers </p></Link>
                 <div className="itemSlider"> 
                     <OurSlider elements={specialOffers} numOfSld={4}/>
                 </div>

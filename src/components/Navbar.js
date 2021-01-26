@@ -5,7 +5,7 @@ function Navbar() {
     return (
         <nav className="navbar">
                 <a href="/">Əsas Səhifə </a>
-                <a href="/endirimler">Endirimlər</a>
+                <Link to="/promotions">Endirimlər</Link>
                 <Link to="/suppliers">Tədarükçülər</Link>
                 <a href="#">Haqqımızda</a>
                 <a href="/elaqe">Əlaqə</a>
