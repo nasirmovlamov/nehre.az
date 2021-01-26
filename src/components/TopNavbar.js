@@ -16,24 +16,17 @@ function TopNavbar() {
                 <div className="searchAndSelection">
                     <div className="selection">
                      {/*  */}
-                        <button>
-
-                        </button>
-                    
+                        <Link to="/">
+                        </Link>
+                        {/*  */}
+                        <Link to="/">
+                        </Link>
                     {/*  */}
-                        <button>
-
-                        </button>
-                    
-                    {/*  */}
-                        <button>
-
-                        </button>
-                    
-                    {/*  */}
-                        <button>
-
-                        </button>
+                        <Link to="/memberarea">
+                        </Link>
+                        {/*  */}
+                        <Link to="/">     
+                        </Link>
                     </div>
                     <div className="inputAndIcon">
                         <button className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>

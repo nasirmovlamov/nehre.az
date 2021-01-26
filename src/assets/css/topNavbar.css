@@ -65,28 +65,28 @@
   grid-gap: 10px;
 }
 
-.topNavbar .searchAndSelection .selection button {
+.topNavbar .searchAndSelection .selection a {
   width: 60px;
   height: 60px;
   border: none;
 }
 
-.topNavbar .searchAndSelection .selection button:nth-child(1) {
+.topNavbar .searchAndSelection .selection a:nth-child(1) {
   background: url("../images/azn.png") no-repeat;
   background-size: cover;
 }
 
-.topNavbar .searchAndSelection .selection button:nth-child(2) {
+.topNavbar .searchAndSelection .selection a:nth-child(2) {
   background: url("../images/dil.png") no-repeat;
   background-size: cover;
 }
 
-.topNavbar .searchAndSelection .selection button:nth-child(3) {
+.topNavbar .searchAndSelection .selection a:nth-child(3) {
   background: url("../images/member.png") no-repeat;
   background-size: cover;
 }
 
-.topNavbar .searchAndSelection .selection button:nth-child(4) {
+.topNavbar .searchAndSelection .selection a:nth-child(4) {
   background: url("../images/Sebet.png") no-repeat;
   background-size: cover;
 }

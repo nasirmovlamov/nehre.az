@@ -15,6 +15,7 @@ import ScrolltoTop from './ScrolltoTop'
 import Suppliers from './Suppliers'
 import SelectedSupplier from './SelectedSupplier'
 import Footer from './Footer'
+import MemberArea from './MemberArea'
 function Header() {
     return (
         <Router>
@@ -36,6 +37,8 @@ function Header() {
                     <Route path="/fish" >                    <ProductListingPage category="Fish"/>                          </Route>
                     <Route path="/freezed" >                 <ProductListingPage category="Freezed"/>                       </Route>
                     <Route path="/non-food" >                <ProductListingPage category="Non food"/>                      </Route>
+                    <Route path="/memberarea" >                <MemberArea/>                      </Route>
+                    <Route path="/promotions" >                <ProductListingPage category="Promotional products" notags={1}/>                      </Route>
                     <Route path="/suppliers/supplier" >      <SelectedSupplier/>                                                    </Route>
                     <Route path="/suppliers" >               <Suppliers/>                                                   </Route>
                     <Route path="/" >                        <HomePage/>                                                    </Route>

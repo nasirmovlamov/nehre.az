@@ -9,11 +9,14 @@ function ProductListingPage(props) {
                 <div className="titleProducts">
                         <p className="category"> <span>home •</span>  {props.category}</p>
                         <h2 className="categoryName">{props.category}</h2>
-                        <div className="tags">
+                        {!props.notags  &&     
+                        (<div className="tags">
                             <button className="tag" > All</button>
                             <button className="tag" > Eggs</button>
                             <button className="tag" > Cheese</button>
-                        </div>
+                        </div>)
+                        }
+                    
                     </div>
             </div>
 
