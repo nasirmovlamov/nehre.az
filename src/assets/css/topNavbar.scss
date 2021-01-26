@@ -9,12 +9,35 @@
     align-items: center;
     padding-left: 50px;
     padding-right: 50px;
-    .searchAndSelection
+    .searchAndLogo
     {
         display: flex;
+    }
+    .searchAndPhone
+    {
+        display: flex;
+        height: 100px;
+        align-self: flex-end;
+        justify-content: space-between;
         flex-direction: column;
         direction: rtl;
         row-gap: 25px;
+        margin-right: 40px;
+        .phone
+        {
+            direction: ltr;
+            display: flex;
+            align-items: center;
+            align-self: flex-start;
+            margin: 0px;
+            margin-right: 10px;
+            column-gap: 20px;
+            font-size: 23px;
+            a 
+            {
+                color: black !important;
+            }
+        }
         .inputAndIcon
         {
             display: flex;
@@ -39,14 +62,17 @@
                 outline: none;
             }
         }
-        .selection
+        
+
+    }
+    .selection
         {
+            margin-top: 20px;
                 a 
                 {
-                    width: 60px;
-                    height: 60px;
+                    width: 40px;
+                    height: 40px;
                     border: none;
-                    
                     &:nth-child(1)
                     {
                         background: url("../images/azn.png") no-repeat;
@@ -68,11 +94,9 @@
                         background-size:cover;
                     }
                 }
-                display: grid;
-                grid-template-columns: repeat(2,1fr);
-                width: 80px;
+                display: flex;
+                width: auto;
                 grid-gap: 10px;
+                
         }
-
-    }
 }
