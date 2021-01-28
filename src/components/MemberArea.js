@@ -21,6 +21,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ItemCard from './ItemCard'
+import Review from './Review'
+import Reviews from './Reviews'
 function cabinet() {
     
     const imgHandler = {
@@ -123,7 +125,21 @@ function bonuses(){return (
 ) }
 function deposites(){return (null) }
 function freeShiping(){return (null) }
-function reviews(){return (null) }
+function reviews() {
+    return (
+        
+        <div className="reviewCont">
+            <p className="title">Leave your opinion about the product</p>
+            <p className="subTitle">We have grouped here all products ordered in the last 30 days for which you have not yet had a review.</p>
+            <div className="reviews">
+                <Review/>
+                <Review/>
+                <Review/>
+            </div>
+        </div>
+
+
+)}
 function recommendations(){return (null) }
 function output(){return (null) }
 

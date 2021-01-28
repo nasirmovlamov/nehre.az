@@ -31,7 +31,7 @@
           justify-content: flex-start;
   padding-top: 10px;
   padding-bottom: 10px;
-  height: 550px;
+  height: 670px;
 }
 
 .memberAreaCont aside hr {
@@ -91,6 +91,22 @@
           box-shadow: 3px 1px 40px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   min-height: 350px;
+}
+
+.memberAreaCont main .review {
+  margin-top: 30px;
+  text-align: start;
+  -webkit-box-shadow: 3px 3px 30px rgba(0, 0, 0, 0.3);
+          box-shadow: 3px 3px 30px rgba(0, 0, 0, 0.3);
+}
+
+.memberAreaCont main .title {
+  margin: 0px;
+}
+
+.memberAreaCont main .subTitle {
+  font-size: 14px;
+  margin-top: 10px;
 }
 
 .memberAreaCont main .contactCont .gridCont input {
