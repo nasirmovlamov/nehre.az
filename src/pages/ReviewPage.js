@@ -1,5 +1,6 @@
 import React from 'react'
 import "../assets/css/reviewPage.css"
+import Review from "../components/Review"
 function ReviewPage() {
     return (
         <div className="reviewPage">
@@ -10,7 +11,15 @@ function ReviewPage() {
                 <div className="review">
                     <div className="supplierCont">
                         <div className="imgCont"></div>
+                        <p className="name"></p>
+                        <p className="type"></p>
                     </div>
+
+                    <Review />
+                    <Review />
+                    <Review />
+                    <Review />
+
                 </div>
 
             </div>
