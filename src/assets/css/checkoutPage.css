@@ -5,8 +5,13 @@
   margin-top: 100px;
   border-radius: 10px;
   padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .checkoutPage .removeModalBtn {
@@ -14,18 +19,26 @@
   border: none;
   font-size: 45px;
   color: rgba(0, 0, 0, 0.5);
+  -webkit-transition: 0.2s color;
   transition: 0.2s color;
   background-color: transparent;
   height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 0px;
   margin: 0px;
 }
 
 .checkoutPage .removeModalBtn:hover {
   color: rgba(0, 0, 0, 0.8);
+  -webkit-transition: 0.2s color;
   transition: 0.2s color;
 }
 
@@ -37,9 +50,13 @@
 }
 
 .checkoutPage .inputCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .checkoutPage .inputCont input {
@@ -54,16 +71,25 @@
 .checkoutPage .address {
   width: 100%;
   height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   border-radius: 5px;
   border: 1px solid lightgray;
 }
 
 .checkoutPage .typeOfPayment {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-around;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 .checkoutPage .typeOfPayment input {
@@ -74,13 +100,20 @@
 }
 
 .checkoutPage .typeOfPayment .type1, .checkoutPage .typeOfPayment .type2, .checkoutPage .typeOfPayment .type3 {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  column-gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
 }
 
 .checkoutPage .moreAbout {
-  align-self: flex-end;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
   margin-top: 50px;
   width: 200px;
 }
+/*# sourceMappingURL=checkoutPage.css.map */

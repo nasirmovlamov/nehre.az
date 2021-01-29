@@ -4,8 +4,12 @@
   margin-top: 70px;
   border-radius: 10px;
   background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .cardCont aside {
@@ -17,13 +21,22 @@
 }
 
 .cardCont aside .topPart {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background: #f2f0ed;
   font-size: 18px;
   font-weight: 600;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding-top: 15px;
   padding-bottom: 15px;
 }
@@ -33,17 +46,27 @@
 }
 
 .cardCont aside .topPart .text1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  column-gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
   font-size: 12px;
   color: rgba(0, 0, 0, 0.3);
 }
 
 .cardCont aside .topPart .text {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  column-gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
 }
 
 .cardCont aside .topPart .text .date {
@@ -52,16 +75,29 @@
   background-color: #168816;
   border-radius: 50%;
   font-size: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: white;
 }
 
 .cardCont aside .downPart {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: space-between;
+      -ms-flex-align: space-between;
+          align-items: space-between;
   padding-left: 20px;
   padding-right: 20px;
   font-weight: 600;
@@ -69,10 +105,16 @@
 }
 
 .cardCont aside .downPart .cost, .cardCont aside .downPart .weight, .cardCont aside .downPart .goods {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   margin-top: 15px;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .cardCont aside .downPart .cost p, .cardCont aside .downPart .weight p, .cardCont aside .downPart .goods p {
@@ -124,6 +166,7 @@
 .cardCont .mainSide .title {
   font-size: 21px;
   width: 100%;
+  position: -webkit-sticky;
   position: sticky;
   margin-bottom: 0px;
 }
@@ -154,9 +197,15 @@
 }
 
 .cardCont .mainSide .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   padding-right: 10px;
   width: 778px;
   height: 94px;
@@ -171,9 +220,16 @@
 }
 
 .cardCont .mainSide .item .aboutItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   margin-left: -60px;
   height: 94px;
 }
@@ -194,8 +250,11 @@
 }
 
 .cardCont .mainSide .item .aboutItem .dates {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  column-gap: 5px;
+  -webkit-column-gap: 5px;
+          column-gap: 5px;
 }
 
 .cardCont .mainSide .item .aboutItem .dates .date {
@@ -204,9 +263,15 @@
   font-size: 11px;
   background: red;
   border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: white;
   cursor: unset;
 }
@@ -240,18 +305,29 @@
 }
 
 .cardCont .mainSide .item .btnCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  column-gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
 }
 
 .cardCont .mainSide .item .btnCont .moreAbout {
   border-radius: 80%;
   width: 40px;
   height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .cardCont .mainSide .item .price {
@@ -273,3 +349,4 @@
   margin: 0px;
   margin-top: 10px;
 }
+/*# sourceMappingURL=cardPage.css.map */
