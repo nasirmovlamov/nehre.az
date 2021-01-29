@@ -1,0 +1,300 @@
+.cardCont
+{
+    width: 1100px;
+    height: 700px;
+    margin-top: 70px;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    aside 
+    {
+        border-radius:0px 10px 10px 0px;
+        overflow: hidden;
+        width: 291px;
+        background-color: white;
+        border-left: 1px solid lightgray;
+        .topPart
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:#f2f0ed;
+            font-size: 18px;
+            font-weight: 600;
+            flex-direction: column;
+            padding-top: 15px;
+            padding-bottom: 15px;
+
+            p 
+            {
+                margin: 0px;
+            }
+            .text1
+            {
+                display: flex;
+                align-items: center;
+                column-gap: 10px;
+                font-size: 12px;
+                color: rgba(0,0,0,0.3);
+            }
+            .text
+            {
+                display: flex;
+                align-items: center;
+                column-gap: 10px;
+                .date
+                {
+                    width: 22px;
+                    height: 22px;
+                    background-color: rgb(22, 136, 22);
+                    border-radius:50% ;
+                    font-size: 12px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: white;
+                }
+            }
+            
+        }
+        .downPart
+        {
+            display: flex;
+            flex-direction: column;
+            align-items: space-between;
+            padding-left: 20px;
+            padding-right: 20px;
+            font-weight: 600;
+            margin-top: 25px;
+            .cost , .weight , .goods
+            {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 15px;
+                align-items: center;
+                p 
+                {
+                    margin: 0px;
+                }
+                .key 
+                {
+                    color: rgba(0,0,0,0.5);
+                }
+                .value 
+                {
+                    font-size: 18px;
+                }
+                .value1 
+                {
+                    font-size: 18px;
+                }
+                .value2
+                {
+                    font-size: 24px;
+                }
+            } 
+            .cost 
+            {
+                border-bottom: 1px dashed lightgray;
+                padding-bottom: 20px;
+            }
+            .moreAbout 
+            {
+                margin-top: 20px;
+                width: 100%;
+                height: 50px;
+            }
+            .cashback
+            {
+                text-align: center;
+                font-size: 13px;
+                color: gray;
+            }
+        }
+    }/////////////////Aside 
+
+
+    .mainSide
+    {
+        padding: 20px;
+        padding-top: 5px;
+        padding-bottom: 0px;
+        width: 800px;
+        padding-right: 0px;
+        .title
+        {
+            font-size: 21px;
+            width: 100%;
+            position: sticky;
+            margin-bottom: 0px;
+            hr 
+            {
+                width: 99.5%;
+                border: none;
+                height: 1px;
+                background-color: lightgray;
+                margin: 0px;
+                margin-top: 10px;
+            }
+        }
+        .gridCont1
+        {
+            overflow-y: scroll;
+            width: 100%;
+            height: 634.5px;
+
+            &::-webkit-scrollbar {
+                width: 3px;
+            }
+            
+            /* Track */
+            &::-webkit-scrollbar-track {
+            }
+            
+            /* Handle */
+            &::-webkit-scrollbar-thumb {
+                background: gray;
+            }
+        }
+
+        .gridCont
+        {
+
+        }
+        /* width */
+        
+        .item
+        {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-right: 10px;
+            width: 778px;
+            height: 94px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            .imgCont
+            {
+                width: 104px;
+                height: 100px;
+                border-radius: 5px;
+            }
+            .aboutItem
+            {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                margin-left: -60px;
+                height: 94px;
+                .title
+                {
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+                .priceAndWeight
+                {
+                    color: #A69895;
+                    font-size: 14px;
+                    font-weight: 500;
+                }
+                p 
+                {
+                    margin: 0px;
+                }
+                .dates 
+                {
+                    display: flex;
+                    column-gap: 5px;
+                    
+                    .date
+                    {
+                        width: 25px;
+                        height: 25px;
+                        font-size: 11px;
+                        background: red;
+                        border-radius: 50%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        color: white;
+                        cursor: unset;
+
+                    }
+                    div 
+                    {
+                        &:nth-child(1)
+                        {
+                            background-color: rgba(255, 142, 240, 0.8);
+                        }
+                        &:nth-child(2)
+                        {
+                            background-color: rgba(162, 88, 255, 0.8);
+                        }
+                        &:nth-child(3)
+                        {
+                            background-color: rgba(76, 195, 229, 0.8);
+                        }
+                        &:nth-child(4)
+                        {
+                            background-color:rgba(237, 182, 0, 0.8);
+                        }
+                        &:nth-child(5)
+                        {
+                            background-color:rgba(237, 182, 0, 0.8);
+                        }
+                        &:nth-child(6)
+                        {
+                            background-color:rgba(255, 122, 44, 0.8);
+                        }
+                        &:nth-child(7)
+                        {
+                            background-color:rgba(125, 191, 41, 0.8);
+                        }
+                    }
+                }
+                
+            }//About Item
+            .btnCont
+            {
+                display: flex;
+                align-items: center;
+                column-gap: 10px;
+                .moreAbout
+                {
+                    border-radius: 80%;
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+
+            .price
+            {
+                font-size: 18px;
+                font-weight: 600;
+            }
+
+            .delete
+            {
+                border: none;
+                background-color: transparent;
+                opacity: 0.5;
+            }
+
+            
+        }
+        hr 
+            {
+                width: 99.5%;
+                border: none;
+                height: 1px;
+                background-color: lightgray;
+                margin: 0px;
+                margin-top: 10px;
+            }
+    }
+
+}

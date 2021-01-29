@@ -22,10 +22,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import About from './About'
 import ReviewPage from '../pages/ReviewPage'
+import CheckoutPage from '../pages/CheckoutPage'
 
 function Header() {
     
     const [open, setOpen] = React.useState(false);
+    const [open2, setOpen2] = React.useState(false);
 
     const handleOpen = () => {
         setOpen(true);
@@ -33,6 +35,13 @@ function Header() {
       
     const handleClose = () => {
         setOpen(false);
+    };
+    const handleOpen2 = () => {
+        setOpen2(true);
+      }
+      
+    const handleClose2 = () => {
+        setOpen2(false);
     };
 
     return (
@@ -44,7 +53,16 @@ function Header() {
                 onClose={handleClose}
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description">
-                {<CardPage functionClose={() => handleClose()}  numberStar="3.5"/>}
+                {<CardPage functionOpenCheckoutPage={handleOpen2} functionClose={() => handleClose()}  numberStar="3.5"/>}
+            </Modal>
+
+            <Modal  
+                style={{display:"flex", justifyContent:"center",overflow:"auto"}}
+                open={open2}
+                onClose={handleClose2}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description">
+                {<CheckoutPage functionClose={() => handleClose2()}  numberStar="3.5"/>}
             </Modal>
 
             <div className="AllCont">

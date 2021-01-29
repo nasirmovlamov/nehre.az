@@ -35,7 +35,7 @@ function TopNavbar(props) {
                     <Link to="/">
                     </Link>
                     {/*  */}
-                    <Link to="/memberarea">
+                    <Link to="/memberarea/cabinet">
                     </Link>
                     {/*  */}
                         <Link to="/">  

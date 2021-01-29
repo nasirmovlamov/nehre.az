@@ -4,8 +4,11 @@ function Button1(props) {
     const bgColor = {
         backgroundColor:props.color
     }
+    const functionHandler = () => {
+        props.function()
+    }
     return (
-        <button className="moreAbout" style={bgColor}>{props.value}</button>
+        <button className="moreAbout" style={bgColor} onClick={() => functionHandler()}>{props.value}</button>
     )
 }
 
