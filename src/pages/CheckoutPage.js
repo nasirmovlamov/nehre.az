@@ -1,14 +1,25 @@
 import React from 'react'
 import "../assets/css/checkoutPage.css"
-
+import Button1 from '../components/Button1'
 function CheckoutPage(props) {
     const imgHandler = {
         background: `url(${props.image}) no-repeat`,
         backgroundPosition: "center",
         backgroundSize: "100% auto",
     }
+
+    const clickHandler = (num) => {
+        for (var i =1; i<4; i++)
+        {
+            document.getElementById(`checkBox${i}`).checked = false
+        }
+        document.getElementById(`checkBox${num}`).checked  = true
+    }
+
+
     return (
-        <div className="checkoutPage">
+        
+        <form className="checkoutPage">
             <div className="buttonCont"><button onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
             <p className="title">CONTACT DETAILS</p>
             <div className="inputCont">
@@ -21,12 +32,12 @@ function CheckoutPage(props) {
             </div>
                 <p className="title">Payment Type</p>
             <div className="typeOfPayment">
-                <div className="type1"><input type="checkbox"></input> <label>Cash payment </label></div>
-                <div className="type2"><input type="checkbox"></input> <label>Card payment on door</label></div>
-                <div className="type3"><input type="checkbox"></input> <label>Online payment </label></div>
+                <div className="type1"><input  id="checkBox1" onClick={() => clickHandler(1)} type="checkbox"></input> <label>Cash payment </label></div>
+                <div className="type2"><input  id="checkBox2" onClick={() => clickHandler(2)} type="checkbox"></input> <label>Card payment on door</label></div>
+                <div className="type3"><input  id="checkBox3" onClick={() => clickHandler(3)} type="checkbox"></input> <label>Online payment </label></div>
             </div>
             <Button1 value="Submit" /> 
-        </div>
+        </form>
     )
 }
 

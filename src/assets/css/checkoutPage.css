@@ -1,6 +1,6 @@
 .checkoutPage {
   width: 598px;
-  height: 700px;
+  height: 500px;
   background-color: #fff;
   margin-top: 100px;
   border-radius: 10px;
@@ -77,4 +77,10 @@
   display: flex;
   align-items: center;
   column-gap: 10px;
+}
+
+.checkoutPage .moreAbout {
+  align-self: flex-end;
+  margin-top: 50px;
+  width: 200px;
 }
