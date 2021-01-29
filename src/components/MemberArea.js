@@ -79,7 +79,63 @@ function address(){return (
     <div className="cabinetCont address">
         <p className="title">My Addresses</p>
         <p className="myAdress">The list of addresses in your account is empty.</p>
-        <Button1 value="New Address" color="#FF7A2C"/>
+        <Link to="/memberarea/address/add"><Button1 value="New Address" color="#FF7A2C"/></Link>
+    </div>
+) }
+function addAddress(){return (
+    <div className="cabinetCont addAddress">
+        <p className="title">My Addresses</p>
+        <form action="" className="form">
+
+            <div className="flexContAddress">
+                <div className="againDiv">
+                    <div className="label">Town</div>
+                    <input type="text"  placeholder="Town" className="input1"/>
+                </div>
+                <div className="againDiv">
+                    <div className="label">The outside</div>
+                    <input type="text"  className="input1" placeholder="The outside"/>
+                </div>
+            </div>
+
+            <div className="flexContAddress2">
+                <div className="againDiv" >
+                    <div className="label">House</div>
+                    <input type="text" placeholder="House" className="text"/>
+                </div>
+                <div className="againDiv">
+                    <div className="label">Entrance</div>
+                    <input type="text" className="text" placeholder="Entrance"/>
+                </div>
+                <div className="againDiv">
+                    <div className="label">Floor</div>
+                    <input type="text" className="text" placeholder="Floor"/>
+                </div>
+            </div>
+            
+            <div className="flexContAddress2">
+                <div className="againDiv">
+                    <div className="label">Sq.</div>
+                    <input type="text" placeholder="Sq." className="text"/>
+                </div>
+                <div className="againDiv">
+                    <div className="label">InterCom</div>
+                    <input type="text" className="text" placeholder="InterCom"/>
+                </div>
+            </div>
+
+            <div className="flexContAddress3">
+                <div className="againDiv">
+                    <div className="label">Comment</div>
+                    <input type="text" placeholder="Comment about delivering" className="inputComment"/>
+                </div>
+            </div>
+
+            <div className="buttonCont">
+                <Link to="/memberarea/address" className="backTo">Back To</Link>
+                <Button1 value="Save" color="#ff7a2c"/>
+            </div>
+        </form>
     </div>
 ) }
 function bookmarks(){return (
@@ -117,14 +173,43 @@ function reminders(){return (
     </div>
 ) }
 function bonuses(){return (
-    <div className="cabinetCont address">
-        <p className="title">My Addresses</p>
-        <p className="myAdress">The list of addresses in your account is empty.</p>
-        <Button1 value="New Address" color="#FF7A2C"/>
+    <div className="cabinetCont address deposites bonuses">
+        <p className="title">Bonuses</p>
+        <p className="myAdress ">Your Current Bonuse is <span className="money"> 10$ </span></p>
+        <table>
+            <tr className="start"> <td>Date</td> <td>Price</td> </tr>
+            <tr> <td>21.01.2020</td> <td>5000AZN</td> </tr>
+            <tr> <td>21.01.2020</td> <td>5000AZN</td> </tr>
+            <tr> <td>21.01.2020</td> <td>5000AZN</td> </tr>
+            <tr> <td>21.01.2020</td> <td>5000AZN</td> </tr>
+        </table>
     </div>
 ) }
-function deposites(){return (null) }
-function freeShiping(){return (null) }
+function deposites(){return (
+    <div className="cabinetCont address deposites">
+        <p className="title">Deposites</p>
+        <p className="myAdress ">Your Current balance is <span className="money"> 1300$ </span></p>
+        <table>
+            <tr className="start"> <td>Date</td> <td>Price</td> </tr>
+            <tr> <td>21.01.2020</td> <td>5000AZN</td> </tr>
+            <tr> <td>21.01.2020</td> <td>5000AZN</td> </tr>
+            <tr> <td>21.01.2020</td> <td>5000AZN</td> </tr>
+            <tr> <td>21.01.2020</td> <td>5000AZN</td> </tr>
+        </table>
+    </div>
+) }
+
+function freeShiping(){return (
+    <div className="reviewCont aboutShipping">
+            <p className="title">About Shipping</p>
+            <p className="subTitle">We have grouped here all products ordered in the last 30 days for which you have not yet had a review.</p>
+            <div className="aboutShippingText">
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci libero possimus totam incidunt? Aut provident, quidem totam nesciunt qui repudiandae odio, officia, expedita veniam enim quisquam? Obcaecati magni blanditiis vel!</p>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci libero possimus totam incidunt? Aut provident, quidem totam nesciunt qui repudiandae odio, officia, expedita veniam enim quisquam? Obcaecati magni blanditiis vel!</p>
+            </div>
+    </div>
+) }
+
 function reviews() {
     return (
         
@@ -135,11 +220,13 @@ function reviews() {
                 <Review/>
                 <Review/>
                 <Review/>
+                <Review/>
             </div>
         </div>
 
 
 )}
+
 function recommendations(){return (null) }
 function output(){return (null) }
 
@@ -171,7 +258,7 @@ function MemberArea() {
                 <Link to="/memberarea/deposite" className="deposites"> <button id="btn9" onClick={() => clickHandler(9)}>               <AccountBalanceWalletIcon/>Deposites                </button></Link>
                 <Link to="/memberarea/free-shipping" className="freeShipping"> <button id="btn10" onClick={() => clickHandler(10)}>       <LocalShippingIcon/> Free shipping                    </button> </Link>
                 <Link to="/memberarea/reviews" className="reviews">       <button id="btn11" onClick={() => clickHandler(11)}>            <ChatBubbleIcon/>  Reviews                    </button> </Link>
-                <Link to="/memberarea/recommendations" className="recommendatios"> <button id="btn12" onClick={() => clickHandler(12)}>   <ThumbUpAltIcon/> Recommendations                  </button>  </Link>
+                {<Link to="/memberarea/recommendations" className="recommendatios"> <button id="btn12" onClick={() => clickHandler(12)}>   <ThumbUpAltIcon/> Recommendations                  </button>  </Link>}
                 <hr/>
                 <a href="/" >       <button>            <ExitToAppIcon/> Log out                   </button></a>
             </aside>
@@ -180,6 +267,7 @@ function MemberArea() {
             <Switch>
                 <Route path="/memberarea/contacts">{contacts}</Route>
                 <Route path="/memberarea/password">{password}</Route>
+                <Route path="/memberarea/address/add">{addAddress}</Route>
                 <Route path="/memberarea/address">{address}</Route>
                 <Route path="/memberarea/bookmarks">{bookmarks}</Route>
                 <Route path="/memberarea/orders">{orders}</Route>

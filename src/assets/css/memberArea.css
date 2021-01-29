@@ -31,7 +31,11 @@
           justify-content: flex-start;
   padding-top: 10px;
   padding-bottom: 10px;
-  height: 670px;
+  height: 500px;
+}
+
+.memberAreaCont aside .recommendatios {
+  display: none;
 }
 
 .memberAreaCont aside hr {
@@ -157,9 +161,13 @@
   text-align: start;
 }
 
-.memberAreaCont main .address button {
+.memberAreaCont main .address a {
+  width: 150px;
   -ms-flex-item-align: end;
       align-self: flex-end;
+}
+
+.memberAreaCont main .address button {
   height: 35px;
   width: 150px;
   margin-top: 20px;
@@ -327,5 +335,154 @@
       grid-template-columns: repeat(1, 1fr);
   color: #ff7a2c;
   font-weight: 500;
+}
+
+.memberAreaCont main .addAddress {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.memberAreaCont main .addAddress form {
+  margin-top: 30px;
+}
+
+.memberAreaCont main .addAddress .flexContAddress, .memberAreaCont main .addAddress .flexContAddress2, .memberAreaCont main .addAddress .flexContAddress3 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 20px;
+}
+
+.memberAreaCont main .addAddress .flexContAddress .againDiv, .memberAreaCont main .addAddress .flexContAddress2 .againDiv, .memberAreaCont main .addAddress .flexContAddress3 .againDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.memberAreaCont main .addAddress .flexContAddress .label, .memberAreaCont main .addAddress .flexContAddress2 .label, .memberAreaCont main .addAddress .flexContAddress3 .label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #525252;
+  width: 80px;
+}
+
+.memberAreaCont main .addAddress .flexContAddress input, .memberAreaCont main .addAddress .flexContAddress2 input, .memberAreaCont main .addAddress .flexContAddress3 input {
+  padding: 7px;
+  font-size: 12px;
+  color: #525252;
+  border: 1px solid lightgray;
+  background-color: #fff;
+  border-radius: 5px;
+  height: 20px;
+}
+
+.memberAreaCont main .addAddress .flexContAddress .input1, .memberAreaCont main .addAddress .flexContAddress2 .input1, .memberAreaCont main .addAddress .flexContAddress3 .input1 {
+  width: 263px;
+  height: 20px;
+}
+
+.memberAreaCont main .addAddress .flexContAddress {
+  -webkit-column-gap: 40px;
+          column-gap: 40px;
+  margin-top: 0px;
+}
+
+.memberAreaCont main .addAddress .flexContAddress2 {
+  -webkit-column-gap: 53px !important;
+          column-gap: 53px !important;
+}
+
+.memberAreaCont main .addAddress .flexContAddress2 input {
+  width: 121px;
+}
+
+.memberAreaCont main .addAddress .flexContAddress3 .inputComment {
+  width: 660px;
+}
+
+.memberAreaCont main .addAddress .buttonCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 800px;
+  margin-top: 20px;
+}
+
+.memberAreaCont main .addAddress .buttonCont a {
+  width: 90px;
+  height: 40px;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: gray;
+  border-radius: 20px;
+}
+
+.memberAreaCont main .aboutShipping .subTitle {
+  font-weight: 500;
+  opacity: 0.5;
+}
+
+.memberAreaCont main .aboutShipping .aboutShippingText {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: start;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.memberAreaCont main .deposites .money {
+  color: red;
+}
+
+.memberAreaCont main .deposites table {
+  text-align: start;
+  margin-top: 20px;
+  border-spacing: 0px;
+}
+
+.memberAreaCont main .deposites table .start {
+  font-weight: 500;
+}
+
+.memberAreaCont main .deposites table td {
+  border: 1px solid lightgray;
+}
+
+.memberAreaCont main .deposites table td {
+  padding: 0px;
+  margin: 0px;
+  padding: 10px;
+  font-weight: 400;
+  font-family: "Arial";
 }
 /*# sourceMappingURL=memberArea.css.map */

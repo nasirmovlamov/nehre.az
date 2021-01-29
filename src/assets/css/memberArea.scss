@@ -17,8 +17,11 @@
         justify-content: flex-start;
         padding-top: 10px;
         padding-bottom: 10px;
-        height: 670px;
-        
+        height: 500px;
+        .recommendatios
+            {
+                display: none;
+            }
         hr 
         {
             width: 76%;
@@ -31,6 +34,7 @@
             display: flex;
             justify-content: start;
             align-items: center;
+            
             button 
             {
 
@@ -115,6 +119,8 @@
                 margin-top: 20px;
             }
         }
+
+
         .address
         {
             .myAdress
@@ -125,14 +131,19 @@
                 font-size: 16px;
                 text-align: start;
             }
+            a 
+            {
+                width: 150px;
+                align-self: flex-end;
+
+            }
             button 
             {
-                align-self: flex-end;
                 height: 35px;
                 width: 150px;
                 margin-top: 20px;
             }
-        }
+        }///Adddressssssss
 
         .bookmarks
         {
@@ -277,6 +288,140 @@
                 color: #ff7a2c;
                 font-weight: 500;
             }
+        }//Reminders
+
+
+        .addAddress
+        {   
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            form 
+            {
+                margin-top: 30px;
+            }
+            
+            .flexContAddress , .flexContAddress2 , .flexContAddress3
+            {
+                display: flex;
+                align-items: center;
+                margin-top: 20px;
+                .againDiv
+                {
+                    display: flex ;
+                    align-items: center;
+                }
+                .label 
+                {
+                    font-size: 12px;
+                    font-weight: 500;
+                    color: #525252;
+                    width: 80px;
+                }
+                input 
+                {
+                    padding: 7px;
+                    font-size: 12px;
+                    color: #525252;
+                    border: 1px solid lightgray;
+                    background-color: #fff;
+                    border-radius: 5px;
+                    height: 20px;
+                }
+                .input1
+                {
+                    width: 263px;
+                    height: 20px;
+                }
+            }
+            .flexContAddress
+            {
+                column-gap: 40px;
+                margin-top: 0px;
+            }
+            .flexContAddress2
+            {
+                column-gap: 53px !important;
+
+                input 
+                {
+                    width: 121px ;
+                }
+            }
+            .flexContAddress3
+            {
+                .inputComment
+                {
+                    width: 660px;
+                }
+            }
+            .buttonCont
+            {
+                display: flex;
+                justify-content: space-between;
+                width: 800px;
+                margin-top: 20px;
+                a 
+                {
+                    width: 90px;
+                    height: 40px;
+                    color: white;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: gray;
+                    border-radius: 20px;
+                }
+            }
+        }   //AddAddress
+
+        .aboutShipping
+        {
+            .subTitle
+            {
+                font-weight: 500;
+                opacity: 0.5;
+            }
+            .aboutShippingText
+            {
+                display: flex;
+                flex-direction: column;
+                text-align: start;
+                font-size: 18px;
+                font-weight: 500;
+            }
+        }//About Shopping 
+
+
+        .deposites
+        {
+                .money 
+                {
+                    color:red;
+                }
+                table 
+                {
+                    text-align: start;
+                    margin-top: 20px;
+                    border-spacing: 0px;
+                    .start
+                    {
+                        font-weight: 500;
+                    }
+                    td
+                    {
+                        border: 1px solid lightgray;
+
+                    }
+                    td 
+                    {
+                        padding: 0px;
+                        margin: 0px;
+                        padding: 10px;
+                        font-weight: 400;
+                        font-family: "Arial";
+                    }
+                }
         }
     }
 }
