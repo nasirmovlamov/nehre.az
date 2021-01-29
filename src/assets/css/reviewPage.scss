@@ -1,0 +1,24 @@
+.reviewPage
+{
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    p 
+    {
+        margin: 0px;
+    }
+    .title
+    {
+        margin-top: 60px;
+        font-size: 33px;
+        color: #3D332D;
+        font-weight: 600;
+    }    
+    .subTitle 
+    {
+        margin-top: 30px;
+        font-size: 21px;
+        font-weight: 600;
+        color: #525252;
+    }
+}

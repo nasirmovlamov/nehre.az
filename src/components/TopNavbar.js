@@ -9,7 +9,7 @@ import sebet from "../assets/images/Sebet.png"
 import searchIcon from "../assets/images/searchIcon.png"
 import {Link} from "react-router-dom"
 import PhoneIcon from '@material-ui/icons/Phone';
-function TopNavbar() {
+function TopNavbar(props) {
     return (
         <div className="topNavbar">
             <Link to="/"><img src={logoNehre} alt="" width="200" height="auto"/></Link>
@@ -38,7 +38,8 @@ function TopNavbar() {
                     <Link to="/memberarea">
                     </Link>
                     {/*  */}
-                    <Link to="/">     
+                        <Link to="/">  
+                            <button className="shoppingBtn" onClick={() => props.modalOpener()}></button>        
                     </Link>
                 </div>
             </div>

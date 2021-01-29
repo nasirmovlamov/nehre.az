@@ -39,6 +39,8 @@ import OurSlider from '../components/OurSlider'
 import Footer from '../components/Footer'
 
 import {Link} from "react-router-dom"
+import CardPage from './CardPage'
+
 function HomePage() {
     
     const topCards = []
@@ -52,10 +54,17 @@ function HomePage() {
     const answerCard = []
     answerCard.push( <AnswersCard/>,<AnswersCard/>,<AnswersCard/>,<AnswersCard/>,<AnswersCard/>)
 
+    
+    
+
 
     return (
 
         <div className="homePage">
+            
+
+
+
             <div className="slider1">
                 <OurSlider elements={topCards} numOfSld={2}/>
             </div>

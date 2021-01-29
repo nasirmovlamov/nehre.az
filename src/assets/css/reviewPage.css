@@ -1,0 +1,29 @@
+.reviewPage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-top: 10px;
+}
+
+.reviewPage p {
+  margin: 0px;
+}
+
+.reviewPage .title {
+  margin-top: 60px;
+  font-size: 33px;
+  color: #3D332D;
+  font-weight: 600;
+}
+
+.reviewPage .subTitle {
+  margin-top: 30px;
+  font-size: 21px;
+  font-weight: 600;
+  color: #525252;
+}
+/*# sourceMappingURL=reviewPage.css.map */
