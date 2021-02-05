@@ -4,6 +4,7 @@ import HomePage from '../pages/HomePage'
 import DownNavbar from './DownNavbar'
 import Navbar from './Navbar'
 import TopNavbar from './TopNavbar'
+import TopNavbarPart2 from './TopNavbarPart2'
 import {
     BrowserRouter as Router,
     Switch,
@@ -43,7 +44,27 @@ function Header() {
     const handleClose2 = () => {
         setOpen2(false);
     };
-
+    window.addEventListener("scroll", function(){
+        if (window.scrollY > 150)
+        {
+            document.getElementById('header').setAttribute('style' , 'transition:0.5s box-shadow;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);;')
+        }
+        else if (window.scrollY < 150)
+        {
+          document.getElementById('header').setAttribute('style' , 'background:transparent;transition:0.5s background;box-shadow: transparent;')
+        } 
+        if (window.scrollY > 150)
+        {
+          document.getElementById('downPart').setAttribute('style' , 'background:#f0f4f5;transition:0.5s background;')
+          document.getElementById('logoNehre').setAttribute('style' , 'opacity:1;transition:1s opacity;pointer-events:all;')
+        }
+        else if (window.scrollY < 150)
+        {
+          document.getElementById('downPart').setAttribute('style' , 'background:transparent;transition:0.5s background;box-shadow: transparent;')
+          document.getElementById('logoNehre').setAttribute('style' , 'opacity:1;transition:0.5s opacity;')
+          document.getElementById('logoNehre').setAttribute('style' , 'opacity:0;transition:0.5s opacity;pointer-events:none;')  
+        } 
+      });
     return (
         <Router>
                     <ScrolltoTop/>
@@ -66,11 +87,12 @@ function Header() {
             </Modal>
 
             <div className="AllCont">
-                <header className="header">
-                    <TopNavbar modalOpener={handleOpen}/>
-                    <Navbar/>
-                    <DownNavbar/>
+            <TopNavbar />
+
+                <header id="header" className="header">
+                    <TopNavbarPart2 modalOpener={handleOpen}/>
                 </header>
+                <DownNavbar/>
 
 
                 <Switch>

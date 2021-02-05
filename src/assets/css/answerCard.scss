@@ -1,12 +1,20 @@
 .answersCardOutside
 {
-    width: 270px;
-    height: 383px;
-    padding: 3px;
+    width: 275px;
+    height: 385px;
     border: 1px solid #ff7a2c;
     border-radius: 10px;
     transition: 1s box-shadow;
-
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    .answersCardOutsideBtn
+    {
+        border: none;
+        margin: 0px;
+        padding: 0px;
+        background-color: transparent;
+    }
     &:hover 
     {
         box-shadow: 1px 1px 10px 10px rgba(0,0,0,0.2);
@@ -20,7 +28,7 @@
         width: 240px;
         border-radius: 10px;
         height: 323px;
-        background-color: #FFB1B1;
+        background-color: #edf4f6;
         display: flex;
         flex-direction: column;
         justify-content: space-between;

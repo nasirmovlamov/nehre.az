@@ -83,7 +83,7 @@ function ProductModal(props) {
                             <button  value="3" onClick={() => clickValueHandler(value)}  className="incBtn">+</button>
                         </div>
 
-                        <div className="part2"><Button1 value="Add to card" color="#FF7A2C"/></div>
+                        <div className="part2"><Button1 value="Add to card" color="#285999"/></div>
                     </div>
                 </div> 
             </div>

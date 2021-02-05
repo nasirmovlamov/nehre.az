@@ -36,7 +36,7 @@ function CheckoutPage(props) {
                 <div className="type2"><input  id="checkBox2" onClick={() => clickHandler(2)} type="checkbox"></input> <label>Card payment on door</label></div>
                 <div className="type3"><input  id="checkBox3" onClick={() => clickHandler(3)} type="checkbox"></input> <label>Online payment </label></div>
             </div>
-            <Button1 value="Submit" /> 
+            <Button1 value="Submit" color="#285999"/> 
         </form>
     )
 }

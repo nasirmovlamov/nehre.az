@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect ,useState} from 'react'
 import "../assets/css/homePage.css"
 import CardSlider1 from '../components/CardSlider1'
 import assort1 from "../assets/images/assort1.jpg"
@@ -37,32 +37,57 @@ import AnswersCard from '../components/AnswersCard'
 import SupplierCard from '../components/SupplierCard'
 import OurSlider from '../components/OurSlider'
 import Footer from '../components/Footer'
-
+import axios from 'axios'
 import {Link} from "react-router-dom"
 import CardPage from './CardPage'
 
 function HomePage() {
     
     const topCards = []
-    topCards.push(  <CardSlider1 image={topCard1}/> , <CardSlider1 image={topCard2}/>, <CardSlider1 image={topCard1}/> ,<CardSlider1 image={topCard2}/>)
+    
     const newItems = []
-    newItems.push(  <ItemCard image={xalisBal} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={10}/> , <ItemCard image={xalisBal} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/> , <ItemCard image={xalisBal} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>,<ItemCard image={xalisBal} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>,<ItemCard image={xalisBal} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>,<ItemCard image={xalisBal} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>)
     const specialOffers = []
-    specialOffers.push(  <ItemCard image={gogerti} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>,<ItemCard image={gogerti} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>,<ItemCard image={gogerti} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>,<ItemCard image={gogerti} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>,<ItemCard image={gogerti} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>,<ItemCard image={gogerti} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>)
     const suppliersCard = []
-    suppliersCard.push(  <SupplierCard image={avatar} title="Zinaida and Sergey Belan" supplier="Pickles and preserves " image2={testImg6} image3={testImg7}/>,<SupplierCard image={avatar} title="Zinaida and Sergey Belan" supplier="Pickles and preserves " image2={testImg6} image3={testImg7}/>,<SupplierCard image={avatar} title="Zinaida and Sergey Belan" supplier="Pickles and preserves " image2={testImg6} image3={testImg7}/>,<SupplierCard image={avatar} title="Zinaida and Sergey Belan" supplier="Pickles and preserves " image2={testImg6} image3={testImg7}/>)
     const answerCard = []
-    answerCard.push( <AnswersCard/>,<AnswersCard/>,<AnswersCard/>,<AnswersCard/>,<AnswersCard/>)
+    answerCard.push( <AnswersCard function={console.log ("Hello")} question={"question"} />)
 
+    const [TopCards, setTopCards] = useState([])
+    const [NewProducts, setProduct] = useState([])
+    const [SpecialOffers, setSpecialOffers] = useState([])
+    const [SuppliersCard, setSuppliersCard] = useState([])
+    const [AnswerCard, setAnswerCard] = useState([])
     
-    
+    useEffect(() => {
+
+             axios.get('https://nehra.az/newproducts')
+             .then(res => setProduct(res.data))
+             .catch(err=> console.log(err))
+       
+             axios.get('https://nehra.az/specials')
+             .then(res => setSpecialOffers(res.data))
+             .catch(err=> console.log(err))
+       
+             axios.get('https://nehra.az/manufacturers')
+             .then(res => setSuppliersCard(res.data))
+             .catch(err=> console.log(err))
+       
+             axios.get('https://nehra.az/combos')
+             .then(res => setTopCards(res.data))
+             .catch(err=> console.log(err))
+
+    }, [])
+
+    NewProducts.map(product =>  ( newItems.push(       <ItemCard id={product.id} image={product.shekil}  coin={product.qepik}  title={product.title} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount}/>)))
+    SpecialOffers.map(product =>( specialOffers.push(  <ItemCard image={product.shekil} title={product.title}  coin={product.qepik} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount}/>)))
+    SuppliersCard.map(supply => ( suppliersCard.push(  <SupplierCard image={supply.avatar} title={supply.name} supplier={supply.type_id} image2={testImg6} image3={testImg7}/>   )))
+    TopCards.map(bucket => ( topCards.push(       <CardSlider1 name={bucket.name} image={topCard1}/> , <CardSlider1 name={bucket.name} image={topCard1}/> )  ))
 
 
     return (
 
         <div className="homePage">
             
-
+            
 
 
             <div className="slider1">
@@ -81,7 +106,7 @@ function HomePage() {
                 <div className="textCont2">
                     <h4 className="title2">Perfect set for first order</h4>
                     <p className="desc">Ever tried farm products? We have collected for you the most popular in one set. Easy to order in one click!</p>
-                    <Button1 value="Ətraflı" color="#ff7a2c"/>
+                    <Button1 value="Ətraflı" color="#285999"/>
                 </div>
             </div>
 
@@ -111,7 +136,7 @@ function HomePage() {
             <div className="itemsCont">
                 <p className="itemsTitle">New Items </p>
                 <div className="itemSlider">     
-                    <OurSlider elements={newItems} numOfSld={4}/>
+                    <OurSlider elements={newItems.map(item => item)} numOfSld={4}/>
                 </div>
             </div>
             

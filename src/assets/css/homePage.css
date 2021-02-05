@@ -192,11 +192,6 @@ a, button {
   border-radius: 20px;
 }
 
-.homePage .itemsCont .itemCard {
-  -webkit-transform: scale(0.9) !important;
-          transform: scale(0.9) !important;
-}
-
 .homePage .itemsCont .supplierCard {
   -webkit-transform: scale(0.9) !important;
           transform: scale(0.9) !important;

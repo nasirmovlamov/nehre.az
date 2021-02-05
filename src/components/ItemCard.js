@@ -8,12 +8,31 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import ProductModal from './ProductModal';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
-function ItemCard(props) {
+import Favorite from '@material-ui/icons/Favorite';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import StarIcon from '@material-ui/icons/Star';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 
+function ItemCard(props) {
+    const [state, setState] = React.useState({
+        checkedA: true,
+        checkedB: true,
+        checkedF: true,
+        checkedG: true,
+      });
+    
+      const handleChange = (event) => {
+        setState({ ...state, [event.target.name]: event.target.checked });
+      };
     const [checker, setchecker] = useState(false)
 
     const imgHandler = {
-        background: `url(${props.image}) no-repeat`,
+        background: `url('https://nehra.az/storage/app/public/${props.image}') no-repeat`,
         backgroundPosition: "center",
         backgroundSize: "100% auto",
     }
@@ -35,9 +54,9 @@ function ItemCard(props) {
     const discountHandler = (discount) => {
         if (discount != 0) {
             var discountPrice = 0;
-            discountPrice =  props.price - (props.price * discount / 100)
+            discountPrice =  (props.price+(props.coin / 100)) - ((props.price+(props.coin / 100)) * discount / 100)
             colorChang.color = "red"
-            return discountPrice          
+            return discountPrice.toFixed(2);         
         } 
         else {
             return props.price
@@ -83,26 +102,31 @@ function ItemCard(props) {
         <div className="itemCard">
             
 
-            <button type="button" onClick={() => handler()} className="imgCont" style={imgHandler}>
-                    <div className="overlayImg">{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</div>
-                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                        <div className="date">M</div>
-                    </DarkTT>
-                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                        <div className="date">Tu</div>
-                    </DarkTT>
-                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                        <div className="date">Wed</div>
-                    </DarkTT>
-                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                        <div className="date">Th</div>
-                    </DarkTT>
-                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                        <div className="date">Fri</div>
-                    </DarkTT>
-                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                        <div className="date">Sat</div>
-                    </DarkTT>
+            <button type="button"  className="imgCont" style={imgHandler}>
+                    <div className="favIco">
+                        <StarBorderIcon/>
+                    </div>
+                    <div className="overlayImg"><button type="button" onClick={() => handler()}>{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</button></div>
+                    <div className="dates">
+                        <DarkTT title="Delivery possible for" placement="top" arrow>
+                            <div className="date">M</div>
+                        </DarkTT>
+                        <DarkTT title="Delivery possible for" placement="top" arrow>
+                            <div className="date">Tu</div>
+                        </DarkTT>
+                        <DarkTT title="Delivery possible for" placement="top" arrow>
+                            <div className="date">Wed</div>
+                        </DarkTT>
+                        <DarkTT title="Delivery possible for" placement="top" arrow>
+                            <div className="date">Th</div>
+                        </DarkTT>
+                        <DarkTT title="Delivery possible for" placement="top" arrow>
+                            <div className="date">Fri</div>
+                        </DarkTT>
+                        <DarkTT title="Delivery possible for" placement="top" arrow>
+                            <div className="date">Sat</div>
+                        </DarkTT>
+                    </div>
             </button>
             
             
@@ -111,8 +135,8 @@ function ItemCard(props) {
             <p className="subTitleItem">{props.desc}</p>
             <div className="textCont">
                 <div className="starAndAbout">
-                    <p className="dscPrc">{props.discount !== 0 && (<span className="priceStriked"><span className="priceUnderStrike">{props.price}</span></span>)}</p>
-                    <p className="priceAndWeightItem"><span className="element1" style={colorChang}>{discountHandler(props.discount)}</span> / <span className="element2">{props.weight}</span> </p>
+                    <p className="dscPrc">{props.discount !== 0 && (<span className="priceStriked"><span className="priceUnderStrike">{(props.price+(props.coin / 100))}</span></span>)}</p>
+                    <p className="priceAndWeightItem"><span className="element1" style={colorChang}>{discountHandler(props.discount)} AZN</span> / <span className="element2">{props.weight}</span> </p>
                     <StarSystem numberStar="3.5"/>
                 </div>   
                 <BuyButton/>
