@@ -9,6 +9,13 @@
   transition: 1s box-shadow;
   transition: 1s box-shadow, 1s -webkit-box-shadow;
   background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   cursor: pointer;
 }
 
@@ -25,29 +32,36 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   height: 263px;
-  width: 100%;
-  border-radius: 20px 20px 0 0;
   padding-bottom: 5px;
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
   border: none;
   padding: 0px !important;
   outline: none;
 }
 
 .itemCard .imgCont .overlayImg {
-  width: 270px;
+  width: 268px;
+  border-radius: 20px 20px 0 0;
   height: 263px;
   position: absolute;
-  border-radius: 20px 20px 0px 0px;
   background-color: rgba(0, 0, 0, 0.5) !important;
-  z-index: 2;
   opacity: 0;
-  pointer-events: none;
   -webkit-transition: 0.5s opacity;
   transition: 0.5s opacity;
   display: -webkit-box;
@@ -59,6 +73,44 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin: 0px;
+  padding: 0px;
+}
+
+.itemCard .imgCont .overlayImg button {
+  position: absolute;
+  pointer-events: all;
+  border: none;
+  background-color: transparent;
+}
+
+.itemCard .imgCont .favIco {
+  border: none;
+  z-index: 3;
+  width: 30px;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-right: 10px;
+  background-color: #f06279;
+}
+
+.itemCard .imgCont .favIco svg {
+  color: white;
+}
+
+.itemCard .imgCont .zoomIcon {
+  border: none;
+  background-color: transparent;
 }
 
 .itemCard .imgCont:hover .overlayImg {
@@ -92,31 +144,43 @@
   margin-bottom: 5px;
 }
 
-.itemCard .imgCont div:nth-child(1) {
+.itemCard .imgCont .dates {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: 263px;
+}
+
+.itemCard .imgCont .dates div:nth-child(1) {
   background-color: rgba(255, 142, 240, 0.8);
 }
 
-.itemCard .imgCont div:nth-child(2) {
+.itemCard .imgCont .dates div:nth-child(2) {
   background-color: rgba(162, 88, 255, 0.8);
 }
 
-.itemCard .imgCont div:nth-child(3) {
+.itemCard .imgCont .dates div:nth-child(3) {
   background-color: rgba(76, 195, 229, 0.8);
 }
 
-.itemCard .imgCont div:nth-child(4) {
+.itemCard .imgCont .dates div:nth-child(4) {
   background-color: rgba(237, 182, 0, 0.8);
 }
 
-.itemCard .imgCont div:nth-child(5) {
+.itemCard .imgCont .dates div:nth-child(5) {
   background-color: rgba(237, 182, 0, 0.8);
 }
 
-.itemCard .imgCont div:nth-child(6) {
+.itemCard .imgCont .dates div:nth-child(6) {
   background-color: rgba(255, 122, 44, 0.8);
 }
 
-.itemCard .imgCont div:nth-child(7) {
+.itemCard .imgCont .dates div:nth-child(7) {
   background-color: rgba(125, 191, 41, 0.8);
 }
 

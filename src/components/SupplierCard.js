@@ -2,8 +2,8 @@ import React from 'react'
 import "../assets/css/supplierCard.css"
 function SupplierCard(props) {
     const imgHandler = {
-        background: `url(${props.image}) no-repeat`,
-        backgroundPosition: "center",
+        background: `url('https://nehra.az/storage/app/public/${props.image}') no-repeat`,
+        backgroundPosition: "top",
         backgroundSize: "100%",
     }
     const imgHandler2 = {

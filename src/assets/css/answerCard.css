@@ -1,13 +1,22 @@
 .answersCardOutside {
-  width: 270px;
-  height: 383px;
-  padding: 3px;
+  width: 275px;
+  height: 385px;
   border: 1px solid #ff7a2c;
   border-radius: 10px;
   -webkit-transition: 1s -webkit-box-shadow;
   transition: 1s -webkit-box-shadow;
   transition: 1s box-shadow;
   transition: 1s box-shadow, 1s -webkit-box-shadow;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+}
+
+.answersCardOutside .answersCardOutsideBtn {
+  border: none;
+  margin: 0px;
+  padding: 0px;
+  background-color: transparent;
 }
 
 .answersCardOutside:hover {
@@ -26,7 +35,7 @@
   width: 240px;
   border-radius: 10px;
   height: 323px;
-  background-color: #FFB1B1;
+  background-color: #edf4f6;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

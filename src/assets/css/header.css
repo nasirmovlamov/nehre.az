@@ -1,7 +1,6 @@
 .header {
   width: 100%;
   height: auto;
-  padding-top: 30px;
   background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -13,6 +12,10 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 10000;
+  top: 0px;
 }
 
 .AllCont {

@@ -6,6 +6,8 @@
     border-radius: 20px;
     transition: 1s box-shadow;
     background-color: white;
+    display: flex;
+    flex-direction: column;
     cursor: pointer;
     
     &:hover 
@@ -17,34 +19,68 @@
     .imgCont
     {
         display: flex;
+        flex-direction: column;
         align-items: flex-end;
-        justify-content: space-around;
+        justify-content: flex-end;
+        justify-content: space-between;
         height: 263px;
-        width: 100%;
-        border-radius: 20px 20px 0 0 ;
         padding-bottom: 5px;
+        overflow: hidden;
+        margin: 0px;
+            padding: 0px;
         .overlayImg
         {
-            width: 270px ;
+            width: 268px ;
+            border-radius: 20px 20px 0 0 ;
             height: 263px;
             position: absolute;
-            border-radius: 20px 20px 0px 0px;
             background-color: rgba(0,0,0,0.5) !important;
-            z-index: 2;
             opacity: 0;
-            pointer-events: none;
             transition: 0.5s opacity;
             display: flex;
-                justify-content: center;
-                align-items: center;
+            justify-content: center;
+            align-items: center;
+            margin: 0px;
+            padding: 0px;
+            button 
+            {
+                position: absolute;
+                pointer-events: all;
+                border: none;
+                background-color:transparent;
+                    
+            }
         }
+        .favIco
+        {
+            border: none;
+            z-index: 3;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            margin-top: 10px;
+            margin-right: 10px;
+            background-color: #f06279;
+            svg 
+            {
+                color: white;
+            }
+        }
+        .zoomIcon
+        {
+            border: none;
+            background-color: transparent;
+        }
+        
         &:hover 
         {
             .overlayImg
             {
                 opacity: 1;
                 transition: 0.5s opacity;
-                
             }
         }
         &:focus 
@@ -69,8 +105,13 @@
             z-index: 3;
             margin-bottom: 5px;
         }
-        div 
+        .dates
         {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            width: 263px;
+            div {
             &:nth-child(1)
             {
                 background-color: rgba(255, 142, 240, 0.8);
@@ -98,7 +139,7 @@
             &:nth-child(7)
             {
                 background-color:rgba(125, 191, 41, 0.8);
-            }
+            }}
         }
     }
     p 

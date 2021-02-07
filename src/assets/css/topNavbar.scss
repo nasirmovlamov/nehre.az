@@ -1,110 +1,53 @@
 .topNavbar
 {
     width: 1200px;
-    height: 300px;
+    height: auto;
     background-color: #F0F4F5;
     border-radius: 30px 30px 0px 0px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
     padding-left: 50px;
     padding-right: 50px;
-    .searchAndLogo
+    .topPart
     {
         display: flex;
-    }
-    .searchAndPhone
-    {
-        display: flex;
-        height: 100px;
-        align-self: flex-end;
         justify-content: space-between;
-        flex-direction: column;
-        direction: rtl;
-        row-gap: 25px;
-        margin-right: 40px;
-        .phone
-        {
-            direction: ltr;
-            display: flex;
-            align-items: center;
-            align-self: flex-start;
-            margin: 0px;
-            margin-right: 10px;
-            column-gap: 20px;
-            font-size: 23px;
-            a 
-            {
-                color: black !important;
-            }
-        }
-        .inputAndIcon
+        width: 100%;
+        margin-top: 30px;
+        .imgAndLinks
         {
             display: flex;
-            align-items: center;
-        }
-        .searchIcon
-        {
-            margin-right: 10px;
-            position: absolute;
-            border: none;
-            background-color: rgba(0,0,0,0);
-        }
-        input 
-        {
-            padding: 10px;
-            border-radius: 25px;
-            width: 350px;
-            border: none;
-            direction: ltr;
-            &:focus 
+            align-items: flex-end;
+            
+            .searchAndPhone
             {
-                outline: none;
-            }
-        }
-        
-
-    }
-    .selection
-        {
-            margin-top: 20px;
-                a 
+                display: flex;
+                align-self: flex-end;
+                justify-content: space-between;
+                flex-direction: column;
+                direction: rtl;
+                margin-right: 40px;
+                .phone
                 {
-                    width: 40px;
-                    height: 40px;
-                    border: none;
-                    &:nth-child(1)
+                    direction: ltr;
+                    display: flex;
+                    align-items: center;
+                    align-self: flex-start;
+                    margin: 0px;
+                    margin-right: 10px;
+                    column-gap: 20px;
+                    font-size: 23px;
+                    color: #285999;
+                    a 
                     {
-                        background: url("../images/azn.png") no-repeat;
-                        background-size:cover;
-                    }
-                    &:nth-child(2)
-                    {
-                        background: url("../images/dil.png") no-repeat;
-                        background-size:cover;
-                    }
-                    &:nth-child(3)
-                    {
-                        background: url("../images/member.png") no-repeat;
-                        background-size:cover;
-                    }
-                    &:nth-child(4)
-                    {
-                        background: url("../images/Sebet.png") no-repeat;
-                        background-size:cover;
-
-                    }
-                    .shoppingBtn
-                    {
-                        width: 40px;
-                        height: 40px;
-                        background: transparent;
-                        border: none;
+                        color: gray ;
                     }
                 }
-                display: flex;
-                width: auto;
-                grid-gap: 10px;
-                
+            }
         }
+    }
+    
+    
+    
 }

@@ -44,7 +44,7 @@ function cabinet() {
                 <p className="key">contact number</p> <p className="value">9085748556</p>
                 <p className="key">Contact e-mail</p> <p className="value">aqaverdiyev@gmail.com</p>
                 <p className="key" style={{alignSelf:"start",}}>Profile picture </p> <div className="valueImg" style={imgHandler}></div>
-                <Button1 value="edit" color="#FF7A2C"/>
+                <Button1 value="edit" color="#285999"/>
             </div>
         </div>
     )
@@ -60,7 +60,7 @@ function contacts() {
                 <p className="phone key">* Phone</p> <input placeholder="Telephone" className="value"  type="tel" name="" id=""/>
                 <p className="date key">* Birthday</p> <input value="1980-08-26"  className="value"  type="date" name="" id=""/>
             </div>
-            <Button1 value="save" color="#FF7A2C"/>
+            <Button1 value="save" color="#285999"/>
 
         </div>
     )
@@ -72,14 +72,14 @@ function password(){return (
         <p className="name key">* Old Password</p> <input placeholder="Old Password" className="value"   type="text" name="" id=""/>
         <p className="email key ">* New Password</p> <input placeholder="New Password"  className="value"  type="email" name="" id=""/>
     </div>
-    <Button1 value="save" color="#FF7A2C"/>
+    <Button1 value="save" color="#285999"/>
 </div>
 ) }
 function address(){return (
     <div className="cabinetCont address">
         <p className="title">My Addresses</p>
         <p className="myAdress">The list of addresses in your account is empty.</p>
-        <Link to="/memberarea/address/add"><Button1 value="New Address" color="#FF7A2C"/></Link>
+        <Link to="/memberarea/address/add"><Button1 value="New Address" color="#285999"/></Link>
     </div>
 ) }
 function addAddress(){return (
@@ -133,7 +133,7 @@ function addAddress(){return (
 
             <div className="buttonCont">
                 <Link to="/memberarea/address" className="backTo">Back To</Link>
-                <Button1 value="Save" color="#ff7a2c"/>
+                <Button1 value="Save" color="#285999"/>
             </div>
         </form>
     </div>
@@ -239,7 +239,7 @@ function MemberArea() {
             for (let i = 1; i < 13; i++) {
                 document.getElementById(`btn${i}`).setAttribute('style' , "color: #7d7068;border-left: 3px solid transparent;")
             }
-            document.getElementById(`btn${num}`).setAttribute('style' , "color: #ff7a2c;border-left: 3px solid #ff7a2c;")
+            document.getElementById(`btn${num}`).setAttribute('style' , "color:#285999;border-left: 3px solid #285999")
     }
 
     return (
