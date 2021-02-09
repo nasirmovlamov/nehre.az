@@ -87,7 +87,7 @@ function Header() {
             </Modal>
 
             <div className="AllCont">
-            <TopNavbar />
+            <TopNavbar modalOpener={handleOpen}/>
 
                 <header id="header" className="header">
                     <TopNavbarPart2 modalOpener={handleOpen}/>
