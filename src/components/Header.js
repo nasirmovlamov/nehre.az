@@ -47,13 +47,13 @@ function Header() {
     window.addEventListener("scroll", function(){
         if (window.scrollY > 150)
         {
-            document.getElementById('header').setAttribute('style' , 'transition:0.5s box-shadow;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);;')
+            document.getElementById('header').setAttribute('style' , 'transition: box-shadow 0.5s;height:85.7px;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);;')
         }
         else if (window.scrollY < 150)
         {
-          document.getElementById('header').setAttribute('style' , 'background:transparent;transition:0.5s background;box-shadow: transparent;')
+          document.getElementById('header').setAttribute('style' , 'height:0px;overflow:hidden;background:transparent;transition: background 0.5s,  height 1s; box-shadow: transparent;')
         } 
-        if (window.scrollY > 150)
+        if (window.scrollY > 152)
         {
           document.getElementById('downPart').setAttribute('style' , 'background:#f0f4f5;transition:0.5s background;')
           document.getElementById('logoNehre').setAttribute('style' , 'opacity:1;transition:1s opacity;pointer-events:all;')
@@ -92,6 +92,7 @@ function Header() {
                 <header id="header" className="header">
                     <TopNavbarPart2 modalOpener={handleOpen}/>
                 </header>
+                <Navbar/>
                 <DownNavbar/>
 
 

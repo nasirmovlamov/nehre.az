@@ -37,24 +37,20 @@
           align-items: flex-end;
 }
 
-.topNavbar .topPart .imgAndLinks .searchAndPhone {
+.topNavbar .topPart .phoneCont {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  direction: rtl;
-  margin-right: 40px;
+  -webkit-column-gap: 40px;
+          column-gap: 40px;
 }
 
-.topNavbar .topPart .imgAndLinks .searchAndPhone .phone {
+.topNavbar .topPart .phoneCont .phone {
   direction: ltr;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -66,13 +62,133 @@
       align-self: flex-start;
   margin: 0px;
   margin-right: 10px;
-  -webkit-column-gap: 20px;
-          column-gap: 20px;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
   font-size: 23px;
   color: #285999;
 }
 
-.topNavbar .topPart .imgAndLinks .searchAndPhone .phone a {
+.topNavbar .topPart .phoneCont .phone a {
   color: gray;
+}
+
+.topNavbar .phoneAndSearch {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 100px;
+  width: 700px;
+}
+
+.topNavbar .searchAndIcons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+}
+
+.topNavbar .searchAndIcons .inputAndIcon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  direction: ltr;
+}
+
+.topNavbar .searchAndIcons .searchIcon {
+  margin-left: -35px;
+  position: relative;
+  right: 0px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.topNavbar .searchAndIcons input {
+  padding: 10px;
+  border-radius: 25px;
+  width: 350px;
+  border: none;
+}
+
+.topNavbar .searchAndIcons input:focus {
+  outline: none;
+}
+
+.topNavbar .searchAndIcons .selection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: auto;
+  grid-gap: 10px;
+}
+
+.topNavbar .searchAndIcons .selection a {
+  width: 35px;
+  height: 35px;
+  border: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+  border-radius: 5px;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(1) {
+  background: url("../images/azn.png") no-repeat;
+  background-size: cover;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(2) {
+  background: url("../images/dil.png") no-repeat;
+  background-size: cover;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(3) {
+  background: url("../images/member.png") no-repeat;
+  background-size: cover;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(5) {
+  background: url("../images/Sebet.png") no-repeat;
+  background-size: cover;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(4) {
+  background-size: cover;
+  background-color: #ec6275;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(4) svg {
+  width: 60px;
+  height: 30px;
+}
+
+.topNavbar .searchAndIcons .selection a .shoppingBtn {
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
 }
 /*# sourceMappingURL=topNavbar.css.map */
