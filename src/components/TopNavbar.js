@@ -11,7 +11,7 @@ import searchIcon from "../assets/images/searchIcon.png"
 import {Link} from "react-router-dom"
 import PhoneIcon from '@material-ui/icons/Phone';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-
+import PersonIcon from '@material-ui/icons/Person';
 function TopNavbar(props) {
     return (
         <div className="topNavbar">
@@ -37,8 +37,8 @@ function TopNavbar(props) {
                                 <Link to="/">
                                 </Link>
                                 {/*  */}
-                                <Link to="/memberarea/cabinet">
-
+                                <Link to="/login">
+                                    <button className="shoppingBtn" onClick={() => props.modalOpener3()}><PersonIcon/></button>     
                                 </Link>
                                 {/*  */}
                                 <Link to="/memberarea/favorites">

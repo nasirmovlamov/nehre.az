@@ -24,11 +24,13 @@ import Modal from '@material-ui/core/Modal';
 import About from './About'
 import ReviewPage from '../pages/ReviewPage'
 import CheckoutPage from '../pages/CheckoutPage'
+import LoginPage from '../pages/LoginPage'
 
 function Header() {
     
     const [open, setOpen] = React.useState(false);
     const [open2, setOpen2] = React.useState(false);
+    const [open3, setOpen3] = React.useState(false);
 
     const handleOpen = () => {
         setOpen(true);
@@ -43,6 +45,13 @@ function Header() {
       
     const handleClose2 = () => {
         setOpen2(false);
+    };
+    const handleOpen3 = () => {
+        setOpen3(true);
+      }
+      
+    const handleClose3 = () => {
+        setOpen3(false);
     };
     window.addEventListener("scroll", function(){
         if (window.scrollY > 150)
@@ -85,12 +94,21 @@ function Header() {
                 aria-describedby="simple-modal-description">
                 {<CheckoutPage functionClose={() => handleClose2()}  numberStar="3.5"/>}
             </Modal>
+           
+            <Modal  
+                style={{display:"flex", justifyContent:"center",overflow:"auto"}}
+                open={open3}
+                onClose={handleClose3}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description">
+                {<LoginPage functionClose={() => handleClose3()}  />}
+            </Modal>
 
             <div className="AllCont">
-            <TopNavbar modalOpener={handleOpen}/>
+            <TopNavbar modalOpener={handleOpen} modalOpener3={handleOpen3}/>
 
                 <header id="header" className="header">
-                    <TopNavbarPart2 modalOpener={handleOpen}/>
+                    <TopNavbarPart2 modalOpener={handleOpen} modalOpener3={handleOpen3}/>
                 </header>
                 <Navbar/>
                 <DownNavbar/>

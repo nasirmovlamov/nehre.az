@@ -166,8 +166,7 @@
 }
 
 .topNavbar .searchAndIcons .selection a:nth-child(3) {
-  background: url("../images/member.png") no-repeat;
-  background-size: cover;
+  background-color: #8682ab;
 }
 
 .topNavbar .searchAndIcons .selection a:nth-child(5) {
@@ -190,5 +189,21 @@
   height: 40px;
   background: transparent;
   border: none;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0px;
+  margin: 0px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.topNavbar .searchAndIcons .selection a .shoppingBtn svg {
+  width: 40px;
 }
 /*# sourceMappingURL=topNavbar.css.map */

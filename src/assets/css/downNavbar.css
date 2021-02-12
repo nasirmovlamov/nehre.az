@@ -45,7 +45,7 @@
 }
 
 .downNavbar .buttonNav:hover {
-  border-bottom: 4px solid orange;
+  border-bottom: 4px solid #285999;
 }
 
 .downNavbar .buttonNav:focus {

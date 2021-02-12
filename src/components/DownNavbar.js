@@ -17,7 +17,7 @@ function DownNavbar() {
         for (let i = 1; i < 8; i++) {
             document.getElementById(`btnNav${i}`).setAttribute('style' , "border-bottom: 4px solid transparent;")
         }
-        document.getElementById(`btnNav${num}`).setAttribute('style' , "border-bottom: 4px solid orange;")
+        document.getElementById(`btnNav${num}`).setAttribute('style' , "border-bottom: 4px solid #285999w;")
 }
     return (
         <div className="navCont">

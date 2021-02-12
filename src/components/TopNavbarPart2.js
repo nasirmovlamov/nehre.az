@@ -30,8 +30,8 @@ function TopNavbarPart2(props) {
                             <Link to="/">
                             </Link>
                             {/*  */}
-                            <Link to="/memberarea/cabinet">
-
+                            <Link to="/login">
+                                <button className="shoppingBtn" onClick={() => props.modalOpener3()}></button>     
                             </Link>
                             {/*  */}
                             <Link to="/memberarea/favorites">
