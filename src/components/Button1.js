@@ -5,10 +5,9 @@ function Button1(props) {
         backgroundColor:props.color
     }
     const functionHandler = () => {
-        props.function()
     }
     return (
-        <button className="moreAbout" style={bgColor} onClick={() => functionHandler()}>{props.value}</button>
+        <button className="moreAbout" type={props.type} style={bgColor} onClick={() => functionHandler()}>{props.value}</button>
     )
 }
 

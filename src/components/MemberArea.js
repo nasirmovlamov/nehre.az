@@ -247,7 +247,7 @@ function MemberArea() {
         <div className="memberAreaCont">
             
             <aside className="aside">
-                <Link to="/memberarea/cabinet" className="cabinet"><button id="btn1" onClick={() => clickHandler(1)}>                 <AccountCircleIcon/>  Cabinet                </button> </Link>
+                <Link to="/memberarea" className="cabinet"><button id="btn1" onClick={() => clickHandler(1)}>                 <AccountCircleIcon/>  Cabinet                </button> </Link>
                 <Link to="/memberarea/contacts" className="contact"> <button id="btn2" onClick={() => clickHandler(2)}>                 <PermContactCalendarIcon/> Contact                  </button></Link>
                 <Link to="/memberarea/password" className="password"><button id="btn3" onClick={() => clickHandler(3)}>                 <LockIcon/> Password              </button></Link>
                 <Link to="/memberarea/address" className="address"> <button id="btn4" onClick={() => clickHandler(4)}>                  <LocationOnIcon/>Address                 </button></Link>
@@ -278,7 +278,7 @@ function MemberArea() {
                 <Route path="/memberarea/reviews">{reviews}</Route>
                 <Route path="/memberarea/recommendations">{recommendations}</Route>
                 <Route path="/memberarea/output">{output}</Route>
-                <Route path="/memberarea/cabinet">{cabinet}</Route>
+                <Route path="/memberarea">{cabinet}</Route>
             </Switch>
             </main>
             </div>

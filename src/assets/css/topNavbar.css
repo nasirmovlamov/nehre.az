@@ -141,7 +141,7 @@
 .topNavbar .searchAndIcons .selection a {
   width: 35px;
   height: 35px;
-  border: none;
+  border: 1px solid white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -155,23 +155,259 @@
   border-radius: 5px;
 }
 
+.topNavbar .searchAndIcons .selection a .shoppingBtn {
+  width: 35px;
+  height: 35px;
+  background: transparent;
+  border: none;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0px;
+  margin: 0px;
+  font-size: 15px;
+}
+
+.topNavbar .searchAndIcons .selection a .shoppingBtn svg {
+  width: 40px;
+}
+
 .topNavbar .searchAndIcons .selection a:nth-child(1) {
-  background: url("../images/azn.png") no-repeat;
+  background-color: #2d5d9b;
   background-size: cover;
+  /* Dropdown button on hover & focus */
+  /* The container <div> - needed to position the dropdown content */
+  /* Dropdown Content (Hidden by Default) */
+  /* Links inside the dropdown */
+  /* Change color of dropdown links on hover */
+  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(1) button {
+  font-size: 20px !important;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(1) .shoppingBtn1 {
+  width: 35px;
+  height: 35px;
+  background: transparent;
+  border: none;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0px;
+  margin: 0px;
+  font-size: 15px;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(1) .shoppingBtn1 svg {
+  width: 40px;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(1) .shoppingBtnDiv {
+  margin-top: -2.5px;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(1) .shoppingBtnDiv:hover, .topNavbar .searchAndIcons .selection a:nth-child(1) .shoppingBtnDiv:focus {
+  background-color: white;
+  color: red !important;
+  border-radius: 5px;
+  border: 1px solid #2d5d9b;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(1) .shoppingBtnDiv:hover .shoppingBtn1, .topNavbar .searchAndIcons .selection a:nth-child(1) .shoppingBtnDiv:focus .shoppingBtn1 {
+  color: #1f62bb;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(1) .shoppingBtnDiv {
+  position: relative;
+  display: inline-block;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(1) .dropdown-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: -4px;
+  background-color: #2d5d9b;
+  border-top: 1px solid white;
+  border-radius: 0px 0px 5px 5px;
+  overflow: hidden;
+  position: absolute;
+  width: 35px;
+  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(1) .dropdown-content button {
+  width: 35px;
+  height: 35px;
+  color: white;
+  border: none;
+  background-color: transparent;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(1) .dropdown-content button:nth-child(2) {
+  border-top: 1px dashed white;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(1) .dropdown-content button:hover {
+  background-color: #1f62bb;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(1) .dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(1) .dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(1) .show {
+  display: block;
 }
 
 .topNavbar .searchAndIcons .selection a:nth-child(2) {
-  background: url("../images/dil.png") no-repeat;
-  background-size: cover;
+  background-color: #d0ac55;
+  /* Dropdown button on hover & focus */
+  /* The container <div> - needed to position the dropdown content */
+  /* Dropdown Content (Hidden by Default) */
+  /* Links inside the dropdown */
+  /* Change color of dropdown links on hover */
+  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(2) button {
+  font-size: 15px;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(2) .shoppingBtn2 {
+  width: 35px;
+  height: 35px;
+  background: transparent;
+  border: none;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0px;
+  margin: 0px;
+  font-size: 15px;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(2) .shoppingBtn2 svg {
+  width: 40px;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(2) .shoppingBtnDiv2 {
+  margin-top: -2.5px;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(2) .shoppingBtnDiv2:hover, .topNavbar .searchAndIcons .selection a:nth-child(2) .shoppingBtnDiv2:focus {
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #d0ac55;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(2) .shoppingBtnDiv2:hover .shoppingBtn2, .topNavbar .searchAndIcons .selection a:nth-child(2) .shoppingBtnDiv2:focus .shoppingBtn2 {
+  color: #d0ac55;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(2) .shoppingBtnDiv2 {
+  position: relative;
+  display: inline-block;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(2) .dropdown-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: -4px;
+  background-color: #d0ac55;
+  border-top: 1px solid white;
+  border-radius: 0px 0px 5px 5px;
+  overflow: hidden;
+  position: absolute;
+  width: 35px;
+  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(2) .dropdown-content button {
+  width: 35px;
+  height: 35px;
+  color: white;
+  border: none;
+  background-color: transparent;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(2) .dropdown-content button:nth-child(2) {
+  border-top: 1px dashed white;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(2) .dropdown-content button:hover {
+  background-color: #d39b17;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(2) .dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(2) .dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(2) .show {
+  display: block;
 }
 
 .topNavbar .searchAndIcons .selection a:nth-child(3) {
   background-color: #8682ab;
 }
 
-.topNavbar .searchAndIcons .selection a:nth-child(5) {
-  background: url("../images/Sebet.png") no-repeat;
-  background-size: cover;
+.topNavbar .searchAndIcons .selection a:nth-child(3):hover {
+  background-color: white;
+  border: 1px solid #8682ab;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(3):hover svg {
+  color: #8682ab;
 }
 
 .topNavbar .searchAndIcons .selection a:nth-child(4) {
@@ -184,26 +420,26 @@
   height: 30px;
 }
 
-.topNavbar .searchAndIcons .selection a .shoppingBtn {
-  width: 40px;
-  height: 40px;
-  background: transparent;
-  border: none;
-  color: white;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  padding: 0px;
-  margin: 0px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+.topNavbar .searchAndIcons .selection a:nth-child(4):hover {
+  background-color: white;
+  border: 1px solid #ec6275;
 }
 
-.topNavbar .searchAndIcons .selection a .shoppingBtn svg {
-  width: 40px;
+.topNavbar .searchAndIcons .selection a:nth-child(4):hover svg {
+  color: #ec6275;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(5) {
+  background-color: #aebaa3;
+  background-size: cover;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(5):hover {
+  background-color: white;
+  border: 1px solid #aebaa3;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(5):hover svg {
+  color: #aebaa3;
 }
 /*# sourceMappingURL=topNavbar.css.map */

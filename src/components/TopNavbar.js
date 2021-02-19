@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "../assets/css/topNavbar.css"
 import logoNehre from "../assets/images/Loqo_nehre.png"
 import logoNehre2 from "../assets/images/logoNehre2.png"
@@ -11,8 +11,37 @@ import searchIcon from "../assets/images/searchIcon.png"
 import {Link} from "react-router-dom"
 import PhoneIcon from '@material-ui/icons/Phone';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PersonIcon from '@material-ui/icons/Person';
 function TopNavbar(props) {
+    const [drop1, setdrop1] = useState(false)
+    const [drop2, setdrop2] = useState(false)
+    function myFunction1(num) {
+        if (num === false) {
+            setdrop1(true)
+        }
+        else{
+            setdrop1(false)
+        }
+    }
+    function myFunction2(num) {
+        if (num === false) {
+            setdrop2(true)
+        }
+        else{
+            setdrop2(false)
+        }
+    }
+    function myFunctionBlur1()
+    {
+        setdrop1(false)
+
+    }
+    function myFunctionBlur2()
+    {
+        setdrop2(false)
+
+    }
     return (
         <div className="topNavbar">
                 <div className="topPart">    
@@ -30,22 +59,38 @@ function TopNavbar(props) {
                                 <button className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
                             </div>
                             <div className="selection">
-                                {/*  */}
                                 <Link to="/">
+                                    <div class="shoppingBtnDiv">
+                                        <button onClick={() => myFunction1(drop1)} onBlur={() => myFunctionBlur1(drop1)} class="shoppingBtn1 dropbtn">$</button>
+                                        {drop1 && 
+                                            <div id="myDropdown" class="dropdown-content">
+                                                <button href="#">₼</button>
+                                                <button href="#">$</button>
+                                            </div>
+                                        }
+                                    </div>
                                 </Link>
                                 {/*  */}
                                 <Link to="/">
+                                <div class="shoppingBtnDiv2">
+                                        <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} class="shoppingBtn2">AZ</button>
+                                        {drop2 && <div id="myDropdown" class="dropdown-content">
+                                            <button href="#">AZ</button>
+                                            <button href="#">EN</button>
+                                            <button href="#">RU</button>
+                                        </div>}
+                                    </div>
                                 </Link>
                                 {/*  */}
-                                <Link to="/login">
-                                    <button className="shoppingBtn" onClick={() => props.modalOpener3()}><PersonIcon/></button>     
+                                <Link to="/">
+                                    <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}><PersonIcon/></button>     
                                 </Link>
                                 {/*  */}
                                 <Link to="/memberarea/favorites">
                                     <StarBorderIcon/> 
                                 </Link>
                                 <Link to="/">  
-                                    <button className="shoppingBtn" onClick={() => props.modalOpener()}></button>     
+                                    <button className="shoppingBtn shoppingBtn4" onClick={() => props.modalOpener()}><ShoppingCartIcon/></button>     
                                 </Link>
                             </div>
                         </div>
