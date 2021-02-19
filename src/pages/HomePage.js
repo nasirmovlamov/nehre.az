@@ -80,7 +80,7 @@ function HomePage() {
     NewProducts.map(product =>  ( newItems.push(       <ItemCard id={product.id} image={product.shekil}  coin={product.qepik}  title={product.title} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount}/>)))
     SpecialOffers.map(product =>( specialOffers.push(  <ItemCard image={product.shekil} title={product.title}  coin={product.qepik} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount}/>)))
     SuppliersCard.map(supply => ( suppliersCard.push(  <SupplierCard image={supply.avatar} title={supply.name} supplier={supply.type_id} image2={testImg6} image3={testImg7}/>   )))
-    TopCards.map(bucket => ( topCards.push(       <CardSlider1 name={bucket.name} image={topCard1}/> , <CardSlider1 name={bucket.name} image={topCard1}/> )  ))
+    TopCards.map(bucket => ( topCards.push(             <CardSlider1 name={bucket.name} image={topCard1}/> , <CardSlider1 name={bucket.name} image={topCard1}/> )  ))
 
 
     return (
