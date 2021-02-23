@@ -4,7 +4,8 @@
     height: 344px;
     border-radius: 20px;
     transition: 1s box-shadow;
-
+    background-image: url('../images/DefaultCardSlider1.jpeg') ;
+    background-size: cover;
     &:hover 
     {
         box-shadow: 1px 1px 10px 10px rgba(0,0,0,0.2);

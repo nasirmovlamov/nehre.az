@@ -34,14 +34,34 @@ function TopNavbarPart2(props) {
     }
     function myFunctionBlur1()
     {
-        setdrop1(false)
-
     }
     function myFunctionBlur2()
     {
-        setdrop2(false)
-
     }
+
+    const [moneyType, setmoneyType] = useState("₼")
+
+    const moneyChanger = () => {
+        if(moneyType === "₼")
+        {
+            setmoneyType("$")
+            setdrop1(false)
+        }
+        else 
+        {
+            setmoneyType("₼")
+            setdrop1(false)
+        }
+    }
+
+    
+    
+    var lang = ["AZ" , "EN" , "RU"]
+    const [langM, setlangM] = useState(lang[0])
+    const languageChanger = (lang) => {
+        setlangM(lang)
+    }
+    
     
     return (
         <div className="downPart" id="downPart">
@@ -56,27 +76,26 @@ function TopNavbarPart2(props) {
                         <div className="selection">
                             {/*  */}
                             <Link to="/">
-                                <div class="shoppingBtnDiv">
-                                    <button onClick={() => myFunction1(drop1)} onBlur={() => myFunctionBlur1(drop1)} class="shoppingBtn1 dropbtn">$</button>
-                                    {drop1 && 
-                                        <div id="myDropdown" class="dropdown-content">
-                                            <button href="#">₼</button>
-                                            <button href="#">$</button>
-                                        </div>
-                                    }
-                                </div>
-                            </Link>
-                            {/*  */}
-                            <Link to="/">
-                            <div class="shoppingBtnDiv2">
-                                    <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} class="shoppingBtn2">AZ</button>
-                                    {drop2 && <div id="myDropdown" class="dropdown-content">
-                                        <button href="#">AZ</button>
-                                        <button href="#">EN</button>
-                                        <button href="#">RU</button>
-                                    </div>}
-                                </div>
-                            </Link>
+                                    <div class="shoppingBtnDiv">
+                                        <button onClick={() => myFunction1(drop1)} onBlur={() => myFunctionBlur1(drop1)} class="shoppingBtn1 dropbtn">{moneyType}</button>
+                                        {drop1 && 
+                                            <div id="myDropdown" class="dropdown-content">
+                                                <button onClick={() => moneyChanger()}>{moneyType === "₼" ? "$" : "₼"}</button>
+                                            </div>
+                                        }
+                                    </div>
+                                </Link>
+                                {/*  */}
+                                <Link to="/">
+                                    <div class="shoppingBtnDiv2">
+                                        <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} class="shoppingBtn2">{langM}</button>
+                                        {drop2 && <div id="myDropdown" class="dropdown-content">
+                                            {langM === "AZ" ? "" : <button onClick={() => languageChanger(lang[0])}>{lang[0]}</button>}
+                                            {langM === "EN" ? "" : <button onClick={() => languageChanger(lang[1])}>{lang[1]}</button>}
+                                            {langM === "RU" ? "" : <button onClick={() => languageChanger(lang[2])}> {lang[2]}</button>}
+                                        </div>}
+                                    </div>
+                                </Link>
                             {/*  */}
                             <Link to="/">
                                 <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}><PersonIcon/></button>     

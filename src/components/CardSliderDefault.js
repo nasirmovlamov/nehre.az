@@ -1,14 +1,10 @@
 import React from 'react'
 import "../assets/css/cardSlider1.css"
 import Button1 from './Button1'
-function CardSlider1(props) {
-    const imgHandler = {
-        background: `url(https://nehra.az/storage/app/public/${props.image}) no-repeat`,
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-    }
+function CardSliderDefault(props) {
+    
     return (
-        <div className="cardSlider1" style={imgHandler}>
+        <div className="cardSlider1" >
             <div className="textCont">
                 <h4 className="title">{props.name}</h4>
                 <p className="desc">{props.desc}</p>
@@ -18,4 +14,4 @@ function CardSlider1(props) {
     )
 }
 
-export default CardSlider1
+export default CardSliderDefault

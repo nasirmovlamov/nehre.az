@@ -27,8 +27,9 @@
                 {
                     align-self: flex-start;
                     display: flex;
+                    flex-direction: column;
                     justify-content: space-between;
-                    column-gap: 40px;
+                    align-self: flex-end;
                     .phone
                     {
                         direction: ltr;
@@ -40,6 +41,7 @@
                         column-gap: 10px;
                         font-size: 23px;
                         color: #285999;
+                        width: 180px;
                         a 
                         {
                             color: gray ;
@@ -51,16 +53,17 @@
         {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-end;
             height: 100px;
             width: 700px;
         }
         .searchAndIcons
         {
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: space-between;
             column-gap: 20px;
+            width: 750px;
             .inputAndIcon
             {
                 display: flex;
@@ -87,10 +90,12 @@
                 }
             }
             .selection
-        {
-            display: flex;
-            width: auto;
-            grid-gap: 10px;
+            {
+                display: flex;
+                width: 400px;
+                grid-gap: 10px;
+                height: 85px;
+                flex-wrap: wrap;
             a 
             {
                 width: 35px;

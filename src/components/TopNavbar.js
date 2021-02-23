@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "../assets/css/topNavbar.css"
 import logoNehre from "../assets/images/Loqo_nehre.png"
 import logoNehre2 from "../assets/images/logoNehre2.png"
@@ -34,38 +34,60 @@ function TopNavbar(props) {
     }
     function myFunctionBlur1()
     {
-        setdrop1(false)
-
     }
     function myFunctionBlur2()
     {
-        setdrop2(false)
-
     }
+
+    const [moneyType, setmoneyType] = useState("₼")
+
+    const moneyChanger = () => {
+        if(moneyType === "₼")
+        {
+            setmoneyType("$")
+            setdrop1(false)
+        }
+        else 
+        {
+            setmoneyType("₼")
+            setdrop1(false)
+        }
+    }
+
+    
+    
+    var lang = ["AZ" , "EN" , "RU"]
+    const [langM, setlangM] = useState(lang[0])
+    const languageChanger = (lang) => {
+        setlangM(lang)
+    }
+    
+
     return (
         <div className="topNavbar">
                 <div className="topPart">    
                     <Link to="/"><img src={logoNehre} alt="" width="140" height="auto"/></Link>
                     <div className="phoneAndSearch">
 
-                        <div className="phoneCont">
-                                <p className="phone"> <PhoneIcon/> <a href="tel:012 00 0000">012 00 0000</a></p>
-                                <p className="phone"> <PhoneIcon/> <a href="tel:012 00 0000">012 00 0000</a></p>
-                        </div>
+                        
 
                         <div className="searchAndIcons">
                             <div className="inputAndIcon">
                                 <input type="text" placeholder="Axtarış"/>
                                 <button className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
                             </div>
+
+                            <div className="phoneCont">
+                                <p className="phone"> <PhoneIcon/> <a href="tel:012 00 0000">012 00 0000</a></p>
+                                <p className="phone"> <PhoneIcon/> <a href="tel:012 00 0000">012 00 0000</a></p>
+                            </div>
                             <div className="selection">
                                 <Link to="/">
                                     <div class="shoppingBtnDiv">
-                                        <button onClick={() => myFunction1(drop1)} onBlur={() => myFunctionBlur1(drop1)} class="shoppingBtn1 dropbtn">$</button>
+                                        <button onClick={() => myFunction1(drop1)} onBlur={() => myFunctionBlur1(drop1)} class="shoppingBtn1 dropbtn">{moneyType}</button>
                                         {drop1 && 
                                             <div id="myDropdown" class="dropdown-content">
-                                                <button href="#">₼</button>
-                                                <button href="#">$</button>
+                                                <button onClick={() => moneyChanger()}>{moneyType === "₼" ? "$" : "₼"}</button>
                                             </div>
                                         }
                                     </div>
@@ -73,11 +95,11 @@ function TopNavbar(props) {
                                 {/*  */}
                                 <Link to="/">
                                 <div class="shoppingBtnDiv2">
-                                        <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} class="shoppingBtn2">AZ</button>
+                                        <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} class="shoppingBtn2">{langM}</button>
                                         {drop2 && <div id="myDropdown" class="dropdown-content">
-                                            <button href="#">AZ</button>
-                                            <button href="#">EN</button>
-                                            <button href="#">RU</button>
+                                            {langM === "AZ" ? "" : <button onClick={() => languageChanger(lang[0])}>{lang[0]}</button>}
+                                            {langM === "EN" ? "" : <button onClick={() => languageChanger(lang[1])}>{lang[1]}</button>}
+                                            {langM === "RU" ? "" : <button onClick={() => languageChanger(lang[2])}> {lang[2]}</button>}
                                         </div>}
                                     </div>
                                 </Link>
@@ -86,7 +108,7 @@ function TopNavbar(props) {
                                     <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}><PersonIcon/></button>     
                                 </Link>
                                 {/*  */}
-                                <Link to="/memberarea/favorites">
+                                <Link to="/memberarea/bookmarks">
                                     <StarBorderIcon/> 
                                 </Link>
                                 <Link to="/">  

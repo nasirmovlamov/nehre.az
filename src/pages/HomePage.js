@@ -59,19 +59,19 @@ function HomePage() {
     
     useEffect(() => {
 
-             axios.get('https://nehra.az/newproducts')
+             axios.get('https://nehra.az/public/api/newproducts')
              .then(res => setProduct(res.data))
              .catch(err=> console.log(err))
        
-             axios.get('https://nehra.az/specials')
+             axios.get('https://nehra.az/public/api/specials')
              .then(res => setSpecialOffers(res.data))
              .catch(err=> console.log(err))
        
-             axios.get('https://nehra.az/manufacturers')
+             axios.get('https://nehra.az/public/api/manufacturers')
              .then(res => setSuppliersCard(res.data))
              .catch(err=> console.log(err))
        
-             axios.get('https://nehra.az/combos')
+             axios.get('https://nehra.az/public/api/combos')
              .then(res => setTopCards(res.data))
              .catch(err=> console.log(err))
 
@@ -80,8 +80,8 @@ function HomePage() {
     NewProducts.map(product =>  ( newItems.push(       <ItemCard id={product.id} image={product.shekil}  coin={product.qepik}  title={product.title} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount}/>)))
     SpecialOffers.map(product =>( specialOffers.push(  <ItemCard image={product.shekil} title={product.title}  coin={product.qepik} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount}/>)))
     SuppliersCard.map(supply => ( suppliersCard.push(  <SupplierCard image={supply.avatar} title={supply.name} supplier={supply.type_id} image2={testImg6} image3={testImg7}/>   )))
-    TopCards.map(bucket => ( topCards.push(             <CardSlider1 name={bucket.name} image={topCard1}/> , <CardSlider1 name={bucket.name} image={topCard1}/> )  ))
-
+    TopCards.map(bucket => ( topCards.push(<CardSlider1 name={bucket.name} image={bucket.images} desc={bucket.description}/>)))
+    
 
     return (
 
@@ -91,7 +91,7 @@ function HomePage() {
 
 
             <div className="slider1">
-                <OurSlider elements={topCards} numOfSld={2}/>
+               <OurSlider elements={topCards} numOfSld={2}/>
             </div>
             <p className="deliveryText">Delivery of products from farmers to your home!</p>
             <video  className="videoHome"  autoplay  >
