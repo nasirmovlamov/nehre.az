@@ -12,6 +12,18 @@
   flex-direction: column;
 }
 
+.registrationPage .MuiInputBase-root {
+  background-color: #F2F0ED;
+  border-radius: 5px;
+}
+
+.registrationPage .MuiInputBase-input {
+  height: 28px;
+  -webkit-tap-highlight-color: transparent;
+  padding-left: 20px;
+  color: gray;
+}
+
 .registrationPage .MuiFormControl-marginNormal {
   margin-top: 0px;
 }
@@ -82,4 +94,47 @@
   color: #085096;
   font-size: 14px;
   background: transparent;
+}
+
+.registrationPage .fileInputButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: none;
+  background-color: #F2F0ED;
+  margin: 0px;
+  padding: 0px;
+  border-radius: 5px;
+}
+
+.registrationPage .fileInputButton input {
+  opacity: 0;
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+.registrationPage .fileInputButton .pText {
+  position: absolute;
+  align-self: center;
+  font-size: 18px;
+  margin: 0px !important;
+  padding: 0px !important;
+  color: gray;
+}
+
+.registrationPage .submitBtn {
+  margin-top: 20px;
+  border: none;
+  background-color: #085096;
+  height: 40px;
+  font-size: 18px;
+  border-radius: 5px;
+  color: white;
+}
+
+.registrationPage .errors {
+  font-size: 13px;
+  color: red;
+  margin-top: 0px;
+  margin-left: 15px;
 }

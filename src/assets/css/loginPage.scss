@@ -11,6 +11,7 @@
     padding-top: 10px;
     display: flex;
     flex-direction: column;
+    
     .removeModalBtn 
     {
         float: right;
@@ -55,7 +56,7 @@
     {
         width: 324px;
         height: 56px;
-        margin-top: 30px;
+        margin-top: 20px;
         align-self: center;
     }
     .subTitle 
@@ -69,5 +70,13 @@
         color: #085096;
         font-size: 14px;
         background: transparent;
+    }
+    .errors
+    {
+        color: red;
+        font-weight: 600;
+        font-size: 18px;
+        margin-top: 5px;
+        margin-left: 5px;
     }
 }

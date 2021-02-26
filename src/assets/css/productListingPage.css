@@ -1,27 +1,16 @@
 .productPage {
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: column;
+  align-items: center;
   height: auto;
 }
 
 .productPage .topPart {
   width: 100%;
   height: auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
   text-align: start;
   background-color: #fff;
   padding-bottom: 50px;
@@ -49,24 +38,15 @@
 }
 
 .productPage .topPart .titleProducts .tags {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-column-gap: 20px;
-          column-gap: 20px;
+  column-gap: 20px;
 }
 
 .productPage .topPart .titleProducts .tags .tag {
   width: auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   height: 30px;
   padding: 10px;
   background-color: #fff;
@@ -76,12 +56,8 @@
 }
 
 .productPage .titleProductsCont {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
   width: 1300px;
   margin-top: 30px;
   margin-bottom: 30px;
@@ -89,14 +65,9 @@
 }
 
 .productPage .titleProductsCont .dateAndItemCont {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-column-gap: 30px;
-          column-gap: 30px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  column-gap: 30px;
+  align-items: center;
 }
 
 .productPage .titleProductsCont .dateAndItemCont .forDates {
@@ -104,14 +75,14 @@
   height: 40px;
   background-color: #fff;
   border: none;
-  -webkit-box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.3);
-          box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.3);
   border-radius: 50px;
 }
 
 .productPage .titleProductsCont .dateAndItemCont .itemsNumber {
   font-weight: 700;
   opacity: 0.3;
+  margin-bottom: -10px;
 }
 
 .productPage .titleProductsCont .selectionFilter {
@@ -129,17 +100,13 @@
 }
 
 .productPage .productsCont {
-  display: -ms-grid;
   display: grid;
   width: 1300px;
-  -ms-grid-columns: (1fr)[4];
-      grid-template-columns: repeat(4, 1fr);
-  -ms-flex-line-pack: center;
-      align-content: center;
+  grid-template-columns: repeat(4, 1fr);
+  align-content: center;
   grid-gap: 75px;
 }
 
 .productPage .productsCont .overlayImg {
   width: 14%;
 }
-/*# sourceMappingURL=productListingPage.css.map */

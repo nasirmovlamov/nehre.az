@@ -26,15 +26,15 @@ function ItemCard(props) {
         checkedG: true,
       });
     
-      const handleChange = (event) => {
+    const handleChange = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });
-      };
+    };
     const [checker, setchecker] = useState(false)
 
     const imgHandler = {
         background: `url('https://nehra.az/storage/app/public/${props.image}') no-repeat`,
         backgroundPosition: "center",
-        backgroundSize: "100% auto",
+        backgroundSize: "cover",
     }
     
     const DarkTT = withStyles((theme) => ({
@@ -51,10 +51,11 @@ function ItemCard(props) {
     const colorChang = {
         color: ""
     }
+    
     const discountHandler = (discount) => {
-        if (discount != 0) {
+        if (discount !== 0 && discount !== null) {
             var discountPrice = 0;
-            discountPrice =  (props.price+(props.coin / 100)) - ((props.price+(props.coin / 100)) * discount / 100)
+            discountPrice =  ((props.price - (props.price * discount) / 100))
             colorChang.color = "red"
             return discountPrice.toFixed(2);         
         } 
@@ -64,19 +65,18 @@ function ItemCard(props) {
     }
 
     const useStyles = makeStyles((theme) => ({
-        paper: {
-          position: 'absolute',
-          width: 400,
-          backgroundColor: theme.palette.background.paper,
-          border: '2px solid #000',
-          boxShadow: theme.shadows[5],
-          padding: theme.spacing(2, 4, 3),
-        },
-      }));
-      const classes = useStyles();
-      // getModalStyle is not a pure function, we roll the style only on the first render
-      const [open, setOpen] = React.useState(false);
-      
+    paper: {
+        position: 'absolute',
+        width: 400,
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },}));
+    const classes = useStyles();
+    // getModalStyle is not a pure function, we roll the style only on the first render
+    const [open, setOpen] = React.useState(false);
+    
     useEffect(() => {
         handleClose()
     }, [])
@@ -84,19 +84,17 @@ function ItemCard(props) {
     const handleOpen = () => {
         setOpen(true);
         setchecker(true)
-      }
+    }
       
-      const handleClose = () => {
+    const handleClose = () => {
         setOpen(false);
-      };
+    };
 
-      const handler = () => {
-        if(checker)
-        {
-            
-        }
-        handleOpen()
-      }
+    const handler = () => {
+    if(checker)
+    {}
+    handleOpen()
+    }
       
     return (
         <div className="itemCard">
@@ -135,11 +133,11 @@ function ItemCard(props) {
             <p className="subTitleItem">{props.desc}</p>
             <div className="textCont">
                 <div className="starAndAbout">
-                    <p className="dscPrc">{props.discount !== 0 && (<span className="priceStriked"><span className="priceUnderStrike">{(props.price+(props.coin / 100))}</span></span>)}</p>
+                    <p className="dscPrc">{(props.discount !== 0 && props.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{(props.price)}</span></span>)}</p>
                     <p className="priceAndWeightItem"><span className="element1" style={colorChang}>{discountHandler(props.discount)} AZN</span> / <span className="element2">{props.weight}</span> </p>
-                    <StarSystem numberStar="3.5"/>
+                    <StarSystem numberStar={props.star}/>
                 </div>   
-                <BuyButton/>
+                <BuyButton  orders={props.orders} modalOpener3={props.modalOpener3} cardId={props.cardId}/>
             </div>
 
             <div className="modalCont">

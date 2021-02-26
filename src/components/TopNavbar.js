@@ -14,6 +14,15 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PersonIcon from '@material-ui/icons/Person';
 function TopNavbar(props) {
+    const [UserData, setUserData] = useState(0)
+    useEffect(() => {
+        if (UserData?.id === undefined) {
+            setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
+            console.log("ALO")
+        }
+    })
+    
+
     const [drop1, setdrop1] = useState(false)
     const [drop2, setdrop2] = useState(false)
     function myFunction1(num) {
@@ -104,7 +113,7 @@ function TopNavbar(props) {
                                     </div>
                                 </Link>
                                 {/*  */}
-                                <Link to="/">
+                                <Link to={`/`}>
                                     <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}><PersonIcon/></button>     
                                 </Link>
                                 {/*  */}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import "../assets/css/cardPage.css"
 import clock from "../assets/images/clock.svg"
 import Button1 from '../components/Button1'
@@ -9,6 +9,8 @@ import avatar from "../assets/images/avatar.jpg"
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import DeleteIcon from '@material-ui/icons/Delete';
+import _ from 'lodash'
+import CheckoutCard from '../components/CheckoutCard';
 function CardPage(props) {
     const imgHandler = {
         background: `url(${avatar}) no-repeat`,
@@ -35,10 +37,18 @@ function CardPage(props) {
         props.functionOpenCheckoutPage()
         props.functionClose()
     }
-
+    const [Items, setItems] = useState(JSON.parse(localStorage.getItem('items')))
+    const deleteCard = (num) => {
+        Items.splice( (Items.indexOf[num]-1)  , 1 ) 
+        localStorage.setItem('items' , JSON.stringify(Items))
+        console.log(Items)       
+    }
+    const [PaymentPrice, setPaymentPrice] = useState(0)
+    const [AllNumberOfGoods, setAllNumberOfGoods] = useState(0)
+    
     return (
         <div className="cardCont">
-        
+            
             <main className="mainSide">
                 <p className="title">
                     Basket
@@ -46,335 +56,7 @@ function CardPage(props) {
                 </p>
                 <div className="gridCont1">
                     <div className="gridCont">
-                        <div className="item">
-                            <div className="imgCont" style={imgHandler}></div>
-                            
-                            <div className="aboutItem">
-                            
-                                <p className="title">Coho salmon salted</p>
-                                <p className="priceAndWeight">535  / 250 g.</p>
-                                <div className="dates">
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                    <div className="date">Be</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ç</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ça</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">C</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ş</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">B</div>
-                                    </DarkTT>
-                                </div>
-                            </div>
-
-                            <div className="btnCont">
-                                <Button1 value={<RemoveIcon/>} color="#085096"/>
-                                <p className="priceValue"> 1 </p>
-                                <Button1 value={<AddIcon/>}  color="#085096"/>
-                            </div>
-
-                            <p className="price"> 2675 </p>
-
-                            <button className="delete"><DeleteIcon/></button>
-
-                        </div>
-                        <hr/>
-                        <div className="item">
-                            <div className="imgCont" style={imgHandler}></div>
-                            
-                            <div className="aboutItem">
-                            
-                                <p className="title">Coho salmon salted</p>
-                                <p className="priceAndWeight">535  / 250 g.</p>
-                                <div className="dates">
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                    <div className="date">Be</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ç</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ça</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">C</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ş</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">B</div>
-                                    </DarkTT>
-                                </div>
-                            </div>
-
-                            <div className="btnCont">
-                                <Button1 value={<RemoveIcon/>} color="#085096"/>
-                                <p className="priceValue"> 1 </p>
-                                <Button1 value={<AddIcon/>}  color="#085096"/>
-                            </div>
-
-                            <p className="price"> 2675 </p>
-
-                            <button className="delete"><DeleteIcon/></button>
-
-                        </div>
-                        <hr/>
-                        <div className="item">
-                            <div className="imgCont" style={imgHandler}></div>
-                            
-                            <div className="aboutItem">
-                            
-                                <p className="title">Coho salmon salted</p>
-                                <p className="priceAndWeight">535  / 250 g.</p>
-                                <div className="dates">
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                    <div className="date">Be</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ç</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ça</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">C</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ş</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">B</div>
-                                    </DarkTT>
-                                </div>
-                            </div>
-
-                            <div className="btnCont">
-                                <Button1 value={<RemoveIcon/>} color="#085096"/>
-                                <p className="priceValue"> 1 </p>
-                                <Button1 value={<AddIcon/>}  color="#085096"/>
-                            </div>
-
-                            <p className="price"> 2675 </p>
-
-                            <button className="delete"><DeleteIcon/></button>
-
-                        </div>
-                        <hr/>
-                        <div className="item">
-                            <div className="imgCont" style={imgHandler}></div>
-                            
-                            <div className="aboutItem">
-                            
-                                <p className="title">Coho salmon salted</p>
-                                <p className="priceAndWeight">535  / 250 g.</p>
-                                <div className="dates">
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                    <div className="date">Be</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ç</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ça</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">C</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ş</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">B</div>
-                                    </DarkTT>
-                                </div>
-                            </div>
-
-                            <div className="btnCont">
-                                <Button1 value={<RemoveIcon/>} color="#085096"/>
-                                <p className="priceValue"> 1 </p>
-                                <Button1 value={<AddIcon/>}  color="#085096"/>
-                            </div>
-
-                            <p className="price"> 2675 </p>
-
-                            <button className="delete"><DeleteIcon/></button>
-
-                        </div>
-                        <hr/>
-                        <div className="item">
-                            <div className="imgCont" style={imgHandler}></div>
-                            
-                            <div className="aboutItem">
-                            
-                                <p className="title">Coho salmon salted</p>
-                                <p className="priceAndWeight">535  / 250 g.</p>
-                                <div className="dates">
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                    <div className="date">Be</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ç</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ça</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">C</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ş</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">B</div>
-                                    </DarkTT>
-                                </div>
-                            </div>
-
-                            <div className="btnCont">
-                                <Button1 value={<RemoveIcon/>} color="#085096"/>
-                                <p className="priceValue"> 1 </p>
-                                <Button1 value={<AddIcon/>}  color="#085096"/>
-                            </div>
-
-                            <p className="price"> 2675 </p>
-
-                            <button className="delete"><DeleteIcon/></button>
-
-                        </div>
-                        <hr/>
-                        <div className="item">
-                            <div className="imgCont" style={imgHandler}></div>
-                            
-                            <div className="aboutItem">
-                            
-                                <p className="title">Coho salmon salted</p>
-                                <p className="priceAndWeight">535  / 250 g.</p>
-                                <div className="dates">
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                    <div className="date">Be</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ç</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ça</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">C</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ş</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">B</div>
-                                    </DarkTT>
-                                </div>
-                            </div>
-
-                            <div className="btnCont">
-                                <Button1 value={<RemoveIcon/>} color="#085096"/>
-                                <p className="priceValue"> 1 </p>
-                                <Button1 value={<AddIcon/>}  color="#085096"/>
-                            </div>
-
-                            <p className="price"> 2675 </p>
-
-                            <button className="delete"><DeleteIcon/></button>
-
-                        </div>
-                        <hr/>
-                        <div className="item">
-                            <div className="imgCont" style={imgHandler}></div>
-                            
-                            <div className="aboutItem">
-                            
-                                <p className="title">Coho salmon salted</p>
-                                <p className="priceAndWeight">535  / 250 g.</p>
-                                <div className="dates">
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                    <div className="date">Be</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ç</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ça</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">C</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ş</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">B</div>
-                                    </DarkTT>
-                                </div>
-                            </div>
-
-                            <div className="btnCont">
-                                <Button1 value={<RemoveIcon/>} color="#085096"/>
-                                <p className="priceValue"> 1 </p>
-                                <Button1 value={<AddIcon/>}  color="#085096"/>
-                            </div>
-
-                            <p className="price"> 2675 </p>
-
-                            <button className="delete"><DeleteIcon/></button>
-
-                        </div>
-                        <hr/>
-                        <div className="item">
-                            <div className="imgCont" style={imgHandler}></div>
-                            
-                            <div className="aboutItem">
-                            
-                                <p className="title">Coho salmon salted</p>
-                                <p className="priceAndWeight">535  / 250 g.</p>
-                                <div className="dates">
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                    <div className="date">Be</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ç</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ça</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">C</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ş</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">B</div>
-                                    </DarkTT>
-                                </div>
-                            </div>
-
-                            <div className="btnCont">
-                                <Button1 value={<RemoveIcon/>} color="#085096"/>
-                                <p className="priceValue"> 1 </p>
-                                <Button1 value={<AddIcon/>}  color="#085096"/>
-                            </div>
-
-                            <p className="price"> 2675 </p>
-
-                            <button className="delete"><DeleteIcon/></button>
-
-                        </div>
-                        <hr/>
-                        
+                        {Items?.map(element => <CheckoutCard setAllNumberOfGoods={setAllNumberOfGoods} AllNumberOfGoods={AllNumberOfGoods} PaymentPrice={PaymentPrice} setPaymentPrice={setPaymentPrice} deleteCard={deleteCard} id={element}/>)}
                     </div>
                 </div>
 
@@ -390,9 +72,9 @@ function CardPage(props) {
                 </div>
                 
                 <div className="downPart">
-                    <div className="goods"><p className="key">Number of Goods</p> <p className="value ">28</p> </div> 
+                    <div className="goods"><p className="key">Number of Goods</p> <p className="value ">{AllNumberOfGoods}</p> </div> 
                     <div className="weight"><p className="key">Parcel  Goods</p> <p className="value value1" >28</p> </div> 
-                    <div className="cost"><p className="key">Product cost</p> <p className="value value2">17626 </p> </div> 
+                    <div className="cost"><p className="key">Product cost</p> <p className="value value2">{PaymentPrice} </p> </div> 
                     <Button1 value="Checkout" color="#085096" function={functionHandler} />
                     <p className="cashback">There will be 10$ cashback</p>
                 </div>

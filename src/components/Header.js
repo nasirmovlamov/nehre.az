@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "../assets/css/header.css"
 import HomePage from '../pages/HomePage'
 import DownNavbar from './DownNavbar'
@@ -10,7 +10,9 @@ import {
     Switch,
     Route,
     Link,
-    useLocation
+    useLocation,
+    useHistory,
+    Redirect
   } from "react-router-dom";
 import ProductListingPage from '../pages/ProductListingPage'
 import ScrolltoTop from './ScrolltoTop'
@@ -27,9 +29,16 @@ import ReviewPage from '../pages/ReviewPage'
 import CheckoutPage from '../pages/CheckoutPage'
 import LoginPage from '../pages/LoginPage'
 import Registration from '../pages/Registration'
-
+import arrowScroll from '../assets/images/scrollArrow.png'
+import F04 from '../components/F04'
 function Header() {
-
+  
+  const [UserData, setUserData] = useState(0)
+  useEffect(() => {
+    if (UserData?.id === undefined) {
+      setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
+    }
+  })
   const styleBtn =  {
     position: "fixed",
     width: "60px",
@@ -40,35 +49,36 @@ function Header() {
     border:'none',
     borderRadius: '50%',
     zIndex: 99
-}
-    const [open, setOpen] = React.useState(false);
-    const [open2, setOpen2] = React.useState(false);
-    const [open3, setOpen3] = React.useState(false);
-    const [open4, setOpen4] = React.useState(false);
-
-    const handleOpen = () => {
-        setOpen(true);
-      }
-      
+  }
+  const [open, setOpen]   = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
+  const [open3, setOpen3] = React.useState(false);
+  const [open4, setOpen4] = React.useState(false);
+  
+  const handleOpen = () => {
+    setOpen(true);
+  }
+  
     const handleClose = () => {
-        setOpen(false);
+      setOpen(false);
     };
     const handleOpen2 = () => {
-        setOpen2(true);
+      setOpen2(true);
+    }
+    
+    const handleClose2 = () => {
+      setOpen2(false);
+    };
+    const  history = useHistory();
+    const handleOpen3 = () => {
+        UserData?.id !== undefined ? window.location.href = '/memberarea'  : setOpen3(true);
     }
       
-    const handleClose2 = () => {
-        setOpen2(false);
-    };
-    const handleOpen3 = () => {
-        setOpen3(true);
-      }
-      
     const handleClose3 = () => {
-        setOpen3(false);
+        setOpen3(false)  
     };
     const handleOpen4 = () => {
-        setOpen4(true);
+       setOpen4(true);
       }
       
     const handleClose4 = () => {
@@ -122,12 +132,12 @@ function Header() {
       window.scroll(0,0)
     }
     return (
-        <Router>
+        <>
 
-                    <ScrolltoTop/>
+            <ScrolltoTop/>
            
             <div className="AllCont">
-                <button type="button" style={styleBtn} onClick={() => scrolltoTop()}></button>
+                <button type="button" style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button>
 
                 <TopNavbar modalOpener={handleOpen} modalOpener3={handleOpen3}/>
                 <Navbar/>
@@ -148,11 +158,13 @@ function Header() {
                     <Route path="/non-food" >                <ProductListingPage category="Non food"/>                                </Route>
                     <Route path="/about" >                   <About/>                                                                 </Route>
                     <Route path="/reviews" >                 <ReviewPage/>                                                            </Route>
-                    <Route path="/memberarea" >              <MemberArea/>                                                            </Route>
+                    <Route  path="/memberarea">
+                      { UserData?.id !== undefined  ?  <MemberArea  UserData={UserData}/> : <F04/> }
+                    </Route>
                     <Route path="/promotions" >              <ProductListingPage category="Promotional products" notags={1}/>         </Route>
                     <Route path="/suppliers/supplier" >      <SelectedSupplier/>                                                      </Route>
                     <Route path="/suppliers" >               <Suppliers/>                                                             </Route>
-                    <Route path="/" >                        <HomePage/>                                                              </Route>
+                    <Route path="/" >                        <HomePage modalOpener3={handleOpen3}/>                                                              </Route>
                 </Switch>
                 
                 <Footer/>
@@ -192,7 +204,7 @@ function Header() {
                 {<Registration functionClose={() => handleClose4()}  />}
             </Modal>
 
-        </Router>
+        </>
     )
 }
 

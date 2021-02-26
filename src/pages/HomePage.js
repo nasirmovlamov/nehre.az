@@ -41,8 +41,9 @@ import axios from 'axios'
 import {Link} from "react-router-dom"
 import CardPage from './CardPage'
 
-function HomePage() {
+function HomePage(props) {
     
+
     const topCards = []
     
     const newItems = []
@@ -57,36 +58,36 @@ function HomePage() {
     const [SuppliersCard, setSuppliersCard] = useState([])
     const [AnswerCard, setAnswerCard] = useState([])
     
+    const orders = []
+
     useEffect(() => {
 
-             axios.get('https://nehra.az/public/api/newproducts')
-             .then(res => setProduct(res.data))
-             .catch(err=> console.log(err))
-       
-             axios.get('https://nehra.az/public/api/specials')
-             .then(res => setSpecialOffers(res.data))
-             .catch(err=> console.log(err))
-       
-             axios.get('https://nehra.az/public/api/manufacturers')
-             .then(res => setSuppliersCard(res.data))
-             .catch(err=> console.log(err))
-       
-             axios.get('https://nehra.az/public/api/combos')
-             .then(res => setTopCards(res.data))
-             .catch(err=> console.log(err))
+            axios.get('https://nehra.az/public/api/newproducts')
+            .then(res => setProduct(res.data))
+            .catch(err=> console.log(err))
+    
+            axios.get('https://nehra.az/public/api/specials')
+            .then(res => setSpecialOffers(res.data))
+            .catch(err=> console.log(err))
+    
+            axios.get('https://nehra.az/public/api/manufacturers')
+            .then(res => setSuppliersCard(res.data))
+            .catch(err=> console.log(err))
+    
+            axios.get('https://nehra.az/public/api/slayder')
+            .then(res => setTopCards(res.data))
+            .catch(err=> console.log(err))
 
     }, [])
 
-    NewProducts.map(product =>  ( newItems.push(       <ItemCard id={product.id} image={product.shekil}  coin={product.qepik}  title={product.title} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount}/>)))
-    SpecialOffers.map(product =>( specialOffers.push(  <ItemCard image={product.shekil} title={product.title}  coin={product.qepik} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount}/>)))
+    NewProducts.map(product =>  ( newItems.push(       <ItemCard  orders={orders} modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb}    title={product.title} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>)))
+    SpecialOffers.map(product =>( specialOffers.push(  <ItemCard  orders={orders} modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb} title={product.title}   desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>)))
     SuppliersCard.map(supply => ( suppliersCard.push(  <SupplierCard image={supply.avatar} title={supply.name} supplier={supply.type_id} image2={testImg6} image3={testImg7}/>   )))
-    TopCards.map(bucket => ( topCards.push(<CardSlider1 name={bucket.name} image={bucket.images} desc={bucket.description}/>)))
+    TopCards.map(bucket => ( topCards.push(<CardSlider1 name={bucket.name} image={bucket.image} desc={bucket.description}/>)))
     
-
     return (
 
         <div className="homePage">
-            
             
 
 

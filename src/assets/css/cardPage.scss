@@ -68,12 +68,14 @@
             font-weight: 600;
             margin-top: 25px;
             width: 90%;
+            height: auto;
             .cost , .weight , .goods
             {
                 display: flex;
                 justify-content: space-between;
                 margin-top: 15px;
                 align-items: center;
+                width: 90%;
                 p 
                 {
                     margin: 0px;
@@ -276,6 +278,9 @@
             {
                 font-size: 18px;
                 font-weight: 600;
+                width: 50px;
+                display: flex;
+                justify-content: center;
             }
 
             .delete

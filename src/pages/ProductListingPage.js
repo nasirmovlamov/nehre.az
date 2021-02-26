@@ -2,7 +2,28 @@ import React from 'react'
 import '../assets/css/productListingPage.css'
 import xalisBal from "../assets/images/xalisBal.jpg"
 import ItemCard from '../components/ItemCard'
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+const useStyles = makeStyles((theme) => ({
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
+  }));
 function ProductListingPage(props) {
+    const classes = useStyles();
+    const [age, setAge] = React.useState('');
+
+    const handleChange = (event) => {
+        setAge(event.target.value);
+    };
     return (
         <div className="productPage"> 
             <div className="topPart">
@@ -22,7 +43,19 @@ function ProductListingPage(props) {
 
             <div className="titleProductsCont">
                 <div className="dateAndItemCont">
-                    <button className="forDates"></button>
+                <FormControl className={classes.formControl}>
+        <InputLabel id="demo-simple-select-label">Tarix</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          onChange={handleChange}
+        >
+          <MenuItem value={7}>Son 7 gün </MenuItem>
+          <MenuItem value={30}>Son 30 gün</MenuItem>
+          <MenuItem value={90}>Son 90 gün</MenuItem>
+        </Select>
+      </FormControl>
                     <p className="itemsNumber">343 items</p>
                 </div>
                 <select className="selectionFilter">

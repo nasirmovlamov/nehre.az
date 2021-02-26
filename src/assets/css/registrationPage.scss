@@ -11,6 +11,19 @@
     margin-top: 50px;
     display: flex;
     flex-direction: column;
+    .MuiInputBase-root
+    {
+        background-color: #F2F0ED;
+        border-radius: 5px;
+        
+    }
+    .MuiInputBase-input 
+    {
+        height: 28px;
+        -webkit-tap-highlight-color: transparent;
+        padding-left: 20px;
+        color: gray;
+    }
     .MuiFormControl-marginNormal
     {
         margin-top: 0px;
@@ -82,5 +95,48 @@
         color: #085096;
         font-size: 14px;
         background: transparent;
+    }
+    .fileInputButton
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border: none;
+        background-color: #F2F0ED;
+        margin: 0px;
+        padding: 0px;
+        border-radius: 5px;
+        input 
+        {
+            opacity: 0;
+            width: 100% !important;
+            box-sizing: border-box;
+        }
+        .pText
+        {
+            position: absolute;
+            align-self: center;
+            font-size: 18px;
+            margin: 0px !important;
+            padding: 0px !important;
+            color: gray;
+        }
+    }
+    .submitBtn
+    {
+        margin-top: 20px;
+        border: none;
+        background-color: #085096;
+        height: 40px ;
+        font-size: 18px;
+        border-radius: 5px;
+        color: white;
+    }
+    .errors
+    {
+        font-size: 13px;
+        color: red;
+        margin-top: 0px;
+        margin-left: 15px;
     }
 }

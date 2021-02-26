@@ -1,4 +1,4 @@
-import React,{useState, useRef} from 'react'
+import React,{useState, useRef, useEffect} from 'react'
 import "../assets/css/memberArea.css"
 import avatar from "../assets/images/avatar.jpg"
 import Button1 from "./Button1"
@@ -23,66 +23,20 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ItemCard from './ItemCard'
 import Review from './Review'
 import Reviews from './Reviews'
-function cabinet() {
-    
-    const imgHandler = {
-        backgroundImage: `url(${avatar})`,
-        backgroundSize: "cover",
-        backgroundPosition: "top center",
-        backgroundRepeat: "no-repeat"
-    }
+import Cabinet from './Cabinet'
+import Contacts from './Contacts'
+import PasswordUpdate from './PasswordUpdate'
 
-    return (
-        <div className="cabinetCont">
-            <p className="title">My info</p>
-            <div className="gridCont">
-                <p className="key">Last name and first name</p> <p className="value">Nail Aghaverdiyev</p>
-                <p className="key">Bonus group </p> <p className="value">Newbie</p>
-                <p className="key">Bonus points</p> <p className="value">You have 0 cows. </p>
-                <p className="key">Bonus Bet</p> <p className="value">one%</p>
-                <p className="key">Sum of orders</p> <p className="value">0 rubles</p>
-                <p className="key">contact number</p> <p className="value">9085748556</p>
-                <p className="key">Contact e-mail</p> <p className="value">aqaverdiyev@gmail.com</p>
-                <p className="key" style={{alignSelf:"start",}}>Profile picture </p> <div className="valueImg" style={imgHandler}></div>
-                <Button1 value="edit" color="#285999"/>
-            </div>
-        </div>
-    )
-}
 
-function contacts() {
-    return (
-        <div className="cabinetCont contactCont">
-            <p className="title">Contact</p>
-            <div className="gridCont">
-                <p className="name key">* Name and Surname</p> <input placeholder="Name and Surname" className="value"   type="text" name="" id=""/>
-                <p className="email key ">* Email</p> <input placeholder="Email" className="value"  type="email" name="" id=""/>
-                <p className="phone key">* Phone</p> <input placeholder="Telephone" className="value"  type="tel" name="" id=""/>
-                <p className="date key">* Birthday</p> <input value="1980-08-26"  className="value"  type="date" name="" id=""/>
-            </div>
-            <Button1 value="save" color="#285999"/>
 
-        </div>
-    )
-}
-function password(){return (
-<div className="cabinetCont contactCont">
-    <p className="title">Password</p>
-    <div className="gridCont">
-        <p className="name key">* Old Password</p> <input placeholder="Old Password" className="value"   type="text" name="" id=""/>
-        <p className="email key ">* New Password</p> <input placeholder="New Password"  className="value"  type="email" name="" id=""/>
-    </div>
-    <Button1 value="save" color="#285999"/>
-</div>
-) }
-function address(){return (
+function address(props){return (
     <div className="cabinetCont address">
         <p className="title">My Addresses</p>
         <p className="myAdress">The list of addresses in your account is empty.</p>
         <Link to="/memberarea/address/add"><Button1 value="New Address" color="#285999"/></Link>
     </div>
 ) }
-function addAddress(){return (
+function addAddress(props){return (
     <div className="cabinetCont addAddress">
         <p className="title">My Addresses</p>
         <form action="" className="form">
@@ -138,7 +92,7 @@ function addAddress(){return (
         </form>
     </div>
 ) }
-function bookmarks(){return (
+function bookmarks(props){return (
     <div className="cabinetCont bookmarks ">
         <p className="title">Featured Products</p>
         <p className="selection"><button className="button"><HelpOutlineIcon/> Assortment for: <p>all dates <ArrowRightIcon/></p> </button></p>
@@ -151,7 +105,7 @@ function bookmarks(){return (
         </div>
     </div>
 ) }
-function orders(){return (
+function orders(props){return (
     <div className="cabinetCont orders bookmarks ">
         <p className="title">Order history</p>
         <div className="gridCont1">
@@ -163,7 +117,7 @@ function orders(){return (
         </div>
     </div>
 ) }
-function reminders(){return (
+function reminders(props){return (
     <div className="cabinetCont orders bookmarks reminders">
         <p className="title">My notifications</p>
         <p className="subTitle">Add an alert by e-mail or SMS, and we will remind you to place an order.</p>
@@ -172,7 +126,7 @@ function reminders(){return (
         </div>
     </div>
 ) }
-function bonuses(){return (
+function bonuses(props){return (
     <div className="cabinetCont address deposites bonuses">
         <p className="title">Bonuses</p>
         <p className="myAdress ">Your Current Bonuse is <span className="money"> 10$ </span></p>
@@ -185,7 +139,7 @@ function bonuses(){return (
         </table>
     </div>
 ) }
-function deposites(){return (
+function deposites(props){return (
     <div className="cabinetCont address deposites">
         <p className="title">Deposites</p>
         <p className="myAdress ">Your Current balance is <span className="money"> 1300$ </span></p>
@@ -199,7 +153,7 @@ function deposites(){return (
     </div>
 ) }
 
-function freeShiping(){return (
+function freeShiping(props){return (
     <div className="reviewCont aboutShipping">
             <p className="title">About Shipping</p>
             <p className="subTitle">We have grouped here all products ordered in the last 30 days for which you have not yet had a review.</p>
@@ -210,7 +164,7 @@ function freeShiping(){return (
     </div>
 ) }
 
-function reviews() {
+function reviews(props) {
     return (
         
         <div className="reviewCont">
@@ -233,7 +187,7 @@ function output(){return (null) }
 
 
 
-function MemberArea() {
+function MemberArea(props) {
 
     const clickHandler = (num) => {
             for (let i = 1; i < 13; i++) {
@@ -241,47 +195,57 @@ function MemberArea() {
             }
             document.getElementById(`btn${num}`).setAttribute('style' , "color:#285999;border-left: 3px solid #285999")
     }
-
+    const url = window.location.href;
+    const lastSegment = url.split("/").pop();
+    const borderHandler = (lastItem) => {
+        document.querySelector(`.btn${lastItem}`).setAttribute('style' , "color:#285999;border-left: 3px solid #285999")
+    }
+    useEffect(() => {
+        borderHandler(lastSegment)
+    }, [])
+    const logOut = () => {
+        localStorage.clear()
+    }
     return (
         <Router>
         <div className="memberAreaCont">
             
             <aside className="aside">
-                <Link to="/memberarea" className="cabinet"><button id="btn1" onClick={() => clickHandler(1)}>                 <AccountCircleIcon/>  Cabinet                </button> </Link>
-                <Link to="/memberarea/contacts" className="contact"> <button id="btn2" onClick={() => clickHandler(2)}>                 <PermContactCalendarIcon/> Contact                  </button></Link>
-                <Link to="/memberarea/password" className="password"><button id="btn3" onClick={() => clickHandler(3)}>                 <LockIcon/> Password              </button></Link>
-                <Link to="/memberarea/address" className="address"> <button id="btn4" onClick={() => clickHandler(4)}>                  <LocationOnIcon/>Address                 </button></Link>
-                <Link to="/memberarea/bookmarks" className="bookmarks"> <button id="btn5" onClick={() => clickHandler(5)}>              <FavoriteIcon/> Bookmarks          </button></Link>
-                <Link to="/memberarea/orders" className="orders">   <button id="btn6" onClick={() => clickHandler(6)}>                  <DescriptionIcon/> Orders                    </button></Link>
-                <Link to="/memberarea/reminders" className="reminders"  ><button id="btn7" onClick={() => clickHandler(7)}>            <NotificationsIcon/> Reminders                             </button></Link>
-                <Link to="/memberarea/bonuses" className="bonuses">     <button id="btn8" onClick={() => clickHandler(8)}>              <MonetizationOnIcon/>  Bonuses                    </button></Link>
-                <Link to="/memberarea/deposite" className="deposites"> <button id="btn9" onClick={() => clickHandler(9)}>               <AccountBalanceWalletIcon/>Deposites                </button></Link>
-                <Link to="/memberarea/free-shipping" className="freeShipping"> <button id="btn10" onClick={() => clickHandler(10)}>       <LocalShippingIcon/> Free shipping                    </button> </Link>
-                <Link to="/memberarea/reviews" className="reviews">       <button id="btn11" onClick={() => clickHandler(11)}>            <ChatBubbleIcon/>  Reviews                    </button> </Link>
-                {<Link to="/memberarea/recommendations" className="recommendatios"> <button id="btn12" onClick={() => clickHandler(12)}>   <ThumbUpAltIcon/> Recommendations                  </button>  </Link>}
+                <Link to="/memberarea" className="cabinet"><button className="btnmemberarea" id="btn1" onClick={() => clickHandler(1)}>                 <AccountCircleIcon/>  Cabinet                </button> </Link>
+                <Link to="/memberarea/contacts" className="contact"> <button className="btncontacts"    id="btn2"  onClick={() => clickHandler(2)}>                 <PermContactCalendarIcon/> Contact                  </button></Link>
+                <Link to="/memberarea/password" className="password"><button className="btnpassword"   id="btn3"  onClick={() => clickHandler(3)}>                 <LockIcon/> Password              </button></Link>
+                <Link to="/memberarea/address" className="address"> <button className="btnaddress"   id="btn4"  onClick={() => clickHandler(4)}>                  <LocationOnIcon/>Address                 </button></Link>
+                <Link to="/memberarea/bookmarks" className="bookmarks"> <button className="btnbookmarks"   id="btn5"  onClick={() => clickHandler(5)}>              <FavoriteIcon/> Bookmarks          </button></Link>
+                <Link to="/memberarea/orders" className="orders">   <button className="btnorders"   id="btn6"  onClick={() => clickHandler(6)}>                  <DescriptionIcon/> Orders                    </button></Link>
+                <Link to="/memberarea/reminders" className="reminders"  ><button className="btnreminders"   id="btn7"  onClick={() => clickHandler(7)}>            <NotificationsIcon/> Reminders                             </button></Link>
+                <Link to="/memberarea/bonuses" className="bonuses">     <button className="btnbonuses"   id="btn8"  onClick={() => clickHandler(8)}>              <MonetizationOnIcon/>  Bonuses                    </button></Link>
+                <Link to="/memberarea/deposite" className="deposites"> <button className="btndeposite"   id="btn9"  onClick={() => clickHandler(9)}>               <AccountBalanceWalletIcon/>Deposites                </button></Link>
+                <Link to="/memberarea/free-shipping" className="freeShipping"> <button className="btnfree-shipping"   id="btn10"  onClick={() => clickHandler(10)}>       <LocalShippingIcon/> Free shipping                    </button> </Link>
+                <Link to="/memberarea/reviews" className="reviews">       <button id="btnreviews"   id="btn11"  onClick={() => clickHandler(11)}>            <ChatBubbleIcon/>  Reviews                    </button> </Link>
+                {<Link to="/memberarea/recommendations" className="recommendatios"> <button className="btnrecommendations"   id="btn12"  onClick={() => clickHandler(12)}>   <ThumbUpAltIcon/> Recommendations                  </button>  </Link>}
                 <hr/>
-                <a href="/" >       <button>            <ExitToAppIcon/> Log out                   </button></a>
+                <a href="/" >       <button onClick={logOut}>            <ExitToAppIcon/> Log out                   </button></a>
             </aside>
             
             <main className="main">
-            <Switch>
-                <Route path="/memberarea/contacts">{contacts}</Route>
-                <Route path="/memberarea/password">{password}</Route>
-                <Route path="/memberarea/address/add">{addAddress}</Route>
-                <Route path="/memberarea/address">{address}</Route>
-                <Route path="/memberarea/bookmarks">{bookmarks}</Route>
-                <Route path="/memberarea/orders">{orders}</Route>
-                <Route path="/memberarea/reminders">{reminders}</Route>
-                <Route path="/memberarea/bonuses">{bonuses}</Route>
-                <Route path="/memberarea/deposite">{deposites}</Route>
-                <Route path="/memberarea/free-shipping">{freeShiping}</Route>
-                <Route path="/memberarea/reviews">{reviews}</Route>
-                <Route path="/memberarea/recommendations">{recommendations}</Route>
-                <Route path="/memberarea/output">{output}</Route>
-                <Route path="/memberarea">{cabinet}</Route>
-            </Switch>
+                <Switch>
+                    <Route path="/memberarea/contacts"><Contacts/></Route>
+                    <Route path="/memberarea/password"><PasswordUpdate/></Route>
+                    <Route path="/memberarea/address/add">{addAddress}</Route>
+                    <Route path="/memberarea/address">{address}</Route>
+                    <Route path="/memberarea/bookmarks">{bookmarks}</Route>
+                    <Route path="/memberarea/orders">{orders}</Route>
+                    <Route path="/memberarea/reminders">{reminders}</Route>
+                    <Route path="/memberarea/bonuses">{bonuses}</Route>
+                    <Route path="/memberarea/deposite">{deposites}</Route>
+                    <Route path="/memberarea/free-shipping">{freeShiping}</Route>
+                    <Route path="/memberarea/reviews">{reviews}</Route>
+                    <Route path="/memberarea/recommendations">{recommendations}</Route>
+                    <Route path="/memberarea/output">{output}</Route>
+                    <Route path="/memberarea"><Cabinet/></Route>
+                </Switch>
             </main>
-            </div>
+        </div>
         </Router>
     )
 }
