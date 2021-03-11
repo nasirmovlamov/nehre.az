@@ -42,7 +42,6 @@ function AnswersCard(props) {
             <button className="answersCardOutsideBtn" onClick={() => handleOpenAnswer()}>
                 <div  className="answersCardInside">
                     <img src={question} alt="" width="36" height="auto"/>
-
                     <p>{props.question} ?</p>
                 </div>
             </button>
@@ -52,7 +51,7 @@ function AnswersCard(props) {
                     onClose={() => handleCloseAnswer()}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description">
-                    {<AnswersToQuestionsModal  handleClose={() => handleCloseAnswer()}/>}
+                    {<AnswersToQuestionsModal question={props.question} answer={props.answer}  handleClose={() => handleCloseAnswer()}/>}
             </Modal>
         </div>
     )

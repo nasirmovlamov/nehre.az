@@ -8,6 +8,21 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
+    .goToPayment
+    {
+        border: none;
+        width: 200px;
+        height: 40px;
+        border-radius: 25px;
+        background-color: #085096;
+        color: white;
+        font-size: 18px;
+        align-self: center;
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     .removeModalBtn 
     {
         float: right;
@@ -81,7 +96,6 @@
     .moreAbout 
     {
         align-self:flex-end;
-        margin-top: 50px;
         width: 200px;
 
     }

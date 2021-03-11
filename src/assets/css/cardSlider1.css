@@ -5,6 +5,20 @@
   transition: 1s box-shadow;
   background-image: url("../images/DefaultCardSlider1.jpeg");
   background-size: cover;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardSlider1 .cardSlider2 {
+  background-color: rgba(0, 0, 0, 0.45);
+  width: 560px;
+  height: 344px;
+  border-radius: 20px;
+  transition: 1s box-shadow;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  filter: brightness(1);
 }
 
 .cardSlider1:hover {
@@ -30,8 +44,16 @@
 .cardSlider1 .textCont .title {
   font-size: 27px;
   height: 30px;
+  color: white;
 }
 
 .cardSlider1 .textCont .desc {
   font-size: 15px;
+  color: white;
+}
+
+.cardSlider1 .moreAbout {
+  margin-right: 25px;
+  margin-bottom: 25px;
+  align-self: flex-end;
 }

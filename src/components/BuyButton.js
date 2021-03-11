@@ -9,33 +9,31 @@ function BuyButton(props) {
     const [UserData, setUserData] = useState(0)
     useEffect(() => {
         if (UserData?.id === undefined) {
-        setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
+            setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
         }
     })
-    const notify = () => toast.info("Məhsulunuz səbətə əlavə olundu!");
-    const notifyW = () => toast.warn("Məhsulunuz səbətdə mövcuddur!");
-    const orderHandler = () => {
-        if(UserData?.id === undefined) 
-        {
-            props.modalOpener3() 
-        }
-        else
-        {
-            if(props.orders.includes(props.cardId))
-            {
-                localStorage.setItem('items' ,  JSON.stringify(props.orders))
-                notifyW()
+    const orderHandler = (num,price) => {
+        var orders = JSON.parse(localStorage.getItem('orders'))
+        var ordersDetails = JSON.parse(localStorage.getItem('ordersDetails'))
+        var numberOfGoods = ordersDetails.numberOfGoods , cost = ordersDetails.cost , weight = ordersDetails.weight 
+        for (let index = 0; index < orders.length; index++) {
+            if (orders[index].id === num ) {
+                orders[index].count++
+                localStorage.setItem('orders' , JSON.stringify(orders))
+                numberOfGoods += 1
+                weight += orders[index].count
+                ordersDetails = { numberOfGoods:numberOfGoods, cost:parseInt(cost) + parseInt(price), weight:weight}
+                localStorage.setItem('ordersDetails' , JSON.stringify(ordersDetails))
+                return 0 
             }
-            else
-            {
-                props.orders.push(props.cardId)
-                localStorage.setItem('items' ,  JSON.stringify(props.orders))
-                notify()
-            }
-        }
+        }    
+        ordersDetails = { numberOfGoods:numberOfGoods+1, cost:parseInt(cost) + parseInt(price), weight:weight}
+        orders.push({id:num , count:1, cost:cost})
+        localStorage.setItem('orders' , JSON.stringify(orders))
+        localStorage.setItem('ordersDetails' , JSON.stringify(ordersDetails))
     }
     return (
-        <button onClick={() => orderHandler()} className="buyButton">
+        <button onClick={() => orderHandler(props.cardId , props.cardPrice)} className="buyButton">
             <img src={busket} alt="" width="30px" height="auto"/>
         </button>
     )

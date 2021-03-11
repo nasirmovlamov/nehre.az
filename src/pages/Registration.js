@@ -15,10 +15,14 @@ import {
   } from '@material-ui/pickers';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import TextField from '@material-ui/core/TextField';
+import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
+import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
+import DatePicker from '@material-ui/lab/DatePicker';
 toast.configure()
 function Registration(props) {
     // The first commit of Material-UI
-    const notify = () => toast.success("Hesabınız müvəffəqiyyətlə yaradıldı!");
+    const notify = () => toast.info("Hesabınız müvəffəqiyyətlə yaradıldı!");
     const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!");
 
   const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
@@ -33,11 +37,10 @@ function Registration(props) {
     
     const [Error, setError] = useState(false)
     const [profilePhoto, setprofilePhoto] = useState(null)
-        
     const onSubmit =  (values) => {
             axios.post('https://nehra.az/public/api/login', {name: values.name , surname: values.surname, email: values.email ,  phone: values.phone , password: values.password, profilePhoto:profilePhoto, date:selectedDate } , headers)
             .then(res => (res.status === 200 && console.log(res) ,  notify() , props.functionClose()) ) 
-            .catch(err => setError(true) , notifyW())
+            .catch(err => setError(true) )
     }
     
     const initialValues = {
@@ -71,16 +74,16 @@ function Registration(props) {
                     <label  className="key" >Elektron poçt ünvanı</label>                   <Field className="value" name="email" placeholder="nümunə@gmail.com"/>
                     <div className="errors"><ErrorMessage name="email"/></div>
 
-                    <label  className="key" >Şifrə</label>                                  <Field className="value" name="password" placeholder="Parol" type="password"/>
+                    <label  className="key" >Şifrə</label>                                  <Field type="password" className="value" name="password" placeholder="Parol" type="password"/>
                     <div className="errors"><ErrorMessage name="password"/></div>
 
-                    <label  className="key" >Şifrəni Təsdiqlə</label>                        <Field className="value" name="confirmPassword" placeholder="Parolu Təsdiqlə" type="password"/>
+                    <label  className="key" >Şifrəni Təsdiqlə</label>                        <Field type="password" className="value" name="confirmPassword" placeholder="Parolu Təsdiqlə" type="password"/>
                     <div className="errors"><ErrorMessage name="confirmPassword"/></div>
 
                     <label  className="key" >Telefon Nömrəsi</label>                        <Field className="value" name="phone" placeholder="Telefon Nömrəsi"/>
                     <div className="errors"><ErrorMessage name="phone"/></div>
 
-                    <label  className="key" >Doğum Tarixiniz</label>                        <KeyboardDatePicker margin="normal" id="date-picker-dialog"  format="MM/dd/yyyy" value={selectedDate} onChange={handleDateChange} KeyboardButtonProps={{ 'aria-label': 'change date',}} />
+                    <label  className="key" ></label>                                        <LocalizationProvider dateAdapter={AdapterDateFns}> <DatePicker label="Doğum tarixiniz"  value={selectedDate} minDate={'02-01-1920'} maxDate={'02-29-2020'} inputFormat="dd/MM/yyyy" onChange={(newValue) => { setSelectedDate(newValue); }} renderInput={(params) => <TextField {...params} />}/></LocalizationProvider>
 
                     <label  className="key" >Profil Şəkli</label>                           <button className="fileInputButton" type="button"> <p className="pText">Profil rəsmi yükləyin</p> <input className="value"  type="file" name="profilePhoto" /></button>
                     <button className="submitBtn" type="submit">Submit</button>

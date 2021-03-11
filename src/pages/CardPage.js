@@ -11,6 +11,9 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import DeleteIcon from '@material-ui/icons/Delete';
 import _ from 'lodash'
 import CheckoutCard from '../components/CheckoutCard';
+import axios from 'axios';
+import info from "../assets/images/info.svg"
+import InfoIcon from '@material-ui/icons/Info';
 function CardPage(props) {
     const imgHandler = {
         background: `url(${avatar}) no-repeat`,
@@ -34,51 +37,81 @@ function CardPage(props) {
     }
 
     const functionHandler = () => {
+        if(props.UserId)
         props.functionOpenCheckoutPage()
         props.functionClose()
     }
-    const [Items, setItems] = useState(JSON.parse(localStorage.getItem('items')))
-    const deleteCard = (num) => {
-        Items.splice( (Items.indexOf[num]-1)  , 1 ) 
-        localStorage.setItem('items' , JSON.stringify(Items))
-        console.log(Items)       
+    const [Items, setItems] = useState(JSON.parse(localStorage.getItem('orders')))
+
+    const [PaymentPrice, setPaymentPrice] = useState(JSON.parse(localStorage.getItem('ordersDetails'))?.cost)
+    const [AllNumberOfGoods, setAllNumberOfGoods] = useState(JSON.parse(localStorage.getItem('ordersDetails'))?.numberOfGoods)
+    const [MinOrder, setMinOrder] = useState()
+    useEffect(() => {
+        axios.get('https://nehra.az/public/api/settings/')
+             .then(res => setMinOrder(res.data.min_order_amount))
+             .then(err => console.log(err))
+    }, [])
+    const clearBucket = () => {
+        localStorage.removeItem('orders')
+        localStorage.removeItem('ordersDetails')
+        setItems([])
+        setPaymentPrice(0)
+        setAllNumberOfGoods(0)
     }
-    const [PaymentPrice, setPaymentPrice] = useState(0)
-    const [AllNumberOfGoods, setAllNumberOfGoods] = useState(0)
-    
+    const [check, setcheck] = useState(false)
+    const deleteCard = (num , price) => {
+        var orders = JSON.parse(localStorage.getItem('orders'))
+        for (let index = 0; index < orders.length; index++) {
+            if (orders[index].id === num ) {
+                orders.splice(index , 1)
+                console.log(orders)
+                localStorage.setItem('orders' , JSON.stringify(orders))
+                console.log(JSON.parse(localStorage.getItem('orders')))
+                check = true
+                return 0 
+            }
+        }
+    }
+    useEffect(() => {
+        if(check)
+        {
+            setItems(JSON.parse(localStorage.getItem('orders')))
+        }
+    })
     return (
         <div className="cardCont">
             
             <main className="mainSide">
                 <p className="title">
-                    Basket
+                    <p className="basketTitle">Basket {PaymentPrice < MinOrder   ?  <div className="minOrder"> <InfoIcon/> Minimum sifariş qiyməti {MinOrder} ₼</div> : " " }</p>
+
                     <hr/>
                 </p>
                 <div className="gridCont1">
                     <div className="gridCont">
-                        {Items?.map(element => <CheckoutCard setAllNumberOfGoods={setAllNumberOfGoods} AllNumberOfGoods={AllNumberOfGoods} PaymentPrice={PaymentPrice} setPaymentPrice={setPaymentPrice} deleteCard={deleteCard} id={element}/>)}
+                        {Items?.map(element => <CheckoutCard deleteCard={deleteCard} setAllNumberOfGoods={setAllNumberOfGoods} AllNumberOfGoods={AllNumberOfGoods} PaymentPrice={PaymentPrice} setPaymentPrice={setPaymentPrice}  id={element.id} count={element.count}/>)}
                     </div>
                 </div>
-
-
             </main>
             
-            
-            
             <aside className="aside">
-                <div className="topPart">
-                    <p className="text1"><img width="12px" src={clock} alt=""/>  Delivery soon </p>
-                    <p className="text">30 yanvar <div className="date">BC</div></p>
-                </div>
-                
-                <div className="downPart">
-                    <div className="goods"><p className="key">Number of Goods</p> <p className="value ">{AllNumberOfGoods}</p> </div> 
-                    <div className="weight"><p className="key">Parcel  Goods</p> <p className="value value1" >28</p> </div> 
-                    <div className="cost"><p className="key">Product cost</p> <p className="value value2">{PaymentPrice} </p> </div> 
-                    <Button1 value="Checkout" color="#085096" function={functionHandler} />
-                    <p className="cashback">There will be 10$ cashback</p>
-                </div>
+                <div className="mainPart">
+                    <div className="topPart">
+                        <div className="buttonCont"><button onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
+                        <p className="text1"><img width="12px" src={clock} alt=""/>  Delivery soon </p>
+                        <p className="text">30 yanvar <div className="date">BC</div></p>
+                    </div>
+                    
+                    <div className="downPart">
 
+                        <div className="goods"><p className="key">Number of Goods</p> <p className="value ">{AllNumberOfGoods}</p> </div> 
+                        <div className="cost"><p className="key">Product cost</p> <p className="value value2">{PaymentPrice} AZN </p> </div> 
+                        <Button1 disabled={PaymentPrice < MinOrder ? true : false} value="Checkout" color="#085096" function={functionHandler} /> 
+                        <p className="cashback">There will be 10$ cashback</p>
+                    </div>
+                </div>
+                    <button   className="clearBucket" onClick={clearBucket}><DeleteIcon/> Səbəti təmizlə</button>
+                
             </aside>
         </div>
     )

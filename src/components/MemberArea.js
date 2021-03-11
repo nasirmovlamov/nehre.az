@@ -192,6 +192,11 @@ function MemberArea(props) {
     const clickHandler = (num) => {
             for (let i = 1; i < 13; i++) {
                 document.getElementById(`btn${i}`).setAttribute('style' , "color: #7d7068;border-left: 3px solid transparent;")
+                document?.getElementById('main')?.setAttribute("style" , "box-shadow: 3px 1px 40px  rgba(0,0,0,0.2);")
+
+            }
+            if (num === 6 || num === 5) {
+                document?.getElementById('main')?.setAttribute("style" , "box-shadow: none;")
             }
             document.getElementById(`btn${num}`).setAttribute('style' , "color:#285999;border-left: 3px solid #285999")
     }
@@ -199,6 +204,10 @@ function MemberArea(props) {
     const lastSegment = url.split("/").pop();
     const borderHandler = (lastItem) => {
         document.querySelector(`.btn${lastItem}`).setAttribute('style' , "color:#285999;border-left: 3px solid #285999")
+        if(window.location.href === "http://localhost:3000/memberarea/bookmarks")
+        {
+                document.getElementById('main')?.setAttribute("style" , "box-shadow:none;")
+        }
     }
     useEffect(() => {
         borderHandler(lastSegment)
@@ -206,6 +215,8 @@ function MemberArea(props) {
     const logOut = () => {
         localStorage.clear()
     }
+    
+    
     return (
         <Router>
         <div className="memberAreaCont">
@@ -227,7 +238,7 @@ function MemberArea(props) {
                 <a href="/" >       <button onClick={logOut}>            <ExitToAppIcon/> Log out                   </button></a>
             </aside>
             
-            <main className="main">
+            <main className="main" id="main">
                 <Switch>
                     <Route path="/memberarea/contacts"><Contacts/></Route>
                     <Route path="/memberarea/password"><PasswordUpdate/></Route>

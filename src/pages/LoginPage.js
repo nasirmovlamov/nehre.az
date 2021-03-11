@@ -9,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 toast.configure()
 function LoginPage(props) {
-    const notify = () => toast.success("Hesabınıza daxil oldunuz!");
+    const notify = () => toast.info("Hesabınıza daxil oldunuz!");
     const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!");
     const clickHandler = () => {
         props.functionClose()
@@ -25,7 +25,7 @@ function LoginPage(props) {
     const onSubmit =  (values) => {
         axios.post('https://nehra.az/public/api/check', { email: values.email ,  password: values.password }  , headers )
          .then(res => (res.status === 200 && console.log(res)  , localStorage.setItem("LoginUserData" , JSON.stringify(res.data.user)) , props.functionClose() , notify() )) 
-         .catch(err => setError(true) , notifyW())
+         .catch(err => setError(true))
     }
 
     const initialValues = {
@@ -44,7 +44,7 @@ function LoginPage(props) {
                 <p className="title">Giriş</p>
                 <Field className="inputLogin" name="email" placeholder="Email ünvanınız"/>
                 <div className="errors"><ErrorMessage name="email"/></div>
-                <Field className="inputLogin" name="password" placeholder="Parolunuz"/>
+                <Field type="password" className="inputLogin" name="password" placeholder="Parolunuz"/>
                 <div className="errors"><ErrorMessage name="password"/></div>
                 <Button1 value="Daxil olun" type="submit"/>
                 { Error && <p className="errors">Daxil etdiyiniz məlumatlar yanlışdır </p>}

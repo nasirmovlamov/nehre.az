@@ -14,6 +14,9 @@
   width: 291px;
   background-color: white;
   border-left: 1px solid lightgray;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
 }
 
 .cardCont aside .topPart {
@@ -26,6 +29,38 @@
   flex-direction: column;
   padding-top: 15px;
   padding-bottom: 15px;
+}
+
+.cardCont aside .topPart .buttonCont {
+  width: 30px;
+  height: 30px;
+  align-self: flex-end;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: -20px;
+  margin-right: 5px;
+}
+
+.cardCont aside .topPart .removeModalBtn {
+  float: right;
+  border: none;
+  font-size: 45px;
+  color: rgba(0, 0, 0, 0.5);
+  transition: 0.2s color;
+  background-color: transparent;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  margin: 0px;
+  align-self: flex-end;
+}
+
+.cardCont aside .topPart .removeModalBtn:hover {
+  color: rgba(0, 0, 0, 0.8);
+  transition: 0.2s color;
 }
 
 .cardCont aside .topPart p {
@@ -115,6 +150,20 @@
   color: gray;
 }
 
+.cardCont aside .clearBucket {
+  display: flex;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  align-items: center;
+  margin-bottom: 20px;
+  color: gray;
+}
+
+.cardCont aside .clearBucket:hover svg {
+  color: black;
+}
+
 .cardCont .mainSide {
   padding: 20px;
   padding-top: 5px;
@@ -122,6 +171,32 @@
   width: 800px;
   padding-right: 0px;
   /* width */
+}
+
+.cardCont .mainSide .basketTitle {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardCont .mainSide .basketTitle .minOrder {
+  margin-right: 50px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: white;
+  padding: 9px 10px 9px 10px;
+  border-radius: 5px;
+  background-color: #5b9fe4;
+  min-width: 150px;
+  display: flex;
+  align-items: center;
+  column-gap: 7px;
+}
+
+.cardCont .mainSide .basketTitle .minOrder .info {
+  width: 22px;
+  height: auto;
 }
 
 .cardCont .mainSide .title {
@@ -179,6 +254,7 @@
   justify-content: space-between;
   margin-left: -60px;
   height: 94px;
+  width: 250px;
 }
 
 .cardCont .mainSide .item .aboutItem .title {

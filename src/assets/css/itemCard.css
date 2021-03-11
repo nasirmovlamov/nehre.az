@@ -149,6 +149,7 @@
 .itemCard .subTitleItem {
   margin-left: 10px;
   font-size: 12px;
+  min-height: 16px;
 }
 
 .itemCard .textCont {

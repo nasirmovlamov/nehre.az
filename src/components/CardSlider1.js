@@ -9,10 +9,12 @@ function CardSlider1(props) {
     }
     return (
         <div className="cardSlider1" style={imgHandler}>
-            <div className="textCont">
-                <h4 className="title">{props.name}</h4>
-                <p className="desc">{props.desc}</p>
-                <Button1 value="Ətraflı" />
+            <div className="cardSlider2" >
+                <div className="textCont">
+                    <h4 className="title">{props.name}</h4>
+                    <p className="desc">{props.desc}</p>
+                </div>
+                    <Button1 value="Ətraflı" />
             </div>
         </div>
     )

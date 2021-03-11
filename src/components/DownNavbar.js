@@ -5,7 +5,7 @@ import meatImg from "../assets/images/meat.png"
 import fruitsImg from "../assets/images/fruits.png"
 import breadImg from "../assets/images/bread.png"
 import conservImg from "../assets/images/conserv.png"
-import fishImg from "../assets/images/fish.png"
+import fishImg from "../assets/images/seafood.png"
 import freezedImg from "../assets/images/freezed.png"
 import nonfoodImg from "../assets/images/nonFood.png"
 import {
@@ -26,7 +26,7 @@ function DownNavbar() {
                 <Link to ="/meat"><button  id="btnNav2" onClick={() => clickHandler(2)} className="buttonNav" > <div id="downNavImgCont" className="imgCont"> <img id="downNavImg" src={meatImg} alt="" width="70px" height="auto"/></div> <span> Ət və quş əti</span></button></Link>
                 <Link to ="/fruits"><button  id="btnNav3" onClick={() => clickHandler(3)} className="buttonNav" > <div id="downNavImgCont" className="imgCont"> <img id="downNavImg" src={fruitsImg} alt="" width="70px" height="auto"/></div> <span> Meyvə və tərəvəz</span></button></Link>
                 <Link to ="/bread"><button  id="btnNav4" onClick={() => clickHandler(4)} className="buttonNav" > <div id="downNavImgCont" className="imgCont"> <img id="downNavImg" src={breadImg} alt="" width="70px" height="auto"/></div>  <span>Kulinariya və çörək</span> </button></Link>
-                <Link to ="/fish"><button  id="btnNav5" onClick={() => clickHandler(5)} className="buttonNav" > <div id="downNavImgCont" className="imgCont"> <img id="downNavImg" src={fishImg} alt="" width="70px" height="auto"/></div>  <span>Balıq</span></button></Link>
+                <Link to ="/fish"><button  id="btnNav5" onClick={() => clickHandler(5)} className="buttonNav" > <div id="downNavImgCont" className="imgCont"> <img id="downNavImg" src={fishImg} alt="" width="70px" height="auto"/></div>  <span>Dəniz məhsulları</span></button></Link>
                 <Link to ="/freezed"><button  id="btnNav6" onClick={() => clickHandler(6)} className="buttonNav" > <div id="downNavImgCont" className="imgCont"> <img id="downNavImg" src={freezedImg} alt="" width="70" height="auto"/></div>  <span>Dondurulmuş</span></button></Link>
                 <Link to ="/non-food"><button  id="btnNav7" onClick={() => clickHandler(7)} className="buttonNav" > <div id="downNavImgCont" className="imgCont"> <img id="downNavImg" src={nonfoodImg} alt="" width="70" height="auto"/></div>  <span>Qeyri-qida</span></button></Link>
             </nav>

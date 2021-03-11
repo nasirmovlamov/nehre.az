@@ -7,8 +7,8 @@ function AnswersToQuestionsModal(props) {
     return (
         <div className="AnswerToQuestionModalPage">
             <button type="button" onClick={() => clickHandler()} className="removeModalBtn">×</button>
-            <div className="questionPart">Is there a return procedure for defective goods?</div>
-            <div className="answerPart">Is there a return procedure for defective goods?</div>
+            <div className="questionPart">{props.question} ?</div>
+            <div className="answerPart">{props.answer}</div>
         </div>
     )
 }

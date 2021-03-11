@@ -91,9 +91,9 @@ function ItemCard(props) {
     };
 
     const handler = () => {
-    if(checker)
-    {}
-    handleOpen()
+        if(checker)
+        {}
+        handleOpen()
     }
       
     return (
@@ -137,7 +137,7 @@ function ItemCard(props) {
                     <p className="priceAndWeightItem"><span className="element1" style={colorChang}>{discountHandler(props.discount)} AZN</span> / <span className="element2">{props.weight}</span> </p>
                     <StarSystem numberStar={props.star}/>
                 </div>   
-                <BuyButton  orders={props.orders} modalOpener3={props.modalOpener3} cardId={props.cardId}/>
+                <BuyButton  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>
             </div>
 
             <div className="modalCont">
@@ -150,6 +150,7 @@ function ItemCard(props) {
                     {<ProductModal functionClose={() => handleClose()} title={props.title} desc={props.desc} price={props.price} weight={props.weight} numberStar="3.5"/>}
                 </Modal>
             </div>
+
         </div>
     )
 }

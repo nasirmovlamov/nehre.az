@@ -7,6 +7,7 @@
     background-color: white;
     display: flex;
     justify-content: space-between;
+
     aside 
     {
         border-radius:0px 10px 10px 0px;
@@ -14,6 +15,9 @@
         width: 291px;
         background-color: white;
         border-left: 1px solid lightgray;
+        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
         .topPart
         {
             display: flex;
@@ -25,7 +29,38 @@
             flex-direction: column;
             padding-top: 15px;
             padding-bottom: 15px;
-
+            .buttonCont
+            {
+                width: 30px;
+                height: 30px;
+                align-self: flex-end;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: -20px;
+                margin-right: 5px;
+            }
+            .removeModalBtn 
+            {
+                float: right;
+                border: none;
+                font-size: 45px;
+                color: rgba(0,0,0,0.5);
+                transition: 0.2s color;
+                background-color: transparent;
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0px;
+                margin: 0px;
+                align-self: flex-end;
+                &:hover 
+                {
+                    color:  rgba(0,0,0,0.8);
+                    transition: 0.2s color;
+                }
+            }
             p 
             {
                 margin: 0px;
@@ -115,6 +150,23 @@
                 color: gray;
             }
         }
+        .clearBucket
+        {
+            display: flex;
+            justify-content: center;
+            border: none;
+            background-color: transparent;
+            align-items: center;
+            margin-bottom: 20px;
+            color: gray;
+            &:hover 
+            {
+                svg 
+                {
+                    color: black;
+                }
+            }
+        }
     }/////////////////Aside 
 
 
@@ -125,6 +177,32 @@
         padding-bottom: 0px;
         width: 800px;
         padding-right: 0px;
+        .basketTitle
+        {
+            display: flex;
+            justify-content: space-between;
+            .minOrder
+            {
+                margin-right: 50px;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                color: white;
+                padding: 9px 10px 9px 10px;
+                border-radius: 5px;
+                background-color: #5b9fe4;
+                min-width: 150px;
+                display: flex;
+                align-items: center;
+                column-gap: 7px;
+                .info
+                {
+                    width: 22px;
+                    height: auto;
+                }
+            }
+        }
         .title
         {
             font-size: 21px;
@@ -190,6 +268,7 @@
                 justify-content: space-between;
                 margin-left: -60px;
                 height: 94px;
+                width: 250px;
                 .title
                 {
                     font-size: 16px;

@@ -14,6 +14,28 @@
           flex-direction: column;
 }
 
+.checkoutPage .goToPayment {
+  border: none;
+  width: 200px;
+  height: 40px;
+  border-radius: 25px;
+  background-color: #085096;
+  color: white;
+  font-size: 18px;
+  -ms-flex-item-align: center;
+      align-self: center;
+  margin-top: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .checkoutPage .removeModalBtn {
   float: right;
   border: none;
@@ -113,7 +135,6 @@
 .checkoutPage .moreAbout {
   -ms-flex-item-align: end;
       align-self: flex-end;
-  margin-top: 50px;
   width: 200px;
 }
 /*# sourceMappingURL=checkoutPage.css.map */

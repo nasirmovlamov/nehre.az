@@ -4,7 +4,6 @@ import {Link} from "react-router-dom"
 function Navbar() {
     return (
         <nav className="navbar">
-                <a href="/">Əsas Səhifə </a>
                 <Link to="/promotions">Endirimlər</Link>
                 <Link to="/suppliers">Tədarükçülər</Link>
                 <a href="#">Haqqımızda</a>

@@ -1,34 +1,20 @@
 .memberAreaCont {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-column-gap: 10px;
-          column-gap: 10px;
+  column-gap: 10px;
   width: 1180px;
   margin-top: 25px;
-  -webkit-column-gap: 40px;
-          column-gap: 40px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  column-gap: 40px;
+  justify-content: center;
 }
 
 .memberAreaCont aside {
   width: 270px;
   background-color: #ffffff;
-  -webkit-box-shadow: 3px 1px 40px rgba(0, 0, 0, 0.2);
-          box-shadow: 3px 1px 40px rgba(0, 0, 0, 0.2);
-  display: -webkit-box;
-  display: -ms-flexbox;
+  box-shadow: 3px 1px 40px rgba(0, 0, 0, 0.2);
   display: flex;
   border-radius: 5px;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
   padding-top: 10px;
   padding-bottom: 10px;
   height: 500px;
@@ -46,15 +32,9 @@
 }
 
 .memberAreaCont aside a {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: start;
+  align-items: center;
   color: #7d7068;
   font-size: 16px;
   font-family: "DaxlineR";
@@ -64,14 +44,9 @@
   width: 100%;
   height: 100%;
   border: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-column-gap: 10px;
-          column-gap: 10px;
+  align-items: center;
+  column-gap: 10px;
   margin: 0px;
   padding: 0px;
   color: #7d7068;
@@ -91,8 +66,7 @@
   padding: 35px;
   width: 780px;
   background-color: #ffffff;
-  -webkit-box-shadow: 3px 1px 40px rgba(0, 0, 0, 0.2);
-          box-shadow: 3px 1px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 1px 40px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   min-height: 350px;
 }
@@ -100,8 +74,7 @@
 .memberAreaCont main .review {
   margin-top: 30px;
   text-align: start;
-  -webkit-box-shadow: 3px 3px 30px rgba(0, 0, 0, 0.3);
-          box-shadow: 3px 3px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 3px 30px rgba(0, 0, 0, 0.3);
 }
 
 .memberAreaCont main .title {
@@ -113,7 +86,7 @@
   margin-top: 10px;
 }
 
-.memberAreaCont main .contactCont .gridCont input {
+.memberAreaCont main .contactCont .gridCont .value {
   padding: 5px;
   background-color: #ffff;
   width: 546px !important;
@@ -125,29 +98,16 @@
   font-size: 13px !important;
 }
 
-.memberAreaCont main .contactCont .gridCont input:focus {
+.memberAreaCont main .contactCont .gridCont .value:focus {
   outline: none;
 }
 
-.memberAreaCont main .contactCont .gridCont input::-webkit-input-placeholder {
+.memberAreaCont main .contactCont .gridCont .value::placeholder {
   font-weight: 100;
 }
 
-.memberAreaCont main .contactCont .gridCont input:-ms-input-placeholder {
-  font-weight: 100;
-}
-
-.memberAreaCont main .contactCont .gridCont input::-ms-input-placeholder {
-  font-weight: 100;
-}
-
-.memberAreaCont main .contactCont .gridCont input::placeholder {
-  font-weight: 100;
-}
-
-.memberAreaCont main .contactCont button {
-  -ms-flex-item-align: end;
-      align-self: flex-end;
+.memberAreaCont main .contactCont .moreAbout {
+  align-self: flex-end;
   height: 35px;
   width: 100px;
   margin-top: 20px;
@@ -163,8 +123,7 @@
 
 .memberAreaCont main .address a {
   width: 150px;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
+  align-self: flex-end;
 }
 
 .memberAreaCont main .address button {
@@ -174,39 +133,28 @@
 }
 
 .memberAreaCont main .bookmarks .selection {
-  -ms-flex-item-align: start;
-      align-self: flex-start;
+  align-self: flex-start;
 }
 
 .memberAreaCont main .bookmarks .selection .button {
   margin-top: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   border-radius: 20px;
   padding: 10px;
   border: none;
-  -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-          box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
   background-color: #fff;
   font-size: 15px;
-  -webkit-column-gap: 15px;
-          column-gap: 15px;
+  column-gap: 15px;
   width: 260px;
   height: 40px;
 }
 
 .memberAreaCont main .bookmarks .selection .button p {
   margin: 0px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
 
 .memberAreaCont main .title {
@@ -217,13 +165,8 @@
 }
 
 .memberAreaCont main .cabinetCont {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
 
 .memberAreaCont main .cabinetCont p {
@@ -231,15 +174,11 @@
 }
 
 .memberAreaCont main .cabinetCont .gridCont {
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (1fr)[2];
-      grid-template-columns: repeat(2, 1fr);
-  -webkit-column-gap: 15px;
-          column-gap: 15px;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 15px;
   row-gap: 25px;
-  -ms-flex-line-pack: center;
-      align-content: center;
+  align-content: center;
   margin-top: 25px;
 }
 
@@ -264,19 +203,13 @@
 }
 
 .memberAreaCont main .cabinetCont .gridCont p {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
 
 .memberAreaCont main .cabinetCont .gridCont p:nth-child(odd) {
   text-align: end;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .memberAreaCont main .cabinetCont .gridCont p:nth-child(even) {
@@ -284,26 +217,19 @@
 }
 
 .memberAreaCont main .cabinetCont .gridCont button {
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-  -ms-grid-column-align: start;
-      justify-self: start;
-  -ms-grid-column: 2;
+  align-self: center;
+  justify-self: start;
   grid-column: 2;
 }
 
 .memberAreaCont main .bookmarks .gridCont1 {
   margin-top: 20px;
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (1fr)[3];
-      grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .memberAreaCont main .bookmarks .gridCont1 .itemCard {
-  -webkit-transform: scale(0.9);
-          transform: scale(0.9);
+  transform: scale(0.9);
   margin-left: -5px;
 }
 
@@ -331,23 +257,15 @@
 
 .memberAreaCont main .reminders .gridCont1 {
   margin-top: 10px;
-  -ms-grid-columns: (1fr)[1];
-      grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   color: #ff7a2c;
   font-weight: 500;
 }
 
 .memberAreaCont main .addAddress {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  align-items: center;
+  flex-direction: column;
 }
 
 .memberAreaCont main .addAddress form {
@@ -355,22 +273,14 @@
 }
 
 .memberAreaCont main .addAddress .flexContAddress, .memberAreaCont main .addAddress .flexContAddress2, .memberAreaCont main .addAddress .flexContAddress3 {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   margin-top: 20px;
 }
 
 .memberAreaCont main .addAddress .flexContAddress .againDiv, .memberAreaCont main .addAddress .flexContAddress2 .againDiv, .memberAreaCont main .addAddress .flexContAddress3 .againDiv {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
 
 .memberAreaCont main .addAddress .flexContAddress .label, .memberAreaCont main .addAddress .flexContAddress2 .label, .memberAreaCont main .addAddress .flexContAddress3 .label {
@@ -396,14 +306,12 @@
 }
 
 .memberAreaCont main .addAddress .flexContAddress {
-  -webkit-column-gap: 40px;
-          column-gap: 40px;
+  column-gap: 40px;
   margin-top: 0px;
 }
 
 .memberAreaCont main .addAddress .flexContAddress2 {
-  -webkit-column-gap: 53px !important;
-          column-gap: 53px !important;
+  column-gap: 53px !important;
 }
 
 .memberAreaCont main .addAddress .flexContAddress2 input {
@@ -415,12 +323,8 @@
 }
 
 .memberAreaCont main .addAddress .buttonCont {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
   width: 800px;
   margin-top: 20px;
 }
@@ -429,15 +333,9 @@
   width: 90px;
   height: 40px;
   color: white;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   background-color: gray;
   border-radius: 20px;
 }
@@ -448,13 +346,8 @@
 }
 
 .memberAreaCont main .aboutShipping .aboutShippingText {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   text-align: start;
   font-size: 18px;
   font-weight: 500;
@@ -485,4 +378,3 @@
   font-weight: 400;
   font-family: "Arial";
 }
-/*# sourceMappingURL=memberArea.css.map */

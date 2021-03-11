@@ -4,8 +4,22 @@
     height: 344px;
     border-radius: 20px;
     transition: 1s box-shadow;
-    background-image: url('../images/DefaultCardSlider1.jpeg') ;
+    background-image: url('../images/DefaultCardSlider1.jpeg');
     background-size: cover;
+    display: flex;
+    flex-direction: column;
+    .cardSlider2
+    {
+        background-color: rgba(0,0,0,0.45);
+        width: 560px;
+        height: 344px;
+        border-radius: 20px;
+        transition: 1s box-shadow;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        filter: brightness(1);
+    }
     &:hover 
     {
         box-shadow: 1px 1px 10px 10px rgba(0,0,0,0.2);
@@ -20,6 +34,7 @@
         grid-template-rows: 40px 100px 40px;
         margin-top: 20px;
         width: 280px;
+
         h4, p 
         {
             margin: 0px;
@@ -29,12 +44,21 @@
         {
             font-size: 27px;
             height: 30px;
+            color: white;
         }
         .desc
         {
             font-size: 15px;
+            color: white;
+
         }
         
         
+    }
+    .moreAbout 
+    {
+        margin-right: 25px;
+        margin-bottom: 25px;
+        align-self: flex-end;
     }
 }

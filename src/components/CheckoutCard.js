@@ -13,11 +13,13 @@ import _ from 'lodash'
 import axios from 'axios';
 function CheckoutCard(props) {
     const [Product, setProduct] = useState()
+
     useEffect(() => {
         axios.get(`https://nehra.az/public/api/product/${props.id}`)
         .then(res => setProduct(res.data))
         .catch(err=> console.log(err))
     } , [])
+
     const DarkTT = withStyles((theme) => ({
         arrow: {
             color: theme.palette.common.black,
@@ -32,19 +34,48 @@ function CheckoutCard(props) {
     const colorChang = {
         color: ""
     }
-    var [numberOfElements, setnumberOfElements] = useState(1)
-    const increaseV = () => {
-        setnumberOfElements(numberOfElements+1)
+
+    var [numberOfElements, setnumberOfElements] = useState(props.count)
+    const increaseV = (num , price , weigh) => {
+        var orders = JSON.parse(localStorage.getItem('orders'))
+        var ordersDetails = JSON.parse(localStorage.getItem('ordersDetails'))
+        var numberOfGoods = ordersDetails.numberOfGoods , cost = ordersDetails.cost , weight = ordersDetails.weight 
+        for (let index = 0; index < orders.length; index++) {
+            if (orders[index].id === num ) {
+                orders[index].count++
+                localStorage.setItem('orders' , JSON.stringify(orders))
+                numberOfGoods += 1
+                weight += orders[index].count
+                ordersDetails = { numberOfGoods:numberOfGoods, cost:parseInt(cost) + parseInt(price), weight:weight}
+                localStorage.setItem('ordersDetails' , JSON.stringify(ordersDetails))
+                return 0 
+            }
+        }    
+        ordersDetails = { numberOfGoods:numberOfGoods+1, cost:parseInt(cost) + parseInt(price), weight:weight}
+        orders.push({id:num , count:1, cost:cost})
+        localStorage.setItem('orders' , JSON.stringify(orders))
+        localStorage.setItem('ordersDetails' , JSON.stringify(ordersDetails))   
     }
-    const decreaseV = () => {
-        if(numberOfElements === 1) 
-        {
-            
-        }
-        else 
-        {
-            setnumberOfElements(numberOfElements-1)
-        }
+    
+    const decreaseV = (num , price , weigh) => {
+        var orders = JSON.parse(localStorage.getItem('orders'))
+        var ordersDetails = JSON.parse(localStorage.getItem('ordersDetails'))
+        var numberOfGoods = ordersDetails.numberOfGoods , cost = ordersDetails.cost , weight = ordersDetails.weight 
+        for (let index = 0; index < orders.length; index++) {
+            if (orders[index].id === num ) {
+                orders[index].count--
+                localStorage.setItem('orders' , JSON.stringify(orders))
+                numberOfGoods -= 1
+                weight -= orders[index].count
+                ordersDetails = { numberOfGoods:numberOfGoods, cost:parseInt(cost) + parseInt(price), weight:weight}
+                localStorage.setItem('ordersDetails' , JSON.stringify(ordersDetails))
+                return 0 
+            }
+        }    
+        ordersDetails = { numberOfGoods:numberOfGoods-1, cost:parseInt(cost) - parseInt(price), weight:weight}
+        orders.push({id:num , count:1, cost:cost})
+        localStorage.setItem('orders' , JSON.stringify(orders))
+        localStorage.setItem('ordersDetails' , JSON.stringify(ordersDetails)) 
     }
     const discountHandler = (discount) => {
         if (discount !== 0 && discount !== null) {
@@ -63,10 +94,6 @@ function CheckoutCard(props) {
         backgroundSize: "cover",
     }
     var GeneralPrice = (discountHandler(Product?.discount) * numberOfElements)
-    useEffect(() => {
-        console.log(props.AllNumberOfGoods)
-        props.setAllNumberOfGoods(props.AllNumberOfGoods + numberOfElements)
-    } , [])
     return (
         <>
             <div className="item">
@@ -106,7 +133,7 @@ function CheckoutCard(props) {
 
                             <p className="price"> {GeneralPrice.toFixed(0)} </p>
 
-                            <button onClick={() => props.deleteCard(props.id)} className="delete"><DeleteIcon/></button>
+                            <button onClick={() => props.deleteCard(Product.id , Product.price)} className="delete"><DeleteIcon/></button>
 
                         </div>
                         <hr/>

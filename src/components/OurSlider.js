@@ -9,11 +9,13 @@ function OurSlider(props) {
     var settings = {
         dots: true,
         infinite: false,
-        speed: 500,
+        speed: 1000,
         slidesToShow: props.numOfSld,
         slidesToScroll: 1,
         initialSlide: 0,
-        draggable:false
+        draggable:false,
+        autoplay:true,
+        autoplaySpeed: 7400,
       };
       
     var new1 = [<CardSliderDefault name={"Loading"}   desc={"Loading"} /> , <CardSliderDefault name={"Loading"} i desc={"Loading"} />]
