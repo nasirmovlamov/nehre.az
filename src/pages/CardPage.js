@@ -59,37 +59,38 @@ function CardPage(props) {
         setAllNumberOfGoods(0)
     }
     const [check, setcheck] = useState(false)
+    
     const deleteCard = (num , price) => {
         var orders = JSON.parse(localStorage.getItem('orders'))
+        console.log(num);
+        console.log(orders);
         for (let index = 0; index < orders.length; index++) {
             if (orders[index].id === num ) {
+                console.log(index);
                 orders.splice(index , 1)
-                console.log(orders)
                 localStorage.setItem('orders' , JSON.stringify(orders))
-                console.log(JSON.parse(localStorage.getItem('orders')))
-                check = true
+                setItems([])
+                setItems(JSON.parse(localStorage.getItem('orders')))
                 return 0 
             }
         }
     }
-    useEffect(() => {
-        if(check)
-        {
-            setItems(JSON.parse(localStorage.getItem('orders')))
-        }
-    })
+
+    const itemsArr = []
+    Items?.map(element => itemsArr.push(<CheckoutCard deleteCard={deleteCard} setAllNumberOfGoods={setAllNumberOfGoods} AllNumberOfGoods={AllNumberOfGoods} PaymentPrice={PaymentPrice} setPaymentPrice={setPaymentPrice}  id={element.id} count={element.count}/>))
+    
     return (
         <div className="cardCont">
             
             <main className="mainSide">
                 <p className="title">
                     <p className="basketTitle">Basket {PaymentPrice < MinOrder   ?  <div className="minOrder"> <InfoIcon/> Minimum sifariş qiyməti {MinOrder} ₼</div> : " " }</p>
-
+                        {itemsArr}
                     <hr/>
                 </p>
                 <div className="gridCont1">
                     <div className="gridCont">
-                        {Items?.map(element => <CheckoutCard deleteCard={deleteCard} setAllNumberOfGoods={setAllNumberOfGoods} AllNumberOfGoods={AllNumberOfGoods} PaymentPrice={PaymentPrice} setPaymentPrice={setPaymentPrice}  id={element.id} count={element.count}/>)}
+                        
                     </div>
                 </div>
             </main>

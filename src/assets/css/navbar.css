@@ -16,9 +16,25 @@
 }
 
 .navbar a {
+  width: 100px;
+  border-bottom: 8px solid transparent;
   text-decoration: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: black;
   font-family: serif;
   font-family: "DaxlineR";
+}
+
+.navbar a:hover {
+  border-bottom: 8px solid gray;
+  height: 100%;
 }
 /*# sourceMappingURL=navbar.css.map */

@@ -41,7 +41,7 @@
         {
             display: flex;
             align-items: center;
-            direction: ltr;
+            justify-content: center;
         }
         .searchIcon
         {
@@ -60,6 +60,29 @@
             &:focus 
             {
                 outline: none;
+            }
+        }
+        .phoneCont
+        {
+            align-self: center;
+            display: flex;
+            justify-content: space-between;
+            .phone
+            {
+                direction: ltr;
+                display: flex;
+                align-items: center;
+                align-self: flex-start;
+                margin: 0px;
+                margin-right: 10px;
+                column-gap: 10px;
+                font-size: 17px;
+                color: #285999;
+                width: 140px;
+                a 
+                {
+                    color: gray ;
+                }
             }
         }
         .selection
@@ -317,11 +340,22 @@
                 {
                     background-color: #aebaa3;
                     background-size:cover;
+                    display: flex;
+                    align-items: center;
+                    width: auto;
+                    padding-right: 3px;                    
+                    span 
+                    {
+                        border-radius: 5px;
+                        z-index: 2;
+                        padding: 3px;
+                        font-size: 13px;
+                    }
                     &:hover 
                     {
                         background-color: white;
                         border: 1px solid #aebaa3;
-                        svg 
+                        svg , span
                         {
                             color: #aebaa3;
                         }

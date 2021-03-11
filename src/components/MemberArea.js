@@ -222,17 +222,17 @@ function MemberArea(props) {
         <div className="memberAreaCont">
             
             <aside className="aside">
-                <Link to="/memberarea" className="cabinet"><button className="btnmemberarea" id="btn1" onClick={() => clickHandler(1)}>                 <AccountCircleIcon/>  Cabinet                </button> </Link>
-                <Link to="/memberarea/contacts" className="contact"> <button className="btncontacts"    id="btn2"  onClick={() => clickHandler(2)}>                 <PermContactCalendarIcon/> Contact                  </button></Link>
-                <Link to="/memberarea/password" className="password"><button className="btnpassword"   id="btn3"  onClick={() => clickHandler(3)}>                 <LockIcon/> Password              </button></Link>
-                <Link to="/memberarea/address" className="address"> <button className="btnaddress"   id="btn4"  onClick={() => clickHandler(4)}>                  <LocationOnIcon/>Address                 </button></Link>
-                <Link to="/memberarea/bookmarks" className="bookmarks"> <button className="btnbookmarks"   id="btn5"  onClick={() => clickHandler(5)}>              <FavoriteIcon/> Bookmarks          </button></Link>
-                <Link to="/memberarea/orders" className="orders">   <button className="btnorders"   id="btn6"  onClick={() => clickHandler(6)}>                  <DescriptionIcon/> Orders                    </button></Link>
-                <Link to="/memberarea/reminders" className="reminders"  ><button className="btnreminders"   id="btn7"  onClick={() => clickHandler(7)}>            <NotificationsIcon/> Reminders                             </button></Link>
-                <Link to="/memberarea/bonuses" className="bonuses">     <button className="btnbonuses"   id="btn8"  onClick={() => clickHandler(8)}>              <MonetizationOnIcon/>  Bonuses                    </button></Link>
-                <Link to="/memberarea/deposite" className="deposites"> <button className="btndeposite"   id="btn9"  onClick={() => clickHandler(9)}>               <AccountBalanceWalletIcon/>Deposites                </button></Link>
-                <Link to="/memberarea/free-shipping" className="freeShipping"> <button className="btnfree-shipping"   id="btn10"  onClick={() => clickHandler(10)}>       <LocalShippingIcon/> Free shipping                    </button> </Link>
-                <Link to="/memberarea/reviews" className="reviews">       <button id="btnreviews"   id="btn11"  onClick={() => clickHandler(11)}>            <ChatBubbleIcon/>  Reviews                    </button> </Link>
+                <Link to="/memberarea" className="cabinet"><button className="btnmemberarea" id="btn1" onClick={() => clickHandler(1)}>                 <AccountCircleIcon/>  Şəxsi Kabinet                </button> </Link>
+                <Link to="/memberarea/contacts" className="contact"> <button className="btncontacts"    id="btn2"  onClick={() => clickHandler(2)}>                 <PermContactCalendarIcon/> Əlaqə                  </button></Link>
+                <Link to="/memberarea/password" className="password"><button className="btnpassword"   id="btn3"  onClick={() => clickHandler(3)}>                 <LockIcon/> Şifrə              </button></Link>
+                <Link to="/memberarea/address" className="address"> <button className="btnaddress"   id="btn4"  onClick={() => clickHandler(4)}>                  <LocationOnIcon/>Ünvan                 </button></Link>
+                <Link to="/memberarea/bookmarks" className="bookmarks"> <button className="btnbookmarks"   id="btn5"  onClick={() => clickHandler(5)}>              <FavoriteIcon/> Seçilmişlər          </button></Link>
+                <Link to="/memberarea/orders" className="orders">   <button className="btnorders"   id="btn6"  onClick={() => clickHandler(6)}>                  <DescriptionIcon/> Sifarişlər                    </button></Link>
+                <Link to="/memberarea/reminders" className="reminders"  ><button className="btnreminders"   id="btn7"  onClick={() => clickHandler(7)}>            <NotificationsIcon/> Bildirişlər                             </button></Link>
+                <Link to="/memberarea/bonuses" className="bonuses">     <button className="btnbonuses"   id="btn8"  onClick={() => clickHandler(8)}>              <MonetizationOnIcon/>  Bonuslar                   </button></Link>
+                <Link to="/memberarea/deposite" className="deposites"> <button className="btndeposite"   id="btn9"  onClick={() => clickHandler(9)}>               <AccountBalanceWalletIcon/>Depozitlər                </button></Link>
+                <Link to="/memberarea/free-shipping" className="freeShipping"> <button className="btnfree-shipping"   id="btn10"  onClick={() => clickHandler(10)}>       <LocalShippingIcon/> Çatdırılma                    </button> </Link>
+                <Link to="/memberarea/reviews" className="reviews">       <button id="btnreviews"   id="btn11"  onClick={() => clickHandler(11)}>            <ChatBubbleIcon/>  Şərhlər                    </button> </Link>
                 {<Link to="/memberarea/recommendations" className="recommendatios"> <button className="btnrecommendations"   id="btn12"  onClick={() => clickHandler(12)}>   <ThumbUpAltIcon/> Recommendations                  </button>  </Link>}
                 <hr/>
                 <a href="/" >       <button onClick={logOut}>            <ExitToAppIcon/> Log out                   </button></a>

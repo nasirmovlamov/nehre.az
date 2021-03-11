@@ -88,21 +88,21 @@ function Header() {
     window.addEventListener("scroll", function(){
         if (window.scrollY > 211)
         {
-            document.getElementById('header').setAttribute('style' , 'transition:  0.2s  height;height:115px;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);overflow:inherit;')
-            document.getElementById('downPart').setAttribute('style' , 'background:#f0f4f5;height:85.17px;transition:0.5s height padding;overflow:inherit;')
-            document.getElementById('logoNehre').setAttribute('style' , 'opacity:1;pointer-events:all;')
-            document.getElementById('downCont').setAttribute('style' , 'padding-top: 20px;padding-bottom: 20px;transition:0.5s height padding;')
+            document?.getElementById('header').setAttribute('style' , 'transition:  0.2s  height;height:115px;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);overflow:inherit;')
+            document?.getElementById('downPart').setAttribute('style' , 'background:#f0f4f5;height:85.17px;transition:0.5s height padding;overflow:inherit;')
+            document?.getElementById('logoNehre').setAttribute('style' , 'opacity:1;pointer-events:all;')
+            document?.getElementById('downCont').setAttribute('style' , 'padding-top: 20px;padding-bottom: 20px;transition:0.5s height padding;')
             var downNavImgCont = document.querySelectorAll('#downNavImgCont')
             for (var i=0; i < downNavImgCont.length; i++) {
-              downNavImgCont[i].setAttribute('style' , 'height:0px;')
+              downNavImgCont[i]?.setAttribute('style' , 'height:0px;')
             }
             var downImg = document.querySelectorAll('#downNavImg')
             for (var i=0; i < downImg.length; i++) {
-              downImg[i].setAttribute('style' , 'height:0px;')
+              downImg[i]?.setAttribute('style' , 'height:0px;')
             }
             var buttonNav = document.querySelectorAll('.buttonNav')
             for (var i=0; i < buttonNav.length; i++) {
-              buttonNav[i].setAttribute('style' , 'height:30px;padding-bottom:0px;')
+              buttonNav[i]?.setAttribute('style' , 'height:30px;padding-bottom:0px;')
             }
             
         }
@@ -131,6 +131,9 @@ function Header() {
     const  scrolltoTop = () =>  {
       window.scroll(0,0)
     }
+    const [PaymentPrice, setPaymentPrice] = useState(0)
+    
+    
     return (
         <>
 
@@ -139,32 +142,32 @@ function Header() {
             <div className="AllCont">
                 <button type="button" style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button>
 
-                <TopNavbar modalOpener={handleOpen} modalOpener3={handleOpen3}/>
+                <TopNavbar PaymentPrice={PaymentPrice} modalOpener={handleOpen} modalOpener3={handleOpen3}/>
                 <Navbar/>
 
                 <header id="header" className="header">
-                    <TopNavbarPart2 modalOpener={handleOpen} modalOpener3={handleOpen3}/>
+                    <TopNavbarPart2  PaymentPrice={PaymentPrice} modalOpener={handleOpen} modalOpener3={handleOpen3}/>
                     <DownNavbar/>
                 </header>
 
 
                 <Switch>
-                    <Route path="/milk-cheese">              <ProductListingPage category="Milk, cheese,  poultry"/>                  </Route>
-                    <Route path="/meat" >                    <ProductListingPage category="Meat and poultry"/>                        </Route>
-                    <Route path="/fruits" >                  <ProductListingPage category="Vegetables and fruits"/>                   </Route>
-                    <Route path="/bread" >                   <ProductListingPage category="Cooking and bread"/>                       </Route>
-                    <Route path="/fish" >                    <ProductListingPage category="Fish"/>                                    </Route>
-                    <Route path="/freezed" >                 <ProductListingPage category="Freezed"/>                                 </Route>
-                    <Route path="/non-food" >                <ProductListingPage category="Non food"/>                                </Route>
-                    <Route path="/about" >                   <About/>                                                                 </Route>
-                    <Route path="/reviews" >                 <ReviewPage/>                                                            </Route>
-                    <Route  path="/memberarea">
+                    <Route   path="/milk-cheese">              <ProductListingPage category="Milk, cheese,  poultry"/>                  </Route>
+                    <Route   path="/meat" >                    <ProductListingPage category="Meat and poultry"/>                        </Route>
+                    <Route   path="/fruits" >                  <ProductListingPage category="Vegetables and fruits"/>                   </Route>
+                    <Route   path="/bread" >                   <ProductListingPage category="Cooking and bread"/>                       </Route>
+                    <Route   path="/fish" >                    <ProductListingPage category="Fish"/>                                    </Route>
+                    <Route   path="/freezed" >                 <ProductListingPage category="Freezed"/>                                 </Route>
+                    <Route   path="/non-food" >                <ProductListingPage category="Non food"/>                                </Route>
+                    <Route   path="/about" >                   <About/>                                                                 </Route>
+                    <Route   path="/reviews" >                 <ReviewPage/>                                                            </Route>
+                    <Route   path="/memberarea">
                       { UserData?.id !== undefined  ?  <MemberArea  UserData={UserData}/> : <F04/> }
                     </Route>
-                    <Route path="/promotions" >              <ProductListingPage category="Promotional products" notags={1}/>         </Route>
-                    <Route path="/suppliers/supplier" >      <SelectedSupplier/>                                                      </Route>
-                    <Route path="/suppliers" >               <Suppliers/>                                                             </Route>
-                    <Route path="/" >                        <HomePage modalOpener3={handleOpen3}/>                                                              </Route>
+                    <Route  path="/promotions" >              <ProductListingPage category="Promotional products" notags={1}/>         </Route>
+                    <Route  path="/suppliers/:id" >      <SelectedSupplier/>                                                      </Route>
+                    <Route  path="/suppliers" >               <Suppliers/>                                                             </Route>
+                    <Route  path="/" >                        <HomePage modalOpener3={handleOpen3}/>                                                              </Route>
                 </Switch>
                 
                 <Footer/>

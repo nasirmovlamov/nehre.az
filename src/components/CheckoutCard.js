@@ -36,13 +36,26 @@ function CheckoutCard(props) {
     }
 
     var [numberOfElements, setnumberOfElements] = useState(props.count)
-    const increaseV = (num , price , weigh) => {
+    const [ProductData, setProductData] = useState(() => {})
+    useEffect(() => {
+        var orders = JSON.parse(localStorage.getItem('orders'))
+        for (let index = 0; index < orders.length; index++) {
+            if (orders[index].id === Product?.id ) {
+                setProductData(orders[index].count)
+            }
+        }   
+    })
+    
+
+    const addItem = (num,price) => {
+        setProductData(1)
         var orders = JSON.parse(localStorage.getItem('orders'))
         var ordersDetails = JSON.parse(localStorage.getItem('ordersDetails'))
         var numberOfGoods = ordersDetails.numberOfGoods , cost = ordersDetails.cost , weight = ordersDetails.weight 
         for (let index = 0; index < orders.length; index++) {
             if (orders[index].id === num ) {
                 orders[index].count++
+                setProductData(orders[index].count)
                 localStorage.setItem('orders' , JSON.stringify(orders))
                 numberOfGoods += 1
                 weight += orders[index].count
@@ -54,29 +67,36 @@ function CheckoutCard(props) {
         ordersDetails = { numberOfGoods:numberOfGoods+1, cost:parseInt(cost) + parseInt(price), weight:weight}
         orders.push({id:num , count:1, cost:cost})
         localStorage.setItem('orders' , JSON.stringify(orders))
-        localStorage.setItem('ordersDetails' , JSON.stringify(ordersDetails))   
+        localStorage.setItem('ordersDetails' , JSON.stringify(ordersDetails))
     }
+
     
-    const decreaseV = (num , price , weigh) => {
+    const removeItem = (num,price) => {
         var orders = JSON.parse(localStorage.getItem('orders'))
         var ordersDetails = JSON.parse(localStorage.getItem('ordersDetails'))
         var numberOfGoods = ordersDetails.numberOfGoods , cost = ordersDetails.cost , weight = ordersDetails.weight 
         for (let index = 0; index < orders.length; index++) {
             if (orders[index].id === num ) {
-                orders[index].count--
+                if (orders[index].count > 0) {
+                    orders[index].count--
+                    setProductData(orders[index].count)
+                    numberOfGoods -= 1
+                }
+                if (orders[index].count === 0) {
+                    orders.splice(index , 1)
+                }
                 localStorage.setItem('orders' , JSON.stringify(orders))
-                numberOfGoods -= 1
-                weight -= orders[index].count
-                ordersDetails = { numberOfGoods:numberOfGoods, cost:parseInt(cost) + parseInt(price), weight:weight}
+                weight += orders[index]?.count
+                ordersDetails = { numberOfGoods:numberOfGoods, cost:parseInt(cost) + parseInt(price) , weight:weight}
                 localStorage.setItem('ordersDetails' , JSON.stringify(ordersDetails))
                 return 0 
             }
         }    
-        ordersDetails = { numberOfGoods:numberOfGoods-1, cost:parseInt(cost) - parseInt(price), weight:weight}
-        orders.push({id:num , count:1, cost:cost})
         localStorage.setItem('orders' , JSON.stringify(orders))
-        localStorage.setItem('ordersDetails' , JSON.stringify(ordersDetails)) 
+        localStorage.setItem('ordersDetails' , JSON.stringify(ordersDetails))
     }
+
+
     const discountHandler = (discount) => {
         if (discount !== 0 && discount !== null) {
             var discountPrice = 0;
@@ -94,6 +114,8 @@ function CheckoutCard(props) {
         backgroundSize: "cover",
     }
     var GeneralPrice = (discountHandler(Product?.discount) * numberOfElements)
+
+    
     return (
         <>
             <div className="item">
@@ -126,14 +148,14 @@ function CheckoutCard(props) {
                             </div>
 
                             <div className="btnCont">
-                                <Button1 function={decreaseV} value={<RemoveIcon/>} color="#085096"/>
-                                <p className="priceValue"> {numberOfElements}</p>
-                                <Button1 function={increaseV} value={<AddIcon/>}  color="#085096"/>
+                                <Button1 function={() => removeItem(Product?.id ,Product?.qiymet)} value={<RemoveIcon/>} color="#085096"/>
+                                <p className="priceValue"> {ProductData}</p>
+                                <Button1 function={() => addItem(Product?.id ,Product?.qiymet)} value={<AddIcon/>}  color="#085096"/>
                             </div>
 
                             <p className="price"> {GeneralPrice.toFixed(0)} </p>
+                            <button onClick={() => props.deleteCard(Product?.id , Product?.price)} className="delete"><DeleteIcon/></button>
 
-                            <button onClick={() => props.deleteCard(Product.id , Product.price)} className="delete"><DeleteIcon/></button>
 
                         </div>
                         <hr/>

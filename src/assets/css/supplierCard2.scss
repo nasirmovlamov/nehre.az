@@ -18,11 +18,6 @@
     }
     &:hover 
     {
-        .imgCont
-        {
-                background-size: 120% auto !important;
-                transition: 1s background-size;
-        }
         .name 
         {
             color: #ff7a2c;
@@ -35,8 +30,6 @@
         width: 227px;
         height: 227px;
         transition: 0.5s background-size;
-
-        
     }
 
     .name

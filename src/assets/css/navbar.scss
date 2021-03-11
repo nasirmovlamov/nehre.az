@@ -8,9 +8,20 @@
     padding-left: 30%;
     padding-right: 30%;
     background:#e6e7e9;
+    
     a 
     {
+        &:hover 
+        {
+                border-bottom: 8px solid gray;
+                height: 100%;
+        }
+        width: 100px;
+        border-bottom:8px solid transparent ;
         text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         color: black;
         font-family: serif;
         font-family: "DaxlineR";

@@ -67,7 +67,9 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  direction: ltr;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .downPart .downCont .searchIcon {
@@ -87,6 +89,40 @@
 
 .downPart .downCont input:focus {
   outline: none;
+}
+
+.downPart .downCont .phoneCont {
+  -ms-flex-item-align: center;
+      align-self: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.downPart .downCont .phoneCont .phone {
+  direction: ltr;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  margin: 0px;
+  margin-right: 10px;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
+  font-size: 17px;
+  color: #285999;
+  width: 140px;
+}
+
+.downPart .downCont .phoneCont .phone a {
+  color: gray;
 }
 
 .downPart .downCont .selection {
@@ -391,6 +427,21 @@
 .downPart .downCont .selection a:nth-child(5) {
   background-color: #aebaa3;
   background-size: cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: auto;
+  padding-right: 3px;
+}
+
+.downPart .downCont .selection a:nth-child(5) span {
+  border-radius: 5px;
+  z-index: 2;
+  padding: 3px;
+  font-size: 13px;
 }
 
 .downPart .downCont .selection a:nth-child(5):hover {
@@ -398,7 +449,7 @@
   border: 1px solid #aebaa3;
 }
 
-.downPart .downCont .selection a:nth-child(5):hover svg {
+.downPart .downCont .selection a:nth-child(5):hover svg, .downPart .downCont .selection a:nth-child(5):hover span {
   color: #aebaa3;
 }
 /*# sourceMappingURL=topNavbarPart2.css.map */

@@ -20,12 +20,6 @@
   margin-top: 50px;
 }
 
-.supplierCard2:hover .imgCont {
-  background-size: 120% auto !important;
-  -webkit-transition: 1s background-size;
-  transition: 1s background-size;
-}
-
 .supplierCard2:hover .name {
   color: #ff7a2c;
 }

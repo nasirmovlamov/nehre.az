@@ -1,4 +1,7 @@
+import axios from 'axios'
 import React,{useState} from 'react'
+import { useEffect } from 'react'
+import { useParams } from 'react-router'
 import "../assets/css/selectedSupllier.css"
 import About from './About'
 import Certificates from './Certificates'
@@ -7,6 +10,14 @@ import Products from './Products'
 import Reviews from './Reviews'
 import StarSystem from './StarSystem'
 function SelectedSupplier() {
+    let { id } = useParams();
+    const [Supplier, setSupplier] = useState(0)
+    console.log(id);
+    useEffect(() => {
+        axios.get(`https://nehra.az/public/api/manufacturer/${id}` )
+            .then(res => setSupplier(res.data))
+            .catch(err => console.log(err))
+    } , [])
 
     const styleChanger = {
         border:"1px solid lightgray",
@@ -17,8 +28,9 @@ function SelectedSupplier() {
     const [checker, setchecker] = useState(1)
     const clickHandler = (num) => {
         setchecker(num)
-        
     }
+
+   
 
     return (
         <div className="selectedSupllierCont">
@@ -29,14 +41,10 @@ function SelectedSupplier() {
                 <div className="videoAndAbout">
                     <iframe  className="supplierVideo" src="https://www.youtube.com/embed/tgbNymZ7vqY" ></iframe>
                     <div className="about">
-                        <p className="name">Zinaida and Sergey Belan</p>
-                        <div className="starAndReview"><StarSystem numberStar="5"/>  <p> 2,340 reviews </p> </div>
+                        <p className="name">{Supplier.name}</p>
+                        <div className="starAndReview"><StarSystem numberStar={Supplier.star_count}/>  <p>{Supplier.review_count} reviews </p> </div>
                         <p className="text">
-                            Meet our suppliers of homemade pickles and canned food - Zinaida and Sergey Belan.
-                            The Belan family prepares pickles and preparations according to unique homemade recipes, 
-                            slightly modified in accordance with the technological standards of food production. 
-                            “We tried to preserve the taste of homemade tomatoes, pickles and our favorite eggplant 
-                            caviar, familiar from childhood,” says Zinaida.
+                            {Supplier.description}
                         </p>
                     </div>
                  </div>  {/* Video and About */}

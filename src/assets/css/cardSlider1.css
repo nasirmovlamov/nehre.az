@@ -2,11 +2,19 @@
   width: 560px;
   height: 344px;
   border-radius: 20px;
+  -webkit-transition: 1s -webkit-box-shadow;
+  transition: 1s -webkit-box-shadow;
   transition: 1s box-shadow;
+  transition: 1s box-shadow, 1s -webkit-box-shadow;
   background-image: url("../images/DefaultCardSlider1.jpeg");
   background-size: cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .cardSlider1 .cardSlider2 {
@@ -14,24 +22,39 @@
   width: 560px;
   height: 344px;
   border-radius: 20px;
+  -webkit-transition: 1s -webkit-box-shadow;
+  transition: 1s -webkit-box-shadow;
   transition: 1s box-shadow;
+  transition: 1s box-shadow, 1s -webkit-box-shadow;
   background-size: cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  filter: brightness(1);
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-filter: brightness(1);
+          filter: brightness(1);
 }
 
 .cardSlider1:hover {
-  box-shadow: 1px 1px 10px 10px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 1px 1px 10px 10px rgba(0, 0, 0, 0.2);
+          box-shadow: 1px 1px 10px 10px rgba(0, 0, 0, 0.2);
+  -webkit-transition: 1s -webkit-box-shadow;
+  transition: 1s -webkit-box-shadow;
   transition: 1s box-shadow;
+  transition: 1s box-shadow, 1s -webkit-box-shadow;
 }
 
 .cardSlider1 .textCont {
   height: 200px;
   padding: 40px;
   text-align: start;
+  display: -ms-grid;
   display: grid;
-  grid-template-rows: 40px 100px 40px;
+  -ms-grid-rows: 40px 100px 40px;
+      grid-template-rows: 40px 100px 40px;
   margin-top: 20px;
   width: 280px;
 }
@@ -55,5 +78,7 @@
 .cardSlider1 .moreAbout {
   margin-right: 25px;
   margin-bottom: 25px;
-  align-self: flex-end;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
 }
+/*# sourceMappingURL=cardSlider1.css.map */

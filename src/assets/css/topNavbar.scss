@@ -346,11 +346,22 @@
                 {
                     background-color: #aebaa3;
                     background-size:cover;
+                    display: flex;
+                    align-items: center;
+                    width: auto;
+                    padding-right: 3px;                    
+                    span 
+                    {
+                        border-radius: 5px;
+                        z-index: 2;
+                        padding: 3px;
+                        font-size: 13px;
+                    }
                     &:hover 
                     {
                         background-color: white;
                         border: 1px solid #aebaa3;
-                        svg 
+                        svg , span
                         {
                             color: #aebaa3;
                         }

@@ -37,9 +37,9 @@ function PasswordUpdate(props){
         <Form className="cabinetCont contactCont">
             <p className="title">Password</p>
             <div className="gridCont">
-                <p className="name key">* Old Password</p> <input placeholder="Old Password" className="value"   type="text" name="" id=""/>
-                <p className="email key ">* New Password</p> <input placeholder="New Password"  className="value"  type="email" name="" id=""/>
-                <p className="email key ">* Confirm Password</p> <input placeholder="New Password"  className="value"  type="email" name="" id=""/>
+                <p className="name key">* Old Password</p> <input type="password" placeholder="Old Password" className="value"   type="text" name="" id=""/>
+                <p className="email key ">* New Password</p> <input type="password" placeholder="New Password"  className="value"  type="email" name="" id=""/>
+                <p className="email key ">* Confirm Password</p> <input type="password" placeholder="New Password"  className="value"  type="email" name="" id=""/>
             </div>
             <Button1 value="save" color="#285999"/>
         </Form>

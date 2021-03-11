@@ -7,7 +7,6 @@ function Cabinet(props) {
     useEffect(() => {
         if (UserData?.id === undefined) {
             setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
-            console.log("ALO")
         }
     })
 

@@ -83,7 +83,7 @@ function HomePage(props) {
             .then(res => setSpecialOffers(res.data))
             .catch(err=> console.log(err))
     
-            axios.get('https://nehra.az/public/api/manufacturers')
+            axios.get('https://nehra.az/public/api/manufacturerslider')
             .then(res => setSuppliersCard(res.data))
             .catch(err=> console.log(err))
     
@@ -97,8 +97,8 @@ function HomePage(props) {
 
     }, [])
 
-    NewProducts.map(product =>  ( newItems.push(       <ItemCard   modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb}    title={product.title} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>)))
-    SpecialOffers.map(product =>( specialOffers.push(  <ItemCard   modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb} title={product.title}   desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>)))
+    NewProducts.map(product =>  ( newItems.push(       <ItemCard  modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb}    title={product.title} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>)))
+    SpecialOffers.map(product =>( specialOffers.push(  <ItemCard  modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb} title={product.title}   desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>)))
     SuppliersCard.map(supply => ( suppliersCard.push(  <SupplierCard image={supply.avatar} title={supply.name} supplier={supply.type_id} image2={testImg6} image3={testImg7}/>   )))
     TopCards.map(bucket => ( topCards.push(<CardSlider1 name={bucket.name} image={bucket.image} desc={bucket.description}/>)))
     AnswerCard.map(question => ( answerCard.push( <AnswersCard  answer={question.description} question={question.name} />)))

@@ -50,22 +50,77 @@
                     
             }
         }
-        .favIco
+        .iconAndBtn
         {
-            border: none;
-            z-index: 3;
-            width: 30px;
-            height: 30px;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 5px;
-            margin-top: 10px;
-            margin-right: 10px;
-            background-color: #f06279;
-            svg 
+            width: 100%;
+            justify-content: space-between;
+            .favIco
             {
-                color: white;
+                border: none;
+                z-index: 3;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 5px;
+                margin-top: 10px;
+                margin-right: 10px;
+                background-color: #f06279;
+                svg 
+                {
+                    color: white;
+                }
+            }
+            .increaseDecrease
+            {
+                border: none;
+                z-index: 3;
+                width: 80px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-radius: 5px;
+                margin-top: 10px;
+                margin-left: 10px;
+                background-color: #275999;
+                .iBtn
+                {
+                    border: none;
+                    background-color: transparent;
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: white;
+                }
+                .dBtn
+                {
+                    border: none;
+                    background-color: transparent;
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: white;
+                } 
+                .valueID
+                {
+                    background-color: transparent;
+                    width: 30px;
+                    height: 30px;
+                    margin-top: 3px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: white;
+                    font-size: 18px;
+                }
+                
             }
         }
         .zoomIcon
