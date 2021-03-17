@@ -62,19 +62,28 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -ms-flex-item-align: start;
       align-self: flex-start;
   margin: 0px;
-  margin-right: 10px;
   -webkit-column-gap: 10px;
           column-gap: 10px;
-  font-size: 23px;
+  font-size: 16px;
   color: #285999;
-  width: 180px;
+  min-width: 180px;
 }
 
 .topNavbar .topPart .phoneCont .phone a {
   color: gray;
+}
+
+.topNavbar .css-1wlk0hk-MuiAvatar-root {
+  border-radius: 3px;
+  border: 1px solid #8682ab;
+  width: 100%;
+  height: 100%;
 }
 
 .topNavbar .phoneAndSearch {

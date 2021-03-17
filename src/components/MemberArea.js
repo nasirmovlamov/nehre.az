@@ -223,7 +223,7 @@ function MemberArea(props) {
             
             <aside className="aside">
                 <Link to="/memberarea" className="cabinet"><button className="btnmemberarea" id="btn1" onClick={() => clickHandler(1)}>                 <AccountCircleIcon/>  Şəxsi Kabinet                </button> </Link>
-                <Link to="/memberarea/contacts" className="contact"> <button className="btncontacts"    id="btn2"  onClick={() => clickHandler(2)}>                 <PermContactCalendarIcon/> Əlaqə                  </button></Link>
+                <Link to="/memberarea" className="contact"> <button className="btncontacts"    id="btn2"  onClick={() => clickHandler(2)}>                 <AccountCircleIcon/> Əlaqə                  </button></Link>
                 <Link to="/memberarea/password" className="password"><button className="btnpassword"   id="btn3"  onClick={() => clickHandler(3)}>                 <LockIcon/> Şifrə              </button></Link>
                 <Link to="/memberarea/address" className="address"> <button className="btnaddress"   id="btn4"  onClick={() => clickHandler(4)}>                  <LocationOnIcon/>Ünvan                 </button></Link>
                 <Link to="/memberarea/bookmarks" className="bookmarks"> <button className="btnbookmarks"   id="btn5"  onClick={() => clickHandler(5)}>              <FavoriteIcon/> Seçilmişlər          </button></Link>
@@ -240,7 +240,6 @@ function MemberArea(props) {
             
             <main className="main" id="main">
                 <Switch>
-                    <Route path="/memberarea/contacts"><Contacts/></Route>
                     <Route path="/memberarea/password"><PasswordUpdate/></Route>
                     <Route path="/memberarea/address/add">{addAddress}</Route>
                     <Route path="/memberarea/address">{address}</Route>
@@ -253,7 +252,7 @@ function MemberArea(props) {
                     <Route path="/memberarea/reviews">{reviews}</Route>
                     <Route path="/memberarea/recommendations">{recommendations}</Route>
                     <Route path="/memberarea/output">{output}</Route>
-                    <Route path="/memberarea"><Cabinet/></Route>
+                    <Route path="/memberarea/"><Contacts/></Route>
                 </Switch>
             </main>
         </div>

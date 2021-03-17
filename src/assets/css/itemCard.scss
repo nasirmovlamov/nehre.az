@@ -55,8 +55,11 @@
             display: flex;
             width: 100%;
             justify-content: space-between;
+            flex-direction: column;
             .favIco
             {
+                margin-left: 10px;
+                align-self: flex-end;
                 border: none;
                 z-index: 3;
                 width: 30px;
@@ -72,55 +75,6 @@
                 {
                     color: white;
                 }
-            }
-            .increaseDecrease
-            {
-                border: none;
-                z-index: 3;
-                width: 80px;
-                height: 30px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                border-radius: 5px;
-                margin-top: 10px;
-                margin-left: 10px;
-                background-color: #275999;
-                .iBtn
-                {
-                    border: none;
-                    background-color: transparent;
-                    width: 30px;
-                    height: 30px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    color: white;
-                }
-                .dBtn
-                {
-                    border: none;
-                    background-color: transparent;
-                    width: 30px;
-                    height: 30px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    color: white;
-                } 
-                .valueID
-                {
-                    background-color: transparent;
-                    width: 30px;
-                    height: 30px;
-                    margin-top: 3px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    color: white;
-                    font-size: 18px;
-                }
-                
             }
         }
         .zoomIcon
@@ -203,9 +157,9 @@
     }
     .titleItem
     {
-        margin-top: 15px;
         margin-left: 10px;
         font-size: 14px;
+        margin-top: 10px;
     }
     .subTitleItem
     {
@@ -216,6 +170,7 @@
     .textCont
     {
         padding: 10px;
+        padding-top: 0px;
         display: flex;
         justify-content: space-between;
         
@@ -240,5 +195,56 @@
             color: black;
         }
 
+    }
+    .increaseDecrease
+    {
+        border: none;
+        z-index: 3;
+        width: 80px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 5px;
+        margin-left: 10px;
+        background-color: #275999;
+        align-self: flex-end;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        .iBtn
+        {
+            border: none;
+            background-color: transparent;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        .dBtn
+        {
+            border: none;
+            background-color: transparent;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        } 
+        .valueID
+        {
+            background-color: transparent;
+            width: 30px;
+            height: 30px;
+            margin-top: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 18px;
+        }
+        
     }
 }

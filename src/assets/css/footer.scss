@@ -1,6 +1,6 @@
 footer 
 {
-    width: 1200px;
+    width: 1300px;
     background-color: #edf4f6;
     border-radius: 20px 20px 0px 0px ;
     margin-top: 50px;
@@ -16,5 +16,10 @@ footer
         display: flex;
         width: 1200px;
         justify-content: space-around;
+    }
+    .social
+    {
+        display: flex;
+        column-gap: 30px;
     }
 }

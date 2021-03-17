@@ -233,34 +233,44 @@
 .memberAreaCont main .cabinetCont .gridCont {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (1fr)[2];
-      grid-template-columns: repeat(2, 1fr);
+  -ms-grid-columns: (120px 1fr)[1];
+      grid-template-columns: repeat(1, 120px 1fr);
   -webkit-column-gap: 15px;
           column-gap: 15px;
   row-gap: 25px;
+  width: auto;
   -ms-flex-line-pack: center;
       align-content: center;
   margin-top: 25px;
+  justify-items: end;
+  width: 100%;
 }
 
 .memberAreaCont main .cabinetCont .gridCont .key {
-  width: 215px;
+  width: auto;
   font-size: 12px;
+  width: 150px;
   color: #525252;
   font-weight: 700;
   opacity: 0.8;
 }
 
-.memberAreaCont main .cabinetCont .gridCont .value {
-  width: 617px;
-  font-size: 17px;
-  color: #525252;
-  font-weight: 700;
+.memberAreaCont main .cabinetCont .gridCont .key p {
+  width: auto;
+  text-align: start;
 }
 
-.memberAreaCont main .cabinetCont .gridCont .valueImg {
-  width: 200px;
-  height: 200px;
+.memberAreaCont main .cabinetCont .gridCont .value {
+  width: 100%;
+  font-size: 17px;
+  color: #525252;
+  -ms-grid-column-align: start;
+      justify-self: start;
+  padding: 4px;
+  padding-left: 10px;
+  font-weight: 600;
+  color: gray;
+  font-family: inherit;
 }
 
 .memberAreaCont main .cabinetCont .gridCont p {
@@ -291,6 +301,190 @@
       justify-self: start;
   -ms-grid-column: 2;
   grid-column: 2;
+}
+
+.memberAreaCont main .cabinetCont .moreAbout {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.memberAreaCont main .contactCont123 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.memberAreaCont main .contactCont123 p {
+  margin: 0px;
+}
+
+.memberAreaCont main .contactCont123 .gridCont {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (120px 1fr)[1];
+      grid-template-columns: repeat(1, 120px 1fr);
+  -webkit-column-gap: 15px;
+          column-gap: 15px;
+  row-gap: 25px;
+  width: auto;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  margin-top: 25px;
+  justify-items: end;
+  width: 100%;
+}
+
+.memberAreaCont main .contactCont123 .gridCont .valueImg {
+  width: 200px;
+  height: 200px;
+  -ms-grid-column-align: start;
+      justify-self: start;
+  border-radius: 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.memberAreaCont main .contactCont123 .gridCont .addFile {
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  background-color: white;
+  border: 1px solid lightgray;
+  width: 300px;
+  height: 45px;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.memberAreaCont main .contactCont123 .gridCont .addFile .textPhoto {
+  margin: 0px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  font-size: 15px;
+  position: absolute;
+  color: gray;
+  width: 250px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.memberAreaCont main .contactCont123 .gridCont .addFile .addFileInput {
+  opacity: 0;
+  width: 528px;
+  height: 100%;
+}
+
+.memberAreaCont main .contactCont123 .gridCont .valueBalance {
+  width: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-self: start;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 30px;
+  border-radius: 4px;
+  color: gray;
+  font-size: 15px;
+  font-family: inherit;
+  -ms-flex-item-align: start;
+      align-self: start;
+  justify-self: start;
+  border: 1px solid lightgray;
+}
+
+.memberAreaCont main .contactCont123 .gridCont .key {
+  width: auto;
+  font-size: 12px;
+  color: #525252;
+  font-weight: 700;
+  opacity: 0.8;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.memberAreaCont main .contactCont123 .gridCont .key p {
+  width: auto;
+  text-align: start;
+}
+
+.memberAreaCont main .contactCont123 .gridCont .value {
+  width: 100%;
+  color: gray;
+  -ms-grid-column-align: start;
+      justify-self: start;
+  padding: 4px;
+  padding-left: 10px;
+  height: 30px;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  color: gray;
+  font-size: 15px;
+  font-family: inherit;
+  -ms-flex-item-align: start;
+      -ms-grid-row-align: start;
+      align-self: start;
+  justify-self: start;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.memberAreaCont main .contactCont123 .gridCont .MuiFormControl-root {
+  -ms-grid-column-align: start;
+      justify-self: start;
+}
+
+.memberAreaCont main .contactCont123 .gridCont .valueImg {
+  width: 200px;
+  height: 200px;
+}
+
+.memberAreaCont main .contactCont123 .gridCont .loader {
+  -ms-grid-column: 2;
+  grid-column: 2;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.memberAreaCont main .contactCont123 .gridCont button {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-column-align: start;
+      justify-self: start;
+  -ms-grid-column: 2;
+  grid-column: 2;
+}
+
+.memberAreaCont main .contactCont123 .moreAbout {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  width: 250px;
 }
 
 .memberAreaCont main .bookmarks .gridCont1 {

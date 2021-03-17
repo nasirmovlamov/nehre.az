@@ -6,11 +6,13 @@ import Cookies from 'js-cookies'
 import * as Yup from "yup"
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
+import ReactLoading from 'react-loading';
 toast.configure()
 function LoginPage(props) {
     const notify = () => toast.info("Hesabınıza daxil oldunuz!");
     const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!");
+    const [loader, setloader] = useState(false)
     const clickHandler = () => {
         props.functionClose()
         props.registerFunc()
@@ -23,9 +25,10 @@ function LoginPage(props) {
 
     const [Error, setError] = useState(false)
     const onSubmit =  (values) => {
+        setloader(true)
         axios.post('https://nehra.az/public/api/check', { email: values.email ,  password: values.password }  , headers )
-         .then(res => (res.status === 200 && console.log(res)  , localStorage.setItem("LoginUserData" , JSON.stringify(res.data.user)) , props.functionClose() , notify() )) 
-         .catch(err => setError(true))
+         .then(res => (setloader(false) , res.status === 200 && console.log(res)  , localStorage.setItem("LoginUserData" , JSON.stringify(res.data.user)) , props.functionClose() , notify())) 
+         .catch(err => (setError(true) , setloader(false)))
     }
 
     const initialValues = {
@@ -48,7 +51,8 @@ function LoginPage(props) {
                 <div className="errors"><ErrorMessage name="password"/></div>
                 <Button1 value="Daxil olun" type="submit"/>
                 { Error && <p className="errors">Daxil etdiyiniz məlumatlar yanlışdır </p>}
-                <p className="subTitle">Hesabnız yoxdur ? <button className="regBtn" onClick={() => clickHandler()}>Qeydiyyatdan keçin</button> </p>
+                <p className="subTitle">Hesabınız yoxdur ? <button className="regBtn" onClick={() => clickHandler()}>Qeydiyyatdan keçin </button> </p>
+                {loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={17} width={75} />}
             </Form>
         </Formik>
     )

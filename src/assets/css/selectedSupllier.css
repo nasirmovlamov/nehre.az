@@ -1,15 +1,8 @@
 .selectedSupllierCont {
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: column;
+  align-items: center;
   text-align: start;
 }
 
@@ -31,12 +24,8 @@
 }
 
 .selectedSupllierCont .videoAndAbout {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
   margin-top: 30px;
 }
 
@@ -58,12 +47,8 @@
 }
 
 .selectedSupllierCont .videoAndAbout .about .starAndReview {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   height: 40px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -92,6 +77,9 @@
   padding-right: 2.5%;
   margin-top: 20px;
   background-color: #f3f0eb;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 10px;
 }
 
 .selectedSupllierCont .btnContForLinks .button {
@@ -100,7 +88,7 @@
   padding: 15px;
   margin: 0px;
   font-size: 15px;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   margin: 1px;
   border: 1px solid transparent;
   border-bottom: 0px;
@@ -122,4 +110,3 @@
   margin: 0px;
   opacity: 0.3;
 }
-/*# sourceMappingURL=selectedSupllier.css.map */

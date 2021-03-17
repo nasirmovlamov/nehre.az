@@ -11,7 +11,7 @@ function Cabinet(props) {
     })
 
     const imgHandler = {
-        backgroundImage: `url(https://nehra.az/storage/app/public/${UserData.image})`,
+        backgroundImage: `url(https://nehra.az/${UserData.image})`,
         backgroundSize: "cover",
         backgroundPosition: "top center",
         backgroundRepeat: "no-repeat"
@@ -22,7 +22,7 @@ function Cabinet(props) {
             <p className="title">My info</p>
             <div className="gridCont">
                 <p className="key">Last name and first name</p> <p className="value">{UserData.name}</p>
-                <p className="key">Balance</p> <p className="value">{UserData.balance}</p>
+                <p className="key">Balance</p> <p className="value">{UserData.balance === null ? 0 : UserData.balance}</p>
                 <p className="key">contact number</p> <p className="value">{UserData.phone}</p>
                 <p className="key">Contact e-mail</p> <p className="value">{UserData.email}</p>
                 <p className="key" style={{alignSelf:"start",}}>Profile picture </p> <div className="valueImg" style={imgHandler}></div>

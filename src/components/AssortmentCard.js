@@ -2,9 +2,9 @@ import React from 'react'
 import "../assets/css/assortmentCard.css"
 function AssortmentCard(props) {
     const imgHandler = {
-        background: `url(${props.image}) no-repeat`,
-        backgroundPosition: "center",
-        backgroundSize: "100% auto",
+        background: `url('https://nehra.az/storage/app/public/${props.image}') no-repeat`,
+        backgroundPosition: "top center",
+        backgroundSize: "cover",
     }
     return (
         <div className="assortmentCard">

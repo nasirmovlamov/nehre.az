@@ -85,11 +85,11 @@ function CardPage(props) {
             <main className="mainSide">
                 <p className="title">
                     <p className="basketTitle">Basket {PaymentPrice < MinOrder   ?  <div className="minOrder"> <InfoIcon/> Minimum sifariş qiyməti {MinOrder} ₼</div> : " " }</p>
-                        {itemsArr}
                     <hr/>
                 </p>
                 <div className="gridCont1">
                     <div className="gridCont">
+                        {itemsArr}
                         
                     </div>
                 </div>

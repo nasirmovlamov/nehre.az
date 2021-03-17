@@ -15,15 +15,24 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PersonIcon from '@material-ui/icons/Person';
 import { useEffect } from 'react'
 import axios from 'axios'
+import Avatar from '@material-ui/core/Avatar';
+
 function TopNavbarPart2(props) {
     const [drop1, setdrop1] = useState(false)
     const [drop2, setdrop2] = useState(false)
     const [number1, setNumber1] = useState(0)
     const [number2, setNumber2] = useState(0)
+    const sendGetRequest7 = async () => {
+        try {
+            const resp = await axios.get('https://nehra.az/public/api/settings')
+            setNumber1(resp.data.phone1) 
+            setNumber2(resp.data.phone2)
+        } catch (err) {
+            // Handle Error Here
+            console.error(err);
+        }
+    };
     useEffect(() => {
-        axios.get('https://nehra.az/public/api/settings')
-        .then(res => (setNumber1(res.data.phone1) , setNumber2(res.data.phone2) ))
-        .catch(err=> console.log(err))
     } , [] )
     function myFunction1(num) {
         if (num === false) {
@@ -89,8 +98,8 @@ function TopNavbarPart2(props) {
                     <div className="searchAndIcons">
                         <div className="inputAndIcon">
                             <div className="phoneCont">
-                                <p className="phone"> <PhoneIcon/> <a href={`tel:${number1}`}>{number1}</a></p>
-                                <p className="phone"> <PhoneIcon/> <a href={`tel:${number2}`}>{number2}</a></p>
+                                <p className="phone"> <PhoneIcon/> <a href={`tel:${props.number1}`}>{props.number1}</a></p>
+                                <p className="phone"> <PhoneIcon/> <a href={`tel:${props.number2}`}>{props.number2}</a></p>
                             </div>
                             <input type="text" placeholder="Axtarış"/>
                             <button className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
@@ -99,10 +108,10 @@ function TopNavbarPart2(props) {
                         <div className="selection">
                             {/*  */}
                             <Link to="/">
-                                    <div class="shoppingBtnDiv" onMouseLeave={() => langChangerMouseLeave1()}>
-                                        <button onClick={() => myFunction1(drop1)} onBlur={() => myFunctionBlur1(drop1)} class="shoppingBtn1 dropbtn">{moneyType}</button>
+                                    <div className="shoppingBtnDiv" onMouseLeave={() => langChangerMouseLeave1()}>
+                                        <button onClick={() => myFunction1(drop1)} onBlur={() => myFunctionBlur1(drop1)} className="shoppingBtn1 dropbtn">{moneyType}</button>
                                         {drop1 && 
-                                            <div id="myDropdown" class="dropdown-content">
+                                            <div id="myDropdown" className="dropdown-content">
                                                 <button onClick={() => moneyChanger()}>{moneyType === "₼" ? "$" : "₼"}</button>
                                             </div>
                                         }
@@ -110,9 +119,9 @@ function TopNavbarPart2(props) {
                                 </Link>
                                 {/*  */}
                                 <Link to="/">
-                                    <div class="shoppingBtnDiv2" onMouseLeave={() => langChangerMouseLeave2()}>
-                                        <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} class="shoppingBtn2">{langM}</button>
-                                        {drop2 && <div id="myDropdown" class="dropdown-content">
+                                    <div className="shoppingBtnDiv2" onMouseLeave={() => langChangerMouseLeave2()}>
+                                        <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} className="shoppingBtn2">{langM}</button>
+                                        {drop2 && <div id="myDropdown" className="dropdown-content">
                                             {langM === "AZ" ? "" : <button onClick={() => languageChanger(lang[0])}>{lang[0]}</button>}
                                             {langM === "EN" ? "" : <button onClick={() => languageChanger(lang[1])}>{lang[1]}</button>}
                                             {langM === "RU" ? "" : <button onClick={() => languageChanger(lang[2])}> {lang[2]}</button>}
@@ -121,13 +130,13 @@ function TopNavbarPart2(props) {
                                 </Link>
                             {/*  */}
                             <Link to="/">
-                                <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}><PersonIcon/></button>     
+                                <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}>{props?.UserData?.name !== undefined ? <Avatar  src={`https://nehra.az/${props?.UserData?.image}`} />  :  <PersonIcon/>   }   </button> 
                             </Link>
                             {/*  */}
-                            <Link to="/memberarea/favorites">
+                            <Link to="/memberarea/bookmarks">
                                 <StarBorderIcon/> 
                             </Link>
-                            <Link to="/bucket">  
+                            <Link to="/">  
                                 <button className="shoppingBtn shoppingBtn4" onClick={() => props.modalOpener()}><ShoppingCartIcon/></button>     {PaymentPrice !== 0  ? <span className="price">{PaymentPrice + " AZN"}    </span> : ""}
                             </Link>
                             

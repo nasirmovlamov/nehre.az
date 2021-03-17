@@ -2,19 +2,10 @@
   width: 560px;
   height: 344px;
   border-radius: 20px;
-  -webkit-transition: 1s -webkit-box-shadow;
-  transition: 1s -webkit-box-shadow;
   transition: 1s box-shadow;
-  transition: 1s box-shadow, 1s -webkit-box-shadow;
-  background-image: url("../images/DefaultCardSlider1.jpeg");
   background-size: cover;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
 
 .cardSlider1 .cardSlider2 {
@@ -22,39 +13,24 @@
   width: 560px;
   height: 344px;
   border-radius: 20px;
-  -webkit-transition: 1s -webkit-box-shadow;
-  transition: 1s -webkit-box-shadow;
   transition: 1s box-shadow;
-  transition: 1s box-shadow, 1s -webkit-box-shadow;
   background-size: cover;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-filter: brightness(1);
-          filter: brightness(1);
+  flex-direction: column;
+  filter: brightness(1);
 }
 
 .cardSlider1:hover {
-  -webkit-box-shadow: 1px 1px 10px 10px rgba(0, 0, 0, 0.2);
-          box-shadow: 1px 1px 10px 10px rgba(0, 0, 0, 0.2);
-  -webkit-transition: 1s -webkit-box-shadow;
-  transition: 1s -webkit-box-shadow;
+  box-shadow: 1px 1px 10px 10px rgba(0, 0, 0, 0.2);
   transition: 1s box-shadow;
-  transition: 1s box-shadow, 1s -webkit-box-shadow;
 }
 
 .cardSlider1 .textCont {
   height: 200px;
   padding: 40px;
   text-align: start;
-  display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 40px 100px 40px;
-      grid-template-rows: 40px 100px 40px;
+  grid-template-rows: 40px 100px 40px;
   margin-top: 20px;
   width: 280px;
 }
@@ -78,7 +54,56 @@
 .cardSlider1 .moreAbout {
   margin-right: 25px;
   margin-bottom: 25px;
-  -ms-flex-item-align: end;
-      align-self: flex-end;
+  align-self: flex-end;
 }
-/*# sourceMappingURL=cardSlider1.css.map */
+
+.cardSliderDefault {
+  background-color: #f3f0eb;
+  width: 560px;
+  height: 344px;
+  border-radius: 20px;
+  transition: 1s box-shadow;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardSliderDefault .skeleton1 {
+  margin-top: 20px;
+}
+
+.cardSliderDefault .skeleton2 {
+  margin-top: 20px;
+}
+
+.cardSliderDefault .textCont {
+  height: 200px;
+  padding: 40px;
+  text-align: start;
+  display: grid;
+  grid-template-rows: 40px 100px 40px;
+  margin-top: 20px;
+  width: 280px;
+}
+
+.cardSliderDefault .textCont h4, .cardSliderDefault .textCont p {
+  margin: 0px;
+  padding: 0px;
+}
+
+.cardSliderDefault .textCont .title {
+  font-size: 27px;
+  height: 30px;
+  color: white;
+}
+
+.cardSliderDefault .textCont .desc {
+  font-size: 15px;
+  color: white;
+}
+
+.cardSliderDefault .moreAbout {
+  margin-right: 25px;
+  margin-bottom: 25px;
+  align-self: flex-end;
+}

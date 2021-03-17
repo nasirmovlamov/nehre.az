@@ -31,14 +31,38 @@ import LoginPage from '../pages/LoginPage'
 import Registration from '../pages/Registration'
 import arrowScroll from '../assets/images/scrollArrow.png'
 import F04 from '../components/F04'
+import axios from 'axios'
+import AssortmentCard from './AssortmentCard'
 function Header() {
   
   const [UserData, setUserData] = useState(0)
+  const [Assortment, setAssortment] = useState([])
+  const [TopCategory, setTopCategory] = useState([])
+  const assortmentArr = []
+  const sendGetRequest6 = async () => {
+    try {
+        const resp = await axios.get('https://nehra.az/public/api/assortment')
+        setAssortment(resp.data)
+    } catch (err) {
+        // Handle Error Here
+        console.error(err);
+    }
+  };
+  const sendGetRequestTopCategory = async () => {
+    try {
+        const resp = await axios.get('https://nehra.az/public/api/featuredcats')
+        setTopCategory(resp.data)
+    } catch (err) {
+        console.error(err);
+    }
+  };
+  
   useEffect(() => {
     if (UserData?.id === undefined) {
       setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
     }
   })
+  Assortment.map(assortment => ( assortmentArr.push( <AssortmentCard title={assortment.name} desc={assortment.count} image={assortment.thumb}/>)))
   const styleBtn =  {
     position: "fixed",
     width: "60px",
@@ -59,29 +83,49 @@ function Header() {
     setOpen(true);
   }
   
-    const handleClose = () => {
-      setOpen(false);
-    };
-    const handleOpen2 = () => {
-      setOpen2(true);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen2 = () => {
+    setOpen2(true);
+  }
+  
+  const handleClose2 = () => {
+    setOpen2(false);
+  };
+  const  history = useHistory();
+  const handleOpen3 = () => {
+    UserData?.id !== undefined ? window.location.href = '/memberarea'  : setOpen3(true);
+  }
+  
+  const handleClose3 = () => {
+    setOpen3(false)  
+  };
+  const handleOpen4 = () => {
+    setOpen4(true);
+  }
+  
+  const [number1, setNumber1] = useState(0)
+  const [number2, setNumber2] = useState(0)
+  
+  
+  
+  const sendGetRequest10 = async () => {
+    try {
+      const resp = await axios.get('https://nehra.az/public/api/settings')
+      setNumber1(resp.data.phone1) 
+      setNumber2(resp.data.phone2)
+    } catch (err) {
+      // Handle Error Here
+      console.error(err);
     }
-    
-    const handleClose2 = () => {
-      setOpen2(false);
-    };
-    const  history = useHistory();
-    const handleOpen3 = () => {
-        UserData?.id !== undefined ? window.location.href = '/memberarea'  : setOpen3(true);
-    }
-      
-    const handleClose3 = () => {
-        setOpen3(false)  
-    };
-    const handleOpen4 = () => {
-       setOpen4(true);
-      }
-      
-    const handleClose4 = () => {
+  };
+  useEffect(() => {
+    sendGetRequest10()
+    sendGetRequest6()
+    sendGetRequestTopCategory()
+  } , [] )
+  const handleClose4 = () => {
         setOpen4(false);
     };
 
@@ -108,10 +152,10 @@ function Header() {
         }
         else if (window.scrollY < 201)
         {
-          document.getElementById('downPart').setAttribute('style' , 'background:transparent;height:0px;transition:0.3s;padding-top: 0px;padding-bottom: 0px;overflow:hidden;')
-          document.getElementById('logoNehre').setAttribute('style' , 'opacity:0;transition:0.1s opacity;pointer-events:none;')  
-          document.getElementById('downCont').setAttribute('style' , 'padding-top: 0px;padding-bottom: 0px;')
-          document.getElementById('header').setAttribute('style' , 'height:110px;background:transparent;transition:  0.5s  height; box-shadow: transparent;overflow:hidden;')
+          document?.getElementById('downPart')?.setAttribute('style' , 'background:transparent;height:0px;transition:0.3s;padding-top: 0px;padding-bottom: 0px;overflow:hidden;')
+          document?.getElementById('logoNehre')?.setAttribute('style' , 'opacity:0;transition:0.1s opacity;pointer-events:none;')  
+          document?.getElementById('downCont')?.setAttribute('style' , 'padding-top: 0px;padding-bottom: 0px;')
+          document?.getElementById('header')?.setAttribute('style' , 'height:110px;background:transparent;transition:  0.5s  height; box-shadow: transparent;overflow:hidden;')
           var downNavImgCont = document.querySelectorAll('#downNavImgCont')
           for (var i=0; i < downNavImgCont.length; i++) {
             downNavImgCont[i].setAttribute('style' , 'height:120px;')
@@ -141,24 +185,18 @@ function Header() {
            
             <div className="AllCont">
                 <button type="button" style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button>
-
-                <TopNavbar PaymentPrice={PaymentPrice} modalOpener={handleOpen} modalOpener3={handleOpen3}/>
+ 
+                <TopNavbar number2={number2} number1={number1} UserData={UserData} PaymentPrice={PaymentPrice} modalOpener={handleOpen} modalOpener3={handleOpen3}/>
                 <Navbar/>
 
                 <header id="header" className="header">
-                    <TopNavbarPart2  PaymentPrice={PaymentPrice} modalOpener={handleOpen} modalOpener3={handleOpen3}/>
-                    <DownNavbar/>
+                    <TopNavbarPart2 number2={number2} number1={number1} UserData={UserData}  PaymentPrice={PaymentPrice} modalOpener={handleOpen} modalOpener3={handleOpen3}/>
+                    <DownNavbar TopCategory={TopCategory}/>
                 </header>
 
 
                 <Switch>
-                    <Route   path="/milk-cheese">              <ProductListingPage category="Milk, cheese,  poultry"/>                  </Route>
-                    <Route   path="/meat" >                    <ProductListingPage category="Meat and poultry"/>                        </Route>
-                    <Route   path="/fruits" >                  <ProductListingPage category="Vegetables and fruits"/>                   </Route>
-                    <Route   path="/bread" >                   <ProductListingPage category="Cooking and bread"/>                       </Route>
-                    <Route   path="/fish" >                    <ProductListingPage category="Fish"/>                                    </Route>
-                    <Route   path="/freezed" >                 <ProductListingPage category="Freezed"/>                                 </Route>
-                    <Route   path="/non-food" >                <ProductListingPage category="Non food"/>                                </Route>
+                    <Route   path={`/category/:id`}>              <ProductListingPage />                  </Route>
                     <Route   path="/about" >                   <About/>                                                                 </Route>
                     <Route   path="/reviews" >                 <ReviewPage/>                                                            </Route>
                     <Route   path="/memberarea">
@@ -167,7 +205,7 @@ function Header() {
                     <Route  path="/promotions" >              <ProductListingPage category="Promotional products" notags={1}/>         </Route>
                     <Route  path="/suppliers/:id" >      <SelectedSupplier/>                                                      </Route>
                     <Route  path="/suppliers" >               <Suppliers/>                                                             </Route>
-                    <Route  path="/" >                        <HomePage modalOpener3={handleOpen3}/>                                                              </Route>
+                    <Route  path="/" >                        <HomePage assortmentArr={assortmentArr} modalOpener3={handleOpen3}/>                                                              </Route>
                 </Switch>
                 
                 <Footer/>

@@ -73,34 +73,69 @@ function HomePage(props) {
         const ordersDetails = {numberOfGoods:0,cost:0,weight:0}
         localStorage.setItem('ordersDetails' ,  JSON.stringify(ordersDetails))
     }
+
+
+    
+    const sendGetRequest = async () => {
+        try {
+            const resp = await axios.get('https://nehra.az/public/api/newproducts')
+            setProduct(resp.data)
+        } catch (err) {
+            // Handle Error Here
+            console.error(err);
+        }
+    };
+
+    const sendGetRequest2 = async () => {
+        try {
+            const resp = await axios.get('https://nehra.az/public/api/specials')
+            setSpecialOffers(resp.data)
+        } catch (err) {
+            // Handle Error Here
+            console.error(err);
+        }
+    };
+
+    const sendGetRequest3 = async () => {
+        try {
+            const resp = await axios.get('https://nehra.az/public/api/manufacturerslider')
+            setSuppliersCard(resp.data)
+        } catch (err) {
+            // Handle Error Here
+            console.error(err);
+        }
+    };
+    const sendGetRequest4 = async () => {
+        try {
+            const resp = await axios.get('https://nehra.az/public/api/slayder')
+            setTopCards(resp.data)
+        } catch (err) {
+            // Handle Error Here
+            console.error(err);
+        }
+    };
+    const sendGetRequest5 = async () => {
+        try {
+            const resp = await axios.get('https://nehra.az/public/api/questions')
+            setAnswerCard(resp.data)
+        } catch (err) {
+            // Handle Error Here
+            console.error(err);
+        }
+    };
+    
     useEffect(() => {
-
-            axios.get('https://nehra.az/public/api/newproducts')
-            .then(res => setProduct(res.data))
-            .catch(err=> console.log(err))
-    
-            axios.get('https://nehra.az/public/api/specials')
-            .then(res => setSpecialOffers(res.data))
-            .catch(err=> console.log(err))
-    
-            axios.get('https://nehra.az/public/api/manufacturerslider')
-            .then(res => setSuppliersCard(res.data))
-            .catch(err=> console.log(err))
-    
-            axios.get('https://nehra.az/public/api/slayder')
-            .then(res => setTopCards(res.data))
-            .catch(err=> console.log(err))
-            
-            axios.get('https://nehra.az/public/api/questions')
-            .then(res => setAnswerCard(res.data))
-            .catch(err=> console.log(err))
-
+            sendGetRequest();
+            sendGetRequest2();
+            sendGetRequest3();
+            sendGetRequest4();
+            sendGetRequest5();
     }, [])
 
     NewProducts.map(product =>  ( newItems.push(       <ItemCard  modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb}    title={product.title} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>)))
     SpecialOffers.map(product =>( specialOffers.push(  <ItemCard  modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb} title={product.title}   desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>)))
     SuppliersCard.map(supply => ( suppliersCard.push(  <SupplierCard image={supply.avatar} title={supply.name} supplier={supply.type_id} image2={testImg6} image3={testImg7}/>   )))
-    TopCards.map(bucket => ( topCards.push(<CardSlider1 name={bucket.name} image={bucket.image} desc={bucket.description}/>)))
+    TopCards.map(bucket => ( topCards.push(<CardSlider1 id={bucket.id} turndesc={bucket.turndesc} turnetrafli={bucket.turnetrafli}  turnoverlay={bucket.turnoverlay}  turntitle={bucket.turntitle}   name={bucket.name} image={bucket.image} desc={bucket.description}/>)))
     AnswerCard.map(question => ( answerCard.push( <AnswersCard  answer={question.description} question={question.name} />)))
     
     return (
@@ -113,7 +148,7 @@ function HomePage(props) {
                <OurSlider elements={topCards} numOfSld={2}/>
             </div>
             <p className="deliveryText">Delivery of products from farmers to your home!</p>
-            <video  className="videoHome"  autoplay  >
+            <video  className="videoHome"  autoPlay  >
             </video>
             <div className="aboutCards">
                 <div className="aboutCard"> <p>More than 1500 products from 150 small manufacturers on one site.</p>  <img src={cardAboutImg1} alt="" className="aboutImg"/></div> 
@@ -132,18 +167,7 @@ function HomePage(props) {
             <div className="ourAssortment">
                 <p className="title3">Our assortment</p>
                 <div className="assortmentCont">
-                    <AssortmentCard title="Popular" desc="more than 85 types" image={assort1}/>
-                    <AssortmentCard title="New Items" desc="more than 85 types" image={assort2}/>
-                    <AssortmentCard title="Meat and Poultry" desc="more than 85 types" image={assort3}/>
-                    <AssortmentCard title="Milk, cheese, eggs" desc="more than 85 types" image={assort4}/>
-                    <AssortmentCard title="Vegetables and fruits" desc="more than 85 types" image={assort5}/>
-                    <AssortmentCard title="Grocery" desc="more than 85 types" image={assort6}/>
-                    <AssortmentCard title="Cooking and bread" desc="more than 85 types" image={assort7}/>
-                    <AssortmentCard title="Sweets   " desc="more than 85 types" image={assort8}/>
-                    <AssortmentCard title="Non-Food" desc="more than 85 types" image={assort9}/>
-                    <AssortmentCard title="Presents" desc="more than 85 types" image={assort10}/>
-                    <AssortmentCard title="Fish" desc="more than 85 types" image={assort11}/>
-                    <AssortmentCard title="Freezing" desc="more than 85 types" image={assort12}/>
+                    {props.assortmentArr}
                 </div>
             </div>
 

@@ -26,7 +26,10 @@
         padding-left: 50px;
         width: 1300px;
     }
-
+    .linkComponent
+    {
+        
+    }
     .videoAndAbout
     {
         display: flex;
@@ -88,6 +91,9 @@
         padding-right: 2.5%;
         margin-top: 20px;
         background-color: #f3f0eb;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-radius: 10px;
         .button 
         {
             border: none;

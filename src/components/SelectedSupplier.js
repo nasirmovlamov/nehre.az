@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router'
 import "../assets/css/selectedSupllier.css"
 import About from './About'
-import Certificates from './Certificates'
+import Certificate from './Certificate'
 import Description from './Description'
 import Products from './Products'
 import Reviews from './Reviews'
@@ -12,13 +12,21 @@ import StarSystem from './StarSystem'
 function SelectedSupplier() {
     let { id } = useParams();
     const [Supplier, setSupplier] = useState(0)
-    console.log(id);
+    const [Certificates, setCertificates] = useState(0)
+    const [SupplierProduct, setSupplierProduct] = useState([0])
+    const sendGetRequestSupplier = async () => {
+        try {
+            const resp = await axios.get(`https://nehra.az/public/api/manufacturer/${id}`)
+            setSupplier(resp.data.data)
+            setCertificates(resp.data.certificates) 
+            setSupplierProduct(resp.data.products)
+        } catch (err) {
+            console.error(err);
+        }
+    };
     useEffect(() => {
-        axios.get(`https://nehra.az/public/api/manufacturer/${id}` )
-            .then(res => setSupplier(res.data))
-            .catch(err => console.log(err))
-    } , [])
-
+        sendGetRequestSupplier()
+    }, [])
     const styleChanger = {
         border:"1px solid lightgray",
         borderBottom: "0px",
@@ -35,7 +43,7 @@ function SelectedSupplier() {
     return (
         <div className="selectedSupllierCont">
             <div className="selectedSupplier">
-                <p className="category"> <span>home • Manufacturer • </span>  Zinaida and Sergey Belan</p>
+                <p className="category"> <span>home • Manufacturer • </span>  {Supplier.name}</p>
 
 
                 <div className="videoAndAbout">
@@ -58,9 +66,9 @@ function SelectedSupplier() {
                         <hr/>
 
                         <div className="linkComponent">
-                            {checker === 1 ? <Products/> : "" }
-                            {checker === 2 ? <About/> : ""}
-                            {checker === 3 ? <Certificates/> : ""}
+                            {checker === 1 ? <Products SupplierProduct={SupplierProduct }/> : "" }
+                            {checker === 2 ? <About description={Supplier.description}/> : ""}
+                            {checker === 3 ? <Certificate Certificates={Certificates}/> : ""}
                             {checker === 4 ? <Reviews/> : ""}
                         </div>
                     </div>

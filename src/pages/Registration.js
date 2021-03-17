@@ -6,7 +6,7 @@ import '../assets/css/registrationPage.scss'
 import Button1 from '../components/Button1'
 import {Formik , Form , Field, ErrorMessage} from "formik"
 import Cookies from 'js-cookies'
-import * as Yup from "yup"
+import * as yup from 'yup';
 import axios from 'axios'
 import {
     MuiPickersUtilsProvider,
@@ -19,28 +19,38 @@ import TextField from '@material-ui/core/TextField';
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 import DatePicker from '@material-ui/lab/DatePicker';
+import ReactLoading from 'react-loading';
+
 toast.configure()
 function Registration(props) {
     // The first commit of Material-UI
-    const notify = () => toast.info("Hesabınız müvəffəqiyyətlə yaradıldı!");
-    const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!");
+const notify = () => toast.info("Hesabınız müvəffəqiyyətlə yaradıldı!");
+const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!");
 
   const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
   const token = Cookies.getItem('XSRF-TOKEN')
+  const [loader, setloader] = useState(false)
   const headers = {
       "X-CSRF-TOKEN":token
   }
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
-    const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+    const phoneRegExp = /([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/
+    const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
     
     const [Error, setError] = useState(false)
-    const [profilePhoto, setprofilePhoto] = useState(null)
     const onSubmit =  (values) => {
-            axios.post('https://nehra.az/public/api/login', {name: values.name , surname: values.surname, email: values.email ,  phone: values.phone , password: values.password, profilePhoto:profilePhoto, date:selectedDate } , headers)
-            .then(res => (res.status === 200 && console.log(res) ,  notify() , props.functionClose()) ) 
-            .catch(err => setError(true) )
+        setloader(true)
+        const dt = new FormData()
+        dt.append('name' , values.name)
+        dt.append('email' , values.email)
+        dt.append('phone' , values.phone)
+        dt.append('password' , values.password)
+        dt.append('profilePhoto' , profilePhoto)
+        axios.post('https://nehra.az/public/api/login', dt , headers)
+        .then(res => (setloader(false) , res.status === 200 && console.log(res) ,  notify() , props.functionClose()) ) 
+        .catch(err => (setloader(false) , setError(true)) )
     }
     
     const initialValues = {
@@ -51,13 +61,35 @@ function Registration(props) {
         confirmPassword:'',
     }
 
-    const validationSchema = Yup.object({
-        name: Yup.string().required('Adınızı daxil edin'),
-        email: Yup.string().email('Emailinizi düzgün daxil edin').required('Emailinizi daxil edin'),
-        phone:  Yup.string().matches(phoneRegExp, 'Telefon nömrəsini düzgün daxil edin').required('Telefon nömrənizi daxil edin'),
-        password: Yup.string().required('Şifrənizi daxil edin'),
-        confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password'), null], 'Şifrələr uyğun deyil').required("Şifrənizi daxil edin")
+
+
+
+    const [profilePhoto, setprofilePhoto] = useState(null)
+    
+    const [{alt, src}, setImg] = useState({
+        src: "",
+        alt: 'Upload an Image'
+    });
+    
+    const ppchanger = (e) => {
+        if(e.target.files[0]) {
+            setImg({
+                src: URL.createObjectURL(e.target.files[0]),
+                alt: e.target.files[0].name
+            });    
+        }   
+        setprofilePhoto(e.target.files[0])
+        console.log(e.target.files[0]);
+    }
+
+
+
+    const validationSchema = yup.object({
+        name: yup.string().required('Adınızı daxil edin'),
+        email: yup.string().email('Emailinizi düzgün daxil edin').required('Emailinizi daxil edin'),
+        phone:  yup.string().matches(phoneRegExp, 'Telefon nömrəsini düzgün daxil edin').required('Telefon nömrənizi daxil edin'),
+        password: yup.string().matches(passRegex ,'Şifrəniz ən az 8 simvol 1 böyük hərf 1 kiçik hərf və 1 rəqəm təşkil etməlidir').required('Şifrənizi daxil edin'),
+        confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Şifrələr uyğun deyil').required("Şifrənizi daxil edin")
     })
 
     console.log(profilePhoto);
@@ -85,12 +117,13 @@ function Registration(props) {
 
                     <label  className="key" ></label>                                        <LocalizationProvider dateAdapter={AdapterDateFns}> <DatePicker label="Doğum tarixiniz"  value={selectedDate} minDate={'02-01-1920'} maxDate={'02-29-2020'} inputFormat="dd/MM/yyyy" onChange={(newValue) => { setSelectedDate(newValue); }} renderInput={(params) => <TextField {...params} />}/></LocalizationProvider>
 
-                    <label  className="key" >Profil Şəkli</label>                           <button className="fileInputButton" type="button"> <p className="pText">Profil rəsmi yükləyin</p> <input className="value"  type="file" name="profilePhoto" /></button>
-                    <button className="submitBtn" type="submit">Submit</button>
-                    {Error && <p className="errors">Daxil etdiyiniz elektron poçt artıq mövcuddur</p>}
+                    <label  className="key" >Profil Şəkli</label>                           <button type="button" className="addFile"> <p className="textPhoto">{profilePhoto?.name !== undefined ? profilePhoto.name  : "Şəklinizi yükləyin"}</p><input onChange={ppchanger} type="file" className="addFileInput" name="profile" id=""/></button>
+                    <button className="submitBtn" type="submit">Submit {loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={"30px"} width={"30px"} />}</button>
+                    {Error && <p className="errors">Daxil etdiyiniz elektron poçt artıq mövcuddur  </p>}
                 </Form>
             </Formik>
             </MuiPickersUtilsProvider>
+                   
         </div>
     )
 }

@@ -35,19 +35,26 @@
                         direction: ltr;
                         display: flex;
                         align-items: center;
+                        justify-content: center;
                         align-self: flex-start;
                         margin: 0px;
-                        margin-right: 10px;
                         column-gap: 10px;
-                        font-size: 23px;
+                        font-size: 16px;
                         color: #285999;
-                        width: 180px;
+                        min-width: 180px;
                         a 
                         {
                             color: gray ;
                         }
                     }
                 }
+        }
+        .css-1wlk0hk-MuiAvatar-root
+        {
+            border-radius: 3px;
+            border: 1px solid #8682ab;
+            width: 100%;
+            height: 100%;
         }
         .phoneAndSearch
         {

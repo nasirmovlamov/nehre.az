@@ -1,14 +1,10 @@
 footer {
-  width: 1200px;
+  width: 1300px;
   background-color: #edf4f6;
   border-radius: 20px 20px 0px 0px;
   margin-top: 50px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
   padding: 25px;
 }
 
@@ -17,11 +13,12 @@ footer h3 {
 }
 
 footer .footerCont {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   width: 1200px;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  justify-content: space-around;
 }
-/*# sourceMappingURL=footer.css.map */
+
+footer .social {
+  display: flex;
+  column-gap: 30px;
+}
