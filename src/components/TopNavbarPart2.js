@@ -86,11 +86,7 @@ function TopNavbarPart2(props) {
     const langChangerMouseLeave2 = () => {
             setdrop2(false)
     }
-    const [PaymentPrice, setPaymentPrice] = useState(0)
-    useEffect(() => {
-        setPaymentPrice(JSON.parse(localStorage.getItem('ordersDetails'))?.cost)
-    } , [JSON.parse(localStorage.getItem('ordersDetails'))?.cost])
-    
+   
     return (
         <div className="downPart" id="downPart">
             <div className="downCont" id="downCont">
@@ -98,7 +94,7 @@ function TopNavbarPart2(props) {
                     <div className="searchAndIcons">
                         <div className="inputAndIcon">
                             <div className="phoneCont">
-                                <p className="phone"> <PhoneIcon/> <a href={`tel:${props.number1}`}>{props.number1}</a></p>
+                                <p className="phone"> <PhoneIcon/> <a href={`tel:${props.number1}`}>{props.number1} </a></p>
                                 <p className="phone"> <PhoneIcon/> <a href={`tel:${props.number2}`}>{props.number2}</a></p>
                             </div>
                             <input type="text" placeholder="Axtarış"/>
@@ -137,7 +133,7 @@ function TopNavbarPart2(props) {
                                 <StarBorderIcon/> 
                             </Link>
                             <Link to="/">  
-                                <button className="shoppingBtn shoppingBtn4" onClick={() => props.modalOpener()}><ShoppingCartIcon/></button>     {PaymentPrice !== 0  ? <span className="price">{PaymentPrice + " AZN"}    </span> : ""}
+                                <button className="shoppingBtn shoppingBtn4" onClick={() => props.modalOpener()}><ShoppingCartIcon/></button>      <span className="price">{props.PaymentPrice }     </span> 
                             </Link>
                             
                         </div>

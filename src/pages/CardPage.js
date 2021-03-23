@@ -41,56 +41,46 @@ function CardPage(props) {
         props.functionOpenCheckoutPage()
         props.functionClose()
     }
-    const [Items, setItems] = useState(JSON.parse(localStorage.getItem('orders')))
-
-    const [PaymentPrice, setPaymentPrice] = useState(JSON.parse(localStorage.getItem('ordersDetails'))?.cost)
-    const [AllNumberOfGoods, setAllNumberOfGoods] = useState(JSON.parse(localStorage.getItem('ordersDetails'))?.numberOfGoods)
+    const [Items, setItems] = useState(JSON.parse(sessionStorage.getItem('orders')))
     const [MinOrder, setMinOrder] = useState()
+    
     useEffect(() => {
         axios.get('https://nehra.az/public/api/settings/')
              .then(res => setMinOrder(res.data.min_order_amount))
              .then(err => console.log(err))
     }, [])
     const clearBucket = () => {
-        localStorage.removeItem('orders')
-        localStorage.removeItem('ordersDetails')
+        sessionStorage.removeItem('orders')
+        sessionStorage.removeItem('ordersDetails')
         setItems([])
-        setPaymentPrice(0)
-        setAllNumberOfGoods(0)
     }
     const [check, setcheck] = useState(false)
     
     const deleteCard = (num , price) => {
-        var orders = JSON.parse(localStorage.getItem('orders'))
         console.log(num);
-        console.log(orders);
+        var orders = JSON.parse(sessionStorage.getItem('orders'))
         for (let index = 0; index < orders.length; index++) {
             if (orders[index].id === num ) {
-                console.log(index);
+                console.log("YES");                
                 orders.splice(index , 1)
-                localStorage.setItem('orders' , JSON.stringify(orders))
-                setItems([])
-                setItems(JSON.parse(localStorage.getItem('orders')))
+                console.log(orders);                
+                sessionStorage.setItem('orders' , JSON.stringify(orders))
+                setItems(orders)
                 return 0 
             }
         }
     }
-
-    const itemsArr = []
-    Items?.map(element => itemsArr.push(<CheckoutCard deleteCard={deleteCard} setAllNumberOfGoods={setAllNumberOfGoods} AllNumberOfGoods={AllNumberOfGoods} PaymentPrice={PaymentPrice} setPaymentPrice={setPaymentPrice}  id={element.id} count={element.count}/>))
-    
     return (
         <div className="cardCont">
             
             <main className="mainSide">
                 <p className="title">
-                    <p className="basketTitle">Basket {PaymentPrice < MinOrder   ?  <div className="minOrder"> <InfoIcon/> Minimum sifariş qiyməti {MinOrder} ₼</div> : " " }</p>
+                    <p className="basketTitle">Basket {1 < MinOrder   ?  <div className="minOrder"> <InfoIcon/> Minimum sifariş qiyməti {MinOrder} ₼</div> : " " }</p>
                     <hr/>
                 </p>
                 <div className="gridCont1">
                     <div className="gridCont">
-                        {itemsArr}
-                        
+                        {Items.map(element => <CheckoutCard ParcelWeight={props.ParcelWeight} setParcelWeight={props.setParcelWeight} NumberOfGoods={props.NumberOfGoods} setNumberOfGoods={props.setNumberOfGoods} cost={element.cost} PaymentPrice={props.PaymentPrice} setPaymentPrice={props.setPaymentPrice} deleteCard={deleteCard}  id={element.id} count={element.count}/>)}
                     </div>
                 </div>
             </main>
@@ -105,9 +95,10 @@ function CardPage(props) {
                     
                     <div className="downPart">
 
-                        <div className="goods"><p className="key">Number of Goods</p> <p className="value ">{AllNumberOfGoods}</p> </div> 
-                        <div className="cost"><p className="key">Product cost</p> <p className="value value2">{PaymentPrice} AZN </p> </div> 
-                        <Button1 disabled={PaymentPrice < MinOrder ? true : false} value="Checkout" color="#085096" function={functionHandler} /> 
+                        <div className="goods"><p className="key">Weight of Parcel</p> <p className="value ">{props.ParcelWeight}</p> </div> 
+                        <div className="goods"><p className="key">Number of Goods</p> <p className="value ">{props.NumberOfGoods}</p> </div> 
+                        <div className="cost"><p className="key">Product cost</p> <p className="value value2"> {props.PaymentPrice} AZN </p> </div> 
+                        <Button1 disabled={props.PaymentPrice < MinOrder ? true : false} value="Checkout" color="#085096" function={functionHandler} /> 
                         <p className="cashback">There will be 10$ cashback</p>
                     </div>
                 </div>

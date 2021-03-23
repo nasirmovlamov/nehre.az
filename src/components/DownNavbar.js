@@ -23,7 +23,6 @@ function DownNavbar(props) {
     if(props.TopCategory.length !== 0)
     {
         props.TopCategory.map(element => TopCatArr.push(<Link to ={`/category/${element.id}`}><button  id={`btnNav${element.id}`} onClick={() => clickHandler(element.id)} className="buttonNav" > <div id="downNavImgCont" className="imgCont"> <img id="downNavImg" src={`https://nehra.az/storage/app/public/${element.image}`} alt="" width="70px" height="auto"/></div>  <span>{element.name}</span>  </button></Link>))
-        console.log(props.TopCategory);
     }
     return (
         <div className="navCont">

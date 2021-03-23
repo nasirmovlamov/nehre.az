@@ -55,24 +55,16 @@ function HomePage(props) {
     const [SuppliersCard, setSuppliersCard] = useState([])
     const [AnswerCard, setAnswerCard] = useState([])
     
-    if(JSON.parse(localStorage.getItem('orders'))?.length >= 0 || JSON.parse(localStorage.getItem('orders')) !== null)
+    if(JSON.parse(sessionStorage.getItem('orders'))?.length >= 0 || JSON.parse(sessionStorage.getItem('orders')) !== null)
     {
         
     }
     else 
     {
         const orders =   []
-        localStorage.setItem('orders' ,  JSON.stringify(orders))
+        sessionStorage.setItem('orders' ,  JSON.stringify(orders))
     }
-    if(JSON.parse(localStorage.getItem('ordersDetails'))?.length >= 0 || JSON.parse(localStorage.getItem('ordersDetails')) !== null)
-    {
-        
-    }
-    else 
-    {
-        const ordersDetails = {numberOfGoods:0,cost:0,weight:0}
-        localStorage.setItem('ordersDetails' ,  JSON.stringify(ordersDetails))
-    }
+    
 
 
     
@@ -132,8 +124,8 @@ function HomePage(props) {
             sendGetRequest5();
     }, [])
 
-    NewProducts.map(product =>  ( newItems.push(       <ItemCard  modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb}    title={product.title} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>)))
-    SpecialOffers.map(product =>( specialOffers.push(  <ItemCard  modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb} title={product.title}   desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>)))
+    NewProducts.map(product =>  ( newItems.push(       <ItemCard ParcelWeight={props.ParcelWeight} setParcelWeight={props.setParcelWeight} NumberOfGoods={props.NumberOfGoods} setNumberOfGoods={props.setNumberOfGoods} setPaymentPrice={props.setPaymentPrice} PaymentPrice={props.PaymentPrice}  modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb}    title={product.title} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>)))
+    SpecialOffers.map(product =>( specialOffers.push(  <ItemCard ParcelWeight={props.ParcelWeight} setParcelWeight={props.setParcelWeight} NumberOfGoods={props.NumberOfGoods} setNumberOfGoods={props.setNumberOfGoods} setPaymentPrice={ props.setPaymentPrice} PaymentPrice={props.PaymentPrice} modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb} title={product.title}   desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>)))
     SuppliersCard.map(supply => ( suppliersCard.push(  <SupplierCard image={supply.avatar} title={supply.name} supplier={supply.type_id} image2={testImg6} image3={testImg7}/>   )))
     TopCards.map(bucket => ( topCards.push(<CardSlider1 id={bucket.id} turndesc={bucket.turndesc} turnetrafli={bucket.turnetrafli}  turnoverlay={bucket.turnoverlay}  turntitle={bucket.turntitle}   name={bucket.name} image={bucket.image} desc={bucket.description}/>)))
     AnswerCard.map(question => ( answerCard.push( <AnswersCard  answer={question.description} question={question.name} />)))
