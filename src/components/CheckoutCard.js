@@ -14,12 +14,7 @@ import axios from 'axios';
 function CheckoutCard(props) {
     const [Product, setProduct] = useState()
 
-    useEffect(() => {
-        axios.get(`https://nehra.az/public/api/product/${props.id}`)
-        .then(res => setProduct(res.data))
-        .catch(err=> console.log(err))
-    } , [])
-
+    
     const DarkTT = withStyles((theme) => ({
         arrow: {
             color: theme.palette.common.black,
@@ -34,11 +29,19 @@ function CheckoutCard(props) {
     const colorChang = {
         color: ""
     }
-
-    var [numberOfElements, setnumberOfElements] = useState(props.count)
+    
+    var [numberOfElements, setnumberOfElements] = useState(parseInt(props.count))
+    var [priceOfElements, setpriceOfElements] = useState(parseInt(props.cost))
+    
+    useEffect(() => {
+        axios.get(`https://nehra.az/public/api/product/${props.id}`)
+        .then(res => (setProduct(res.data) , setGeneralPrice(discountHandler(res?.data?.discount ))))
+        .catch(err=> console.log(err))
+    } , [])
+    
     const [ProductData, setProductData] = useState(() => {})
     useEffect(() => {
-        var orders = JSON.parse(localStorage.getItem('orders'))
+        var orders = JSON.parse(sessionStorage.getItem('orders'))
         for (let index = 0; index < orders.length; index++) {
             if (orders[index].id === Product?.id ) {
                 setProductData(orders[index].count)
@@ -47,75 +50,74 @@ function CheckoutCard(props) {
     })
     
 
-    const addItem = (num,price) => {
+    const addItem = (num,price,numberOfElements , weight) => {
+        setnumberOfElements(numberOfElements+1)
+        setGeneralPrice(parseInt(price) * (numberOfElements+1))
+        props.setNumberOfGoods(parseInt(props.NumberOfGoods) + 1)
+        props.setPaymentPrice(parseInt(props.PaymentPrice) + parseInt(price))
+        if(weight !== null)
+        {
+            props.setParcelWeight(parseInt(props.ParcelWeight) + parseInt(weight))
+        }
         setProductData(1)
-        var orders = JSON.parse(localStorage.getItem('orders'))
-        var ordersDetails = JSON.parse(localStorage.getItem('ordersDetails'))
-        var numberOfGoods = ordersDetails.numberOfGoods , cost = ordersDetails.cost , weight = ordersDetails.weight 
+        var orders = JSON.parse(sessionStorage.getItem('orders'))
         for (let index = 0; index < orders.length; index++) {
             if (orders[index].id === num ) {
                 orders[index].count++
                 setProductData(orders[index].count)
-                localStorage.setItem('orders' , JSON.stringify(orders))
-                numberOfGoods += 1
-                weight += orders[index].count
-                ordersDetails = { numberOfGoods:numberOfGoods, cost:parseInt(cost) + parseInt(price), weight:weight}
-                localStorage.setItem('ordersDetails' , JSON.stringify(ordersDetails))
+                sessionStorage.setItem('orders' , JSON.stringify(orders))
                 return 0 
             }
         }    
-        ordersDetails = { numberOfGoods:numberOfGoods+1, cost:parseInt(cost) + parseInt(price), weight:weight}
-        orders.push({id:num , count:1, cost:cost})
-        localStorage.setItem('orders' , JSON.stringify(orders))
-        localStorage.setItem('ordersDetails' , JSON.stringify(ordersDetails))
+        orders.push({id:num , count:1, cost:price})
+        sessionStorage.setItem('orders' , JSON.stringify(orders))
+
     }
 
-    
-    const removeItem = (num,price) => {
-        var orders = JSON.parse(localStorage.getItem('orders'))
-        var ordersDetails = JSON.parse(localStorage.getItem('ordersDetails'))
-        var numberOfGoods = ordersDetails.numberOfGoods , cost = ordersDetails.cost , weight = ordersDetails.weight 
+    const removeItem = (num,price,numberOfElements , weight) => {
+        var orders = JSON.parse(sessionStorage.getItem('orders'))
         for (let index = 0; index < orders.length; index++) {
             if (orders[index].id === num ) {
                 if (orders[index].count > 0) {
                     orders[index].count--
+                    props.setNumberOfGoods(parseInt(props.NumberOfGoods) - 1)
+                    setnumberOfElements(numberOfElements-1)
+                    setGeneralPrice(parseInt(price) * (numberOfElements-1))
+                    props.setPaymentPrice(parseInt(props.PaymentPrice) - parseInt(price))
+                    if(weight !== null)
+                    {
+                        props.setParcelWeight(parseInt(props.ParcelWeight) - parseInt(weight))
+                    }
                     setProductData(orders[index].count)
-                    numberOfGoods -= 1
                 }
                 if (orders[index].count === 0) {
                     orders.splice(index , 1)
                 }
-                localStorage.setItem('orders' , JSON.stringify(orders))
-                weight += orders[index]?.count
-                ordersDetails = { numberOfGoods:numberOfGoods, cost:parseInt(cost) + parseInt(price) , weight:weight}
-                localStorage.setItem('ordersDetails' , JSON.stringify(ordersDetails))
+                sessionStorage.setItem('orders' , JSON.stringify(orders))
                 return 0 
             }
         }    
-        localStorage.setItem('orders' , JSON.stringify(orders))
-        localStorage.setItem('ordersDetails' , JSON.stringify(ordersDetails))
+        sessionStorage.setItem('orders' , JSON.stringify(orders))
     }
-
 
     const discountHandler = (discount) => {
-        if (discount !== 0 && discount !== null) {
+        if (discount !== 0 && discount !== null  && discount !== undefined) {
             var discountPrice = 0;
-            discountPrice =  ((Product?.qiymet - (Product?.qiymet * discount) / 100))
-            colorChang.color = "red"
-            return discountPrice.toFixed(2);         
+            discountPrice =  ((parseInt(priceOfElements) - (parseInt(priceOfElements) * parseInt(discount)) / 100))
+            return parseInt(discountPrice * numberOfElements);         
         } 
         else {
-            return Product?.qiymet
+            return priceOfElements * numberOfElements
         }
     }
+    
     const imgHandler = {
         background: `url(https://nehra.az/storage/app/public/${Product?.thumb}) no-repeat`,
         backgroundPosition: "center",
         backgroundSize: "cover",
     }
-    var GeneralPrice = (discountHandler(Product?.discount) * numberOfElements)
-
     
+    const [GeneralPrice, setGeneralPrice] = useState(0)
     return (
         <>
             <div className="item">
@@ -148,15 +150,13 @@ function CheckoutCard(props) {
                             </div>
 
                             <div className="btnCont">
-                                <Button1 function={() => removeItem(Product?.id ,Product?.qiymet)} value={<RemoveIcon/>} color="#085096"/>
+                                <Button1 function={() => removeItem(Product?.id ,Product?.qiymet,numberOfElements , Product?.ceki_hecm)} value={<RemoveIcon/>} color="#085096"/>
                                 <p className="priceValue"> {ProductData}</p>
-                                <Button1 function={() => addItem(Product?.id ,Product?.qiymet)} value={<AddIcon/>}  color="#085096"/>
+                                <Button1 function={() => addItem(Product?.id ,Product?.qiymet,numberOfElements , Product?.ceki_hecm)} value={<AddIcon/>}  color="#085096"/>
                             </div>
 
-                            <p className="price"> {GeneralPrice.toFixed(0)} </p>
+                            <p className="price"> {GeneralPrice} </p>
                             <button onClick={() => props.deleteCard(Product?.id , Product?.price)} className="delete"><DeleteIcon/></button>
-
-
                         </div>
                         <hr/>
         </>

@@ -8,6 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { useParams } from 'react-router';
 const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
@@ -18,17 +19,18 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 function ProductListingPage(props) {
+    let { id } = useParams()
     const classes = useStyles();
     const [age, setAge] = React.useState('');
-
     const handleChange = (event) => {
         setAge(event.target.value);
     };
+
     return (
         <div className="productPage"> 
             <div className="topPart">
                 <div className="titleProducts">
-                        <p className="category"> <span>home •</span>  {props.category}</p>
+                        <p className="category"> <span>home • {id}</span>  {props.category}</p>
                         <h2 className="categoryName">{props.category}</h2>
                         {!props.notags  &&     
                         (<div className="tags">

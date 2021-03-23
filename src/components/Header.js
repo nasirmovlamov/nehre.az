@@ -176,8 +176,8 @@ function Header() {
       window.scroll(0,0)
     }
     const [PaymentPrice, setPaymentPrice] = useState(0)
-    
-    
+    const [NumberOfGoods, setNumberOfGoods] = useState(0)
+    const [ParcelWeight, setParcelWeight] = useState(0)
     return (
         <>
 
@@ -185,27 +185,24 @@ function Header() {
            
             <div className="AllCont">
                 <button type="button" style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button>
- 
-                <TopNavbar number2={number2} number1={number1} UserData={UserData} PaymentPrice={PaymentPrice} modalOpener={handleOpen} modalOpener3={handleOpen3}/>
+                <TopNavbar PaymentPrice={PaymentPrice} number2={number2} number1={number1} UserData={UserData}  modalOpener={handleOpen} modalOpener3={handleOpen3}/>
                 <Navbar/>
 
                 <header id="header" className="header">
-                    <TopNavbarPart2 number2={number2} number1={number1} UserData={UserData}  PaymentPrice={PaymentPrice} modalOpener={handleOpen} modalOpener3={handleOpen3}/>
-                    <DownNavbar TopCategory={TopCategory}/>
+                    <TopNavbarPart2 PaymentPrice={PaymentPrice} number2={number2} number1={number1} UserData={UserData}   modalOpener={handleOpen} modalOpener3={handleOpen3}/>
+                    <DownNavbar  TopCategory={TopCategory}/>
                 </header>
 
 
                 <Switch>
-                    <Route   path={`/category/:id`}>              <ProductListingPage />                  </Route>
+                    <Route   path={`/category/:id`}>              <ProductListingPage  PaymentPrice={PaymentPrice} />                  </Route>
                     <Route   path="/about" >                   <About/>                                                                 </Route>
                     <Route   path="/reviews" >                 <ReviewPage/>                                                            </Route>
-                    <Route   path="/memberarea">
-                      { UserData?.id !== undefined  ?  <MemberArea  UserData={UserData}/> : <F04/> }
-                    </Route>
-                    <Route  path="/promotions" >              <ProductListingPage category="Promotional products" notags={1}/>         </Route>
-                    <Route  path="/suppliers/:id" >      <SelectedSupplier/>                                                      </Route>
-                    <Route  path="/suppliers" >               <Suppliers/>                                                             </Route>
-                    <Route  path="/" >                        <HomePage assortmentArr={assortmentArr} modalOpener3={handleOpen3}/>                                                              </Route>
+                    <Route   path="/memberarea">      { UserData?.id !== undefined  ?  <MemberArea  UserData={UserData}/> : <F04/> }    </Route>
+                    <Route  path="/promotions" >              <ProductListingPage category="Promotional products" notags={1}/>          </Route>
+                    <Route  path="/suppliers/:id" >      <SelectedSupplier/>                                                            </Route>
+                    <Route  path="/suppliers" >               <Suppliers/>                                                              </Route>
+                    <Route  path="/" >                        <HomePage NumberOfGoods={NumberOfGoods} setNumberOfGoods={setNumberOfGoods} ParcelWeight={ParcelWeight} setParcelWeight={setParcelWeight} setPaymentPrice={setPaymentPrice}  PaymentPrice={PaymentPrice} assortmentArr={assortmentArr} modalOpener3={handleOpen3}/>        </Route>
                 </Switch>
                 
                 <Footer/>
@@ -216,7 +213,7 @@ function Header() {
                 onClose={handleClose}
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description">
-                {<CardPage functionOpenCheckoutPage={handleOpen2} functionClose={() => handleClose()}  numberStar="3.5"/>}
+                {<CardPage ParcelWeight={ParcelWeight} setParcelWeight={setParcelWeight} NumberOfGoods={NumberOfGoods} setNumberOfGoods={setNumberOfGoods} PaymentPrice={PaymentPrice} setPaymentPrice={setPaymentPrice} functionOpenCheckoutPage={handleOpen2} functionClose={() => handleClose()}  numberStar="3.5"/>}
             </Modal>
 
             <Modal  
@@ -225,7 +222,7 @@ function Header() {
                 onClose={handleClose2}
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description">
-                {<CheckoutPage functionClose={() => handleClose2()}  numberStar="3.5"/>}
+                {<CheckoutPage ParcelWeight={ParcelWeight} setParcelWeight={setParcelWeight} NumberOfGoods={NumberOfGoods} setNumberOfGoods={setNumberOfGoods} PaymentPrice={PaymentPrice} functionClose={() => handleClose2()}  numberStar="3.5"/>}
             </Modal>
 
             <Modal  
