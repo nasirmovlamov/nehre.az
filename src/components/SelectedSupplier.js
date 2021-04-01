@@ -69,7 +69,7 @@ function SelectedSupplier() {
                             {checker === 1 ? <Products SupplierProduct={SupplierProduct }/> : "" }
                             {checker === 2 ? <About description={Supplier.description}/> : ""}
                             {checker === 3 ? <Certificate Certificates={Certificates}/> : ""}
-                            {checker === 4 ? <Reviews/> : ""}
+                            {checker === 4 ? <Reviews id={id} /> : ""}
                         </div>
                     </div>
                 </div>

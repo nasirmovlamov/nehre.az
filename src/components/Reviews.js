@@ -6,17 +6,8 @@ import StarSystem from './StarSystem'
 function Reviews() {
     return (
         <div className="reviews">
-            <p className="titleReviews">Only the customer who ordered this product can leave a review.</p>
             <div className="reviewsCont">
-                
                 <Review/>
-                <Review/>
-                <Review/>
-                <Review/>
-                <Review/>
-
-
-
             </div>
         </div>
     )

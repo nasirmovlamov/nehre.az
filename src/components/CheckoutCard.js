@@ -14,7 +14,6 @@ import axios from 'axios';
 function CheckoutCard(props) {
     const [Product, setProduct] = useState()
 
-    
     const DarkTT = withStyles((theme) => ({
         arrow: {
             color: theme.palette.common.black,
@@ -29,7 +28,6 @@ function CheckoutCard(props) {
     const colorChang = {
         color: ""
     }
-    
     var [numberOfElements, setnumberOfElements] = useState(parseInt(props.count))
     var [priceOfElements, setpriceOfElements] = useState(parseInt(props.cost))
     
@@ -120,7 +118,7 @@ function CheckoutCard(props) {
     const [GeneralPrice, setGeneralPrice] = useState(0)
     return (
         <>
-            <div className="item">
+            
                             <div className="imgCont" style={imgHandler}></div>
                             
                             <div className="aboutItem">
@@ -154,11 +152,9 @@ function CheckoutCard(props) {
                                 <p className="priceValue"> {ProductData}</p>
                                 <Button1 function={() => addItem(Product?.id ,Product?.qiymet,numberOfElements , Product?.ceki_hecm)} value={<AddIcon/>}  color="#085096"/>
                             </div>
-
                             <p className="price"> {GeneralPrice} </p>
-                            <button onClick={() => props.deleteCard(Product?.id , Product?.price)} className="delete"><DeleteIcon/></button>
-                        </div>
-                        <hr/>
+
+            
         </>
     )
 }

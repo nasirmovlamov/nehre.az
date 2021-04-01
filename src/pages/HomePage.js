@@ -117,18 +117,18 @@ function HomePage(props) {
     };
     
     useEffect(() => {
-            sendGetRequest();
-            sendGetRequest2();
-            sendGetRequest3();
             sendGetRequest4();
             sendGetRequest5();
+            sendGetRequest3();
+            sendGetRequest();
+            sendGetRequest2();
     }, [])
 
-    NewProducts.map(product =>  ( newItems.push(       <ItemCard ParcelWeight={props.ParcelWeight} setParcelWeight={props.setParcelWeight} NumberOfGoods={props.NumberOfGoods} setNumberOfGoods={props.setNumberOfGoods} setPaymentPrice={props.setPaymentPrice} PaymentPrice={props.PaymentPrice}  modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb}    title={product.title} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>)))
-    SpecialOffers.map(product =>( specialOffers.push(  <ItemCard ParcelWeight={props.ParcelWeight} setParcelWeight={props.setParcelWeight} NumberOfGoods={props.NumberOfGoods} setNumberOfGoods={props.setNumberOfGoods} setPaymentPrice={ props.setPaymentPrice} PaymentPrice={props.PaymentPrice} modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb} title={product.title}   desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>)))
-    SuppliersCard.map(supply => ( suppliersCard.push(  <SupplierCard image={supply.avatar} title={supply.name} supplier={supply.type_id} image2={testImg6} image3={testImg7}/>   )))
     TopCards.map(bucket => ( topCards.push(<CardSlider1 id={bucket.id} turndesc={bucket.turndesc} turnetrafli={bucket.turnetrafli}  turnoverlay={bucket.turnoverlay}  turntitle={bucket.turntitle}   name={bucket.name} image={bucket.image} desc={bucket.description}/>)))
+    SuppliersCard.map(supply => ( suppliersCard.push(  <SupplierCard image={supply.avatar} title={supply.name} supplier={supply.type_id} image2={testImg6} image3={testImg7}/>   )))
     AnswerCard.map(question => ( answerCard.push( <AnswersCard  answer={question.description} question={question.name} />)))
+    NewProducts.map(product =>  ( newItems.push(       <ItemCard ParcelWeight={props.ParcelWeight} setParcelWeight={props.setParcelWeight} NumberOfGoods={props.NumberOfGoods} setNumberOfGoods={props.setNumberOfGoods} setPaymentPrice={props.setPaymentPrice} PaymentPrice={props.PaymentPrice}  modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb}    title={product.title} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} id={product.id}  star={product.star_count}/>)))
+    SpecialOffers.map(product =>( specialOffers.push(  <ItemCard ParcelWeight={props.ParcelWeight} setParcelWeight={props.setParcelWeight} NumberOfGoods={props.NumberOfGoods} setNumberOfGoods={props.setNumberOfGoods} setPaymentPrice={ props.setPaymentPrice} PaymentPrice={props.PaymentPrice} modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb} title={product.title}   desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount}  id={product.id} star={product.star_count}/>)))
     
     return (
 
@@ -139,58 +139,58 @@ function HomePage(props) {
             <div className="slider1">
                <OurSlider elements={topCards} numOfSld={2}/>
             </div>
-            <p className="deliveryText">Delivery of products from farmers to your home!</p>
+            <p className="deliveryText">Fermerlərdən evinizə təzə və təbii məhsulların çatdırılması!</p>
             <video  className="videoHome"  autoPlay  >
             </video>
             <div className="aboutCards">
-                <div className="aboutCard"> <p>More than 1500 products from 150 small manufacturers on one site.</p>  <img src={cardAboutImg1} alt="" className="aboutImg"/></div> 
-                <div className="aboutCard"> <p>Farmers prepare all products only to order. Therefore, the next day delivery.</p> <img src={cardAboutImg2} alt="" className="aboutImg"/></div>
-                <div className="aboutCard"> <p>We control quality at all stages. Therefore, there are no harmful ingredients in the products for taste, color and smell.</p> <img src={cardAboutImg3} alt="" className="aboutImg"/></div>
+                <div className="aboutCard"> <p>1500-dən çox məhsulla və 150-dən çox zəhmətkeşimizlə sizin qulluğunuzda hazırıq</p>  <img src={cardAboutImg1} alt="" className="aboutImg"/></div> 
+                <div className="aboutCard"> <p>Zəhmətkeşlər sizin üçün məhsulları aldığınız gün hazır edir və növbəti gün çatdırılma olur.</p> <img src={cardAboutImg2} alt="" className="aboutImg"/></div>
+                <div className="aboutCard"> <p>Keyfiyyətin bütün mərhələlərinə diqqətlə nəzarət edirik. Məhsullarımızın tərkibində heç bir əlavə qatqı və yaxud gmo mövcud deyildir.</p> <img src={cardAboutImg3} alt="" className="aboutImg"/></div>
             </div>
 
             <div className="perfectSet">
                 <div className="textCont2">
-                    <h4 className="title2">Perfect set for first order</h4>
-                    <p className="desc">Ever tried farm products? We have collected for you the most popular in one set. Easy to order in one click!</p>
+                    <h4 className="title2">İlk satış üçün əla səbət</h4>
+                    <p className="desc">Heç təbii ferma məhsullarından dadmısınız !? Sizin üçün səbətdə ən təzə və ləziz məhsulları toplamışıq. Sadəcə bir kliklə alın və dadın!</p>
                     <Button1 value="Ətraflı" color="#285999"/>
                 </div>
             </div>
 
             <div className="ourAssortment">
-                <p className="title3">Our assortment</p>
+                <p className="title3">Çeşidlərimiz</p>
                 <div className="assortmentCont">
                     {props.assortmentArr}
                 </div>
             </div>
 
             <div className="banner">
-                <p className="typeBanner">Bonus Program</p>
-                <p className="titleBanner">Bring Your friends get money $</p>
+                <p className="typeBanner">Bonuslar Haqqında</p>
+                <p className="titleBanner">Aldığınız hər məhsula görə cashbacklar əldə edin $</p>
             </div>
 
             <div className="itemsCont">
-                <p className="itemsTitle">New Items </p>
+                <Link to="/newitems"><p className="itemsTitle">Yeni Məhsullarımız </p></Link>
                 <div className="itemSlider">     
                     <OurSlider elements={newItems.map(item => item)} numOfSld={4}/>
                 </div>
             </div>
             
             <div className="itemsCont">
-                <Link to="/promotions"><p className="itemsTitle">Special Offers </p></Link>
+                <Link to="/promotions"><p className="itemsTitle">Xüsusi Təkliflərimiz </p></Link>
                 <div className="itemSlider"> 
                     <OurSlider elements={specialOffers} numOfSld={4}/>
                 </div>
             </div>
 
             <div className="itemsCont">
-                <Link to="/suppliers"><p className="itemsTitle">Our Suppliers </p></Link>
+                <Link to="/suppliers"><p className="itemsTitle">Bizim Zəhmətkeşlər </p></Link>
                 <div className="itemSlider">
                     <OurSlider elements={suppliersCard} numOfSld={3}/>
                 </div>
             </div>
             
             <div className="itemsCont">
-                <p className="itemsTitle">Answers on questions</p>
+                <p className="itemsTitle">Çox verilən suallara cavab</p>
                 <div className="itemSlider">
                     <OurSlider elements={answerCard} numOfSld={4}/>  
                 </div>

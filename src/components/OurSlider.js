@@ -8,14 +8,14 @@ import CardSliderDefault from './CardSliderDefault';
 function OurSlider(props) {
     var settings = {
         dots: true,
-        infinite: false,
+        infinite: true,
         speed: 1000,
         slidesToShow: props.numOfSld,
         slidesToScroll: 1,
         initialSlide: 0,
-        draggable:false,
+        draggable:true,
         autoplay:true,
-        autoplaySpeed: 7400,
+        autoplaySpeed: 4500,
       };
       
     var new1 = [<CardSliderDefault name={"Loading"}   desc={"Loading"} /> , <CardSliderDefault name={"Loading"} i desc={"Loading"} />]

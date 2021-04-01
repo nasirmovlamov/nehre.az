@@ -31,7 +31,14 @@ function ItemCard(props) {
         }
     })
 
-    
+    const [Product, setProduct] = useState()
+    useEffect(() => {
+        if(props.id !== undefined)
+        {axios.get(`https://nehra.az/public/api/product/${props.id}`)
+        .then(res => setProduct(res.data))
+        .catch(err=> console.log(err))}
+    } , [])
+
     const [state, setState] = React.useState({
         checkedA: true,
         checkedB: true,
@@ -94,6 +101,10 @@ function ItemCard(props) {
     }, [])
 
     const handleOpen = () => {
+        if(props.beforeClose !== undefined)
+        {
+            props.beforeClose()
+        }
         setOpen(true);
         setchecker(true)
     }
@@ -103,6 +114,7 @@ function ItemCard(props) {
     };
 
     const handler = () => {
+        
         handleOpen()
     }
     
@@ -138,6 +150,7 @@ function ItemCard(props) {
         orders?.push({id:num , count:1, cost:parseInt(price).toFixed(0)})
         sessionStorage.setItem('orders' , JSON.stringify(orders))
     }
+
     const removeItem = (num,price , weight) => {
         var orders = JSON.parse(sessionStorage.getItem('orders'))
         for (let index = 0; index < orders?.length; index++) {
@@ -161,18 +174,7 @@ function ItemCard(props) {
         }    
         sessionStorage.setItem('orders' , JSON.stringify(orders))
     }
-    const alerter = () => {
-        alert('alert')
-    }
-
-    const [open5, setOpen5] = React.useState(false);
-    const handleOpen5 = () => {
-        setOpen5(true);
-    }
-    const handleClose5 = () => {
-        setOpen5(false)  
-    };
-  
+    
     return (
         <div className="itemCard">
             
@@ -206,6 +208,8 @@ function ItemCard(props) {
                         </DarkTT>
                     </div>
             </button>
+            
+            
 
             <p className="titleItem">{props.title}</p>
             <p className="subTitleItem">{props.desc}</p>
@@ -223,7 +227,6 @@ function ItemCard(props) {
                 <button className="iBtn" onClick={() => addItem(props.cardId , discountHandler(props.discount) , props.weight) }><AddIcon/></button>
             </div>
 
-
             <div className="modalCont">
                 <Modal  
                     style={{display:"flex", justifyContent:"center",overflow:"auto"}}
@@ -231,21 +234,9 @@ function ItemCard(props) {
                     onClose={handleClose}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description">
-                    {<ProductModal id={props.id} functionClose={handleClose} functionOpenSimilar={handleOpen5} title={props.title} desc={props.desc} price={props.price} weight={props.weight} numberStar="3.5"/>}
+                    {<ProductModal functionClose={handleClose} title={props.title} desc={props.desc} price={props.price} weight={props.weight} numberStar="3.5"/>}
                 </Modal>
             </div>
-            <div className="modalCont">
-                <Modal  
-                    style={{display:"flex", justifyContent:"center",overflow:"auto"}}
-                    open={open5}
-                    onClose={handleClose5}
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description">
-                    {<ProductModal   />}
-                </Modal>
-            </div>
-
-
 
         </div>
     )

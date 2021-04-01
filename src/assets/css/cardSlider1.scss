@@ -9,16 +9,18 @@
     background-size: cover;
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
     .cardSlider2
     {
-        background-color: rgba(0,0,0,0.45);
         width: 560px;
         height: 344px;
         border-radius: 20px;
         transition: 1s box-shadow;
+        overflow: hidden;
         background-size: cover;
         display: flex;
         flex-direction: column;
+        justify-content: flex-end;
         filter: brightness(1);
     }
     &:hover 
@@ -28,14 +30,15 @@
     }
     .textCont
     {
-        height: 200px;
-        padding: 40px;
+        padding-top: 10px;
+        padding-bottom: 0px;
         text-align: start;
-        display: grid;
-        grid-template-rows: 40px 100px 40px;
+        display: flex;
+        flex-direction: column;
         margin-top: 20px;
         width: 280px;
-
+            background-color: rgba(0,0,0,0.55);
+            width: 100%;
         h4, p 
         {
             margin: 0px;
@@ -46,20 +49,33 @@
             font-size: 27px;
             height: 30px;
             color: white;
+            padding-left: 4%; 
+            padding-bottom: 8px; 
+            width: 92%;
+
+            padding-right: 4%;
+
         }
         .desc
         {
             font-size: 15px;
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
             color: white;
-
+            padding-left: 4%; 
+            white-space: nowrap;
+            padding-bottom: 8px; 
+            width: 92%;
+            padding-right: 4%;
         }
         
         
     }
     .moreAbout 
     {
-        margin-right: 25px;
-        margin-bottom: 25px;
+        margin-right: 15px;
+        margin-bottom: 15px;
         align-self: flex-end;
     }
 }

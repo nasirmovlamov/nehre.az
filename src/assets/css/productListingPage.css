@@ -52,8 +52,11 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-column-gap: 20px;
           column-gap: 20px;
+  row-gap: 10px;
 }
 
 .productPage .topPart .titleProducts .tags .tag {
@@ -73,6 +76,16 @@
   border-radius: 30px;
   border: 1px solid lightgray;
   color: #3d332d;
+  -webkit-transition: 0.1s all;
+  transition: 0.1s all;
+}
+
+.productPage .topPart .titleProducts .tags .tag:hover {
+  background-color: #2d5d9b;
+  color: white;
+  border: 1px solid white;
+  -webkit-transition: 0.5s all;
+  transition: 0.5s all;
 }
 
 .productPage .titleProductsCont {
@@ -130,14 +143,23 @@
 }
 
 .productPage .productsCont {
-  display: -ms-grid;
-  display: grid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 1300px;
-  -ms-grid-columns: (1fr)[4];
-      grid-template-columns: repeat(4, 1fr);
-  -ms-flex-line-pack: center;
-      align-content: center;
+  min-height: 410px;
   grid-gap: 75px;
+}
+
+.productPage .productsCont .loader {
+  -ms-flex-item-align: top;
+      -ms-grid-row-align: top;
+      align-self: top;
 }
 
 .productPage .productsCont .overlayImg {

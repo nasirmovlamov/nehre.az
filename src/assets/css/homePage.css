@@ -160,12 +160,11 @@ a, button {
   width: 95%;
   height: 241px;
   background-color: #7DBF29;
-  background-image: url(../images/bannerSpecialOffer.svg);
   background-position: 650px 0px;
   background-repeat: no-repeat;
   border-radius: 10px;
   margin-top: 100px;
-  text-align: start;
+  text-align: flex-start;
   padding-left: 2.5%;
   padding-right: 2.5%;
 }

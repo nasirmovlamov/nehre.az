@@ -15,10 +15,12 @@ import {
     Redirect
   } from "react-router-dom";
 import ProductListingPage from '../pages/ProductListingPage'
+import ProductModal from './ProductModal'
 import ScrolltoTop from './ScrolltoTop'
 import Suppliers from './Suppliers'
 import SelectedSupplier from './SelectedSupplier'
 import Footer from './Footer'
+import SearchResult from './SearchResult'
 import MemberArea from './MemberArea'
 import CardPage from '../pages/CardPage'
 import { withStyles } from '@material-ui/core/styles';
@@ -62,6 +64,7 @@ function Header() {
       setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
     }
   })
+  
   Assortment.map(assortment => ( assortmentArr.push( <AssortmentCard title={assortment.name} desc={assortment.count} image={assortment.thumb}/>)))
   const styleBtn =  {
     position: "fixed",
@@ -78,6 +81,7 @@ function Header() {
   const [open2, setOpen2] = React.useState(false);
   const [open3, setOpen3] = React.useState(false);
   const [open4, setOpen4] = React.useState(false);
+  const [open5, setOpen5] = React.useState(false);
   
   const handleOpen = () => {
     setOpen(true);
@@ -101,8 +105,14 @@ function Header() {
   const handleClose3 = () => {
     setOpen3(false)  
   };
+  const handleClose5 = () => {
+    setOpen3(false)  
+  };
   const handleOpen4 = () => {
     setOpen4(true);
+  }
+  const handleOpen5 = () => {
+    setOpen5(true);
   }
   
   const [number1, setNumber1] = useState(0)
@@ -130,12 +140,12 @@ function Header() {
     };
 
     window.addEventListener("scroll", function(){
-        if (window.scrollY > 211)
+        if (window.scrollY > 121)
         {
-            document?.getElementById('header').setAttribute('style' , 'transition:  0.2s  height;height:115px;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);overflow:inherit;')
-            document?.getElementById('downPart').setAttribute('style' , 'background:#f0f4f5;height:85.17px;transition:0.5s height padding;overflow:inherit;')
+            document?.getElementById('header').setAttribute('style' , 'height:115px;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);overflow:inherit;')
+            document?.getElementById('downPart').setAttribute('style' , 'background:#f0f4f5;height:85.17px;overflow:inherit;')
             document?.getElementById('logoNehre').setAttribute('style' , 'opacity:1;pointer-events:all;')
-            document?.getElementById('downCont').setAttribute('style' , 'padding-top: 20px;padding-bottom: 20px;transition:0.5s height padding;')
+            document?.getElementById('downCont').setAttribute('style' , 'padding-top: 20px;padding-bottom: 20px;')
             var downNavImgCont = document.querySelectorAll('#downNavImgCont')
             for (var i=0; i < downNavImgCont.length; i++) {
               downNavImgCont[i]?.setAttribute('style' , 'height:0px;')
@@ -152,10 +162,10 @@ function Header() {
         }
         else if (window.scrollY < 201)
         {
-          document?.getElementById('downPart')?.setAttribute('style' , 'background:transparent;height:0px;transition:0.3s;padding-top: 0px;padding-bottom: 0px;overflow:hidden;')
-          document?.getElementById('logoNehre')?.setAttribute('style' , 'opacity:0;transition:0.1s opacity;pointer-events:none;')  
+          document?.getElementById('downPart')?.setAttribute('style' , 'background:transparent;height:0px;padding-top: 0px;padding-bottom: 0px;overflow:hidden;')
+          document?.getElementById('logoNehre')?.setAttribute('style' , 'opacity:0;pointer-events:none;')  
           document?.getElementById('downCont')?.setAttribute('style' , 'padding-top: 0px;padding-bottom: 0px;')
-          document?.getElementById('header')?.setAttribute('style' , 'height:110px;background:transparent;transition:  0.5s  height; box-shadow: transparent;overflow:hidden;')
+          document?.getElementById('header')?.setAttribute('style' , 'height:110px;background:transparent; box-shadow: transparent;overflow:hidden;')
           var downNavImgCont = document.querySelectorAll('#downNavImgCont')
           for (var i=0; i < downNavImgCont.length; i++) {
             downNavImgCont[i].setAttribute('style' , 'height:120px;')
@@ -195,12 +205,13 @@ function Header() {
 
 
                 <Switch>
-                    <Route   path={`/category/:id`}>              <ProductListingPage  PaymentPrice={PaymentPrice} />                  </Route>
-                    <Route   path="/about" >                   <About/>                                                                 </Route>
-                    <Route   path="/reviews" >                 <ReviewPage/>                                                            </Route>
-                    <Route   path="/memberarea">      { UserData?.id !== undefined  ?  <MemberArea  UserData={UserData}/> : <F04/> }    </Route>
+                    <Route   path={`/category/:id`}>          <ProductListingPage  PaymentPrice={PaymentPrice} />                                         </Route>
+                    <Route   path="/about" >                  <About/>                                                                 </Route>
+                    <Route   path="/search" >                  <SearchResult/>                                                                 </Route>
+                    <Route   path="/reviews" >                <ReviewPage/>                                                            </Route>
+                    <Route   path="/memberarea">              {UserData?.id !== undefined  ?  <MemberArea  UserData={UserData}/> : <F04/> }    </Route>
                     <Route  path="/promotions" >              <ProductListingPage category="Promotional products" notags={1}/>          </Route>
-                    <Route  path="/suppliers/:id" >      <SelectedSupplier/>                                                            </Route>
+                    <Route  path="/suppliers/:id" >           <SelectedSupplier/>                                                            </Route>
                     <Route  path="/suppliers" >               <Suppliers/>                                                              </Route>
                     <Route  path="/" >                        <HomePage NumberOfGoods={NumberOfGoods} setNumberOfGoods={setNumberOfGoods} ParcelWeight={ParcelWeight} setParcelWeight={setParcelWeight} setPaymentPrice={setPaymentPrice}  PaymentPrice={PaymentPrice} assortmentArr={assortmentArr} modalOpener3={handleOpen3}/>        </Route>
                 </Switch>
@@ -240,6 +251,14 @@ function Header() {
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description">
                 {<Registration functionClose={() => handleClose4()}  />}
+            </Modal>
+            <Modal  
+                style={{display:"flex", justifyContent:"center",overflow:"auto"}}
+                open={open4}
+                onClose={handleClose4}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description">
+                {<ProductModal functionClose={() => handleClose4()}  />}
             </Modal>
 
         </>

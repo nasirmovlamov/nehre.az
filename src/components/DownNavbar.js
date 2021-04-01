@@ -8,6 +8,12 @@ import conservImg from "../assets/images/conserv.png"
 import fishImg from "../assets/images/seafood.png"
 import freezedImg from "../assets/images/freezed.png"
 import nonfoodImg from "../assets/images/nonFood.png"
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "../assets/css/ourSlider.css"
+import "../assets/css/ourSliderDownNavbar.css"
+import Slider from "react-slick";
+
 import {
     Link, 
     BrowserRouter as  Router
@@ -22,12 +28,26 @@ function DownNavbar(props) {
     const TopCatArr = []
     if(props.TopCategory.length !== 0)
     {
-        props.TopCategory.map(element => TopCatArr.push(<Link to ={`/category/${element.id}`}><button  id={`btnNav${element.id}`} onClick={() => clickHandler(element.id)} className="buttonNav" > <div id="downNavImgCont" className="imgCont"> <img id="downNavImg" src={`https://nehra.az/storage/app/public/${element.image}`} alt="" width="70px" height="auto"/></div>  <span>{element.name}</span>  </button></Link>))
+        props.TopCategory.map(element  => TopCatArr.push(<a href={`/category/${element.id}`}><button  id={`btnNav${element.id}`} onClick={() => clickHandler(element.id)} className="buttonNav" > <div id="downNavImgCont" className="imgCont"> <img id="downNavImg" src={`https://nehra.az/storage/app/public/${element.image}`} alt="" width="70px" height="auto"/></div>  <span>{element.name}</span>  </button></a>))
     }
+    var settings = {
+        arrows:true,
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        initialSlide: 0,
+        draggable:false,
+        autoplay:true,
+        autoplaySpeed: 4500,
+      };
     return (
         <div className="navCont">
             <nav className="downNavbar">
-                {TopCatArr}
+                <Slider {...settings}>
+                    {TopCatArr.map(element => element)}
+                </Slider>
             </nav>
         </div>
     )

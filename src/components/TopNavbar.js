@@ -78,7 +78,17 @@ function TopNavbar(props) {
     const langChangerMouseLeave2 = () => {
         setdrop2(false)
     }
-    
+    const [searchResult, setsearchResult] = useState('')
+    const searchChange = (e) => {
+        setsearchResult(e.target.value)
+    }
+    const searchHandler = () => {
+        if(searchResult !== "")
+        {
+            sessionStorage.setItem('searchResult' , searchResult)
+            window.location.href = '/search'
+        }
+    }
     return (
         <div className="topNavbar">
                 <div className="topPart">    
@@ -89,8 +99,8 @@ function TopNavbar(props) {
 
                         <div className="searchAndIcons">
                             <div className="inputAndIcon">
-                                <input type="text" placeholder="Axtarış"/>
-                                <button className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
+                                <input onChange={(e) => searchChange(e)} type="text" placeholder="Axtarış"/>
+                                <button onClick={() => searchHandler()} className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
                             </div>
 
                             <div className="phoneCont">

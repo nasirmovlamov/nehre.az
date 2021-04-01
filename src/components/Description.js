@@ -4,37 +4,39 @@ import Button1 from './Button1';
 import avatar from "../assets/images/avatar.jpg"
 import xalisBal from "../assets/images/xalisBal.jpg"
 import ItemCard from './ItemCard';
+import SimilarCard from './SimilarCard';
 
 function Description(props) {
 
     const imgHandler = {
-        background: `url(${avatar}) no-repeat`,
+        backgroundImage: `url(https://nehra.az/storage/app/public/${props?.Product?.seller_data?.avatar})`,
+        backgroundRepeat: `no-repeat`,
         backgroundPosition: "center",
-        backgroundSize: "100% auto",
+        backgroundSize: "cover",
     }
 
     return (
         <div className="description">
             <div className="descAbout">
                 <div className="part1">
-                    <p className="textCont"><p className="label">Price:</p> <p className="value">the goods are by weight, the final cost will be calculated in accordance with its weight.</p></p>
-                    <p className="textCont"><p className="label">Weight:</p> <p className="value">0.5 kg. (450-550 g.).</p></p>
-                    <p className="textCont"><p className="label">The nutritional value:</p> <p className="value">proteins - 19 g, fats - 13.4 g, carbohydrates - 0 g; per 100 g.</p></p>
-                    <p className="textCont"><p className="label">Energy value:</p> <p className="value">196 kcal / 820.1 kJ.</p></p>
-                    <p className="textCont"><p className="label">Shelf life:</p> <p className="value">5 days.</p></p>
-                    <p className="textCont"><p className="label">Storage conditions:</p> <p className="value">at temperatures from -2 to +4 ° С.</p></p>
-                    <p className="textCont"><p className="label">Packaging:</p> <p className="value">vacuum packaging.</p></p>
-                    <p className="textCont"><p className="label">Place of origin:</p> <p className="value">Krasnodar Territory, Slavyansky District.</p></p>
+                    <p className="textCont"><p className="label">Qiymət:</p> <p className="value">{props?.Product?.qiymet}</p></p>
+                    <p className="textCont"><p className="label">Çəki:</p> <p className="value">{props?.Product?.ceki_hecm}</p></p>
+                    <p className="textCont"><p className="label">Tərkibi:</p> <p className="value">{props?.Product?.terkibi}</p></p>
+                    <p className="textCont"><p className="label">Enerji dəyəri:</p> <p className="value">{props?.Product?.enerji_deyeri}</p></p>
+                    <p className="textCont"><p className="label">Saxlanma müddəti:</p> <p className="value">{props?.Product?.srok}</p></p>
+                    <p className="textCont"><p className="label">Saxlanma şəraiti:</p> <p className="value">{props?.Product?.saxlanma_seraiti}</p></p>
+                    <p className="textCont"><p className="label">Qablaşdırma növü:</p> <p className="value">{props?.Product?.qablasdirma_data}</p></p>
+                    <p className="textCont"><p className="label">İstehsal olunduğu yer:</p> <p className="value">{props?.Product?.hazirlanma_yeri}</p></p>
                 </div>
                 <div className="part2">
                         <div className="imgCont" style={imgHandler}> </div>
 
                         <div className="textCont"> 
                             <p className="name">
-                                Evgeny Roshal
+                                {props?.Product?.seller_data?.name}
                             </p>
                             <p className="about">
-                                Evgeny Roshal has been farming since 2012. His poultry farm "Kubansky Khutorok" is located in the Krasnodar Territory. Introduce Eugene to us ..
+                                {props?.Product?.seller_data?.description}
                             </p>
                             
                             <p className="moreDetails">
@@ -48,13 +50,10 @@ function Description(props) {
 
 
             <div className="similarProductsCont">
-                    <p className="title"> Similar products </p>
+                    <p className="title"> Oxşar məhsullar </p>
                     <div className="similarProducts">
-                        <ItemCard functionClose={props.functionClose} image={xalisBal} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={10}/> 
-                        <ItemCard  image={xalisBal} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>  
-                        <ItemCard  image={xalisBal} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>
+                        <SimilarCard beforeClose={() => props.functionClose()}/>
                     </div>
-
             </div>
         </div>
     )

@@ -6,7 +6,7 @@ function Navbar() {
         <nav className="navbar">
                 <Link to="/promotions">Endirimlər</Link>
                 <Link to="/suppliers">Tədarükçülər</Link>
-                <a href="#">Haqqımızda</a>
+                <div>Haqqımızda</div>
                 <a href="/elaqe">Əlaqə</a>
         </nav>
     )

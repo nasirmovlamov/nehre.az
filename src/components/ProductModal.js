@@ -20,8 +20,15 @@ import Reviews from './Reviews';
 import testImg6 from "../assets/images/testImg6.jpg"
 import testImg7 from "../assets/images/testImg7.jpg"
 import SupplierCard from './SupplierCard';
+import { useEffect } from 'react';
+import axios from 'axios';
 function ProductModal(props) {
-
+    const [Product, setProduct] = useState()
+    useEffect(() => {
+        axios.get(`https://nehra.az/public/api/product/${props.id}`)
+            .then(res => setProduct(res.data))
+            .catch(err=> console.log(err))
+    } , [])
     
     const styleChanger = {
         border:"1px solid lightgray",
@@ -60,30 +67,24 @@ function ProductModal(props) {
                     {<OurSlider elements={suppliersCard} numOfSld={1}/>}
                 </div>
                 <div className="aboutCont">
-                    <p className="titleItem">{props.title}</p>
-                    <p className="supllierName">{props.desc}</p>
+                    <p className="titleItem">{Product?.title}</p>
+                    <p className="supllierName">{Product?.seller_data.name}</p>
                     <div className="reviewCont">
                         <div className="starsAndReviews"><StarSystem numberStar={props.numberStar}/>  <div className="reviews">33 reviews</div> </div>
                         <div className="favorites"><FavoriteBorderIcon style={{fontSize:"25px",color:"red",}}/> favorite</div> 
                     </div>
                     <p className="desc">
-                        Pumpkin oil is a complete multivitamin complex, including biologically 
-                        active substances, minerals, macro- and microelements, polyunsaturated 
-                        fatty acids. Gives an aromatic taste to dishes, is used in salads, 
-                        cereals and various side dishes, and can also be used as a cosmetic and 
-                        medical product.
+                        {Product?.description}
                     </p>
-                    <p className="ingredients"><span className="ingredientsText"> Ingredients:</span> <span className="ingredientsFront">100% pumpkin seed oil.</span>    </p>
-                    <p className="priceCont"> <span className="priceText">Price:</span>  <span className="price">1019 RUB</span> for <span className="weight">500ml</span></p>
+                    <p className="ingredients"><span className="ingredientsText"> Tərkibi:</span> <span className="ingredientsFront">{Product?.terkibi}</span>    </p>
+                    <p className="priceCont"> <span className="priceText">Qiyməti:</span>  <span className="price">{Product?.qiymet}</span> - <span className="weight">{Product?.ceki_hecm}</span></p>
                     <div className="buttonsCont">
-                        
                         <div className="part1">
                             <button  value="1" onClick={() => clickValueHandler(value)}  className="decBtn">{<RemoveIcon style={{fontSize:"20px"}}/>}</button>
                             <button   className="valueBtn">1</button>
                             <button  value="3" onClick={() => clickValueHandler(value)}  className="incBtn">+</button>
                         </div>
-
-                        <div className="part2"><Button1 value="Add to card" color="#285999"/></div>
+                        <div className="part2"><Button1 value="Səbətə əlavə et" color="#285999"/></div>
                     </div>
                 </div> 
             </div>
@@ -93,15 +94,15 @@ function ProductModal(props) {
                 
                     <div className="topLinks">
                         <div className="btnContForLinks">
-                            <button className="button" style={checker ===1 ? styleChanger : null } id="btnLink1" onClick={() => clickHandler(1)}>Description</button>
-                            <button className="button" style={checker ===2 ? styleChanger : null } id="btnLink2" onClick={() => clickHandler(2)}>Reviews (Num) </button>
-                            <button className="button" style={checker ===3 ? styleChanger: null}  id="btnLink3" onClick={() => clickHandler(3)}>Certificates</button>
+                            <button className="button" style={checker ===1 ? styleChanger : null } id="btnLink1" onClick={() => clickHandler(1)}>Haqqında</button>
+                            <button className="button" style={checker ===2 ? styleChanger : null } id="btnLink2" onClick={() => clickHandler(2)}>Şərhlər (Num) </button>
+                            <button className="button" style={checker ===3 ? styleChanger: null}  id="btnLink3" onClick={() => clickHandler(3)}>Sertifikatlar</button>
                             <hr/>
 
                             <div className="linkComponent">
-                                {checker === 1 ? <Description  functionClose={props.functionClose} /> : "" }
-                                {checker === 2 ? <Reviews/> : ""}
-                                {checker === 3 ? <Certificates/> : ""}
+                                {checker === 1 ? <Description Product={Product}  functionClose={() => props.functionClose()} /> : "" }
+                                {checker === 2 ? <Reviews Product={Product}/> : ""}
+                                {checker === 3 ? <Certificates Product={Product}/> : ""}
                             </div>
                         </div>
                     </div>

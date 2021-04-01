@@ -59,17 +59,23 @@ function CardPage(props) {
     const deleteCard = (num , price) => {
         console.log(num);
         var orders = JSON.parse(sessionStorage.getItem('orders'))
+        setItems(Items.filter((item) => item.id !== num))
         for (let index = 0; index < orders.length; index++) {
             if (orders[index].id === num ) {
-                console.log("YES");                
                 orders.splice(index , 1)
-                console.log(orders);                
                 sessionStorage.setItem('orders' , JSON.stringify(orders))
-                setItems(orders)
                 return 0 
             }
         }
     }
+
+    const [Product, setProduct] = useState()
+    useEffect(() => {
+        axios.get(`https://nehra.az/public/api/product/${props.id}`)
+        .then(res => setProduct(res.data) )
+        .catch(err=> console.log(err))
+    } , [])
+    
     return (
         <div className="cardCont">
             
@@ -80,7 +86,16 @@ function CardPage(props) {
                 </p>
                 <div className="gridCont1">
                     <div className="gridCont">
-                        {Items.map(element => <CheckoutCard ParcelWeight={props.ParcelWeight} setParcelWeight={props.setParcelWeight} NumberOfGoods={props.NumberOfGoods} setNumberOfGoods={props.setNumberOfGoods} cost={element.cost} PaymentPrice={props.PaymentPrice} setPaymentPrice={props.setPaymentPrice} deleteCard={deleteCard}  id={element.id} count={element.count}/>)}
+                        {Items.map( element => 
+                            <div>
+                                <div className="item">
+                                    <CheckoutCard ParcelWeight={props.ParcelWeight} setParcelWeight={props.setParcelWeight} NumberOfGoods={props.NumberOfGoods} setNumberOfGoods={props.setNumberOfGoods} cost={element.cost} PaymentPrice={props.PaymentPrice} setPaymentPrice={props.setPaymentPrice} deleteCard={deleteCard}  id={element.id} count={element.count}/>
+                                    <button onClick={() => deleteCard(element.id , Product?.price)} className="delete"><DeleteIcon/></button>
+                                </div>
+                                <hr/>
+                            </div>
+                        )}
+                            
                     </div>
                 </div>
             </main>

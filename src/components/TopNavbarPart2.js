@@ -135,7 +135,6 @@ function TopNavbarPart2(props) {
                             <Link to="/">  
                                 <button className="shoppingBtn shoppingBtn4" onClick={() => props.modalOpener()}><ShoppingCartIcon/></button>      <span className="price">{props.PaymentPrice }     </span> 
                             </Link>
-                            
                         </div>
                     </div>
             </div>    

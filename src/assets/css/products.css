@@ -1,7 +1,9 @@
 .products {
   width: 100%;
+  display: -ms-grid;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  -ms-grid-columns: (1fr)[4];
+      grid-template-columns: repeat(4, 1fr);
   grid-gap: 30px;
   margin-top: 30px;
   padding-bottom: 50px;
@@ -11,3 +13,4 @@
 .products .overlayImg {
   width: 12%;
 }
+/*# sourceMappingURL=products.css.map */
