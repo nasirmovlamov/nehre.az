@@ -14,27 +14,9 @@ import CheckoutCard from '../components/CheckoutCard';
 import axios from 'axios';
 import info from "../assets/images/info.svg"
 import InfoIcon from '@material-ui/icons/Info';
+
 function CardPage(props) {
-    const imgHandler = {
-        background: `url(${avatar}) no-repeat`,
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-    }
     
-    const DarkTT = withStyles((theme) => ({
-        arrow: {
-            color: theme.palette.common.black,
-          },
-        tooltip: {
-          backgroundColor: "black",
-          color: 'white',
-          boxShadow: theme.shadows[1],
-          fontSize: 11,
-        },
-      }))(Tooltip);
-    const colorChang = {
-        color: ""
-    }
 
     const functionHandler = () => {
         if(props.UserId)
@@ -43,7 +25,7 @@ function CardPage(props) {
     }
     const [Items, setItems] = useState(JSON.parse(sessionStorage.getItem('orders')))
     const [MinOrder, setMinOrder] = useState()
-    
+    console.log(Items)
     useEffect(() => {
         axios.get('https://nehra.az/public/api/settings/')
              .then(res => setMinOrder(res.data.min_order_amount))
@@ -54,10 +36,8 @@ function CardPage(props) {
         sessionStorage.removeItem('ordersDetails')
         setItems([])
     }
-    const [check, setcheck] = useState(false)
     
     const deleteCard = (num , price) => {
-        console.log(num);
         var orders = JSON.parse(sessionStorage.getItem('orders'))
         setItems(Items.filter((item) => item.id !== num))
         for (let index = 0; index < orders.length; index++) {
@@ -66,6 +46,18 @@ function CardPage(props) {
                 sessionStorage.setItem('orders' , JSON.stringify(orders))
                 return 0 
             }
+        }    
+        sessionStorage.setItem('orders' , JSON.stringify(orders))
+    }
+
+    const discountHandler = (discount , count , cost) => {
+        if (discount !== 0 && discount !== null  && discount !== undefined) {
+            var discountPrice = 0;
+            discountPrice =  ((parseInt(cost) - (parseInt(count) * parseInt(discount)) / 100))
+            return parseInt(discountPrice * parseInt(count));         
+        } 
+        else {
+            return parseInt(cost) * parseInt(count)
         }
     }
 
