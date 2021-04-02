@@ -35,13 +35,13 @@ function DownNavbar(props) {
         dots: false,
         infinite: true,
         speed: 500,
-        slidesToShow: 6,
+        slidesToShow: 8,
         slidesToScroll: 1,
         initialSlide: 0,
         draggable:false,
         autoplay:true,
         autoplaySpeed: 4500,
-      };
+    };
     return (
         <div className="navCont">
             <nav className="downNavbar">
