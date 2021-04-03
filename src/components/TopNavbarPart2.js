@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import "../assets/css/topNavbarPart2.css"
 import logoNehre from "../assets/images/Loqo_nehre.png"
 import logoNehre2 from "../assets/images/logoNehre2.png"
@@ -13,11 +13,13 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PersonIcon from '@material-ui/icons/Person';
-import { useEffect } from 'react'
 import axios from 'axios'
 import Avatar from '@material-ui/core/Avatar';
+import {ProductListingContext} from '../components/ProductListingProvider'
 
 function TopNavbarPart2(props) {
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice , FinalWeight, setFinalWeight,FinalGoods, setFinalGoods] = useContext(ProductListingContext)
+
     const [drop1, setdrop1] = useState(false)
     const [drop2, setdrop2] = useState(false)
     const [number1, setNumber1] = useState(0)
@@ -133,7 +135,7 @@ function TopNavbarPart2(props) {
                                 <StarBorderIcon/> 
                             </Link>
                             <Link to="/">  
-                                <button className="shoppingBtn shoppingBtn4" onClick={() => props.modalOpener()}><ShoppingCartIcon/></button>      <span className="price">{props.PaymentPrice }     </span> 
+                                <button className="shoppingBtn shoppingBtn4" onClick={() => props.modalOpener()}><ShoppingCartIcon/></button>      <span className="price">{FinalPrice}  AZN   </span> 
                             </Link>
                         </div>
                     </div>

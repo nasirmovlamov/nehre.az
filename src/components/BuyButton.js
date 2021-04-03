@@ -7,11 +7,11 @@ toast.configure()
 
 function BuyButton(props) {
     const [UserData, setUserData] = useState(0)
-    useEffect(() => {
-        if (UserData?.id === undefined) {
-            setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
-        }
-    })
+    // useEffect(() => {
+    //     if (UserData?.id === undefined) {
+    //         setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
+    //     }
+    // })
     const orderHandler = (num,price) => {
         props.functionAdd()
     }

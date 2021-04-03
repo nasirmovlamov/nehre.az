@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import "../assets/css/cardPage.css"
 import clock from "../assets/images/clock.svg"
 import Button1 from '../components/Button1'
@@ -11,8 +11,17 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import DeleteIcon from '@material-ui/icons/Delete';
 import _ from 'lodash'
 import axios from 'axios';
+import {ProductListingContext} from '../components/ProductListingProvider'
+
 function CheckoutCard(props) {
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem] = useContext(ProductListingContext)
+
     const [Product, setProduct] = useState()
+    useEffect(() => {
+        axios.get(`https://nehra.az/public/api/product/${props.id}`)
+        .then(res => setProduct(res.data))
+        .catch(err=> console.log(err))
+    } , [])
 
     
     const DarkTT = withStyles((theme) => ({
@@ -26,88 +35,17 @@ function CheckoutCard(props) {
             fontSize: 11,
         },
     }))(Tooltip);
-    const colorChang = {
-        color: ""
-    }
     
-    var [numberOfElements, setnumberOfElements] = useState(parseInt(props.count))
-    var [priceOfElements, setpriceOfElements] = useState(parseInt(props.cost))
     
-    useEffect(() => {
-        axios.get(`https://nehra.az/public/api/product/${props.id}`)
-        .then(res => (setProduct(res.data) , setGeneralPrice(discountHandler(res?.data?.discount ))))
-        .catch(err=> console.log(err))
-    } , [])
     
-    const [ProductData, setProductData] = useState(() => {})
-    useEffect(() => {
-        var orders = JSON.parse(sessionStorage.getItem('orders'))
-        for (let index = 0; index < orders.length; index++) {
-            if (orders[index].id === Product?.id ) {
-                setProductData(orders[index].count)
-            }
-        }   
-    })
-    
-
-    const addItem = (num,price,numberOfElements , weight) => {
-        setnumberOfElements(numberOfElements+1)
-        setGeneralPrice(parseInt(price) * (numberOfElements+1))
-        props.setNumberOfGoods(parseInt(props.NumberOfGoods) + 1)
-        props.setPaymentPrice(parseInt(props.PaymentPrice) + parseInt(price))
-        if(weight !== null)
-        {
-            props.setParcelWeight(parseInt(props.ParcelWeight) + parseInt(weight))
-        }
-        setProductData(1)
-        var orders = JSON.parse(sessionStorage.getItem('orders'))
-        for (let index = 0; index < orders.length; index++) {
-            if (orders[index].id === num ) {
-                orders[index].count++
-                setProductData(orders[index].count)
-                sessionStorage.setItem('orders' , JSON.stringify(orders))
-                return 0 
-            }
-        }    
-        orders.push({id:num , count:1, cost:price})
-        sessionStorage.setItem('orders' , JSON.stringify(orders))
-
-    }
-
-    const removeItem = (num,price,numberOfElements , weight) => {
-        var orders = JSON.parse(sessionStorage.getItem('orders'))
-        for (let index = 0; index < orders.length; index++) {
-            if (orders[index].id === num ) {
-                if (orders[index].count > 0) {
-                    orders[index].count--
-                    props.setNumberOfGoods(parseInt(props.NumberOfGoods) - 1)
-                    setnumberOfElements(numberOfElements-1)
-                    setGeneralPrice(parseInt(price) * (numberOfElements-1))
-                    props.setPaymentPrice(parseInt(props.PaymentPrice) - parseInt(price))
-                    if(weight !== null)
-                    {
-                        props.setParcelWeight(parseInt(props.ParcelWeight) - parseInt(weight))
-                    }
-                    setProductData(orders[index].count)
-                }
-                if (orders[index].count === 0) {
-                    orders.splice(index , 1)
-                }
-                sessionStorage.setItem('orders' , JSON.stringify(orders))
-                return 0 
-            }
-        }    
-        sessionStorage.setItem('orders' , JSON.stringify(orders))
-    }
-
     const discountHandler = (discount) => {
         if (discount !== 0 && discount !== null  && discount !== undefined) {
             var discountPrice = 0;
-            discountPrice =  ((parseInt(priceOfElements) - (parseInt(priceOfElements) * parseInt(discount)) / 100))
-            return parseInt(discountPrice * numberOfElements);         
+            discountPrice = parseInt(ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost)
+            return discountPrice;         
         } 
         else {
-            return priceOfElements * numberOfElements
+            return ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost
         }
     }
     
@@ -117,16 +55,15 @@ function CheckoutCard(props) {
         backgroundSize: "cover",
     }
     
-    const [GeneralPrice, setGeneralPrice] = useState(0)
     return (
         <>
-            <div className="item">
+            <div key={props.key} className="item">
                             <div className="imgCont" style={imgHandler}></div>
                             
                             <div className="aboutItem">
                             
                                 <p className="title">{Product?.title}</p>
-                                <p className="priceAndWeight">{discountHandler(Product?.discount)} AZN  / 250 g.</p>
+                                <p className="priceAndWeight">{ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost} AZN  / {Product?.ceki_hecm} g.</p>
                                 <div className="dates">
                                     <DarkTT title="Delivery possible for" placement="top" arrow>
                                     <div className="date">Be</div>
@@ -150,12 +87,12 @@ function CheckoutCard(props) {
                             </div>
 
                             <div className="btnCont">
-                                <Button1 function={() => removeItem(Product?.id ,Product?.qiymet,numberOfElements , Product?.ceki_hecm)} value={<RemoveIcon/>} color="#085096"/>
-                                <p className="priceValue"> {ProductData}</p>
-                                <Button1 function={() => addItem(Product?.id ,Product?.qiymet,numberOfElements , Product?.ceki_hecm)} value={<AddIcon/>}  color="#085096"/>
+                                <Button1 function={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm)} value={<RemoveIcon/>} color="#085096"/>
+                                <p className="priceValue"> {ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count}</p>
+                                <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm)} value={<AddIcon/>}  color="#085096"/>
                             </div>
 
-                            <p className="price"> {GeneralPrice} </p>
+                            <p className="price"> {} </p>
                             <button onClick={() => props.deleteCard(Product?.id , Product?.price)} className="delete"><DeleteIcon/></button>
                         </div>
                         <hr/>

@@ -35,6 +35,10 @@ import arrowScroll from '../assets/images/scrollArrow.png'
 import F04 from '../components/F04'
 import axios from 'axios'
 import AssortmentCard from './AssortmentCard'
+import {ProductListingProvider} from './ProductListingProvider'
+
+
+
 function Header() {
   
   const [UserData, setUserData] = useState(0)
@@ -189,7 +193,7 @@ function Header() {
     const [NumberOfGoods, setNumberOfGoods] = useState(0)
     const [ParcelWeight, setParcelWeight] = useState(0)
     return (
-        <>
+        <ProductListingProvider>
 
             <ScrolltoTop/>
            
@@ -213,7 +217,7 @@ function Header() {
                     <Route  path="/promotions" >              <ProductListingPage category="Promotional products" notags={1}/>          </Route>
                     <Route  path="/suppliers/:id" >           <SelectedSupplier/>                                                            </Route>
                     <Route  path="/suppliers" >               <Suppliers/>                                                              </Route>
-                    <Route  path="/" >                        <HomePage NumberOfGoods={NumberOfGoods} setNumberOfGoods={setNumberOfGoods} ParcelWeight={ParcelWeight} setParcelWeight={setParcelWeight} setPaymentPrice={setPaymentPrice}  PaymentPrice={PaymentPrice} assortmentArr={assortmentArr} modalOpener3={handleOpen3}/>        </Route>
+                    <Route  path="/" >                        <HomePage assortmentArr={assortmentArr} modalOpener3={handleOpen3}/>        </Route>
                 </Switch>
                 
                 <Footer/>
@@ -224,7 +228,7 @@ function Header() {
                 onClose={handleClose}
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description">
-                {<CardPage ParcelWeight={ParcelWeight} setParcelWeight={setParcelWeight} NumberOfGoods={NumberOfGoods} setNumberOfGoods={setNumberOfGoods} PaymentPrice={PaymentPrice} setPaymentPrice={setPaymentPrice} functionOpenCheckoutPage={handleOpen2} functionClose={() => handleClose()}  numberStar="3.5"/>}
+                {<CardPage  functionOpenCheckoutPage={handleOpen2} functionClose={() => handleClose()}  />}
             </Modal>
 
             <Modal  
@@ -233,7 +237,7 @@ function Header() {
                 onClose={handleClose2}
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description">
-                {<CheckoutPage ParcelWeight={ParcelWeight} setParcelWeight={setParcelWeight} NumberOfGoods={NumberOfGoods} setNumberOfGoods={setNumberOfGoods} PaymentPrice={PaymentPrice} functionClose={() => handleClose2()}  numberStar="3.5"/>}
+                {<CheckoutPage  functionClose={() => handleClose2()}  numberStar="3.5"/>}
             </Modal>
 
             <Modal  
@@ -261,7 +265,7 @@ function Header() {
                 {<ProductModal functionClose={() => handleClose4()}  />}
             </Modal>
 
-        </>
+        </ProductListingProvider>
     )
 }
 

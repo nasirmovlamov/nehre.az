@@ -1,4 +1,4 @@
-import React,{useState , useEffect} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import "../assets/css/itemCard.css"
 import BuyButton from './BuyButton'
 import StarSystem from './StarSystem'
@@ -21,9 +21,11 @@ import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import axios from 'axios';
 import Skeleton from '@material-ui/lab/Skeleton';
-
+import {ProductListingContext} from '../components/ProductListingProvider'
 
 function ItemCard(props) {
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem] = useContext(ProductListingContext)
+    
     const [UserData, setUserData] = useState(0)
     useEffect(() => {
         if (UserData?.id === undefined) {
@@ -68,8 +70,8 @@ function ItemCard(props) {
     const discountHandler = (discount) => {
         if (discount !== 0 && discount !== null) {
             var discountPrice = 0;
-            discountPrice =  ((props.price - (props.price * discount) / 100))
-            return discountPrice.toFixed(2);         
+            discountPrice =  Math.round( ((props.price - (props.price * discount) / 100)) )
+            return discountPrice;         
         } 
         else {
             return props.price
@@ -89,9 +91,7 @@ function ItemCard(props) {
     // getModalStyle is not a pure function, we roll the style only on the first render
     const [open, setOpen] = React.useState(false);
     
-    useEffect(() => {
-        handleClose()
-    }, [])
+    
 
     const handleOpen = () => {
         setOpen(true);
@@ -106,105 +106,40 @@ function ItemCard(props) {
         handleOpen()
     }
     
-    const [ProductData, setProductData] = useState(0)
     
-    useEffect(() => {
-        var orders = JSON.parse(sessionStorage.getItem('orders'))
-        for (let index = 0; index < orders.length; index++) {
-            if (orders[index].id === props.cardId ) {
-                setProductData(orders[index].count)
-            }
-        }   
-    })
 
-    const addItem = (num,price , weight) => {
-        console.log(weight);
-        if(weight !== null && weight !== undefined)
-        {
-            console.log(props.ParcelWeight);
-            props.setParcelWeight(parseInt(props.ParcelWeight) + parseInt(weight))
-        }
-        props.setPaymentPrice(parseInt(props.PaymentPrice) + parseInt(price))
-        props.setNumberOfGoods(parseInt(props.NumberOfGoods) + 1)
-        var orders = JSON.parse(sessionStorage.getItem('orders'))
-        for (let index = 0; index < orders?.length; index++) {
-            if (orders[index].id === num ) {
-                orders[index].count++
-                setProductData(orders[index].count)
-                sessionStorage.setItem('orders' , JSON.stringify(orders))
-                return 0 
-            }
-        }    
-        orders?.push({id:num , count:1, cost:parseInt(price).toFixed(0)})
-        sessionStorage.setItem('orders' , JSON.stringify(orders))
-    }
-    const removeItem = (num,price , weight) => {
-        var orders = JSON.parse(sessionStorage.getItem('orders'))
-        for (let index = 0; index < orders?.length; index++) {
-            if (orders[index].id === num ) {
-                if (orders[index].count > 0) {
-                    props.setPaymentPrice(parseInt(props.PaymentPrice) - parseInt(price))
-                    props.setNumberOfGoods(parseInt(props.NumberOfGoods) - 1)
-                    if(weight !== null)
-                    {
-                        props.setParcelWeight(parseInt(props.ParcelWeight) - parseInt(weight))
-                    }
-                    orders[index].count--
-                    setProductData(orders[index].count)
-                }
-                if (orders[index].count === 0) {
-                    orders.splice(index , 1)
-                }
-                sessionStorage.setItem('orders' , JSON.stringify(orders))
-                return 0 
-            }
-        }    
-        sessionStorage.setItem('orders' , JSON.stringify(orders))
-    }
-    const alerter = () => {
-        alert('alert')
-    }
 
-    const [open5, setOpen5] = React.useState(false);
-    const handleOpen5 = () => {
-        setOpen5(true);
-    }
-    const handleClose5 = () => {
-        setOpen5(false)  
-    };
-  
+
     return (
         <div className="itemCard">
-            
-
             <button type="button"  className="imgCont" style={imgHandler}>
-                    <div className="iconAndBtn">
-                        <div className="favIco">
-                            <StarBorderIcon/>
-                        </div>
+                <div className="iconAndBtn">
+                    <div className="favIco">
+                        <StarBorderIcon/>
                     </div>
+                </div>
 
-                    <div className="overlayImg"><button type="button" onClick={() => handleOpen()}>{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</button></div>
-                    <div className="dates">
-                        <DarkTT title="Delivery possible for" placement="top" arrow>
-                            <div className="date">M</div>
-                        </DarkTT>
-                        <DarkTT title="Delivery possible for" placement="top" arrow>
-                            <div className="date">Tu</div>
-                        </DarkTT>
-                        <DarkTT title="Delivery possible for" placement="top" arrow>
-                            <div className="date">Wed</div>
-                        </DarkTT>
-                        <DarkTT title="Delivery possible for" placement="top" arrow>
-                            <div className="date">Th</div>
-                        </DarkTT>
-                        <DarkTT title="Delivery possible for" placement="top" arrow>
-                            <div className="date">Fri</div>
-                        </DarkTT>
-                        <DarkTT title="Delivery possible for" placement="top" arrow>
-                            <div className="date">Sat</div>
-                        </DarkTT>
-                    </div>
+                <div className="overlayImg"><button type="button" onClick={() => handleOpen()}>{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</button></div>
+                <div className="dates">
+                    <DarkTT title="Delivery possible for" placement="top" arrow>
+                        <div className="date">M</div>
+                    </DarkTT>
+                    <DarkTT title="Delivery possible for" placement="top" arrow>
+                        <div className="date">Tu</div>
+                    </DarkTT>
+                    <DarkTT title="Delivery possible for" placement="top" arrow>
+                        <div className="date">Wed</div>
+                    </DarkTT>
+                    <DarkTT title="Delivery possible for" placement="top" arrow>
+                        <div className="date">Th</div>
+                    </DarkTT>
+                    <DarkTT title="Delivery possible for" placement="top" arrow>
+                        <div className="date">Fri</div>
+                    </DarkTT>
+                    <DarkTT title="Delivery possible for" placement="top" arrow>
+                        <div className="date">Sat</div>
+                    </DarkTT>
+                </div>
             </button>
 
             <p className="titleItem">{props.title}</p>
@@ -219,10 +154,9 @@ function ItemCard(props) {
             </div>
             <div className="increaseDecrease">
                 <button className="dBtn" onClick={() => removeItem(props.cardId , discountHandler(props.discount) , props.weight)}> <RemoveIcon/></button>
-                <div className="valueID">{ProductData}</div>
+                <div className="valueID">{ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count}</div>
                 <button className="iBtn" onClick={() => addItem(props.cardId , discountHandler(props.discount) , props.weight) }><AddIcon/></button>
             </div>
-
 
             <div className="modalCont">
                 <Modal  
@@ -231,22 +165,9 @@ function ItemCard(props) {
                     onClose={handleClose}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description">
-                    {<ProductModal id={props.id} functionClose={handleClose} functionOpenSimilar={handleOpen5} title={props.title} desc={props.desc} price={props.price} weight={props.weight} numberStar="3.5"/>}
+                    {<ProductModal id={props.id} functionClose={handleClose}  title={props.title} desc={props.desc} price={props.price} weight={props.weight} numberStar="3.5"/>}
                 </Modal>
             </div>
-            <div className="modalCont">
-                <Modal  
-                    style={{display:"flex", justifyContent:"center",overflow:"auto"}}
-                    open={open5}
-                    onClose={handleClose5}
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description">
-                    {<ProductModal   />}
-                </Modal>
-            </div>
-
-
-
         </div>
     )
 }
