@@ -29,6 +29,10 @@
             color: gray; 
             font-size: 15px;
             position: absolute;
+            width: 100px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
         }
         .addFileInput
         {
@@ -146,6 +150,7 @@
             margin: 0px !important;
             padding: 0px !important;
             color: gray;
+            
         }
     }
     .submitBtn

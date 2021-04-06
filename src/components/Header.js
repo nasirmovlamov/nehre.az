@@ -36,11 +36,12 @@ import F04 from '../components/F04'
 import axios from 'axios'
 import AssortmentCard from './AssortmentCard'
 import {ProductListingProvider} from './ProductListingProvider'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function Header() {
-  
+  const notifyLOGIN = () => toast.warn("Hesabınıza daxil olun və yaxud yeni hesab yaradın!");
   const [UserData, setUserData] = useState(0)
   const [Assortment, setAssortment] = useState([])
   const [TopCategory, setTopCategory] = useState([])
@@ -95,7 +96,20 @@ function Header() {
     setOpen(false);
   };
   const handleOpen2 = () => {
-    setOpen2(true);
+    if(UserData?.id !== undefined)
+    {
+      setOpen2(true);
+      
+    }
+    else 
+    {
+      notifyLOGIN()
+      setTimeout(() => {
+        handleClose()
+        handleOpen3()
+      }, 500);
+    }
+    
   }
   
   const handleClose2 = () => {
@@ -113,7 +127,7 @@ function Header() {
     setOpen3(false)  
   };
   const handleOpen4 = () => {
-    setOpen4(true);
+      setOpen4(true);
   }
   const handleOpen5 = () => {
     setOpen5(true);
@@ -207,7 +221,6 @@ function Header() {
                     <DownNavbar  TopCategory={TopCategory}/>
                 </header>
 
-
                 <Switch>
                     <Route   path={`/category/:id`}>          <ProductListingPage  PaymentPrice={PaymentPrice} />                                         </Route>
                     <Route   path="/about" >                  <About/>                                                                 </Route>
@@ -237,7 +250,7 @@ function Header() {
                 onClose={handleClose2}
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description">
-                {<CheckoutPage  functionClose={() => handleClose2()}  numberStar="3.5"/>}
+                {<CheckoutPage UserId={UserData?.id} functionClose={() => handleClose2()}  numberStar="3.5"/>}
             </Modal>
 
             <Modal  
@@ -256,14 +269,7 @@ function Header() {
                 aria-describedby="simple-modal-description">
                 {<Registration functionClose={() => handleClose4()}  />}
             </Modal>
-            <Modal  
-                style={{display:"flex", justifyContent:"center",overflow:"auto"}}
-                open={open4}
-                onClose={handleClose4}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description">
-                {<ProductModal functionClose={() => handleClose4()}  />}
-            </Modal>
+            
 
         </ProductListingProvider>
     )

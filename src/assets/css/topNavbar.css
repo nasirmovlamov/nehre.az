@@ -145,6 +145,32 @@
   outline: none;
 }
 
+.topNavbar .searchAndIcons .BtnCheckout {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 5px;
+          column-gap: 5px;
+  height: 36px;
+  margin-top: 1px;
+  border: none;
+  background-color: #aebaa3;
+  color: white;
+  border-radius: 2px;
+}
+
+.topNavbar .searchAndIcons .BtnCheckout svg {
+  color: white;
+}
+
+.topNavbar .searchAndIcons .BtnCheckout button {
+  background-color: transparent;
+  border: none;
+}
+
 .topNavbar .searchAndIcons .selection {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -174,20 +200,22 @@
 }
 
 .topNavbar .searchAndIcons .selection a .shoppingBtn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 35px;
   height: 35px;
   background: transparent;
   border: none;
   color: white;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   padding: 0px;
   margin: 0px;
   font-size: 15px;

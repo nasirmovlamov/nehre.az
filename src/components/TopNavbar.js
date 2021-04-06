@@ -141,9 +141,9 @@ function TopNavbar(props) {
                                 <Link to="/memberarea/bookmarks">
                                     <StarBorderIcon/> 
                                 </Link>
-                                <Link to="/">  
-                                    <button className="shoppingBtn shoppingBtn4" onClick={() => props.modalOpener()}><ShoppingCartIcon/></button>    <span className="price">{FinalPrice}  AZN  </span>
-                                </Link>
+                                <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={() => props.modalOpener()} >  
+                                    <button><ShoppingCartIcon/></button>    <span className="price">{FinalPrice}  AZN  </span>
+                                </button>
                             </div>
                         </div>
                     </div>

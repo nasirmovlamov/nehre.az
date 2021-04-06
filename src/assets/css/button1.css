@@ -7,4 +7,9 @@
   color: white;
   font-size: 18px;
 }
+
+.moreAbout:disabled {
+  background-color: #dddddd !important;
+  cursor: auto;
+}
 /*# sourceMappingURL=button1.css.map */

@@ -101,6 +101,27 @@
                 }
             }
         }
+        .BtnCheckout
+        {
+            display: flex;
+            align-items: center;
+            column-gap: 2px;
+            border: none;
+            background-color: #aebaa3;
+            color: white;
+            border-radius: 5px;
+            height: 36px;
+            margin-top: 1px;
+            svg 
+            {
+                color: white;
+            }
+            button 
+            {
+                background-color: transparent;
+                border: none;
+            }
+        }
         .selection
         {
             display: flex;
@@ -116,6 +137,7 @@
                 align-items: center;
                 color: white;
                 border-radius: 5px;
+                
                 .shoppingBtn
                 {
                     width: 35px;

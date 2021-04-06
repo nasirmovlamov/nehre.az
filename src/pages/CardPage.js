@@ -33,7 +33,7 @@ function CardPage(props) {
         .then(res => setProduct(res.data) )
         .catch(err=> console.log(err))
     } , [])
-    console.log(Items)
+    
     useEffect(() => {
         axios.get('https://nehra.az/public/api/settings/')
              .then(res => setMinOrder(res.data.min_order_amount))
@@ -51,12 +51,10 @@ function CardPage(props) {
     
     const deleteCard = (num , price) => {
         var index = ProdutData.findIndex(x=> x.id === num);
-        setFinalPrice(FinalPrice - (parseInt(price) * ProdutData[index].cost))
+        setFinalPrice(FinalPrice - (ProdutData[index].cost * ProdutData[index].count))
         setFinalGoods(FinalGoods - ProdutData[index].count )
         setFinalWeight(FinalWeight - (ProdutData[index].weight * ProdutData[index].count ) )
-        var newArr = [...ProdutData]
-        newArr.slice(index, 1)
-        setProdutData(newArr)
+        setProdutData(ProdutData.filter((item) => item.id !== num))
         setItems(Items.filter((item) => item.id !== num))
     }
 
@@ -77,7 +75,7 @@ function CardPage(props) {
             
             <main className="mainSide">
                 <p className="title">
-                    <p className="basketTitle">Basket {1 < MinOrder   ?  <div className="minOrder"> <InfoIcon/> Minimum sifariş qiyməti {MinOrder} ₼</div> : " " }</p>
+                    <p className="basketTitle">Səbət {FinalPrice < MinOrder   ?  <div className="minOrder"> <InfoIcon/> Minimum sifariş qiyməti {MinOrder} ₼</div> : " " }</p>
                     <hr/>
                 </p>
                 <div className="gridCont1">
@@ -94,17 +92,16 @@ function CardPage(props) {
                 <div className="mainPart">
                     <div className="topPart">
                         <div className="buttonCont"><button onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
-                        <p className="text1"><img width="12px" src={clock} alt=""/>  Delivery soon </p>
-                        <p className="text">30 yanvar <div className="date">BC</div></p>
+                        <p className="text1"><img width="12px" src={clock} alt=""/>  Tezliklə çatdırılma </p>
+                        <p className="text">30 yanvar <div className="date">BE</div></p>
                     </div>
                     
                     <div className="downPart">
-
-                        <div className="goods"><p className="key">Weight of Parcel</p> <p className="value ">{FinalWeight}</p> </div> 
-                        <div className="goods"><p className="key">Number of Goods</p> <p className="value ">{FinalGoods}</p> </div> 
-                        <div className="cost"><p className="key">Product cost</p> <p className="value value2"> {FinalPrice} AZN </p> </div> 
-                        <Button1 disabled={FinalPrice < MinOrder ? true : false} value="Checkout" color="#085096" function={props.functionOpenCheckoutPage} /> 
-                        <p className="cashback">There will be {FinalPrice / 10} AZN cashback</p>
+                        <div className="goods"><p className="key">Ümumi paketin çəkisi</p> <p className="value ">{FinalWeight}</p> </div> 
+                        <div className="goods"><p className="key">Ümumi məhsulların sayı</p> <p className="value ">{FinalGoods}</p> </div> 
+                        <div className="cost"><p className="key">Qiymət</p> <p className="value value2"> {FinalPrice} AZN </p> </div> 
+                        <Button1 disabled={FinalPrice < MinOrder ? true : false} value="Ödəniş səhifəsinə keçin" color="#085096" function={props.functionOpenCheckoutPage} /> 
+                        <p className="cashback">Alacağınız ümumi bonus {FinalPrice / 10} AZN </p>
                     </div>
                 </div>
                     <button   className="clearBucket" onClick={clearBucket}><DeleteIcon/> Səbəti təmizlə</button>

@@ -58,22 +58,29 @@
         input 
         {
             width: 270px;
-            height: 40px;
+            height: 50px;
             padding-left: 10px;
-            margin-left: 10px;
             border: 1px solid lightgray;
             border-radius: 5px;
         }
     }
     .address
     {
-        width: 100%;
+        width: 98%;
+        padding-left: 2%;
         height: 50px;
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 5px;
         border: 1px solid lightgray;
+    }
+    .errors 
+    {
+        display: flex;
+        flex-direction: column;
+        color: red;
+        row-gap: 5px;
     }
     .typeOfPayment
     {
@@ -91,6 +98,7 @@
             display: flex;
             align-items: center;
             column-gap: 10px;
+            
         }
     }
     .moreAbout 

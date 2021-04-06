@@ -55,15 +55,6 @@ function HomePage(props) {
     const [SuppliersCard, setSuppliersCard] = useState([])
     const [AnswerCard, setAnswerCard] = useState([])
     
-    if(JSON.parse(sessionStorage.getItem('orders'))?.length >= 0 || JSON.parse(sessionStorage.getItem('orders')) !== null)
-    {
-        
-    }
-    else 
-    {
-        const orders =   []
-        sessionStorage.setItem('orders' ,  JSON.stringify(orders))
-    }
     
 
 

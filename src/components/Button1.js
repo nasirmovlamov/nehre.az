@@ -11,7 +11,7 @@ function Button1(props) {
         }
     }
     return (
-        <button id="btnComp" className="moreAbout" type={props.type} style={bgColor} onClick={() => functionHandler()}>{props.value}</button>
+        <button id="btnComp" disabled={props.disabled} className="moreAbout" type={props.type} style={bgColor} onClick={() => functionHandler()}>{props.value}</button>
     )
 }
 
