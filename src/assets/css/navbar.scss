@@ -28,13 +28,11 @@
     }
     .dropCont 
     {
-        width: 125px;
+        width: 127px;
         padding-top: -1px;
-        border-bottom:8px solid transparent ;
         text-decoration: none;
         display: flex;
         justify-content: center;
-        border-bottom: 4px solid gray;
         align-items: center;
         color: black;
         font-family: serif;
@@ -43,8 +41,13 @@
         flex-direction: column;
         align-items: center;
         height: 54px;
+        border-bottom: 4px solid transparent;
+        transition: 0.5s all;
+
         &:hover 
         {
+            border-bottom: 4px solid gray;
+            transition: 0.01s all;
             .dropMenu
             {
                 opacity: 1;
@@ -52,7 +55,7 @@
                 height: auto;
                 transition: 0.5s all;
                 height: 125px;
-                margin-top: 189px;
+                margin-top: 185px;
                 p 
                 {
                     margin: 0px;
@@ -80,23 +83,21 @@
         {
             opacity: 1;
             pointer-events: none;
-            height: 125px;
+            height: 126px;
             width: 125px;
-            margin-top: 189px !important;
+            margin-top: 185px !important;
             align-items: center;
             flex-direction: column;
             position: absolute;
             margin-top: 70px;
+            
             background-color: transparent;
             z-index: 123312;
             display: flex;
             transition: all 0.3s;
-            
             p 
             {
-                &:nth-child(1)
-                {
-                }
+                
                 &:nth-child(3)
                 {
                     border-radius: 0px 0px 10px 10px ;
@@ -120,6 +121,8 @@
                     background-color: white;
                     color: #2d5d9b;
                     cursor: pointer;
+                    transition: 0.3s;
+
                 }
             }
         }

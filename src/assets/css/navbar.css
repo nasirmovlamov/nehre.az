@@ -1,7 +1,13 @@
 .navbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 40%;
   height: 60px;
   padding-left: 30%;
@@ -13,9 +19,15 @@
   width: 100px;
   border-bottom: 8px solid transparent;
   text-decoration: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: black;
   font-family: serif;
   font-family: "DaxlineR";
@@ -27,30 +39,47 @@
 }
 
 .navbar .dropCont {
-  width: 125px;
+  width: 127px;
   padding-top: -1px;
-  border-bottom: 8px solid transparent;
   text-decoration: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  border-bottom: 4px solid gray;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: black;
   font-family: serif;
   font-family: "DaxlineR";
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   align-items: center;
   height: 54px;
+  border-bottom: 4px solid transparent;
+  -webkit-transition: 0.5s all;
+  transition: 0.5s all;
+}
+
+.navbar .dropCont:hover {
+  border-bottom: 4px solid gray;
+  -webkit-transition: 0.01s all;
+  transition: 0.01s all;
 }
 
 .navbar .dropCont:hover .dropMenu {
   opacity: 1;
   pointer-events: all;
   height: auto;
+  -webkit-transition: 0.5s all;
   transition: 0.5s all;
   height: 125px;
-  margin-top: 189px;
+  margin-top: 185px;
 }
 
 .navbar .dropCont:hover .dropMenu p {
@@ -58,34 +87,46 @@
   opacity: 1;
   border: 1px solid #2d5d9b;
   height: 70px;
-  transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
 }
 
 .navbar .dropCont:hover .dropMenu p:nth-child(1) {
+  -webkit-transition: 0.3s all;
   transition: 0.3s all;
 }
 
 .navbar .dropCont:hover .dropMenu p:nth-child(2) {
+  -webkit-transition: 0.8s all;
   transition: 0.8s all;
 }
 
 .navbar .dropCont:hover .dropMenu p:nth-child(3) {
+  -webkit-transition: 1.2s all;
   transition: 1.2s all;
 }
 
 .navbar .dropCont .dropMenu {
   opacity: 1;
   pointer-events: none;
-  height: 125px;
+  height: 126px;
   width: 125px;
-  margin-top: 189px !important;
-  align-items: center;
-  flex-direction: column;
+  margin-top: 185px !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   position: absolute;
   margin-top: 70px;
   background-color: transparent;
   z-index: 123312;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
 
@@ -96,11 +137,20 @@
   width: 100%;
   text-align: center;
   background-color: #2d5d9b;
-  transform: rotateX(90deg);
-  transform-origin: top;
+  -webkit-transform: rotateX(90deg);
+          transform: rotateX(90deg);
+  -webkit-transform-origin: top;
+          transform-origin: top;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: 0.3s;
   transition: 0.3s;
   border: 1px solid transparent;
   opacity: 0;
@@ -114,4 +164,7 @@
   background-color: white;
   color: #2d5d9b;
   cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
+/*# sourceMappingURL=navbar.css.map */

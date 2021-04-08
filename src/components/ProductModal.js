@@ -100,7 +100,7 @@ function ProductModal(props) {
                             <hr/>
 
                             <div className="linkComponent">
-                                {checker === 1 ? <Description Product={Product}  functionClose={() => props.functionClose()} /> : "" }
+                                {/* {checker === 1 ? <Description Product={Product}  functionClose={() => props.functionClose()} /> : "" } */}
                                 {checker === 2 ? <Reviews Product={Product}/> : ""}
                                 {checker === 3 ? <Certificates Product={Product}/> : ""}
                             </div>

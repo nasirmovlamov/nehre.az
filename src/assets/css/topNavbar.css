@@ -169,6 +169,7 @@
 .topNavbar .searchAndIcons .BtnCheckout button {
   background-color: transparent;
   border: none;
+  padding: 0px !important;
 }
 
 .topNavbar .searchAndIcons .selection {

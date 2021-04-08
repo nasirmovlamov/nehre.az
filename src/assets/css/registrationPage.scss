@@ -172,6 +172,23 @@
         font-size: 13px;
         color: red;
         margin-top: 0px;
-        margin-left: 15px;
+        display: flex;
+        flex-direction: column;
+        row-gap: 5px;
     }
+    .authType
+    {
+        display: flex;
+        justify-content: space-around;
+        .authTypeCh 
+        {
+            label 
+            {
+                color: gray !important;
+
+            }
+        }
+
+    }
+
 }

@@ -135,7 +135,7 @@ function TopNavbarPart2(props) {
                                 <StarBorderIcon/> 
                             </Link>
                             <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={() => props.modalOpener()} >  
-                                    <button><ShoppingCartIcon/></button>    <span className="price">{FinalPrice}  AZN  </span>
+                                    <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {FinalPrice + " ₼"}</span>} 
                             </button>
                         </div>
                     </div>

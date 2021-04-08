@@ -124,13 +124,13 @@ function TopNavbar(props) {
                                 </Link>
                                 {/*  */}
                                 <Link to="/">
-                                <div className="shoppingBtnDiv2" onMouseLeave={() => langChangerMouseLeave2()}>
-                                        <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} className="shoppingBtn2">{langM}</button>
-                                        {drop2 && <div id="myDropdown" className="dropdown-content">
-                                            {langM === "AZ" ? "" : <button onClick={() => languageChanger(lang[0])}>{lang[0]}</button>}
-                                            {langM === "EN" ? "" : <button onClick={() => languageChanger(lang[1])}>{lang[1]}</button>}
-                                            {langM === "RU" ? "" : <button onClick={() => languageChanger(lang[2])}> {lang[2]}</button>}
-                                        </div>}
+                                    <div className="shoppingBtnDiv2" onMouseLeave={() => langChangerMouseLeave2()}>
+                                            <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} className="shoppingBtn2">{langM}</button>
+                                            {drop2 && <div id="myDropdown" className="dropdown-content">
+                                                {langM === "AZ" ? "" : <button onClick={() => languageChanger(lang[0])}>{lang[0]}</button>}
+                                                {langM === "EN" ? "" : <button onClick={() => languageChanger(lang[1])}>{lang[1]}</button>}
+                                                {langM === "RU" ? "" : <button onClick={() => languageChanger(lang[2])}> {lang[2]}</button>}
+                                            </div>}
                                     </div>
                                 </Link>
                                 {/*  */}
@@ -142,7 +142,7 @@ function TopNavbar(props) {
                                     <StarBorderIcon/> 
                                 </Link>
                                 <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={() => props.modalOpener()} >  
-                                    <button><ShoppingCartIcon/></button>    <span className="price">{FinalPrice}  AZN  </span>
+                                    <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {FinalPrice + " ₼"}</span>} 
                                 </button>
                             </div>
                         </div>

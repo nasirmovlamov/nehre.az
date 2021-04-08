@@ -1,0 +1,21 @@
+.authSms {
+  width: 200px;
+  height: 100px;
+  background-color: white;
+  -ms-flex-item-align: center;
+      align-self: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  row-gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+}
+/*# sourceMappingURL=authSms.css.map */

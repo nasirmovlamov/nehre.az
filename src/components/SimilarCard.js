@@ -122,7 +122,7 @@ function ItemCard(props) {
     
     useEffect(() => {
         var orders = JSON.parse(sessionStorage.getItem('orders'))
-        for (let index = 0; index < orders.length; index++) {
+        for (let index = 0; index < orders?.length; index++) {
             if (orders[index].id === props.cardId ) {
                 setProductData(orders[index].count)
             }

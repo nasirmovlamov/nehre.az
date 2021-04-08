@@ -99,9 +99,9 @@ function CardPage(props) {
                     <div className="downPart">
                         <div className="goods"><p className="key">Ümumi paketin çəkisi</p> <p className="value ">{FinalWeight}</p> </div> 
                         <div className="goods"><p className="key">Ümumi məhsulların sayı</p> <p className="value ">{FinalGoods}</p> </div> 
-                        <div className="cost"><p className="key">Qiymət</p> <p className="value value2"> {FinalPrice} AZN </p> </div> 
+                        <div className="cost"><p className="key">Qiymət</p> <p className="value value2"> {FinalPrice} ₼ </p> </div> 
                         <Button1 disabled={FinalPrice < MinOrder ? true : false} value="Ödəniş səhifəsinə keçin" color="#085096" function={props.functionOpenCheckoutPage} /> 
-                        <p className="cashback">Alacağınız ümumi bonus {FinalPrice / 10} AZN </p>
+                        <p className="cashback">Alacağınız ümumi bonus {FinalPrice / 10} ₼ </p>
                     </div>
                 </div>
                     <button   className="clearBucket" onClick={clearBucket}><DeleteIcon/> Səbəti təmizlə</button>
