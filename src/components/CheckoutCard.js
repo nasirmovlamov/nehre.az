@@ -12,7 +12,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import _ from 'lodash'
 import axios from 'axios';
 import {ProductListingContext} from '../components/ProductListingProvider'
-
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Skeleton from '@material-ui/lab/Skeleton';
 function CheckoutCard(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem] = useContext(ProductListingContext)
 
@@ -50,16 +51,19 @@ function CheckoutCard(props) {
     }
     
     const imgHandler = {
-        background: `url(https://nehra.az/storage/app/public/${Product?.thumb}) no-repeat`,
-        backgroundPosition: "center",
+        backgroundImage: `url(https://nehra.az/storage/app/public/${Product?.thumb})`,
+        backgroundRepeat: 'no-repeat',
         backgroundSize: "cover",
     }
     
     return (
         <>
             <div key={props.key} className="item">
-                            <div className="imgCont" style={imgHandler}></div>
-                            
+                            {Product?.thumb !== undefined ? 
+                                <div className="imgCont" style={imgHandler}></div>
+                            :
+                                <Skeleton variant="rect" width={104} height={100} animation="wave"/>
+                            }
                             <div className="aboutItem">
                             
                                 <p className="title">{Product?.title}</p>
@@ -88,11 +92,11 @@ function CheckoutCard(props) {
 
                             <div className="btnCont">
                                 <Button1 function={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm)} value={<RemoveIcon/>} color="#085096"/>
-                                <p className="priceValue"> {ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count}</p>
+                                <p className="priceValue">{Product?.id !== undefined ? (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count) : 0}</p>
                                 <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm)} value={<AddIcon/>}  color="#085096"/>
                             </div>
 
-                            <p className="price"> {ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count * ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost} ₼  </p>
+                            <p className="price">{Product?.id !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count * ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost) : 0}  ₼</p>
                             <button onClick={() => props.deleteCard(Product?.id , Product?.price)} className="delete"><DeleteIcon/></button>
                         </div>
                         <hr/>

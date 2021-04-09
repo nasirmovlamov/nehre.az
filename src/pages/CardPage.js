@@ -15,7 +15,8 @@ import axios from 'axios';
 import info from "../assets/images/info.svg"
 import InfoIcon from '@material-ui/icons/Info';
 import {ProductListingContext} from '../components/ProductListingProvider'
-
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { TramRounded } from '@material-ui/icons';
 
 function CardPage(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem] = useContext(ProductListingContext)
@@ -28,10 +29,12 @@ function CardPage(props) {
     const [Items, setItems] = useState(ProdutData)
     const [MinOrder, setMinOrder] = useState()
     const [Product, setProduct] = useState()
+    const [loader, setloader] = useState(false)
     useEffect(() => {
+        setloader(true)
         axios.get(`https://nehra.az/public/api/product/${props.id}`)
-        .then(res => setProduct(res.data) )
-        .catch(err=> console.log(err))
+        .then(res => (setProduct(res.data) , setloader(false)) )
+        .catch(err=> (console.log(err) , setloader(false)))
     } , [])
     
     useEffect(() => {
@@ -79,12 +82,14 @@ function CardPage(props) {
                     <hr/>
                 </p>
                 <div className="gridCont1">
-                    <div className="gridCont">
-                        {Items.map( element => 
-                                    <CheckoutCard key={element.id} deleteCard={deleteCard}  id={element.id} />
-                        )}
-                            
-                    </div>
+                        {
+                            !loader 
+                            &&
+                            <>
+                                {Items.map( element => <CheckoutCard key={element.id} deleteCard={deleteCard}  id={element.id} />)}
+                            </>
+                        }
+                        {loader &&  <div className="loader"><CircularProgress color="secondary" /></div>}
                 </div>
             </main>
             

@@ -1,8 +1,7 @@
 .itemCard
 {
     width: 268px;
-    height: 410px;
-    box-shadow: 3px 3px 10px  rgba(0,0,0,0.3);
+    height: 400px;
     border-radius: 20px;
     transition: 1s box-shadow;
     background-color: white;
@@ -22,16 +21,19 @@
         align-items: flex-end;
         justify-content: flex-end;
         justify-content: space-between;
-        height: 263px;
+        width: 268px;
+        height: 268px;
         padding-bottom: 5px;
         overflow: hidden;
         margin: 0px;
-            padding: 0px;
+        padding: 0px;
+        background-color: #eae8e3;
+        background-image: url('../images/defP.png');
         .overlayImg
         {
             width: 268px ;
             border-radius: 20px 20px 0 0 ;
-            height: 263px;
+            height: 268px;
             position: absolute;
             background-color: rgba(0,0,0,0.5) !important;
             opacity: 0;
@@ -103,7 +105,8 @@
         {
             width: 25px;
             height: 25px;
-            font-size: 9px;
+            font-size: 12px;
+            font-family: "DaxlineR";
             background-color: red;
             color: white;
             display: flex;
@@ -155,25 +158,38 @@
         margin: 0px;
         text-align: start;
     }
+    .starAndAbout
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
     .titleItem
     {
+        margin-top: 10px;
         margin-left: 10px;
         font-size: 14px;
-        margin-top: 10px;
+            font-family: "DaxlineR";
+            margin-top: 10px;
     }
     .subTitleItem
     {
+        padding-top: 10px;
+        margin-bottom: 5px;
         margin-left: 10px;
         font-size: 12px;
+        font-family: "DaxlineR";
         min-height: 16px;
+        color: gray;
     }
     .textCont
     {
         padding: 10px;
         padding-top: 0px;
+        margin-top: 10px;
         display: flex;
         justify-content: space-between;
-        
+        align-items: center;
         .priceAndWeightItem
         {
             .element1

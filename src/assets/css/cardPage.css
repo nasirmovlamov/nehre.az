@@ -12,6 +12,22 @@
           justify-content: space-between;
 }
 
+.cardCont .loader {
+  -ms-flex-item-align: center;
+      align-self: center;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .cardCont aside {
   border-radius: 0px 10px 10px 0px;
   overflow: hidden;
@@ -300,6 +316,13 @@
   overflow-y: scroll;
   width: 100%;
   height: 600.5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   /* Track */
   /* Handle */
 }
@@ -310,6 +333,16 @@
 
 .cardCont .mainSide .gridCont1::-webkit-scrollbar-thumb {
   background: gray;
+}
+
+.cardCont .mainSide .gridCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .cardCont .mainSide .item {

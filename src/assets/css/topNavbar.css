@@ -3,41 +3,73 @@
   height: auto;
   background-color: #F0F4F5;
   border-radius: 30px 30px 0px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding-left: 50px;
   padding-right: 50px;
 }
 
 .topNavbar .topPart {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   width: 100%;
   margin-top: 30px;
 }
 
 .topNavbar .topPart .imgAndLinks {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: flex-end;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 }
 
 .topNavbar .topPart .phoneCont {
-  align-self: flex-start;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-self: flex-end;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
 }
 
 .topNavbar .topPart .phoneCont .phone {
   direction: ltr;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  align-self: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
   margin: 0px;
-  column-gap: 10px;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
   font-size: 16px;
   color: #285999;
   min-width: 180px;
@@ -55,24 +87,42 @@
 }
 
 .topNavbar .phoneAndSearch {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   height: 100px;
   width: 700px;
 }
 
 .topNavbar .searchAndIcons {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  column-gap: 20px;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
   width: 750px;
 }
 
 .topNavbar .searchAndIcons .inputAndIcon {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   direction: ltr;
 }
 
@@ -81,7 +131,7 @@
   position: relative;
   right: 0px;
   border: none;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .topNavbar .searchAndIcons input {
@@ -96,9 +146,14 @@
 }
 
 .topNavbar .searchAndIcons .BtnCheckout {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  column-gap: 5px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 5px;
+          column-gap: 5px;
   height: 36px;
   margin-top: 1px;
   border: none;
@@ -119,27 +174,40 @@
 }
 
 .topNavbar .searchAndIcons .selection {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 400px;
   grid-gap: 10px;
   height: 85px;
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .topNavbar .searchAndIcons .selection a {
   width: 35px;
   height: 35px;
   border: 1px solid white;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: white;
   border-radius: 5px;
 }
 
 .topNavbar .searchAndIcons .selection a .shoppingBtn {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   overflow: hidden;
   width: 35px;
   height: 35px;
@@ -147,7 +215,9 @@
   border: none;
   color: white;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   align-items: center;
   padding: 0px;
   margin: 0px;
@@ -179,9 +249,15 @@
   background: transparent;
   border: none;
   color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 0px;
   margin: 0px;
   font-size: 15px;
@@ -212,8 +288,13 @@
 }
 
 .topNavbar .searchAndIcons .selection a:nth-child(1) .dropdown-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   margin-top: -4px;
   background-color: #2d5d9b;
   border-top: 1px solid white;
@@ -221,7 +302,8 @@
   overflow: hidden;
   position: absolute;
   width: 35px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -276,9 +358,15 @@
   background: transparent;
   border: none;
   color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 0px;
   margin: 0px;
   font-size: 15px;
@@ -308,8 +396,13 @@
 }
 
 .topNavbar .searchAndIcons .selection a:nth-child(2) .dropdown-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   margin-top: -4px;
   background-color: #d0ac55;
   border-top: 1px solid white;
@@ -317,7 +410,8 @@
   overflow: hidden;
   position: absolute;
   width: 35px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -387,8 +481,12 @@
 .topNavbar .searchAndIcons .selection a:nth-child(5) {
   background-color: #aebaa3;
   background-size: cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: auto;
   padding-right: 3px;
 }
@@ -408,3 +506,4 @@
 .topNavbar .searchAndIcons .selection a:nth-child(5):hover svg, .topNavbar .searchAndIcons .selection a:nth-child(5):hover span {
   color: #aebaa3;
 }
+/*# sourceMappingURL=topNavbar.css.map */

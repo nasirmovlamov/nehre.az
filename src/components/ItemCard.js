@@ -24,6 +24,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import {ProductListingContext} from '../components/ProductListingProvider'
 import moment from 'moment';
 import 'moment/locale/az';
+import defP from '../assets/images/defP.png'
 function ItemCard(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem] = useContext(ProductListingContext)
     
@@ -48,7 +49,8 @@ function ItemCard(props) {
     const [checker, setchecker] = useState(false)
 
     const imgHandler = {
-        background: `url('https://nehra.az/storage/app/public/${props.image}') no-repeat`,
+        backgroundImage: props.image !== undefined  && props.image !== null ? `url('https://nehra.az/storage/app/public/${props.image}')` : defP,
+        backgroundRepeat:"no-repeat",
         backgroundPosition: "center",
         backgroundSize: "cover",
     }
@@ -107,11 +109,13 @@ function ItemCard(props) {
         handleOpen()
     }
     
-    
-
+    var monday = new Date();
+    monday.setDate(monday.getDate() + (1 + 7 - monday.getDay()) % 7);
+    var newmonday = moment(monday).calendar();
+    console.log(newmonday);
     return (
         <div className="itemCard">
-            <button onClick={() => handleOpen()} type="button"  className="imgCont" style={imgHandler}>
+            <button  type="button"  className="imgCont" style={imgHandler}>
                 <div className="iconAndBtn">
                     <button className="favIco">
                         <StarBorderIcon/>
@@ -119,11 +123,11 @@ function ItemCard(props) {
                 </div>
 
                 <div className="overlayImg">
-                    <button type="button" >{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</button>
+                    <button onClick={() => handleOpen()} type="button" >{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</button>
                 </div>
 
                 <div className="dates">
-                    <DarkTT title="21 iyun üçün çatdırılma mümkündür" placement="top" arrow>
+                    <DarkTT title={`${newmonday} üçün çatdırılma mümkündür`} placement="top" arrow>
                         <div className="date">Be</div>
                     </DarkTT>
                     <DarkTT title="22 iyun üçün çatdırılma mümkündür" placement="top" arrow>
@@ -144,7 +148,7 @@ function ItemCard(props) {
             </button>
 
             <p className="titleItem">{props.title}</p>
-            <p className="subTitleItem">{props.desc}</p>
+            <p className="subTitleItem">{0 && props.desc} Dadlı keyfiyyətli məhsullar</p>
             <div className="textCont">
                 <div className="starAndAbout">
                     <p className="dscPrc">{(props.discount !== 0 && props.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{(props.price)} ₼</span></span>)}</p>
@@ -153,14 +157,14 @@ function ItemCard(props) {
                 </div>   
                 <BuyButton functionAdd={() => addItem(props.cardId , discountHandler(props.discount))}  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>
             </div>
-            {
+            {/* {
                 ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count >= 1 && 
                 <div className="increaseDecrease">
                     <button className="dBtn" onClick={() => removeItem(props.cardId , discountHandler(props.discount) , props.weight)}> <RemoveIcon/></button>
                     <div className="valueID">{ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count}</div>
                     <button className="iBtn" onClick={() => addItem(props.cardId , discountHandler(props.discount) , props.weight) }><AddIcon/></button>
                 </div>
-            }
+            } */}
 
             <div className="modalCont">
                 <Modal  
