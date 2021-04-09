@@ -38,10 +38,32 @@ import AssortmentCard from './AssortmentCard'
 import {ProductListingProvider} from './ProductListingProvider'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import AuthSmsL from '../components/AuthSmsL'
 
 function Header() {
   const notifyLOGIN = () => toast.warn("Hesabınıza daxil olun və yaxud yeni hesab yaradın!");
+  const smsHandle = () => {
+    handleOpenSMS()
+    axios.post('https://nehra.az/public/api/resendsms' , {user_id:JSON.parse(localStorage.getItem('LoginUserData')).id})
+        .then(res => (res.status ===200 && handleOpenSMS()) )
+    
+  }
+  const notifyAuth = () => toast.error(
+    <div className="authCont">
+      <p className="title">Hesabınızı təsdiqləyin!</p>  
+      <button onClick={() => smsHandle()} className='phoneAuth'>Telefonla təsdiqləmək üçün klikləyin</button>
+      <button onClick={() => smsHandle()} className='emailAuth'>Elektron poçtla təsdiqləmək üçün klikləyin</button>
+    </div>
+    , {
+    position: "top-right",
+    autoClose:8000,
+    hideProgressBar: 100,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: false,
+    width:"450px",
+    progress: undefined,
+    });
   const [UserData, setUserData] = useState(0)
   const [Assortment, setAssortment] = useState([])
   const [TopCategory, setTopCategory] = useState([])
@@ -117,7 +139,7 @@ function Header() {
   };
   const  history = useHistory();
   const handleOpen3 = () => {
-    UserData?.id !== undefined ? window.location.href = '/memberarea'  : setOpen3(true);
+    UserData?.id !== undefined ? ( sessionStorage.getItem('status') == 1 ? window.location.href = '/memberarea'  : notifyAuth()) :  setOpen3(true) ;
   }
   
   const handleClose3 = () => {
@@ -199,6 +221,14 @@ function Header() {
         } 
         
       });
+    
+    useEffect(() => {
+      if (JSON.parse(localStorage.getItem('LoginUserData'))?.id  !== undefined) {
+          axios.get(`https://nehra.az/public/api/checkstatus?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
+              .then(res => sessionStorage.setItem('status' , res.data))
+      }
+    }, [])
+
 
     const  scrolltoTop = () =>  {
       window.scroll(0,0)
@@ -206,6 +236,19 @@ function Header() {
     const [PaymentPrice, setPaymentPrice] = useState(0)
     const [NumberOfGoods, setNumberOfGoods] = useState(0)
     const [ParcelWeight, setParcelWeight] = useState(0)
+
+
+    const [openSMS, setOpenSMS] = React.useState(false);
+
+    const handleOpenSMS = () => {
+        setOpenSMS(true);
+    }
+    const handleCloseSMS = () => {
+        setOpenSMS(false);
+    }
+    
+
+
     return (
         <ProductListingProvider>
 
@@ -267,9 +310,15 @@ function Header() {
                 onClose={handleClose4}
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description">
-                {<Registration functionClose={() => handleClose4()}  />}
+                {<Registration functionCloseReg={() => handleClose4()}  />}
             </Modal>
-            
+            <Modal  
+                style={{display:"flex", justifyContent:"center",overflow:"auto"}}
+                open={openSMS}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description">
+                {<AuthSmsL functionClose={() => handleCloseSMS() }  />}
+            </Modal>
 
         </ProductListingProvider>
     )

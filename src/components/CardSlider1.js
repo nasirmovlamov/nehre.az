@@ -12,10 +12,10 @@ function CardSlider1(props) {
         backgroundSize: "cover",
 
     }
-    if ( parseInt(props?.turnoverlay) === 0) {
-        inputTitle?.current?.setAttribute('style' , 'background-color:rgba(0,0,0,0);')
-        inputDesc?.current?.setAttribute('style' , 'background-color:rgba(0,0,0,0);')
-    }
+    // if ( parseInt(props?.turnoverlay) === 0) {
+    //     inputTitle?.current?.setAttribute('style' , 'background-color:rgba(0,0,0,0);')
+    //     inputDesc?.current?.setAttribute('style' , 'background-color:rgba(0,0,0,0);')
+    // }
     return (
         <>
             

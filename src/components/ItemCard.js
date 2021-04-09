@@ -22,7 +22,8 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import axios from 'axios';
 import Skeleton from '@material-ui/lab/Skeleton';
 import {ProductListingContext} from '../components/ProductListingProvider'
-
+import moment from 'moment';
+import 'moment/locale/az';
 function ItemCard(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem] = useContext(ProductListingContext)
     
@@ -108,37 +109,37 @@ function ItemCard(props) {
     
     
 
-
-
     return (
         <div className="itemCard">
-            <button type="button"  className="imgCont" style={imgHandler}>
+            <button onClick={() => handleOpen()} type="button"  className="imgCont" style={imgHandler}>
                 <div className="iconAndBtn">
-                    <div className="favIco">
+                    <button className="favIco">
                         <StarBorderIcon/>
-                    </div>
+                    </button>
                 </div>
 
-                <div className="overlayImg"><button type="button" onClick={() => handleOpen()}>{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</button></div>
+                <div className="overlayImg">
+                    <button type="button" >{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</button>
+                </div>
+
                 <div className="dates">
-                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                        <div className="date">M</div>
+                    <DarkTT title="21 iyun üçün çatdırılma mümkündür" placement="top" arrow>
+                        <div className="date">Be</div>
                     </DarkTT>
-                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                        <div className="date">Tu</div>
+                    <DarkTT title="22 iyun üçün çatdırılma mümkündür" placement="top" arrow>
+                        <div className="date">Ça</div>
                     </DarkTT>
-                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                        <div className="date">Wed</div>
+                    <DarkTT title="23 iyun üçün çatdırılma mümkündür" placement="top" arrow>
+                        <div className="date">Ç</div>
                     </DarkTT>
-                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                        <div className="date">Th</div>
+                    <DarkTT title="24 iyun üçün çatdırılma mümkündür" placement="top" arrow>
+                        <div className="date">Ca</div>
                     </DarkTT>
-                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                        <div className="date">Fri</div>
+                    <DarkTT title="25 iyun üçün çatdırılma mümkündür" placement="top" arrow>
+                        <div className="date">C</div>
                     </DarkTT>
-                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                        <div className="date">Sat</div>
-                    </DarkTT>
+                    
+                    
                 </div>
             </button>
 
@@ -146,17 +147,20 @@ function ItemCard(props) {
             <p className="subTitleItem">{props.desc}</p>
             <div className="textCont">
                 <div className="starAndAbout">
-                    <p className="dscPrc">{(props.discount !== 0 && props.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{(props.price)}</span></span>)}</p>
-                    <p className="priceAndWeightItem"><span className="element1"  style={props.discount && colorChang}>{discountHandler(props.discount)} AZN</span> / <span className="element2">{props.weight}</span> </p>
+                    <p className="dscPrc">{(props.discount !== 0 && props.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{(props.price)} ₼</span></span>)}</p>
+                    <p className="priceAndWeightItem"><span className="element1"  style={props.discount && colorChang}>{discountHandler(props.discount)} ₼</span> / <span className="element2">{props.weight}</span> </p>
                     <StarSystem numberStar={props.star}/>
                 </div>   
                 <BuyButton functionAdd={() => addItem(props.cardId , discountHandler(props.discount))}  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>
             </div>
-            <div className="increaseDecrease">
-                <button className="dBtn" onClick={() => removeItem(props.cardId , discountHandler(props.discount) , props.weight)}> <RemoveIcon/></button>
-                <div className="valueID">{ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count}</div>
-                <button className="iBtn" onClick={() => addItem(props.cardId , discountHandler(props.discount) , props.weight) }><AddIcon/></button>
-            </div>
+            {
+                ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count >= 1 && 
+                <div className="increaseDecrease">
+                    <button className="dBtn" onClick={() => removeItem(props.cardId , discountHandler(props.discount) , props.weight)}> <RemoveIcon/></button>
+                    <div className="valueID">{ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count}</div>
+                    <button className="iBtn" onClick={() => addItem(props.cardId , discountHandler(props.discount) , props.weight) }><AddIcon/></button>
+                </div>
+            }
 
             <div className="modalCont">
                 <Modal  

@@ -1,19 +1,12 @@
 .downPart {
-  position: -webkit-sticky;
   position: sticky;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
   width: 100%;
   top: 0px;
   background-color: #fff;
   z-index: 5;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   overflow: hidden;
   height: 0px;
 }
@@ -34,52 +27,31 @@
 .downPart .downCont {
   padding-top: 0px;
   padding-bottom: 0px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  position: -webkit-sticky;
+  align-items: flex-end;
   position: sticky;
   top: 0px;
   width: 100%;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
   width: auto;
-  -webkit-column-gap: 30px;
-          column-gap: 30px;
+  column-gap: 30px;
   padding-left: 50px;
   padding-right: 50px;
   background-color: #f0f4f5;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   height: 0px;
 }
 
 .downPart .downCont .searchAndIcons {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-column-gap: 20px;
-          column-gap: 20px;
+  align-items: center;
+  column-gap: 20px;
 }
 
 .downPart .downCont .inputAndIcon {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .downPart .downCont .searchIcon {
@@ -87,7 +59,7 @@
   position: relative;
   right: 0px;
   border: none;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
 }
 
 .downPart .downCont input {
@@ -102,19 +74,11 @@
 }
 
 .downPart .downCont .phoneCont {
-  -ms-flex-item-align: center;
-      align-self: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  align-self: center;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   row-gap: 3px;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
 }
 
 .downPart .downCont .phoneCont svg {
@@ -124,18 +88,12 @@
 
 .downPart .downCont .phoneCont .phone {
   direction: ltr;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -ms-flex-item-align: start;
-      align-self: flex-start;
+  align-items: center;
+  align-self: flex-start;
   margin: 0px;
   margin-right: 25px;
-  -webkit-column-gap: 10px;
-          column-gap: 10px;
+  column-gap: 10px;
   font-size: 15px;
   color: #285999;
   min-width: 140px;
@@ -146,20 +104,16 @@
 }
 
 .downPart .downCont .BtnCheckout {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-column-gap: 5px;
-          column-gap: 5px;
+  align-items: center;
+  column-gap: 5px;
   height: 36px;
   margin-top: 1px;
   border: none;
   background-color: #aebaa3;
   color: white;
   border-radius: 2px;
+  overflow: hidden;
 }
 
 .downPart .downCont .BtnCheckout svg {
@@ -173,8 +127,6 @@
 }
 
 .downPart .downCont .selection {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   width: auto;
   grid-gap: 10px;
@@ -184,34 +136,23 @@
   width: 35px;
   height: 35px;
   border: 1px solid white;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   color: white;
   border-radius: 5px;
 }
 
 .downPart .downCont .selection a .shoppingBtn {
   width: 35px;
+  overflow: hidden;
   height: 35px;
   background: transparent;
   border: none;
   color: white;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   padding: 0px;
   margin: 0px;
   font-size: 15px;
@@ -242,15 +183,9 @@
   background: transparent;
   border: none;
   color: white;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   padding: 0px;
   margin: 0px;
   font-size: 15px;
@@ -281,13 +216,8 @@
 }
 
 .downPart .downCont .selection a:nth-child(1) .dropdown-content {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   margin-top: -4px;
   background-color: #2d5d9b;
   border-top: 1px solid white;
@@ -295,8 +225,7 @@
   overflow: hidden;
   position: absolute;
   width: 35px;
-  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -351,15 +280,9 @@
   background: transparent;
   border: none;
   color: white;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   padding: 0px;
   margin: 0px;
   font-size: 15px;
@@ -389,13 +312,8 @@
 }
 
 .downPart .downCont .selection a:nth-child(2) .dropdown-content {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   margin-top: -4px;
   background-color: #d0ac55;
   border-top: 1px solid white;
@@ -403,8 +321,7 @@
   overflow: hidden;
   position: absolute;
   width: 35px;
-  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -474,12 +391,8 @@
 .downPart .downCont .selection a:nth-child(5) {
   background-color: #aebaa3;
   background-size: cover;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   width: auto;
   padding-right: 3px;
 }
@@ -499,4 +412,3 @@
 .downPart .downCont .selection a:nth-child(5):hover svg, .downPart .downCont .selection a:nth-child(5):hover span {
   color: #aebaa3;
 }
-/*# sourceMappingURL=topNavbarPart2.css.map */

@@ -116,8 +116,8 @@
         .dates
         {
             display: flex;
+            column-gap: 5px;
             align-items: flex-end;
-            justify-content: space-around;
             width: 263px;
             div {
             &:nth-child(1)

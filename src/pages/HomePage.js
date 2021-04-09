@@ -128,21 +128,21 @@ function HomePage(props) {
 
 
             <div className="slider1">
-               <OurSlider elements={topCards} numOfSld={2}/>
+               <OurSlider elements={topCards} speed={10000} numOfSld={2}/>
             </div>
-            <p className="deliveryText">Fermerlərdən evinizə təzə və təbii məhsulların çatdırılması!</p>
+            <p className="deliveryText">Kəndlərimizdən evinizə təzə və təbii məhsulların çatdırılması!</p>
             <video  className="videoHome"  autoPlay  >
             </video>
             <div className="aboutCards">
-                <div className="aboutCard"> <p>1500-dən çox məhsulla və 150-dən çox zəhmətkeşimizlə sizin qulluğunuzda hazırıq</p>  <img src={cardAboutImg1} alt="" className="aboutImg"/></div> 
-                <div className="aboutCard"> <p>Zəhmətkeşlər sizin üçün məhsulları aldığınız gün hazır edir və növbəti gün çatdırılma olur.</p> <img src={cardAboutImg2} alt="" className="aboutImg"/></div>
+                <div className="aboutCard"> <p>1500-dən çox məhsulla və 150-dən çox kəndlimizlə sizin qulluğunuzda hazırıq</p>  <img src={cardAboutImg1} alt="" className="aboutImg"/></div> 
+                <div className="aboutCard"> <p>Kəndlilər sizin üçün məhsulları aldığınız gün hazır edir və növbəti gün çatdırılma olur.</p> <img src={cardAboutImg2} alt="" className="aboutImg"/></div>
                 <div className="aboutCard"> <p>Keyfiyyətin bütün mərhələlərinə diqqətlə nəzarət edirik. Məhsullarımızın tərkibində heç bir əlavə qatqı və yaxud gmo mövcud deyildir.</p> <img src={cardAboutImg3} alt="" className="aboutImg"/></div>
             </div>
 
             <div className="perfectSet">
                 <div className="textCont2">
                     <h4 className="title2">İlk satış üçün əla səbət</h4>
-                    <p className="desc">Heç təbii ferma məhsullarından dadmısınız !? Sizin üçün səbətdə ən təzə və ləziz məhsulları toplamışıq. Sadəcə bir kliklə alın və dadın!</p>
+                    <p className="desc">Heç təbii kənd məhsullarından dadmısınız !? <br/> Sizin üçün səbətdə ən təzə və ləziz məhsulları toplamışıq. <br/> Sadəcə bir kliklə alın və dadın!</p>
                     <Button1 value="Ətraflı" color="#285999"/>
                 </div>
             </div>
@@ -174,7 +174,7 @@ function HomePage(props) {
             </div>
 
             <div className="itemsCont">
-                <Link to="/suppliers"><p className="itemsTitle">Bizim Zəhmətkeşlər </p></Link>
+                <Link to="/suppliers"><p className="itemsTitle">Bizim Kəndlilər </p></Link>
                 <div className="itemSlider">
                     <OurSlider elements={suppliersCard} numOfSld={3}/>
                 </div>

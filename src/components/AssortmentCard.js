@@ -7,10 +7,12 @@ function AssortmentCard(props) {
         backgroundSize: "cover",
     }
     return (
-        <div className="assortmentCard">
-            <div style={imgHandler} className="imgContAssortment"></div>
-            <p className="assortTitle">{props.title}</p>
-            <p className="assortSubTitle">{props.desc}</p>
+        <div className="assortmentCard" style={imgHandler}>
+            <div  className="imgContAssortment"></div>
+            <div className="overlay">
+                <p className="assortSubTitle">{props.desc}  çox məhsulla xidmətinizdəyik</p>
+                <p className="assortTitle">{props.title}</p>
+            </div>
         </div>
     )
 }

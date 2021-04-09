@@ -12,7 +12,7 @@ function AuthSms(props) {
     const onChange = (e) => {
         console.log(e.target.value)
         axios.get(`https://nehra.az/qeydiyyat/sms/${e.target.value}`)
-            .then(res=> (console.log(res) , res.status === 200 && (notify() , props.functionClose() , props.functionCloseReg() , sessionStorage.setItem('status' , 1))) )
+            .then(res=> (console.log(res) , res.status === 200 && (notify() , props.functionClose() , sessionStorage.setItem('status' , 1))) )
     }
     const onSubmit = () =>{
     }

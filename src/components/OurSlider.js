@@ -15,7 +15,7 @@ function OurSlider(props) {
         initialSlide: 0,
         draggable:true,
         autoplay:true,
-        autoplaySpeed: 4500,
+        autoplaySpeed: props.speed !== undefined ? props.speed : 4500,
       };
       
     var new1 = [<CardSliderDefault name={"Loading"}   desc={"Loading"} /> , <CardSliderDefault name={"Loading"} i desc={"Loading"} />]

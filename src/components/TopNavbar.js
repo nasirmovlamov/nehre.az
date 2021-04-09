@@ -135,7 +135,7 @@ function TopNavbar(props) {
                                 </Link>
                                 {/*  */}
                                 <Link to={`/`}>
-                                     <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}>{props?.UserData?.name !== undefined ? <Avatar  src={`https://nehra.az/${props?.UserData?.image}`} />  : <PersonIcon/> } </button>    
+                                     <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}><PersonIcon/></button>    
                                 </Link>
                                 {/*  */}
                                 <Link to="/memberarea/bookmarks">

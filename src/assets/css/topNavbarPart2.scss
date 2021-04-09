@@ -112,6 +112,8 @@
             background-color: #aebaa3;
             color: white;
             border-radius: 2px;
+            overflow: hidden;
+
             svg 
             {
                 color: white;
@@ -142,6 +144,7 @@
                 .shoppingBtn
                 {
                     width: 35px;
+                    overflow: hidden;
                     height: 35px;
                     background: transparent;
                     border: none;

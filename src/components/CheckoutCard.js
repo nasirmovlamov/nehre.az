@@ -63,7 +63,7 @@ function CheckoutCard(props) {
                             <div className="aboutItem">
                             
                                 <p className="title">{Product?.title}</p>
-                                <p className="priceAndWeight">{ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost} AZN  / {Product?.ceki_hecm} g.</p>
+                                <p className="priceAndWeight">{ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost} ₼  / {Product?.ceki_hecm} g.</p>
                                 <div className="dates">
                                     <DarkTT title="Delivery possible for" placement="top" arrow>
                                     <div className="date">Be</div>
@@ -92,7 +92,7 @@ function CheckoutCard(props) {
                                 <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm)} value={<AddIcon/>}  color="#085096"/>
                             </div>
 
-                            <p className="price"> {} </p>
+                            <p className="price"> {ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count * ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost} ₼  </p>
                             <button onClick={() => props.deleteCard(Product?.id , Product?.price)} className="delete"><DeleteIcon/></button>
                         </div>
                         <hr/>

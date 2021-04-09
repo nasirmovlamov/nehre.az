@@ -19,6 +19,44 @@
   top: 0px;
 }
 
+.Toastify__toast-container {
+  width: 450px !important;
+}
+
+.authCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  row-gap: 10px;
+  height: auto;
+  width: 400px;
+}
+
+.authCont p {
+  margin: 0px;
+}
+
+.authCont .title {
+  font-size: 24px;
+}
+
+.authCont button {
+  background-color: #1f62bb;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  height: 50px;
+  font-size: 16px;
+}
+
 .AllCont {
   display: -webkit-box;
   display: -ms-flexbox;
