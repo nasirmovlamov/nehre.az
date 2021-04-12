@@ -10,14 +10,22 @@ import sebet from "../assets/images/Sebet.png"
 import searchIcon from "../assets/images/searchIcon.png"
 import {Link} from "react-router-dom"
 import PhoneIcon from '@material-ui/icons/Phone';
+import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PersonIcon from '@material-ui/icons/Person';
 import axios from 'axios'
 import Avatar from '@material-ui/core/Avatar';
 import {ProductListingContext} from '../components/ProductListingProvider'
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 function TopNavbarPart2(props) {
+    const elements = useMediaQuery('(min-width:650px)') 
+
+    const phoneNumbersMQ = useMediaQuery('(min-width:1050px)');
+    const searchBottomMQ = useMediaQuery('(min-width:786px)');
+
+
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice , FinalWeight, setFinalWeight,FinalGoods, setFinalGoods] = useContext(ProductListingContext)
 
     const [drop1, setdrop1] = useState(false)
@@ -95,17 +103,21 @@ function TopNavbarPart2(props) {
                     <Link to="/"  id="logoNehre"><img src={logoNehre2} alt="" width="100" height="auto"/></Link>
                     <div className="searchAndIcons">
                         <div className="inputAndIcon">
-                            <div className="phoneCont">
-                                <p className="phone"> <PhoneIcon/> <a href={`tel:${props.number1}`}>{props.number1} </a></p>
+                           {phoneNumbersMQ && 
+                           <div className="phoneCont">
                                 <p className="phone"> <PhoneIcon/> <a href={`tel:${props.number2}`}>{props.number2}</a></p>
-                            </div>
+                                <p className="phone"> <WhatsAppIcon/> <a href='https://api.whatsapp.com/send?phone=994556800055'>{props.number1} </a></p>
+                            </div>}
+                            {searchBottomMQ &&
+                            <>
                             <input type="text" placeholder="Axtarış"/>
                             <button className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
+                            </>}
                         </div>
 
                         <div className="selection">
                             {/*  */}
-                            <Link to="/">
+                            {elements && <Link to="/">
                                     <div className="shoppingBtnDiv" onMouseLeave={() => langChangerMouseLeave1()}>
                                         <button onClick={() => myFunction1(drop1)} onBlur={() => myFunctionBlur1(drop1)} className="shoppingBtn1 dropbtn">{moneyType}</button>
                                         {drop1 && 
@@ -114,9 +126,9 @@ function TopNavbarPart2(props) {
                                             </div>
                                         }
                                     </div>
-                                </Link>
+                                </Link>}
                                 {/*  */}
-                                <Link to="/">
+                                {elements &&<Link to="/">
                                     <div className="shoppingBtnDiv2" onMouseLeave={() => langChangerMouseLeave2()}>
                                         <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} className="shoppingBtn2">{langM}</button>
                                         {drop2 && <div id="myDropdown" className="dropdown-content">
@@ -125,18 +137,19 @@ function TopNavbarPart2(props) {
                                             {langM === "RU" ? "" : <button onClick={() => languageChanger(lang[2])}> {lang[2]}</button>}
                                         </div>}
                                     </div>
-                                </Link>
+                                </Link>}
                             {/*  */}
                             <Link to="/">
                                 <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}><PersonIcon/></button> 
                             </Link>
                             {/*  */}
-                            <Link to="/memberarea/bookmarks">
+                            {elements &&<Link to="/memberarea/bookmarks">
                                 <StarBorderIcon/> 
-                            </Link>
+                            </Link>}
+                            {elements &&
                             <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={() => props.modalOpener()} >  
                                     <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {FinalPrice + " ₼"}</span>} 
-                            </button>
+                            </button>}
                         </div>
                     </div>
             </div>    

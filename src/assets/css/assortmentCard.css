@@ -97,4 +97,12 @@
   color: white;
   text-align: center;
 }
+
+@media screen and (max-width: 622px) {
+  .assortmentCard {
+    cursor: pointer;
+    width: 320px;
+    height: 320px;
+  }
+}
 /*# sourceMappingURL=assortmentCard.css.map */

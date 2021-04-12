@@ -50,3 +50,10 @@
     flex-wrap: wrap;
     min-height: 100vh;
 }
+
+@media screen and (max-width:622px) {
+    .header
+    {
+        height: 0px !important;
+    }
+}

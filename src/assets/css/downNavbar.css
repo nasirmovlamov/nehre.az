@@ -86,4 +86,15 @@
   background: #F6F6F6;
   height: auto;
 }
+
+@media screen and (max-width: 1350px) {
+  .downNavbar {
+    width: 96%;
+  }
+  .navCont {
+    width: 90% !important;
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+  }
+}
 /*# sourceMappingURL=downNavbar.css.map */

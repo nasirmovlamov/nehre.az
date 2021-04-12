@@ -109,6 +109,15 @@
       align-self: flex-end;
 }
 
+@media screen and (max-width: 622px) {
+  .cardSlider1 {
+    width: 350px !important;
+  }
+  .cardSlider2 {
+    width: 350px !important;
+  }
+}
+
 .cardSliderDefault {
   background-color: #f3f0eb;
   width: 560px;

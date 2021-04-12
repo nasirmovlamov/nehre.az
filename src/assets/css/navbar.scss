@@ -4,11 +4,11 @@
     justify-content: space-between;
     align-items: center;
     width: 40%;
-    height: 60px;
+    height: 40px;
     padding-left: 30%;
     padding-right: 30%;
     background:#e6e7e9;
-    
+    padding-top: 8px;
     a 
     {
         &:hover 
@@ -43,7 +43,11 @@
         height: 54px;
         border-bottom: 4px solid transparent;
         transition: 0.5s all;
-
+        .dropTitle
+        {
+            margin: 0px ;
+            margin-bottom: 4px;
+        }
         &:hover 
         {
             border-bottom: 4px solid gray;
@@ -85,7 +89,7 @@
             pointer-events: none;
             height: 126px;
             width: 125px;
-            margin-top: 185px !important;
+            margin-top: 160px !important;
             align-items: center;
             flex-direction: column;
             position: absolute;
@@ -126,5 +130,16 @@
                 }
             }
         }
+    }
+}
+
+
+
+@media screen and (max-width:1391px) {
+    .navbar 
+    {
+        width: 90%;
+        padding-left: 5%;
+        padding-right: 5%;
     }
 }

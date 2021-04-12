@@ -40,6 +40,32 @@ function DownNavbar(props) {
         initialSlide: 0,
         draggable:false,
         autoplay:false,
+        responsive: [
+        {
+            breakpoint: 1655,
+            settings: {
+              slidesToShow: 6,
+              slidesToScroll: 1,
+              initialSlide: 1
+            }
+        },
+        {
+            breakpoint: 1355,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 1,
+              initialSlide: 1
+            }
+        },
+        {
+            breakpoint: 791,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1,
+              initialSlide: 1
+            }
+        }
+        ]
     };
     return (
         <div className="navCont">

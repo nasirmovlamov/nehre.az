@@ -23,3 +23,57 @@ footer
         column-gap: 30px;
     }
 }
+
+@media screen and (max-width:1350px) {
+    footer 
+    {
+        width: 96%;
+        .footerCont
+        {
+            width: 100%;
+        }
+    }
+}
+@media screen and (max-width:1250px) {
+    footer 
+    {
+        width: 96%;
+        padding: 2%;
+        .footerCont
+        {
+            width: 100%;
+            flex-wrap: wrap;
+        }
+    }
+}
+@media screen and (max-width:650px) {
+    footer 
+    {
+        width: 96%;
+        padding: 2%;
+        font-family: "DaxlineR";
+        h3 
+        {
+            font-size: 24px;
+        }
+        p 
+        {
+            font-size: 18px;
+        }
+        .footerCont
+        {
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            flex-wrap: wrap;
+            text-align: center;
+            row-gap: 20px;
+            .social
+            {
+                justify-content: center;
+                align-items: center ;
+                margin-top: 40px;
+            }
+        }
+    }
+}

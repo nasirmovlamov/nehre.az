@@ -7,7 +7,6 @@ import "../assets/css/ourSlider.css"
 import CardSliderDefault from './CardSliderDefault';
 function OurSlider(props) {
     var settings = {
-        dots: true,
         infinite: true,
         speed: 1000,
         slidesToShow: props.numOfSld,
@@ -16,6 +15,50 @@ function OurSlider(props) {
         draggable:true,
         autoplay:true,
         autoplaySpeed: props.speed !== undefined ? props.speed : 4500,
+        responsive: [
+            {
+                breakpoint: 1655,
+                settings: {
+                slidesToShow: props.itemShow1,
+                slidesToScroll: 1,
+                initialSlide: 1
+                }
+            },
+            {
+                breakpoint: 1455,
+                settings: {
+                slidesToShow: props.itemShow2,
+                slidesToScroll: 1,
+                initialSlide: 1
+                }
+            },
+            {
+                breakpoint: 1255,
+                settings: {
+                slidesToShow: props.itemShow3,
+                slidesToScroll: 1,
+                initialSlide: 1
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                slidesToShow: props.itemShow4,
+                slidesToScroll: 1,
+                initialSlide: 1
+                }
+            },
+            {
+                breakpoint: 550,
+                settings: {
+                    arrows:false,
+                    dots:false, 
+                    slidesToShow: props.itemShow4,
+                    slidesToScroll: 1,
+                    initialSlide: 1
+                }
+            }
+        ]
       };
       
     var new1 = [<CardSliderDefault name={"Loading"}   desc={"Loading"} /> , <CardSliderDefault name={"Loading"} i desc={"Loading"} />]

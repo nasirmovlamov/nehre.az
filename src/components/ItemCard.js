@@ -108,11 +108,34 @@ function ItemCard(props) {
     const handler = () => {
         handleOpen()
     }
-    
-    var monday = new Date();
-    monday.setDate(monday.getDate() + (1 + 7 - monday.getDay()) % 7);
-    var newmonday = moment(monday).calendar();
-    console.log(newmonday);
+
+
+
+
+
+    //Date //Date //Date
+    const today = new Date()
+    const tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 2)
+    const monday = new Date()
+    monday.setDate(tomorrow.getDate() + (1 + 7 - tomorrow.getDay()) % 7);
+    const tuesday = new Date()
+    tuesday.setDate(tomorrow.getDate() + (2 + 7 - tomorrow.getDay()) % 7);
+    const wednesday = new Date()
+    wednesday.setDate(tomorrow.getDate() + (3 + 7 - tomorrow.getDay()) % 7);
+    const thursday = new Date()
+    thursday.setDate(tomorrow.getDate() + (4 + 7 - tomorrow.getDay()) % 7);
+    const friday = new Date()
+    friday.setDate(tomorrow.getDate() + (5 + 7 - tomorrow.getDay()) % 7);
+    var newmonday = moment(monday).format( 'dddd, D MMMM');
+    var newtuesday = moment(tuesday).format( 'dddd, D MMMM');
+    var newwednesday = moment(wednesday).format( 'dddd, D MMMM');
+    var newthursday = moment(thursday).format( 'dddd, D MMMM');
+    var newfriday = moment(friday).format( 'dddd, D MMMM');
+
+
+    console.log(newfriday);
+
     return (
         <div className="itemCard">
             <button  type="button"  className="imgCont" style={imgHandler}>
@@ -127,19 +150,19 @@ function ItemCard(props) {
                 </div>
 
                 <div className="dates">
-                    <DarkTT title={`${newmonday} üçün çatdırılma mümkündür`} placement="top" arrow>
+                    <DarkTT title={`${newmonday}  çatdırılma `} placement="top" arrow>
                         <div className="date">Be</div>
                     </DarkTT>
-                    <DarkTT title="22 iyun üçün çatdırılma mümkündür" placement="top" arrow>
+                    <DarkTT title={`${newtuesday}  çatdırılma `}  placement="top" arrow>
                         <div className="date">Ça</div>
                     </DarkTT>
-                    <DarkTT title="23 iyun üçün çatdırılma mümkündür" placement="top" arrow>
+                    <DarkTT title={`${newwednesday}  çatdırılma `} placement="top" arrow>
                         <div className="date">Ç</div>
                     </DarkTT>
-                    <DarkTT title="24 iyun üçün çatdırılma mümkündür" placement="top" arrow>
+                    <DarkTT title={`${newthursday}  çatdırılma `} placement="top" arrow>
                         <div className="date">Ca</div>
                     </DarkTT>
-                    <DarkTT title="25 iyun üçün çatdırılma mümkündür" placement="top" arrow>
+                    <DarkTT title={`${newfriday}  çatdırılma `} placement="top" arrow>
                         <div className="date">C</div>
                     </DarkTT>
                     

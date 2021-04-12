@@ -14,7 +14,6 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
-            margin-top: 30px;
             .imgAndLinks
             {
                 display: flex;
@@ -409,4 +408,70 @@
     
     
     
+}
+
+
+
+@media screen and (max-width:1100px) {
+    .topNavbar 
+    {
+        width: 96%;
+        padding-left: 2%;
+        padding-right: 2%;
+        align-items: center;
+        .topPart
+        {
+            align-items: center;
+            column-gap: 40px;
+        }
+        .phoneAndSearch
+        {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .searchAndIcons
+            {
+                width: 100%;
+                align-items: center;
+            }
+            .selection
+            {
+                width: auto;
+                height: auto;
+            }
+        }   
+    }
+}
+//enableMobile
+@media screen and (max-width:650px) {
+    .topNavbar 
+    {
+        width: 96%;
+        padding-left: 2%;
+        padding-right: 2%;
+        align-items: center;
+        .topPart
+        {
+            align-items: center;
+            column-gap: 40px;
+        }
+        .phoneAndSearch
+        {
+            width: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .searchAndIcons
+            {
+                width: auto;
+                align-items: center;
+            }
+            .selection
+            {
+                width: auto;
+                height: auto;
+            }
+        }   
+    }
 }

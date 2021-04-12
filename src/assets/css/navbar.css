@@ -9,10 +9,11 @@
       -ms-flex-align: center;
           align-items: center;
   width: 40%;
-  height: 60px;
+  height: 40px;
   padding-left: 30%;
   padding-right: 30%;
   background: #e6e7e9;
+  padding-top: 8px;
 }
 
 .navbar a {
@@ -66,6 +67,11 @@
   transition: 0.5s all;
 }
 
+.navbar .dropCont .dropTitle {
+  margin: 0px;
+  margin-bottom: 4px;
+}
+
 .navbar .dropCont:hover {
   border-bottom: 4px solid gray;
   -webkit-transition: 0.01s all;
@@ -111,7 +117,7 @@
   pointer-events: none;
   height: 126px;
   width: 125px;
-  margin-top: 185px !important;
+  margin-top: 160px !important;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -166,5 +172,13 @@
   cursor: pointer;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+}
+
+@media screen and (max-width: 1391px) {
+  .navbar {
+    width: 90%;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
 }
 /*# sourceMappingURL=navbar.css.map */

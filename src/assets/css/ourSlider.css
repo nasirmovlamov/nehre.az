@@ -31,4 +31,10 @@
   padding-top: 50px;
   padding-bottom: 50px;
 }
+
+@media screen and (max-width: 622px) {
+  .slick-track {
+    padding-top: 10px;
+  }
+}
 /*# sourceMappingURL=ourSlider.css.map */

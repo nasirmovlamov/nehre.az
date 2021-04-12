@@ -19,7 +19,7 @@ a, button {
 }
 
 .homePage .slider1 {
-  width: 100%;
+  width: 94%;
   background-color: #F0F4F5;
   height: 400px;
   border-radius: 0 0 30px 30px;
@@ -60,6 +60,8 @@ a, button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrapw;
+      flex-wrap: wrapw;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -226,5 +228,126 @@ a, button {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+@media screen and (max-width: 1350px) {
+  .homePage {
+    width: 96%;
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+  .homePage .aboutCards {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    row-gap: 30px;
+  }
+  .homePage .aboutCards .aboutCard {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 90%;
+    height: auto;
+  }
+  .homePage .aboutCards .aboutCard p {
+    max-height: 150px;
+  }
+  .homePage .itemsCont, .homePage .ourAssortment {
+    padding: 0px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+  }
+  .homePage .itemsCont .itemsTitle, .homePage .ourAssortment .itemsTitle {
+    margin-top: 0px;
+  }
+  .homePage .itemsCont .title3, .homePage .ourAssortment .title3 {
+    margin-top: 0px;
+    color: #3d332d;
+    text-align: start;
+    font-size: 40px;
+    font-family: "DaxlinePro";
+    font-weight: 700;
+  }
+  .homePage .perfectSet {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: auto;
+    background-position: top center;
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+  }
+  .homePage .perfectSet .textCont2 {
+    height: auto;
+    width: 90%;
+    padding: 5%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    row-gap: 20px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .homePage .deliveryText {
+    font-size: 25px;
+    font-family: 'DaxlineR';
+    text-align: center;
+  }
+  .homePage .videoHome {
+    background-position: right top;
+  }
+  .homePage .perfectSet .textCont2 {
+    text-align: center;
+  }
+  .homePage .perfectSet .textCont2 .title2 {
+    font-family: "DaxlineR";
+    margin-bottom: 0px !important;
+    color: #3D332D;
+  }
+  .homePage .perfectSet .desc {
+    margin-top: 0px;
+  }
+  .homePage .perfectSet .moreAbout {
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+  }
+  .homePage .banner .titleBanner {
+    font-size: 30px;
+    text-align: center;
+  }
+  .homePage .itemsCont, .homePage .ourAssortment {
+    padding: 0px;
+    padding-top: 44px;
+    padding-bottom: 24px;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+  }
+  .homePage .itemsCont .itemsTitle, .homePage .ourAssortment .itemsTitle {
+    margin-top: 0px;
+    text-align: center;
+  }
+  .homePage .itemsCont .title3, .homePage .ourAssortment .title3 {
+    margin-top: 0px;
+    color: #3d332d;
+    text-align: start;
+    font-size: 40px;
+    font-family: "DaxlinePro";
+    font-weight: 700;
+  }
 }
 /*# sourceMappingURL=homePage.css.map */

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext} from 'react'
 import "../assets/css/topNavbar.css"
 import logoNehre from "../assets/images/Loqo_nehre.png"
-import logoNehre2 from "../assets/images/logoNehre2.png"
+import logoNehre3 from "../assets/images/logoNehre2.png"
 import element from "../assets/images/element.png"
 import azn from "../assets/images/azn.png"
 import dil from "../assets/images/dil.png"
@@ -16,8 +16,14 @@ import PersonIcon from '@material-ui/icons/Person';
 import axios from 'axios'
 import Avatar from '@material-ui/core/Avatar';
 import {ProductListingContext} from '../components/ProductListingProvider'
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 function TopNavbar(props) {
+    const rightImgMQ = useMediaQuery('(min-width:1260px)');
+    const leftImgMQ = useMediaQuery('(min-width:1100px)');
+    const searchTopMQ = useMediaQuery('(min-width:1000px)');
+    const enableMobile = useMediaQuery('(min-width:650px)') 
+    const elements = useMediaQuery('(min-width:650px)') 
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice , FinalWeight, setFinalWeight,FinalGoods, setFinalGoods] = useContext(ProductListingContext)
 
     const [UserData, setUserData] = useState(0)
@@ -95,24 +101,25 @@ function TopNavbar(props) {
     return (
         <div className="topNavbar">
                 <div className="topPart">    
-                    <Link to="/"><img src={logoNehre} alt="" width="140" height="auto"/></Link>
+                    {leftImgMQ && <Link to="/" className='imgLinkTop'><img src={logoNehre} alt="" width="140" height="auto"/></Link>}
+                    {!leftImgMQ && <Link to="/" ><img src={logoNehre3} alt="" width="100" height="auto"/></Link>}
                     <div className="phoneAndSearch">
 
                         
 
                         <div className="searchAndIcons">
-                            <div className="inputAndIcon">
+                            {searchTopMQ && <div className="inputAndIcon">
                                 <input onChange={(e) => searchChange(e)} type="text" placeholder="Axtarış"/>
                                 <button onClick={() => searchHandler()} className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
-                            </div>
+                            </div>}
 
-                            <div className="phoneCont">
+                            {enableMobile && <div className="phoneCont">
                                 <p className="phone"> <PhoneIcon/> <a href={`tel:${props.number1}`}>{props.number1}</a> </p>
                                 <p className="phone"> <PhoneIcon/> <a href={`tel:${props.number2}`}>{props.number2}</a></p>
-                            </div>
+                            </div>}
 
                             <div className="selection">
-                                <Link to="/">
+                                {elements &&<Link to="/">
                                     <div className="shoppingBtnDiv" onMouseLeave={() => langChangerMouseLeave1()}> 
                                         <button onClick={() => myFunction1(drop1)} onBlur={() => myFunctionBlur1(drop1)} className="shoppingBtn1 dropbtn">{moneyType}</button>
                                         {drop1 && 
@@ -121,9 +128,9 @@ function TopNavbar(props) {
                                             </div>
                                         }
                                     </div>
-                                </Link>
+                                </Link>}
                                 {/*  */}
-                                <Link to="/">
+                                {elements &&<Link to="/">
                                     <div className="shoppingBtnDiv2" onMouseLeave={() => langChangerMouseLeave2()}>
                                             <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} className="shoppingBtn2">{langM}</button>
                                             {drop2 && <div id="myDropdown" className="dropdown-content">
@@ -132,24 +139,24 @@ function TopNavbar(props) {
                                                 {langM === "RU" ? "" : <button onClick={() => languageChanger(lang[2])}> {lang[2]}</button>}
                                             </div>}
                                     </div>
-                                </Link>
+                                </Link>}
                                 {/*  */}
                                 <Link to={`/`}>
                                      <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}><PersonIcon/></button>    
                                 </Link>
                                 {/*  */}
-                                <Link to="/memberarea/bookmarks">
+                                {elements && <Link to="/memberarea/bookmarks">
                                     <StarBorderIcon/> 
-                                </Link>
-                                <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={() => props.modalOpener()} >  
+                                </Link>}
+                                {elements && <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={() => props.modalOpener()} >  
                                     <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {FinalPrice + " ₼"}</span>} 
-                                </button>
+                                </button>}
                             </div>
                         </div>
                     </div>
-                    <div className="imgAndLinks">
+                    {rightImgMQ && <div className="imgAndLinks">
                         <img src={element} alt="" width="150" height="auto"/>
-                    </div>
+                    </div>}
                 </div>
                 
         </div>

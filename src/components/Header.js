@@ -39,8 +39,13 @@ import {ProductListingProvider} from './ProductListingProvider'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthSmsL from '../components/AuthSmsL'
-
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 function Header() {
+  // const TopNavbar = useMediaQuery('(min-width:600px)');
+  const MidNavbar = useMediaQuery('(min-width:622px)');
+
+
+
   const notifyLOGIN = () => toast.warn("Hesabınıza daxil olun və yaxud yeni hesab yaradın!");
   const smsHandle = () => {
     handleOpenSMS()
@@ -182,7 +187,13 @@ function Header() {
     window.addEventListener("scroll", function(){
         if (window.scrollY > 121)
         {
-            document?.getElementById('header').setAttribute('style' , 'height:115px;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);overflow:inherit;')
+            if (MidNavbar) {
+              document?.getElementById('header').setAttribute('style' , 'height:0px;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);overflow:inherit;')
+            }
+            else 
+            {
+              document?.getElementById('header').setAttribute('style' , 'height:115px;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);overflow:inherit;')
+            }
             document?.getElementById('downPart').setAttribute('style' , 'background:#f0f4f5;height:85.17px;overflow:inherit;')
             document?.getElementById('logoNehre').setAttribute('style' , 'opacity:1;pointer-events:all;')
             document?.getElementById('downCont').setAttribute('style' , 'padding-top: 20px;padding-bottom: 20px;')
@@ -205,7 +216,13 @@ function Header() {
           document?.getElementById('downPart')?.setAttribute('style' , 'background:transparent;height:0px;padding-top: 0px;padding-bottom: 0px;overflow:hidden;')
           document?.getElementById('logoNehre')?.setAttribute('style' , 'opacity:0;pointer-events:none;')  
           document?.getElementById('downCont')?.setAttribute('style' , 'padding-top: 0px;padding-bottom: 0px;')
-          document?.getElementById('header')?.setAttribute('style' , 'height:110px;background:transparent; box-shadow: transparent;overflow:hidden;')
+          if (MidNavbar) {
+            document?.getElementById('header')?.setAttribute('style' , 'height:0px;background:transparent; box-shadow: transparent;overflow:hidden;')
+          }
+          else 
+          {
+            document?.getElementById('header')?.setAttribute('style' , 'height:110px;background:transparent; box-shadow: transparent;overflow:hidden;')
+          }
           var downNavImgCont = document.querySelectorAll('#downNavImgCont')
           for (var i=0; i < downNavImgCont.length; i++) {
             downNavImgCont[i].setAttribute('style' , 'height:120px;')
@@ -257,11 +274,11 @@ function Header() {
             <div className="AllCont">
                 <button type="button" style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button>
                 <TopNavbar PaymentPrice={PaymentPrice} number2={number2} number1={number1} UserData={UserData}  modalOpener={handleOpen} modalOpener3={handleOpen3}/>
-                <Navbar/>
+                {MidNavbar && <Navbar/>}
 
                 <header id="header" className="header">
                     <TopNavbarPart2 PaymentPrice={PaymentPrice} number2={number2} number1={number1} UserData={UserData}   modalOpener={handleOpen} modalOpener3={handleOpen3}/>
-                    <DownNavbar  TopCategory={TopCategory}/>
+                    {MidNavbar && <DownNavbar  TopCategory={TopCategory}/>}
                 </header>
 
                 <Switch>

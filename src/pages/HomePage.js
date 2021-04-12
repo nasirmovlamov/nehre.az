@@ -128,7 +128,7 @@ function HomePage(props) {
 
 
             <div className="slider1">
-               <OurSlider elements={topCards} speed={10000} numOfSld={2}/>
+               <OurSlider itemShow1={2} itemShow2={2} itemShow3={1} itemShow4={1} elements={topCards} speed={10000} numOfSld={2}/>
             </div>
             <p className="deliveryText">Kəndlərimizdən evinizə təzə və təbii məhsulların çatdırılması!</p>
             <video  className="videoHome"  autoPlay  >
@@ -162,28 +162,28 @@ function HomePage(props) {
             <div className="itemsCont">
                 <Link to="/newitems"><p className="itemsTitle">Yeni Məhsullarımız </p></Link>
                 <div className="itemSlider">     
-                    <OurSlider elements={newItems.map(item => item)} numOfSld={4}/>
+                    <OurSlider itemShow1={4} itemShow2={3} itemShow3={2} itemShow4={1} elements={newItems.map(item => item)} numOfSld={4}/>
                 </div>
             </div>
             
             <div className="itemsCont">
                 <Link to="/promotions"><p className="itemsTitle">Xüsusi Təkliflərimiz </p></Link>
                 <div className="itemSlider"> 
-                    <OurSlider elements={specialOffers} numOfSld={4}/>
+                    <OurSlider itemShow1={4} itemShow2={3} itemShow3={2} itemShow4={1}  elements={specialOffers} numOfSld={4}/>
                 </div>
             </div>
 
             <div className="itemsCont">
                 <Link to="/suppliers"><p className="itemsTitle">Bizim Kəndlilər </p></Link>
                 <div className="itemSlider">
-                    <OurSlider elements={suppliersCard} numOfSld={3}/>
+                    <OurSlider itemShow1={4} itemShow2={3} itemShow3={1} itemShow4={1}  elements={suppliersCard} numOfSld={3}/>
                 </div>
             </div>
             
             <div className="itemsCont">
                 <p className="itemsTitle">Çox verilən suallara cavab</p>
                 <div className="itemSlider">
-                    <OurSlider elements={answerCard} numOfSld={4}/>  
+                    <OurSlider itemShow1={2} itemShow2={2} itemShow3={2} itemShow4={1} elements={answerCard} numOfSld={4}/>  
                 </div>
             </div>
 
