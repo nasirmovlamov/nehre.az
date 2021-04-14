@@ -273,7 +273,7 @@ function Header() {
            
             <div className="AllCont">
                 <button type="button" style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button>
-                <TopNavbar PaymentPrice={PaymentPrice} number2={number2} number1={number1} UserData={UserData}  modalOpener={handleOpen} modalOpener3={handleOpen3}/>
+                <TopNavbar assortmentArr={Assortment} PaymentPrice={PaymentPrice} number2={number2} number1={number1} UserData={UserData}  modalOpener={handleOpen} modalOpener3={handleOpen3}/>
                 {MidNavbar && <Navbar/>}
 
                 <header id="header" className="header">

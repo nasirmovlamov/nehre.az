@@ -1,6 +1,6 @@
 .productPage
 {
-    width: 100%;
+    width: 70%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,7 +19,7 @@
         .titleProducts
         {
             padding-left: 10px;
-            width: 1290px;
+            width: 100%;
             height: auto;
             .category
             {
@@ -73,7 +73,7 @@
     {
         display: flex;
         justify-content: space-between;
-        width: 1300px;
+        width: 100%;
         margin-top: 30px;
         margin-bottom: 30px;
         padding-left: 10px;
@@ -126,12 +126,24 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        width: 1300px;
+        width: 100%;
         min-height: 410px;
         grid-gap: 75px;
+        background-color: #edf4f6;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        border-radius: 10px;
         .overlayImg
         {
             width: 14%;
         }
     }
+}
+
+@media screen and (max-width:650px) {
+    .productPage
+    {
+        width: 90%;
+    }
+
 }

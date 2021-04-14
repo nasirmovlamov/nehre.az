@@ -554,6 +554,7 @@
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    border-radius: 0px;
   }
   .topNavbar .topPart {
     -webkit-box-align: center;
@@ -583,6 +584,337 @@
   .topNavbar .phoneAndSearch .selection {
     width: auto;
     height: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
+  .topNavbar .phoneAndSearch .selection a:nth-child(2) {
+    background-color: #1f62bb !important;
+  }
+  .topNavbar .phoneAndSearch .searchIcon {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    border: none;
+    background-color: transparent;
+  }
+  .topNavbar .phoneAndSearch .searchIcon svg {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.css-1160xiw-MuiPaper-root-MuiDrawer-paper {
+  width: 280px;
+}
+
+.css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
+  height: 50px;
+  margin-top: 100px;
+  width: 100%;
+}
+
+.swiperCont {
+  width: 280px;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.swiperCont .menu {
+  width: 254px;
+  height: 22px;
+  padding: 13px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid lightgray;
+}
+
+.swiperCont .menu p {
+  font-size: 18px;
+  font-family: "DaxlineR";
+}
+
+.swiperCont .menu button {
+  font-size: 24px;
+  border: none;
+  color: gray;
+  background-color: transparent;
+}
+
+.swiperCont .lang {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 13px;
+  border-top: 1px solid lightgray;
+}
+
+.swiperCont .lang button {
+  padding: 3px;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: auto;
+  font-size: 18px;
+  background-color: #1f62bb;
+  border: none;
+  font-family: "DaxlineR";
+  border-radius: 4px;
+  color: white;
+}
+
+.swiperCont .links {
+  padding: 13px;
+  padding-top: 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.swiperCont .links a {
+  width: 95%;
+  padding-left: 5%;
+  font-size: 18px;
+  font-family: 'DaxlineR';
+  color: #5B4B41;
+  height: 50px;
+}
+
+.swiperCont .assortmentDrawer {
+  padding: 13px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.swiperCont .assortmentDrawer .title {
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 30px;
+          column-gap: 30px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 18px;
+  color: #1f62bb;
+  border: none;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.swiperCont .assortmentDrawer .title p {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.swiperCont .assortmentDrawer .assortmentCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  overflow: hidden;
+  border-radius: 4px;
+  padding: 9px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  height: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 3px;
+  background-color: #efefef;
+  width: 239px;
+}
+
+.swiperCont .assortmentDrawer .assortmentCont a {
+  height: auto;
+  font-size: 18px;
+  height: 35px;
+  color: #1f62bb;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'DaxlineR';
+}
+
+.swiperCont .drawerCard {
+  width: 254px;
+  height: 211px;
+  background-color: #1f62bb;
+  margin: 13px;
+  border-radius: 4px;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-top: 13px;
+  row-gap: 10%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.swiperCont .drawerCard .phone {
+  font-size: 24px;
+}
+
+.swiperCont .drawerCard .social {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 50px;
+          column-gap: 50px;
+}
+
+.swiperCont p {
+  margin: 0px;
+}
+
+.searchSwiperCont {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-bottom: 20px;
+}
+
+.searchSwiperCont .menu {
+  width: 90%;
+  height: 22px;
+  padding: 13px;
+  padding-left: 5%;
+  padding-right: 5%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+
+.searchSwiperCont .menu p {
+  font-size: 24px;
+  font-family: "DaxlineR";
+  width: 100%;
+  color: gray;
+}
+
+.searchSwiperCont .menu button {
+  font-size: 24px;
+  border: none;
+  color: gray;
+  background-color: transparent;
+}
+
+.searchSwiperCont .search {
+  margin-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
+}
+
+.searchSwiperCont .search input {
+  width: 300px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  font-size: 18px;
+  font-family: 'DaxlineR';
+  padding-left: 10px;
+}
+
+.searchSwiperCont .search .searchIcon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.searchSwiperCont .search button {
+  width: auto;
+  height: 34px;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  font-size: 18px;
+  font-family: 'DaxlineR';
 }
 /*# sourceMappingURL=topNavbar.css.map */

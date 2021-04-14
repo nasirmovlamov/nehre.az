@@ -17,6 +17,36 @@ import axios from 'axios'
 import Avatar from '@material-ui/core/Avatar';
 import {ProductListingContext} from '../components/ProductListingProvider'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Hamburger  from 'hamburger-react'
+import Drawer from '@material-ui/core/Drawer';
+import Modal from '@material-ui/core/Modal';
+import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import WidgetsIcon from '@material-ui/icons/Widgets';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import SearchIcon from '@material-ui/icons/Search';
+const stylesForSwiper = makeStyles({
+    list: {
+      width: "80%",
+    },
+    fullList: {
+      width: "80%",
+    },
+}); 
+  
+const stylesForSwiper1 = makeStyles({
+    list: {
+      width: "100%",
+    },
+    fullList: {
+      width: "100%",
+    },
+}); 
+  
+
 
 function TopNavbar(props) {
     const rightImgMQ = useMediaQuery('(min-width:1260px)');
@@ -98,6 +128,108 @@ function TopNavbar(props) {
             window.location.href = '/search'
         }
     }
+
+
+
+
+    const DrawerAssort = () => {
+        if(document.querySelector('#assrtDrawId').style.height !== '' && document.querySelector('#assrtDrawId').style.height !== '0px')
+        {
+            document.querySelector('#assrtDrawId').setAttribute('style' , `transition:1s;height:0px !important;padding-top:0px;padding-bottom:0px;opacity:0;`);
+        }
+        else 
+        {
+            document.querySelector('#assrtDrawId').setAttribute('style' , `opacity:1;transition:1s;height:${props.assortmentArr.length * 35 + 'px'} !important;padding-top:5px;padding-bottom:5px;`);
+        }
+    }
+
+    const classes = stylesForSwiper();
+      const [state, setState] = React.useState({
+        top: false,
+      });
+  
+      const toggleDrawer = (anchor, open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+          return;
+        }
+        setState({ ...state, [anchor]: open });
+      };
+      const list = (anchor) => (
+        <div
+        className={clsx(classes.list, {
+          [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+        })}
+        role="presentation"
+        // onClick={toggleDrawer(anchor, false)}
+        // onKeyDown={toggleDrawer(anchor, false)}
+        >
+        <div className="swiperCont">
+            <div>
+                <div className='menu'> <p>Menyu</p>  <button onClick={toggleDrawer(anchor, false)}> &#10006;</button></div>  
+
+                <div className="assortmentDrawer">
+                        <button onClick={() => DrawerAssort()} className="title"><WidgetsIcon /> <p> Məhsul Çeşidləri </p> <ArrowDropUpIcon/></button>
+                        <div className='assortmentCont' id='assrtDrawId'>
+                            {props.assortmentArr.map(element => <a href={`/category/${element.id}`}>{element.name}</a>)}
+                        </div >
+                </div>
+
+                <div className="links">
+                        <Link to="/" id="homepage">Əsas səhifə</Link>
+                        <Link to="/promotions"  id="promotions">Endirimlər</Link>
+                        <Link to="/about" id="about">Haqqımızda</Link>
+                        <Link to="/contact" id="contact">Əlaqə</Link>
+                </div>
+                <div className="lang"> 
+                        <button>AZ</button>
+                        <button>EN</button>
+                        <button>RU</button>
+                </div>
+            </div>
+
+            <div className="drawerCard">
+                <div className='phoneCont'>
+                    <p className="phone">{props.number1}</p>
+                    <p className="phone">{props.number2}</p>
+                </div>
+                <p className="location">Baku , Azerbaijan</p>
+                <p className="email">nehra@info.az</p>
+                <div className="social"> <FacebookIcon/> <InstagramIcon/> <TwitterIcon/>  </div>
+            </div>
+
+
+        </div>
+    </div>
+    );
+
+    const classes1 = stylesForSwiper1();
+      const [state1, setState1] = React.useState({
+        top: false,
+      });
+  
+      const toggleDrawer1 = (anchor, open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+          return;
+        }
+        setState1({ ...state, [anchor]: open });
+      };
+      const list1 = (anchor) => (
+        <div
+        className={clsx(classes1.list, {
+          [classes1.fullList]: anchor === 'top' || anchor === 'bottom',
+        })}
+        role="presentation"
+        onClick={toggleDrawer(anchor, false)}
+        // onKeyDown={toggleDrawer(anchor, false)}
+        >
+        <div className="searchSwiperCont">  
+            <div className='menu'> <p>Axtarış</p>  <button onClick={toggleDrawer1(anchor, false)}> &#10006;</button></div>  
+            <div className='search'> <input onChange={(e) => searchChange(e)} type="text" placeholder="Axtarış"/> <button onClick={() => searchHandler()} className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button></div> 
+        </div>
+    </div>
+    );
+
+
     return (
         <div className="topNavbar">
                 <div className="topPart">    
@@ -141,6 +273,20 @@ function TopNavbar(props) {
                                     </div>
                                 </Link>}
                                 {/*  */}
+
+                                { 
+                                    !elements && 
+                                    <div>
+                                        {
+                                            <React.Fragment key={'top'}>
+                                                <button className='searchIcon' onClick={toggleDrawer1('top', true)}><SearchIcon/></button>
+                                                <Drawer anchor={'top'} open={state1['top']} onClose={toggleDrawer1('top', false)}>
+                                                    {list1('top')}
+                                                </Drawer> 
+                                            </React.Fragment>
+                                        }
+                                    </div>
+                                }
                                 <Link to={`/`}>
                                      <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}><PersonIcon/></button>    
                                 </Link>
@@ -151,6 +297,19 @@ function TopNavbar(props) {
                                 {elements && <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={() => props.modalOpener()} >  
                                     <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {FinalPrice + " ₼"}</span>} 
                                 </button>}
+                                { 
+                                    !elements && 
+                                    <div>
+                                        {
+                                            <React.Fragment key={'right'}>
+                                                <Hamburger color="#00252E" toggled={state['right']} toggle={state['right'] ? toggleDrawer('right', false) : toggleDrawer('right', true)} />
+                                                <Drawer anchor={'right'} open={state['right']} onClose={toggleDrawer('right', false)}>
+                                                    {list('right')}
+                                                </Drawer> 
+                                            </React.Fragment>
+                                        }
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>

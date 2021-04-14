@@ -9,6 +9,7 @@
         align-items: center;
         padding-left: 50px;
         padding-right: 50px;
+        // z-index: 1500;
         .topPart
         {
             display: flex;
@@ -451,6 +452,7 @@
         padding-left: 2%;
         padding-right: 2%;
         align-items: center;
+        border-radius: 0px;
         .topPart
         {
             align-items: center;
@@ -471,7 +473,260 @@
             {
                 width: auto;
                 height: auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                a
+                {
+                    &:nth-child(2)
+                    {
+                        background-color: #1f62bb !important;
+                    }
+
+                }
+            }
+            .searchIcon
+            {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: none;
+                background-color: transparent;
+                svg 
+                {
+                    width: 35px;
+                    height: 35px;
+                }
             }
         }   
+    }
+}
+
+.css-1160xiw-MuiPaper-root-MuiDrawer-paper
+{
+    width: 280px;
+
+}
+
+.css-4t3x6l-MuiPaper-root-MuiDrawer-paper
+{
+    height: 50px;
+    margin-top: 100px;
+    width: 100%;
+}
+
+.swiperCont
+{
+    width: 280px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .menu
+    {
+        width: 254px;
+        height: 22px;
+        padding: 13px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid lightgray;
+        p 
+        {
+            font-size: 18px;
+            font-family: "DaxlineR";
+        }
+        button 
+        {
+            font-size: 24px;
+            border: none;
+            color: gray;
+            background-color: transparent;
+        }
+    }
+    .lang
+    {
+        display: flex;
+        justify-content: space-between;
+        padding: 13px;
+        border-top: 1px solid lightgray;
+
+        button 
+        {
+            padding: 3px;
+            padding-left: 15px;
+            padding-right: 15px;
+            width: auto;
+            font-size: 18px;
+            background-color: #1f62bb;
+            border: none;
+            font-family: "DaxlineR";
+            border-radius: 4px;
+            color: white;
+        }
+    }
+    .links
+    {
+        padding: 13px;
+        padding-top: 0px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        a 
+        {
+            width: 95%;
+            padding-left: 5%;
+            font-size: 18px;
+            font-family: 'DaxlineR';
+            color: #5B4B41;
+            height: 50px;
+        }
+    }
+    .assortmentDrawer
+    {
+        padding: 13px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        .title
+        {
+            width: 100%;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            display: flex;
+            column-gap: 30px;
+            align-items: center;
+            font-size: 18px;
+            color: #1f62bb;
+            border: none;
+            text-align: center;
+            border-radius: 4px;
+            p 
+            {
+                align-self: center;
+            }
+        }
+        .assortmentCont
+        {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border-radius: 4px;
+            padding: 9px;
+            transition:0.5s;
+            height: 0px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            margin-top: 3px;
+            background-color: #efefef;
+            width: 239px;
+            a
+            {
+                height: auto;
+                font-size: 18px;
+                height: 35px;
+                color: #1f62bb;
+                width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-family: 'DaxlineR';
+            }
+        }
+    }
+    .drawerCard
+    {
+        width: 254px;
+        height: 211px;
+        background-color: #1f62bb;
+        margin: 13px;
+        border-radius: 4px;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        padding-top: 13px;
+        row-gap: 10%;
+        align-items: center;
+        .phone
+        {
+            font-size: 24px;
+        }
+        .social 
+        {
+            display: flex;
+            column-gap: 50px;
+        }
+    }
+    p  
+    {
+        margin: 0px;
+    }
+}
+.searchSwiperCont
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+    .menu
+    {
+        width: 90%;
+        height: 22px;
+        padding: 13px;
+        padding-left: 5%;
+        padding-right: 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+        p 
+        {
+            font-size: 24px;
+            font-family: "DaxlineR";
+            width: 100%;
+            color: gray;
+        }
+        button 
+        {
+            font-size: 24px;
+            border: none;
+            color: gray;
+            background-color: transparent;
+        }
+    }
+    .search 
+    {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+        input 
+        {
+            width: 300px;
+            height: 30px;
+            border-radius: 5px;
+            border: 1px solid lightgray;
+            font-size: 18px;
+            font-family: 'DaxlineR';
+            padding-left: 10px;
+        }
+        .searchIcon
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        button 
+        {
+            width: auto;
+            height: 34px;
+            border-radius: 5px;
+            border: 1px solid lightgray;
+            font-size: 18px;
+            font-family: 'DaxlineR';
+        }
     }
 }

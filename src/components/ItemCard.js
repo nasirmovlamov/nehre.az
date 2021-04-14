@@ -134,7 +134,6 @@ function ItemCard(props) {
     var newfriday = moment(friday).format( 'dddd, D MMMM');
 
 
-    console.log(newfriday);
 
     return (
         <div className="itemCard">
