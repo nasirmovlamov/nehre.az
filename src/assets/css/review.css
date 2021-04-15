@@ -3,7 +3,12 @@
   background-color: #fff;
   width: 95%;
   height: auto;
-  padding: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .review .name {

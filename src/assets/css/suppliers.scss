@@ -36,3 +36,27 @@
         }
     }
 }
+
+@media screen and (max-width:1300px) {
+    .suppliers
+    {
+        padding-left: 2.5% !important ;
+        padding-right: 2.5% !important ;
+        width: 95% !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .category
+        {
+            align-self: flex-start;
+        }
+        .supplier
+        {
+            display: flex !important;
+            grid-gap: 30px !important;
+            flex-wrap: wrap !important;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    }
+}

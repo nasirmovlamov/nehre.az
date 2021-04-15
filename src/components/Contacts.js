@@ -109,7 +109,7 @@ function Contacts(props) {
                     <p className="date key">* Birthday</p> <LocalizationProvider dateAdapter={AdapterDateFns}> <DatePicker label="Doğum tarixiniz"  value={selectedDate} minDate={'02-01-1920'} maxDate={'02-29-2020'} inputFormat="dd/MM/yyyy" onChange={(newValue) => { setSelectedDate(newValue.slice(0,10)); }} renderInput={(params) => <TextField {...params} />}/></LocalizationProvider>
                     <p className="key" style={{alignSelf:"start"}}>Profile picture </p> <div className="valueImg" style={imgHandler}></div>
                     <button type="button" className="addFile"> <p className="textPhoto">{profilePhoto?.name !== undefined ? profilePhoto.name  : "Şəklinizi yeniləyin"}</p><input onChange={ppchanger} type="file" className="addFileInput" name="profile" id=""/></button>
-                    <Button1 type="submit" value="Məlumatlarınızı yelləyin" color="#285999"/>
+                    <Button1 type="submit" value="Məlumatlarınızı yeniləyin" color="#285999"/>
                     <div className="loader">{loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={"35px"} width={"80px"} />}</div>
                 </Form>
             </Formik>

@@ -24,6 +24,6 @@ function Suppliers() {
             </div>
         </div>
     )
-}
+}   
 
 export default Suppliers

@@ -7,6 +7,8 @@
       -ms-flex-direction: column;
           flex-direction: column;
   row-gap: 20px;
+  width: 100%;
+  padding-top: 30px;
 }
 
 .reviews .reviewsCont {

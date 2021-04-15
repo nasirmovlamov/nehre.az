@@ -37,4 +37,38 @@
       grid-template-columns: repeat(4, 1fr);
   grid-gap: 30px;
 }
+
+@media screen and (max-width: 1300px) {
+  .suppliers {
+    padding-left: 2.5% !important;
+    padding-right: 2.5% !important;
+    width: 95% !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .suppliers .category {
+    -ms-flex-item-align: start;
+        align-self: flex-start;
+  }
+  .suppliers .supplier {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    grid-gap: 30px !important;
+    -ms-flex-wrap: wrap !important;
+        flex-wrap: wrap !important;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    margin-top: 20px;
+  }
+}
 /*# sourceMappingURL=suppliers.css.map */

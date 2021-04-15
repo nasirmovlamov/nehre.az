@@ -518,6 +518,9 @@
     margin-top: 0px;
     border-radius: 0px;
   }
+  .cardCont .clearBucket {
+    margin-top: 10px;
+  }
   .cardCont .mainSide {
     width: 100%;
   }
@@ -542,6 +545,33 @@
   }
   .cardCont .aside {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .cardCont .mainSide .item {
+    height: auto;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    row-gap: 10px;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-column-gap: 10px;
+            column-gap: 10px;
+  }
+  .cardCont .mainSide .item .aboutItem {
+    margin-left: 0px;
+    width: auto;
+  }
+  .cardCont .mainSide .item .mobileCheckout {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
   }
 }
 /*# sourceMappingURL=cardPage.css.map */

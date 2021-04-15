@@ -5,6 +5,7 @@
     margin-bottom: 20px;
     background-color: #f0f4f5;
     border-radius: 20px;
+    z-index: 1;
     .buttonCont
     {
         width: 100%;
@@ -261,9 +262,86 @@
             opacity: 0.3;
         }
     }
+}
+
+
+@media screen and (max-width:1100px) {
+    .productModal
+    {
+        width: 100%;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        background-color: #f0f4f5;
+        border-radius: 0px;
+        z-index: 1;
+        
+        .buttonCont
+        {
+            width: 100%;
+            height: 50px;
+        }
+
+        .removeModalBtn 
+        {
+            float: right;
+            margin-right: 10px;
+            margin-top: 10px;
+            border: none;
+            font-size: 45px;
+            color: rgba(0,0,0,0.5);
+            transition: 0.2s color;
+            background-color: transparent;
+            &:hover 
+            {
+                color:  rgba(0,0,0,0.8);
+                transition: 0.2s color;
+            }
+        }
 
 
 
+        
+        .sliderAndAbout
+        {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding-right: 0px;
+            margin-right: 0px;
+            width: 100%;
+            .sliderCont
+            {
+                width: 100%;
+                margin-left: 0px;
+            }
+            .aboutCont
+            {
+                width: 95%;
+                padding-top: 30px;
+                display: flex;
+                
+                .buttonsCont
+                {
+                    max-width: 100%;
+                    column-gap: 20px;
+                    flex-wrap: wrap;
+                    row-gap: 20px;
+                }
+                .reviewCont
+                {
+                    flex-wrap: wrap;
+                    height: 50px;
+                    width: 100%;
+                    row-gap: 10px;
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                }
+                .desc 
+                {
+                    width: 100%;
+                }
+            }
+        }//Slider and About
 
-
+    }
 }

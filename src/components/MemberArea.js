@@ -26,6 +26,7 @@ import Reviews from './Reviews'
 import Cabinet from './Cabinet'
 import Contacts from './Contacts'
 import PasswordUpdate from './PasswordUpdate'
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 
 
@@ -181,16 +182,16 @@ function reviews(props) {
 
 )}
 
-function recommendations(){return (null) }
 function output(){return (null) }
 
 
 
 
 function MemberArea(props) {
+    const memberMQ = useMediaQuery('(min-width:900px)') 
 
     const clickHandler = (num) => {
-            for (let i = 1; i < 13; i++) {
+            for (let i = 1; i < 12; i++) {
                 document.getElementById(`btn${i}`).setAttribute('style' , "color: #7d7068;border-left: 3px solid transparent;")
                 document?.getElementById('main')?.setAttribute("style" , "box-shadow: 3px 1px 40px  rgba(0,0,0,0.2);")
 
@@ -203,10 +204,12 @@ function MemberArea(props) {
     const url = window.location.href;
     const lastSegment = url.split("/").pop();
     const borderHandler = (lastItem) => {
-        document.querySelector(`.btn${lastItem}`).setAttribute('style' , "color:#285999;border-left: 3px solid #285999")
+        if (lastItem !== undefined && lastItem !== null ) {
+            document?.querySelector(`.btn${lastItem}`)?.setAttribute('style' , "color:#285999;border-left: 3px solid #285999")
+        }
         if(window.location.href === "http://localhost:3000/memberarea/bookmarks")
         {
-                document.getElementById('main')?.setAttribute("style" , "box-shadow:none;")
+                document?.getElementById('main')?.setAttribute("style" , "box-shadow:none;")
         }
     }
     useEffect(() => {
@@ -220,23 +223,24 @@ function MemberArea(props) {
     return (
         <Router>
         <div className="memberAreaCont">
-            
-            <aside className="aside">
-                <Link to="/memberarea" className="cabinet"><button className="btnmemberarea" id="btn1" onClick={() => clickHandler(1)}>                 <AccountCircleIcon/>  Şəxsi Kabinet                </button> </Link>
-                <Link to="/memberarea" className="contact"> <button className="btncontacts"    id="btn2"  onClick={() => clickHandler(2)}>                 <AccountCircleIcon/> Əlaqə                  </button></Link>
-                <Link to="/memberarea/password" className="password"><button className="btnpassword"   id="btn3"  onClick={() => clickHandler(3)}>                 <LockIcon/> Şifrə              </button></Link>
-                <Link to="/memberarea/address" className="address"> <button className="btnaddress"   id="btn4"  onClick={() => clickHandler(4)}>                  <LocationOnIcon/>Ünvan                 </button></Link>
-                <Link to="/memberarea/bookmarks" className="bookmarks"> <button className="btnbookmarks"   id="btn5"  onClick={() => clickHandler(5)}>              <FavoriteIcon/> Seçilmişlər          </button></Link>
-                <Link to="/memberarea/orders" className="orders">   <button className="btnorders"   id="btn6"  onClick={() => clickHandler(6)}>                  <DescriptionIcon/> Sifarişlər                    </button></Link>
-                <Link to="/memberarea/reminders" className="reminders"  ><button className="btnreminders"   id="btn7"  onClick={() => clickHandler(7)}>            <NotificationsIcon/> Bildirişlər                             </button></Link>
-                <Link to="/memberarea/bonuses" className="bonuses">     <button className="btnbonuses"   id="btn8"  onClick={() => clickHandler(8)}>              <MonetizationOnIcon/>  Bonuslar                   </button></Link>
-                <Link to="/memberarea/deposite" className="deposites"> <button className="btndeposite"   id="btn9"  onClick={() => clickHandler(9)}>               <AccountBalanceWalletIcon/>Depozitlər                </button></Link>
-                <Link to="/memberarea/free-shipping" className="freeShipping"> <button className="btnfree-shipping"   id="btn10"  onClick={() => clickHandler(10)}>       <LocalShippingIcon/> Çatdırılma                    </button> </Link>
-                <Link to="/memberarea/reviews" className="reviews">       <button id="btnreviews"   id="btn11"  onClick={() => clickHandler(11)}>            <ChatBubbleIcon/>  Şərhlər                    </button> </Link>
-                {<Link to="/memberarea/recommendations" className="recommendatios"> <button className="btnrecommendations"   id="btn12"  onClick={() => clickHandler(12)}>   <ThumbUpAltIcon/> Recommendations                  </button>  </Link>}
-                <hr/>
-                <a href="/" >       <button onClick={logOut}>            <ExitToAppIcon/> Log out                   </button></a>
-            </aside>
+            { !memberMQ &&<button className='memberAreaSwiper'><AccountCircleIcon/>  <span>Kabinet</span> </button> }
+            {
+                memberMQ &&
+                    <aside className="aside">
+                    <Link to="/memberarea" className="contact"> <button className="btnmemberarea"    id="btn1"  onClick={() => clickHandler(1)}>                 <AccountCircleIcon/> Şəxsi Kabinet                  </button></Link>
+                    <Link to="/memberarea/password" className="password"><button className="btnpassword"   id="btn2"  onClick={() => clickHandler(2)}>                 <LockIcon/> Şifrə              </button></Link>
+                    <Link to="/memberarea/address" className="address"> <button className="btnaddress"   id="btn3"  onClick={() => clickHandler(3)}>                  <LocationOnIcon/>Ünvan                 </button></Link>
+                    <Link to="/memberarea/bookmarks" className="bookmarks"> <button className="btnbookmarks"   id="btn4"  onClick={() => clickHandler(4)}>              <FavoriteIcon/> Seçilmişlər          </button></Link>
+                    <Link to="/memberarea/orders" className="orders">   <button className="btnorders"   id="btn5"  onClick={() => clickHandler(5)}>                  <DescriptionIcon/> Sifarişlər                    </button></Link>
+                    <Link to="/memberarea/reminders" className="reminders"  ><button className="btnreminders"   id="btn6"  onClick={() => clickHandler(6)}>            <NotificationsIcon/> Bildirişlər                             </button></Link>
+                    <Link to="/memberarea/bonuses" className="bonuses">     <button className="btnbonuses"   id="btn7"  onClick={() => clickHandler(7)}>              <MonetizationOnIcon/>  Bonuslar                   </button></Link>
+                    <Link to="/memberarea/deposite" className="deposites"> <button className="btndeposite"   id="btn8"  onClick={() => clickHandler(8)}>               <AccountBalanceWalletIcon/>Depozitlər                </button></Link>
+                    <Link to="/memberarea/free-shipping" className="freeShipping"> <button className="btnfree-shipping"   id="btn9"  onClick={() => clickHandler(9)}>       <LocalShippingIcon/> Çatdırılma                    </button> </Link>
+                    <Link to="/memberarea/reviews" className="reviews">       <button id="btnreviews"   id="btn10"  onClick={() => clickHandler(10)}>            <ChatBubbleIcon/>  Şərhlər                    </button> </Link>
+                    <hr/>
+                    <a href="/" >       <button onClick={logOut}>            <ExitToAppIcon/> Log out                   </button></a>
+                </aside>
+            }
             
             <main className="main" id="main">
                 <Switch>
@@ -250,7 +254,6 @@ function MemberArea(props) {
                     <Route path="/memberarea/deposite">{deposites}</Route>
                     <Route path="/memberarea/free-shipping">{freeShiping}</Route>
                     <Route path="/memberarea/reviews">{reviews}</Route>
-                    <Route path="/memberarea/recommendations">{recommendations}</Route>
                     <Route path="/memberarea/output">{output}</Route>
                     <Route path="/memberarea/"><Contacts/></Route>
                 </Switch>

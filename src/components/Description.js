@@ -19,14 +19,17 @@ function Description(props) {
         <div className="description">
             <div className="descAbout">
                 <div className="part1">
+                   
                     <p className="textCont"><p className="label">Qiymət:</p> <p className="value">{props?.Product?.qiymet}</p></p>
                     <p className="textCont"><p className="label">Çəki:</p> <p className="value">{props?.Product?.ceki_hecm}</p></p>
-                    <p className="textCont"><p className="label">Tərkibi:</p> <p className="value">{props?.Product?.terkibi}</p></p>
-                    <p className="textCont"><p className="label">Enerji dəyəri:</p> <p className="value">{props?.Product?.enerji_deyeri}</p></p>
-                    <p className="textCont"><p className="label">Saxlanma müddəti:</p> <p className="value">{props?.Product?.srok}</p></p>
-                    <p className="textCont"><p className="label">Saxlanma şəraiti:</p> <p className="value">{props?.Product?.saxlanma_seraiti}</p></p>
-                    <p className="textCont"><p className="label">Qablaşdırma növü:</p> <p className="value">{props?.Product?.qablasdirma_data}</p></p>
-                    <p className="textCont"><p className="label">İstehsal olunduğu yer:</p> <p className="value">{props?.Product?.hazirlanma_yeri}</p></p>
+                        <p className="textCont"><p className="label">Tərkibi:</p> <p className="value">{props?.Product?.terkibi}</p></p>
+                        <p className="textCont"><p className="label">Enerji dəyəri:</p> <p className="value">{props?.Product?.enerji_deyeri}</p></p>
+                        <p className="textCont"><p className="label">Saxlanma müddəti:</p> <p className="value">{props?.Product?.srok}</p></p>
+                        <p className="textCont"><p className="label">Saxlanma şəraiti:</p> <p className="value">{props?.Product?.saxlanma_seraiti}</p></p>
+                     {/*   
+                        <p className="textCont"><p className="label">Qablaşdırma növü:</p> <p className="value">{props?.Product?.qablasdirma_data}</p></p> 
+                    */}
+                    <p className="textCont"><p className="label">İstehsal olunduğu yer:</p> <p className="value">{props?.Product?.hazirlanma_yeri}</p></p> 
                 </div>
                 <div className="part2">
                         <div className="imgCont" style={imgHandler}> </div>
@@ -52,7 +55,7 @@ function Description(props) {
             <div className="similarProductsCont">
                     <p className="title"> Oxşar məhsullar </p>
                     <div className="similarProducts">
-                        <SimilarCard beforeClose={() => props.functionClose()}/>
+                        <SimilarCard />
                     </div>
             </div>
         </div>

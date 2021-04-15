@@ -125,4 +125,84 @@
   margin: 0px;
   opacity: 0.3;
 }
+
+@media screen and (max-width: 1300px) {
+  .selectedSupllierCont {
+    width: 95%;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    text-align: start;
+  }
+  .selectedSupllierCont .selectedSupplier {
+    margin-top: 20px !important;
+    width: 100% !important;
+    padding-left: 0px !important;
+  }
+  .selectedSupllierCont .videoAndAbout {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    row-gap: 20px;
+  }
+  .selectedSupllierCont .category {
+    margin-top: 0px;
+    text-align: start;
+    margin-top: 20px;
+  }
+  .selectedSupllierCont .category span:nth-child(1) {
+    opacity: 0.33;
+    font-weight: 700;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .selectedSupllierCont .about {
+    width: 100% !important;
+    padding-right: 0px !important;
+  }
+  .selectedSupllierCont .about .name {
+    font-size: 33px;
+    margin: 0px;
+    font-weight: 700;
+    color: #3d332d;
+  }
+  .selectedSupllierCont .about .starAndReview {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    height: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
+  .selectedSupllierCont .about .starAndReview p {
+    margin-top: 20px;
+    margin-left: 10px;
+    color: #3d332d;
+    font-weight: 700;
+    opacity: 0.5;
+  }
+  .selectedSupllierCont .about .starAndReview .stars img {
+    width: 25px;
+  }
+  .selectedSupllierCont .about .text {
+    font-weight: 500;
+    opacity: 0.6;
+  }
+}
 /*# sourceMappingURL=selectedSupllier.css.map */

@@ -5,11 +5,12 @@
     justify-content: center;
     width: 100%;
     top: 0px;
-    background-color: #fff;
+    background-color: #f0f4f5;
     z-index: 5;
     align-items: center;
     overflow: hidden;
     height: 0px;
+    
     #logoNehre
     {
         opacity: 0;
@@ -25,8 +26,8 @@
     }
     .downCont
     {
-        padding-top: 0px;
-        padding-bottom: 0px;
+        padding-top: 30px;
+        padding-bottom: 30px;
         display: flex;
         align-items: flex-end;
         position: sticky;

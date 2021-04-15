@@ -4,7 +4,11 @@
         background-color: #fff;
         width: 95%;
         height: auto;
-        padding: 15px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-left: 2.5%;
+        padding-right: 2.5%;
+        flex-wrap: wrap;
         .name
         {
             margin-top: 0px;

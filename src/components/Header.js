@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import "../assets/css/header.css"
 import HomePage from '../pages/HomePage'
 import DownNavbar from './DownNavbar'
@@ -40,6 +40,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthSmsL from '../components/AuthSmsL'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import {ProductListingContext} from '../components/ProductListingProvider'
+
 function Header() {
   // const TopNavbar = useMediaQuery('(min-width:600px)');
   const MidNavbar = useMediaQuery('(min-width:622px)');
@@ -105,6 +108,17 @@ function Header() {
     backgroundColor: "#285999",
     bottom:"50px",
     right:"50px",
+    border:'none',
+    borderRadius: '50%',
+    zIndex: 99
+  }
+  const checkMBtn =  {
+    position: "fixed",
+    width: "60px",
+    height: "60px",
+    backgroundColor: "#285999",
+    bottom:"50px",
+    left:"50px",
     border:'none',
     borderRadius: '50%',
     zIndex: 99
@@ -187,16 +201,10 @@ function Header() {
     window.addEventListener("scroll", function(){
         if (window.scrollY > 121)
         {
-            if (MidNavbar) {
-              document?.getElementById('header').setAttribute('style' , 'height:0px;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);overflow:inherit;')
-            }
-            else 
-            {
-              document?.getElementById('header').setAttribute('style' , 'height:115px;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);overflow:inherit;')
-            }
+            document?.getElementById('header').setAttribute('style' , 'height:0px;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);overflow:inherit;')
             document?.getElementById('downPart').setAttribute('style' , 'background:#f0f4f5;height:85.17px;overflow:inherit;')
             document?.getElementById('logoNehre').setAttribute('style' , 'opacity:1;pointer-events:all;')
-            document?.getElementById('downCont').setAttribute('style' , 'padding-top: 20px;padding-bottom: 20px;')
+            document?.getElementById('downCont').setAttribute('style' , 'padding-top: 30px;padding-bottom: 30px;')
             var downNavImgCont = document.querySelectorAll('#downNavImgCont')
             for (var i=0; i < downNavImgCont.length; i++) {
               downNavImgCont[i]?.setAttribute('style' , 'height:0px;')
@@ -216,13 +224,7 @@ function Header() {
           document?.getElementById('downPart')?.setAttribute('style' , 'background:transparent;height:0px;padding-top: 0px;padding-bottom: 0px;overflow:hidden;')
           document?.getElementById('logoNehre')?.setAttribute('style' , 'opacity:0;pointer-events:none;')  
           document?.getElementById('downCont')?.setAttribute('style' , 'padding-top: 0px;padding-bottom: 0px;')
-          if (MidNavbar) {
-            document?.getElementById('header')?.setAttribute('style' , 'height:0px;background:transparent; box-shadow: transparent;overflow:hidden;')
-          }
-          else 
-          {
-            document?.getElementById('header')?.setAttribute('style' , 'height:110px;background:transparent; box-shadow: transparent;overflow:hidden;')
-          }
+          document?.getElementById('header')?.setAttribute('style' , 'height:110px;background:transparent; box-shadow: transparent;overflow:hidden;')
           var downNavImgCont = document.querySelectorAll('#downNavImgCont')
           for (var i=0; i < downNavImgCont.length; i++) {
             downNavImgCont[i].setAttribute('style' , 'height:120px;')
@@ -265,14 +267,18 @@ function Header() {
     }
     
 
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice , FinalWeight, setFinalWeight,FinalGoods, setFinalGoods] = useContext(ProductListingContext)
+
 
     return (
-        <ProductListingProvider>
+        <>
 
             <ScrolltoTop/>
            
             <div className="AllCont">
                 <button type="button" style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button>
+                <button type="button" className='checkMBtnC' style={checkMBtn} onClick={() => handleOpen()}><ShoppingBasketIcon width='60px' height='60px'/> {FinalPrice > 0 && (FinalPrice + " ₼")}</button>
+
                 <TopNavbar assortmentArr={Assortment} PaymentPrice={PaymentPrice} number2={number2} number1={number1} UserData={UserData}  modalOpener={handleOpen} modalOpener3={handleOpen3}/>
                 {MidNavbar && <Navbar/>}
 
@@ -337,7 +343,7 @@ function Header() {
                 {<AuthSmsL functionClose={() => handleCloseSMS() }  />}
             </Modal>
 
-        </ProductListingProvider>
+        </>
     )
 }
 

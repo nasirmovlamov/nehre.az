@@ -124,4 +124,74 @@
   -ms-flex-item-align: start;
       align-self: flex-start;
 }
+
+@media screen and (max-width: 1100px) {
+  .descAbout {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    row-gap: 20px;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .similarProductsCont {
+    background-image: none !important;
+  }
+  .similarProductsCont .title {
+    margin-top: 25px;
+    width: 100% !important;
+  }
+  .similarProductsCont .similarProducts {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .similarProductsCont .similarProducts .itemCard {
+    margin-left: 0px !important;
+  }
+}
+
+@media screen and (max-width: 509px) {
+  .descAbout {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    row-gap: 20px;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .descAbout .part1 {
+    width: 100%;
+  }
+  .descAbout .part1 .textCont {
+    width: 95%;
+    padding-left: 2.5%;
+  }
+  .descAbout .part1 .label {
+    text-align: start;
+    width: auto !important;
+  }
+  .descAbout .part1 .value {
+    width: 45% !important;
+  }
+  .descAbout .part2 {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    row-gap: 20px;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    padding-left: 2.5%;
+  }
+  .descAbout .part2 .imgCont {
+    margin-left: 0px;
+  }
+  .descAbout .part2 .textCont {
+    margin-left: 0px;
+  }
+}
 /*# sourceMappingURL=description.css.map */

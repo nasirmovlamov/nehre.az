@@ -69,6 +69,28 @@
   min-height: 100vh;
 }
 
+.AllCont .checkMBtnC {
+  width: auto !important;
+  height: 60px !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: white;
+  border-radius: 10px !important;
+  -webkit-column-gap: 5px;
+          column-gap: 5px;
+  font-size: 17px;
+}
+
+.AllCont .checkMBtnC svg {
+  width: 30px;
+  height: 30px;
+  color: white;
+}
+
 @media screen and (max-width: 622px) {
   .header {
     height: 0px !important;

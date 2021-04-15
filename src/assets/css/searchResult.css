@@ -41,5 +41,24 @@
 .searchResult .resultNot {
   width: 100%;
   text-align: center !important;
+  font-size: 18px;
+  font-family: 'DaxlineR';
+}
+
+.searchResult .resultTitle {
+  font-size: 24px;
+  text-align: center;
+  font-family: 'DaxlineR';
+}
+
+@media screen and (max-width: 1240px) {
+  .searchResult {
+    width: 100%;
+  }
+  .searchResult .items {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
 }
 /*# sourceMappingURL=searchResult.css.map */

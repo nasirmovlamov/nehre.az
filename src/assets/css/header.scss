@@ -49,11 +49,29 @@
     justify-content: center;
     flex-wrap: wrap;
     min-height: 100vh;
+    .checkMBtnC
+    {
+        svg 
+        {
+            width: 30px;
+            height: 30px;
+            color: white;
+        }
+        width: auto !important;
+        height: 60px !important;
+        align-items: center;
+        display: flex;
+        color: white;
+        border-radius: 10px !important;
+        column-gap: 5px;
+        font-size: 17px;
+    }
 }
 
 @media screen and (max-width:622px) {
     .header
     {
         height: 0px !important;
+        
     }
 }

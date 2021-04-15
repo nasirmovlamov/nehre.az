@@ -406,6 +406,10 @@
         height: 100vh;
         margin-top: 0px;
         border-radius: 0px;
+        .clearBucket
+        {
+            margin-top: 10px;
+        }
         .mainSide
         {
             width: 100%;
@@ -451,6 +455,37 @@
         .aside 
         {
             width: 100%;
+        }
+
+    }
+
+}
+@media screen and (max-width:600px) {
+    .cardCont
+    {
+        
+        .mainSide
+        {
+            
+            .item
+            {
+                height: auto;
+                flex-wrap: wrap;
+                row-gap: 10px;
+                .aboutItem
+                {
+                    margin-left: 0px;
+                    width: auto;
+                }
+                justify-content: flex-start ;
+                column-gap: 10px;
+                .mobileCheckout
+                {
+                    display: flex;
+                    width: 100%;
+                    justify-content: space-between;
+                }
+            }
         }
 
     }

@@ -1,12 +1,12 @@
 .products
 {
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
+    display: flex;
+    flex-wrap:wrap;
     grid-gap: 30px;
-    margin-top: 30px;
     padding-bottom: 50px;
     padding-top: 50px;
+    justify-content: center;
     .overlayImg
     {
         width: 12%;
