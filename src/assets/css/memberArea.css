@@ -13,6 +13,13 @@
           justify-content: center;
 }
 
+.memberAreaCont .OrderNotFound {
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+  text-align: center;
+  font-family: 'DaxlineR' !important;
+}
+
 .memberAreaCont aside {
   width: 270px;
   background-color: #ffffff;
@@ -116,7 +123,6 @@
 .memberAreaCont main .contactCont .gridCont .value {
   padding: 5px;
   background-color: #ffff;
-  width: 546px !important;
   height: 25px;
   border-radius: 5px;
   border: 1px solid lightgray;
@@ -689,6 +695,157 @@
 }
 
 @media screen and (max-width: 900px) {
+  .css-1nvnyqx-MuiPaper-root-MuiDrawer-paper {
+    margin-top: 0px;
+  }
+  .css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
+    margin-top: 0px;
+    width: 270px;
+  }
+  .memberAreaCont .gridCont {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-box-direction: normal !important;
+        -ms-flex-direction: column !important;
+            flex-direction: column !important;
+    grid-row-gap: 20px !important;
+  }
+  .memberAreaCont .key {
+    -webkit-box-pack: start !important;
+        -ms-flex-pack: start !important;
+            justify-content: flex-start !important;
+  }
+  .memberAreaCont .value {
+    width: 95% !important;
+  }
+  .memberAreaCont .gridCont1 {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -ms-flex-wrap: wrap !important;
+        flex-wrap: wrap !important;
+    -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+            justify-content: center !important;
+  }
+  .swiperCMember .menu {
+    width: 90%;
+    height: 22px;
+    padding: 13px;
+    padding-left: 5%;
+    padding-right: 5%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    text-align: center;
+    border-bottom: 1px solid lightgray;
+  }
+  .swiperCMember .menu p {
+    font-size: 20px;
+    font-family: "DaxlineR";
+    width: 100%;
+    color: gray;
+    margin: 0px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .swiperCMember .menu button {
+    font-size: 20px;
+    border: none;
+    color: gray;
+    background-color: transparent;
+    margin-top: -1px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .swiperCMember .aside {
+    width: 270px;
+    background-color: #ffffff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    border-radius: 5px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 500px;
+  }
+  .swiperCMember .aside .recommendatios {
+    display: none;
+  }
+  .swiperCMember .aside hr {
+    width: 76%;
+    height: 1px;
+    border: none;
+    background-color: lightgray;
+  }
+  .swiperCMember .aside a {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    color: #7d7068;
+    font-size: 16px;
+    font-family: "DaxlineR";
+  }
+  .swiperCMember .aside a button {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-column-gap: 10px;
+            column-gap: 10px;
+    margin: 0px;
+    padding: 0px;
+    color: #7d7068;
+    font-size: 16px;
+    font-family: "DaxlineR";
+    background-color: transparent;
+    padding: 8px 31px 8px 30px;
+    border-left: 3px solid transparent;
+  }
+  .swiperCMember .aside a button:hover {
+    color: #285999;
+    border-left: 3px solid #285999;
+  }
   .memberAreaCont {
     width: 98%;
     padding-left: 1%;
@@ -714,6 +871,7 @@
         -ms-flex-pack: center;
             justify-content: center;
     font-size: 18px;
+    width: 98.5%;
     font-family: 'DaxlineR';
     background-color: #285999;
     color: white;
@@ -722,6 +880,12 @@
   }
   .memberAreaCont .memberAreaSwiper span {
     margin-left: 10px;
+  }
+  .main {
+    width: 95% !important;
+    margin-top: 10px;
+    padding-left: 2.5% !important;
+    padding-right: 2.5% !important;
   }
 }
 /*# sourceMappingURL=memberArea.css.map */

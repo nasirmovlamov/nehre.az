@@ -20,6 +20,7 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import { makeStyles } from '@material-ui/core/styles';
 import ItemCard from './ItemCard'
 import Review from './Review'
 import Reviews from './Reviews'
@@ -27,9 +28,20 @@ import Cabinet from './Cabinet'
 import Contacts from './Contacts'
 import PasswordUpdate from './PasswordUpdate'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-
-
-
+import ListIcon from '@material-ui/icons/List';
+import clsx from 'clsx';
+import Drawer from '@material-ui/core/Drawer';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import Orders from './Orders'
+const stylesForSwiper = makeStyles({
+    list: {
+      width: "100%",
+    },
+    fullList: {
+      width: "100%",
+    },
+}); 
+  
 function address(props){return (
     <div className="cabinetCont address">
         <p className="title">My Addresses</p>
@@ -98,26 +110,11 @@ function bookmarks(props){return (
         <p className="title">Featured Products</p>
         <p className="selection"><button className="button"><HelpOutlineIcon/> Assortment for: <p>all dates <ArrowRightIcon/></p> </button></p>
         <div className="gridCont1">
-            {<ItemCard image={gogerti} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>}
-            {<ItemCard image={gogerti} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>}
-            {<ItemCard image={gogerti} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>}
-            {<ItemCard image={gogerti} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>}
-            {<ItemCard image={gogerti} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>}
+            {<ItemCard />}
         </div>
     </div>
 ) }
-function orders(props){return (
-    <div className="cabinetCont orders bookmarks ">
-        <p className="title">Order history</p>
-        <div className="gridCont1">
-            {<ItemCard image={gogerti} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>}
-            {<ItemCard image={gogerti} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>}
-            {<ItemCard image={gogerti} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>}
-            {<ItemCard image={gogerti} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>}
-            {<ItemCard image={gogerti} title="Altai sunflower oil_500 ml." desc="from Maria Fursenko" price={100} weight="50gr" discount={0}/>}
-        </div>
-    </div>
-) }
+
 function reminders(props){return (
     <div className="cabinetCont orders bookmarks reminders">
         <p className="title">My notifications</p>
@@ -191,7 +188,7 @@ function MemberArea(props) {
     const memberMQ = useMediaQuery('(min-width:900px)') 
 
     const clickHandler = (num) => {
-            for (let i = 1; i < 12; i++) {
+            for (let i = 1; i < 11; i++) {
                 document.getElementById(`btn${i}`).setAttribute('style' , "color: #7d7068;border-left: 3px solid transparent;")
                 document?.getElementById('main')?.setAttribute("style" , "box-shadow: 3px 1px 40px  rgba(0,0,0,0.2);")
 
@@ -219,11 +216,61 @@ function MemberArea(props) {
         localStorage.clear()
     }
     
-    
+
+    const classes = stylesForSwiper();
+      const [state, setState] = React.useState({
+        top: false,
+      });
+  
+      const toggleDrawer = (anchor, open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+          return;
+        }
+        setState({ ...state, [anchor]: open });
+      };
+      const list = (anchor) => (
+        <div
+        className={clsx(classes.list, {
+          [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+        })}
+        role="presentation"
+        // onClick={toggleDrawer(anchor, false)}
+        // onKeyDown={toggleDrawer(anchor, false)}
+        >
+        <div className="swiperCMember">
+            <div className="menu"> <p>{JSON.parse(localStorage.getItem('LoginUserData')).name}</p>  <button onClick={toggleDrawer(anchor, false)}> &#10006;</button></div>
+            <aside className="aside">
+                <Link to="/memberarea" className="contact"> <button className="btnmemberarea"    id="btn1"  onClick={() => clickHandler(1)}>                 <AccountCircleIcon/> Şəxsi Kabinet                  </button></Link>
+                <Link to="/memberarea/password" className="password"><button className="btnpassword"   id="btn2"  onClick={() => clickHandler(2)}>                 <LockIcon/> Şifrə              </button></Link>
+                <Link to="/memberarea/address" className="address"> <button className="btnaddress"   id="btn3"  onClick={() => clickHandler(3)}>                  <LocationOnIcon/>Ünvan                 </button></Link>
+                <Link to="/memberarea/bookmarks" className="bookmarks"> <button className="btnbookmarks"   id="btn4"  onClick={() => clickHandler(4)}>              <FavoriteIcon/> Seçilmişlər          </button></Link>
+                <Link to="/memberarea/orders" className="orders">   <button className="btnorders"   id="btn5"  onClick={() => clickHandler(5)}>                  <DescriptionIcon/> Sifarişlər                    </button></Link>
+                <Link to="/memberarea/reminders" className="reminders"  ><button className="btnreminders"   id="btn6"  onClick={() => clickHandler(6)}>            <NotificationsIcon/> Bildirişlər                             </button></Link>
+                <Link to="/memberarea/bonuses" className="bonuses">     <button className="btnbonuses"   id="btn7"  onClick={() => clickHandler(7)}>              <MonetizationOnIcon/>  Bonuslar                   </button></Link>
+                <Link to="/memberarea/deposite" className="deposites"> <button className="btndeposite"   id="btn8"  onClick={() => clickHandler(8)}>               <AccountBalanceWalletIcon/>Depozitlər                </button></Link>
+                <Link to="/memberarea/free-shipping" className="freeShipping"> <button className="btnfree-shipping"   id="btn9"  onClick={() => clickHandler(9)}>       <LocalShippingIcon/> Çatdırılma                    </button> </Link>
+                <Link to="/memberarea/reviews" className="reviews">       <button id="btnreviews"   id="btn10"  onClick={() => clickHandler(10)}>            <ChatBubbleIcon/>  Şərhlər                    </button> </Link>
+                <hr/>
+                <a href="/" >       <button onClick={logOut}>            <ExitToAppIcon/> Log out                   </button></a>
+            </aside>
+        </div>
+    </div>
+    );
+
+
+
     return (
         <Router>
         <div className="memberAreaCont">
-            { !memberMQ &&<button className='memberAreaSwiper'><AccountCircleIcon/>  <span>Kabinet</span> </button> }
+            { !memberMQ &&
+                <React.Fragment key={'left'}>
+                    <button className='memberAreaSwiper' onClick={toggleDrawer('left', true)}><ListIcon/>  <span>Kabinet</span> </button> 
+                    <Drawer anchor={'left'} open={state['left']} onClose={toggleDrawer('left', false)}>
+                        {list('left')}
+                    </Drawer> 
+                </React.Fragment>
+            }
+            
             {
                 memberMQ &&
                     <aside className="aside">
@@ -248,7 +295,7 @@ function MemberArea(props) {
                     <Route path="/memberarea/address/add">{addAddress}</Route>
                     <Route path="/memberarea/address">{address}</Route>
                     <Route path="/memberarea/bookmarks">{bookmarks}</Route>
-                    <Route path="/memberarea/orders">{orders}</Route>
+                    <Route path="/memberarea/orders"><Orders/></Route>
                     <Route path="/memberarea/reminders">{reminders}</Route>
                     <Route path="/memberarea/bonuses">{bonuses}</Route>
                     <Route path="/memberarea/deposite">{deposites}</Route>
