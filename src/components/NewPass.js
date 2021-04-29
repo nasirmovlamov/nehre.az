@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import axios from 'axios'
 import 'react-toastify/dist/ReactToastify.css';
 import '../assets/css/authSms.css'
@@ -7,8 +7,11 @@ import { useState } from 'react';
 import { Form, Formik , Field , ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import ReactLoading from 'react-loading';
+import {ProductListingContext} from '../components/ProductListingProvider'
 
 function ForgotPass(props) {
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+
     const [loader, setloader] = useState(false)
     const onSubmit =  (values) => {
         setloader(true)
@@ -32,17 +35,17 @@ function ForgotPass(props) {
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} validateOnChange={true} validateOnBlur={false}>
             <Form className="authSms forgotPass"  method="POST">
                 <div className='closeBtn'><button onClick={props.functionClose}>&#10006;</button></div>
-                <p className="title">Şifrəni daxil edin</p>
+                <p className="title">{lang === "AZ" && `Şifrəni daxil edin` || lang === "EN" && `Enter the password` || lang === "RU" && `Введите пароль`}</p>
                 <div className="errorsNew">
-                    <Field type="password" className="value" name="password" placeholder="Şifrəni daxil edin" type="password"/>
+                    <Field type="password" className="value" name="password" placeholder={lang === "AZ" && `Şifrəni daxil edin` || lang === "EN" && `Enter the password` || lang === "RU" && `Введите пароль`} type="password"/>
                     <ErrorMessage name="password"/>
                 </div>
 
                 <div className="errorsNew">
-                    <Field type="password" className="value" name="confirmPassword" placeholder="Şifrəni Təsdiqlə" type="password"/>
+                    <Field type="password" className="value" name="confirmPassword" placeholder={lang === "AZ" && `Şifrəni təsdiqləyin` || lang === "EN" && `Confirm password` || lang === "RU" && `Подтвердить Пароль`} type="password"/>
                     <ErrorMessage name="confirmPassword"/>
                 </div>
-                <button type='submit' className='submitBtn'>Göndər</button>
+                <button type='submit' className='submitBtn'>{lang === "AZ" && `Daxil edin` || lang === "EN" && `Submit` || lang === "RU" && `Bходить`}</button>
                 {loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={"30px"} width={"30px"} />}
             </Form>
         </Formik>
