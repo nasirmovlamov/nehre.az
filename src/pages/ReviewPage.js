@@ -1,11 +1,15 @@
-import React from 'react'
+import React , {useContext} from 'react'
 import "../assets/css/reviewPage.css"
 import Review from "../components/Review"
+import {ProductListingContext} from '../components/ProductListingProvider'
+
 function ReviewPage() {
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+
     return (
         <div className="reviewPage">
-            <p className="title">Feedback from our clients</p>
-            <p className="subTitle">Every feedback is important to us, thank you</p>
+            <p className="title">{lang === "AZ" && `Müştərilərimizin rəyləri` || lang === "EN" && `Feedback from our clients` || lang === "RU" && `Feedback from our clients`}</p>
+            <p className="subTitle">{lang === "AZ" && `Hər bir rəy bizim üçün vacibdir, təşəkkür edirəm` || lang === "EN" && `Every feedback is important to us, thank you` || lang === "RU" && `Каждый отзыв важен для нас, спасибо`}</p>
 
             <div className="reviewCont">
                 <div className="reviewItem">
@@ -18,7 +22,7 @@ function ReviewPage() {
                     <div className='reviews'> 
                         <Review />
                         <Review />
-                        <a className='seeAllbutton' href="/suppliers">Bütün şərhləri gör</a>
+                        <a className='seeAllbutton' href="/suppliers">{lang === "AZ" && `Bütün şərhləri gör` || lang === "EN" && `See all comments` || lang === "RU" && `Посмотреть все комментарии`}</a>
                     </div>
                 </div>
                 
@@ -32,7 +36,7 @@ function ReviewPage() {
                     <div className='reviews'> 
                         <Review />
                         <Review />
-                        <a className='seeAllbutton' href="/suppliers">Bütün şərhləri gör</a>
+                        <a className='seeAllbutton' href="/suppliers">{lang === "AZ" && `Bütün şərhləri gör` || lang === "EN" && `See all comments` || lang === "RU" && `Посмотреть все комментарии`}</a>
                     </div>
                 </div>
 

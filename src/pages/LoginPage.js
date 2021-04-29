@@ -1,7 +1,8 @@
 import ForgotPass from '../components/ForgotPass';
+import {ProductListingContext} from '../components/ProductListingProvider'
 import NewPass from '../components/NewPass';
 import Modal from '@material-ui/core/Modal';
-import React, { useState } from 'react'
+import React, { useState , useContext } from 'react'
 import '../assets/css/loginPage.scss'
 import Button1 from '../components/Button1'
 import {Formik , Form , Field, ErrorMessage} from "formik"
@@ -14,8 +15,9 @@ import ReactLoading from 'react-loading';
 toast.configure()
 
 function LoginPage(props) {
-    const notify = () => toast.info("Hesabınıza daxil oldunuz!");
-    const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!");
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+    const notify = () => toast.info(lang === "AZ" && `Hesabınıza daxil oldunuz!` || lang === "EN" && `You have logged in to your account!` || lang === "RU" && `Вы вошли в свою учетную запись!`);
+    // const notifyW = () => toast.error("Daxil etdiyiniz məlumatlar yanlışdır!");
     const [loader, setloader] = useState(false)
     const clickHandler = () => {
         props.functionClose()
@@ -40,8 +42,8 @@ function LoginPage(props) {
         password:'',
     }
     const validationSchema = Yup.object({
-        email: Yup.string().email('Emailinizi düzgün daxil edin').required('Emailinizi daxil edin'),
-        password: Yup.string().required('Şifrənizi daxil edin'),
+        email: Yup.string().email(lang === "AZ" && `Elektron poçtunuzu düzgün daxil edin` || lang === "EN" && `Enter your email correctly` || lang === "RU" && `Введите свой адрес электронной почты правильно`).required(lang === "AZ" && 'Elektron poçt daxil edin' || lang === "EN" && `Enter email` || lang === "RU" && `Введите адрес электронной почты`),
+        password: Yup.string().required(lang === "AZ" && `Şifrənizi daxil edin` || lang === "EN" && `Enter password` || lang === "RU" && `Введите пароль`),
     })
 
 
@@ -66,14 +68,14 @@ function LoginPage(props) {
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} validateOnChange={true} validateOnBlur={false}>
                 <Form className="loginPage"  method="POST">
                     <div className="buttonCont"><button onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
-                    <p className="title">Giriş</p>
-                    <Field className="inputLogin" name="email" placeholder="Email ünvanınız"/>
+                    <p className="title">{lang === "AZ" && `Giriş` || lang === "EN" && `Login` || lang === "RU" && `Aвторизоваться`}</p>
+                    <Field className="inputLogin" name="email" placeholder={lang === "AZ" && `Elektron poçt` || lang === "EN" && `Email` || lang === "RU" && `Электронное письмо`}/>
                     <div className="errors"><ErrorMessage name="email"/></div>
-                    <Field type="password" className="inputLogin" name="password" placeholder="Parolunuz"/>
+                    <Field type="password" className="inputLogin" name="password" placeholder={lang === "AZ" && `Şifrəniz` || lang === "EN" && `Password` || lang === "RU" && `Пароль`}/>
                     <div className="errors"><ErrorMessage name="password"/></div>
-                    <Button1 value="Daxil olun" type="submit"/>
-                    { Error && <p className="errors errorsAndForgot">Daxil etdiyiniz məlumatlar yanlışdır. <button type='button' onClick={handleOpen} className='forgotPassBtn'>Şifrəni unutmusunuz ?</button> </p>}
-                    <p className="subTitle">Hesabınız yoxdur ? <button className="regBtn" onClick={() => clickHandler()}>Qeydiyyatdan keçin </button> </p>
+                    <Button1 value={lang === "AZ" && `Daxil olun` || lang === "EN" && `Submit` || lang === "RU" && `Входить`} type="submit"/>
+                    { Error && <p className="errors errorsAndForgot">{lang === "AZ" && `Daxil etdiyiniz məlumatlar yanlışdır. ` || lang === "EN" && `The information you entered is incorrect.` || lang === "RU" && `Введенная вами информация неверна.`}<button type='button' onClick={handleOpen} className='forgotPassBtn'>{lang === "AZ" && `Şifrəni unutmusunuz?` || lang === "EN" && `Forgot password?` || lang === "RU" && `забыл пароль?`}</button> </p>}
+                    <p className="subTitle">{lang === "AZ" && `Hesabınız yoxdur? ` || lang === "EN" && `Not Account?` || lang === "RU" && `Не Аккаунт?`}<button className="regBtn" onClick={() => clickHandler()}>{lang === "AZ" && `Qeydiyyatdan keçin ` || lang === "EN" && `Create Account` || lang === "RU" && `Зарегистрироваться`}</button> </p>
                     {loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={17} width={75} />}
                 </Form>
             </Formik>

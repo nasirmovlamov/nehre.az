@@ -1,12 +1,15 @@
 import axios from 'axios'
 import React from 'react'
-import { useState } from 'react'
+import { useState , useContext} from 'react'
 import { useEffect } from 'react'
 import '../assets/css/searchResult.css'
 import ReactLoading from 'react-loading';
 import ItemCard from './ItemCard'
+import {ProductListingContext} from '../components/ProductListingProvider'
 
 function SearchResult(props) {
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+
     const [loader, setloader] = useState(true)
     const [SearchResult, setSearchResult] = useState([])
 
@@ -21,9 +24,9 @@ function SearchResult(props) {
 
     return (
         <div className="searchResult">
-             <p className='resultTitle'>Axtarışınıza uyğun nəticələr</p>
+             <p className='resultTitle'>{lang === "AZ" && `Axtarışınıza uyğun nəticələr` || lang === "EN" && `Results matching your search` || lang === "RU" && `Результаты, соответствующие вашему поиску`} </p>
             {
-                  loader === true ? <div className="loader"><ReactLoading type={"bubbles"} color={"#2d5d9b"} height={27} width={125} /></div> : (  SearchResult?.length >= 1 ? <div className="items">{SearchResult.map(product =>  <ItemCard ParcelWeight={props.ParcelWeight} setParcelWeight={props.setParcelWeight} NumberOfGoods={props.NumberOfGoods} setNumberOfGoods={props.setNumberOfGoods} setPaymentPrice={props.setPaymentPrice} PaymentPrice={props.PaymentPrice}  modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb}    title={product.title} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>)}</div> : <p className='resultNot'>Axtarışınıza uyğun nəticə tapılmadı</p>)
+                  loader === true ? <div className="loader"><ReactLoading type={"bubbles"} color={"#2d5d9b"} height={27} width={125} /></div> : (  SearchResult?.length >= 1 ? <div className="items">{SearchResult.map(product =>  <ItemCard ParcelWeight={props.ParcelWeight} setParcelWeight={props.setParcelWeight} NumberOfGoods={props.NumberOfGoods} setNumberOfGoods={props.setNumberOfGoods} setPaymentPrice={props.setPaymentPrice} PaymentPrice={props.PaymentPrice}  modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb}    title={product.title} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>)}</div> : <p className='resultNot'>{lang === "AZ" && `Axtarışınıza uyğun nəticə tapılmadı` || lang === "EN" && `No results found for your search` || lang === "RU" && `По вашему запросу ничего не найдено`} </p>)
             }
         </div>
     )

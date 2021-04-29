@@ -1,5 +1,6 @@
 import 'date-fns';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import {ProductListingContext} from '../components/ProductListingProvider'
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import '../assets/css/registrationPage.scss'
@@ -9,12 +10,11 @@ import Cookies from 'js-cookies'
 import * as yup from 'yup';
 import axios from 'axios'
 import Modal from '@material-ui/core/Modal';
-
 import {
     MuiPickersUtilsProvider,
     KeyboardTimePicker,
     KeyboardDatePicker,
-  } from '@material-ui/pickers';
+} from '@material-ui/pickers';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TextField from '@material-ui/core/TextField';
@@ -26,7 +26,8 @@ import AuthSms from '../components/AuthSms';
 
 toast.configure()
 function Registration(props) {
-// The first commit of Material-UI
+const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+    // The first commit of Material-UI
 const notify = () => toast.info("Hesabınız müvəffəqiyyətlə yaradıldı!");
 const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!");
 
@@ -104,17 +105,18 @@ const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!")
         console.log(e.target.files[0]);
     }
 
+    const [authT, setauthT] = useState(1)
+    const [open, setOpen] = useState(false);
 
 
     const validationSchema = yup.object({
-        name: yup.string().required('Adınızı daxil edin'),
-        email: yup.string().email('Emailinizi düzgün daxil edin').required('Emailinizi daxil edin'),
+        name: yup.string().required(lang === "AZ" && `Adınızı daxil edin` || lang === "EN" && `Enter name` || lang === "RU" && `Введите имя`),
+        email: yup.string().email(lang === "AZ" && `Elektron poçtunuzu düzgün daxil edin` || lang === "EN" && `Enter your email correctly` || lang === "RU" && `Введите свой адрес электронной почты правильно`).required(lang === "AZ" && 'Elektron poçt daxil edin' || lang === "EN" && `Enter email` || lang === "RU" && `Введите адрес электронной почты`),
         // phone:  yup.string().required('Telefon nömrənizi daxil edin'),
-        password: yup.string().matches(passRegex ,'Şifrəniz ən az 8 simvol 1 böyük hərf 1 kiçik hərf və 1 rəqəm təşkil etməlidir').required('Şifrənizi daxil edin'),
-        confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Şifrələr uyğun deyil').required("Şifrənizi daxil edin")
+        password: yup.string().matches(passRegex , (lang === "AZ" && `Şifrəniz ən az 8 simvol 1 böyük hərf 1 kiçik hərf və 1 rəqəm təşkil etməlidir` || lang === "EN" && `Your password must be at least 8 characters, 1 uppercase letter, 1 lowercase letter, and 1 digit` || lang === "RU" && `Ваш пароль должен состоять не менее чем из 8 символов, 1 заглавной буквы, 1 строчной буквы и 1 цифры.`) ).required(lang === "AZ" && `Şifrənizi daxil edin` || lang === "EN" && `Enter password` || lang === "RU" && `Введите пароль`),
+        confirmPassword: yup.string().oneOf([yup.ref('password'), null], (lang === "AZ" && `Şifrələr uyğun deyil` || lang === "EN" && `Passwords do not match` || lang === "RU" && `Пароли не соответствуют`)).required(lang === "AZ" && `Şifrənizi daxil edin` || lang === "EN" && `Enter password` || lang === "RU" && `Введите пароль`)
     })
 
-    const [authT, setauthT] = useState(1)
     const authTypeHandler = (num) => {
         document.querySelector('.authType2').checked = false
         document.querySelector('.authType1').checked = false
@@ -122,7 +124,6 @@ const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!")
         setauthT(num)
     }
 
-    const [open, setOpen] = React.useState(false);
 
     const handleOpen = () => {
         setOpen(true);
@@ -134,36 +135,36 @@ const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!")
     return (
         <div  className="registrationPage">
             <div className="buttonCont"><button onClick={() => props.functionCloseReg()} className="removeModalBtn">×</button></div>
-            <p className="title">Qeydiyyat</p>
+            <p className="title">{lang === "AZ" && `Qeydiyyat` || lang === "EN" && `Registration` || lang === "RU" && `Регистрация`}</p>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} validateOnChange={true} validateOnBlur={false}>
                 <Form enctype='multipart/form-data' className="login" method="post" action="">
                     
-                    <label  className="key" >Adınız Soyadınız</label>                       
+                    <label  className="key" >{lang === "AZ" && `Adınız Soyadınız` || lang === "EN" && `Name Surname` || lang === "RU" && `Имя Фамилия`}</label>                       
                     <div className="errors">
-                        <Field className="value" name="name" placeholder="Adınız"/>
+                        <Field className="value" name="name" placeholder={lang === "AZ" && `Adınız Soyadınız` || lang === "EN" && `Name Surname` || lang === "RU" && `Имя Фамилия`}/>
                         <ErrorMessage name="name"/>
                     </div>
 
-                    <label  className="key" >Elektron poçt ünvanı</label>                   
+                    <label  className="key" >{lang === "AZ" && `Elektron poçt ünvanı` || lang === "EN" && `Email address` || lang === "RU" && `Адрес электронной почты`}</label>                   
                     <div className="errors">
-                        <Field className="value" name="email" placeholder="nümunə@gmail.com"/>
+                        <Field className="value" name="email" placeholder={lang === "AZ" && `nümunə@gmail.com` || lang === "EN" && `example@gmail.com` || lang === "RU" && `example@gmail.com`}/>
                         <ErrorMessage name="email"/>
                     </div>
 
-                    <label  className="key" >Şifrə</label>                                  
+                    <label  className="key" >{lang === "AZ" && `Şifrə` || lang === "EN" && `Password` || lang === "RU" && `Пароль`}</label>                                  
                     <div className="errors">
                         <Field type="password" className="value" name="password" placeholder="Parol" type="password"/>
                         <ErrorMessage name="password"/>
                     </div>
 
-                    <label  className="key" >Şifrəni Təsdiqlə</label>                        
+                    <label  className="key" >{lang === "AZ" && `Şifrəni Təsdiqlə` || lang === "EN" && `Confirm Password` || lang === "RU" && `Подтвердить Пароль`} </label>                        
                     <div className="errors">
-                        <Field type="password" className="value" name="confirmPassword" placeholder="Parolu Təsdiqlə" type="password"/>
+                        <Field type="password" className="value" name="confirmPassword" placeholder={lang === "AZ" && `Şifrəni Təsdiqlə` || lang === "EN" && `Confirm Password` || lang === "RU" && `Подтвердить Пароль`} type="password"/>
                         <ErrorMessage name="confirmPassword"/>
                     </div>
 
-                    <label  className="key" >Telefon Nömrəsi</label>            
+                    <label  className="key" >{lang === "AZ" && `Telefon Nömrəsi` || lang === "EN" && `Phone number` || lang === "RU" && `Телефонный номер`}</label>            
                     <div className="errors">            
                         <div className='phoneCont'> <span>+994</span> <Field required value={phoneValue} onChange={handleChange1} className="value" maxlength='10' minlength='9' type='text' name="phone" placeholder="0555555555"/></div>
                         <ErrorMessage name="phone"/>
@@ -177,9 +178,9 @@ const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!")
                         <div className="authTypeCh authTypeCh2"><input className="authType2" onClick={() => authTypeHandler(2)} type="checkbox" name="sms" id=""/> <label htmlFor="">Elektron poçt</label></div>
                     </div> */}
 
-                    <label  className="key" >Profil Şəkli</label>                           <button type="button" className="addFile"> <p className="textPhoto">{profilePhoto?.name !== undefined ? profilePhoto.name  : "Şəklinizi yükləyin"}</p><input onChange={ppchanger} type="file" className="addFileInput" name="profile" id=""/></button>
-                    <button className="submitBtn"  type="submit" >Submit {loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={"30px"} width={"30px"} />}</button>
-                    {Error && <p className="errors">Daxil etdiyiniz elektron poçt artıq mövcuddur  </p>}
+                    <label  className="key" >{lang === "AZ" && `Profil Şəkli` || lang === "EN" && `Profile Photo` || lang === "RU" && `Аватар`}</label>                           <button type="button" className="addFile"> <p className="textPhoto">{profilePhoto?.name !== undefined ? profilePhoto.name  : (lang === "AZ" && `Şəklinizi yükləyin` || lang === "EN" && `Upload Photo` || lang === "RU" && `Загрузить фото`) }</p><input onChange={ppchanger} type="file" className="addFileInput" name="profile" id=""/></button>
+                    <button className="submitBtn"  type="submit" > {lang === "AZ" && `Daxil edin` || lang === "EN" && `Submit` || lang === "RU" && `Bходить`} {loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={"30px"} width={"30px"} />}</button>
+                    {Error && <p className="errors">{lang === "AZ" && `Daxil etdiyiniz elektron poçt artıq mövcuddur  ` || lang === "EN" && `The email you entered is now exist` || lang === "RU" && `Электронный адрес, который вы ввели, теперь существует`}</p>}
                 </Form>
             </Formik>
             </MuiPickersUtilsProvider>

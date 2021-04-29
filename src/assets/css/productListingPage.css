@@ -36,6 +36,9 @@
 
 .productPage .topPart .titleProducts .category {
   margin-top: 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .productPage .topPart .titleProducts .category span:nth-child(1) {

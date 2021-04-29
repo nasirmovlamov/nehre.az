@@ -1,9 +1,12 @@
 import axios from 'axios';
 import React from 'react'
-import { useEffect } from 'react';
+import { useEffect  , useContext} from 'react';
 import { useState } from 'react';
+import {ProductListingContext} from '../components/ProductListingProvider'
 
 function Orders() {
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+
     const [Orders, setOrders] = useState([])
     const sendOrderRequest = async () => {
         try {
@@ -20,7 +23,7 @@ function Orders() {
     }, [])
     return (
         <div className="cabinetCont address deposites bonuses">
-            <p className="title">Sifarişlər Tarixi</p>
+            <p className="title">{lang === "AZ" && `Sifarişlər Tarixi` || lang === "EN" && `Orders' Date` || lang === "RU" && `Дата заказа`}</p>
             <table>
                 <tr className="start"> <td>Tarix</td> <td>Qiymət</td> </tr>
                 {Orders.length > 0 ?

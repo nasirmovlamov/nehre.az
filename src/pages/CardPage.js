@@ -78,7 +78,7 @@ function CardPage(props) {
             
             <main className="mainSide">
                 <p className="title">
-                    <p className="basketTitle">Səbət {FinalPrice < MinOrder   ?  <div className="minOrder"> <InfoIcon/> Minimum sifariş qiyməti {money === '₼' ? MinOrder : Math.floor(MinOrder / 1.7) } {money}</div> : " " }</p>
+                    <p className="basketTitle">{lang === "AZ" && `Səbət` || lang === "EN" && `Basket` || lang === "RU" && `Корзина`} {FinalPrice < MinOrder   ?  <div className="minOrder"> <InfoIcon/> {lang === "AZ" && ` Minimum sifariş qiyməti` || lang === "EN" && `Minimum` || lang === "RU" && `Минимум`} {money === '₼' ? MinOrder : Math.floor(MinOrder / 1.7) } {money}</div> : " " }</p>
                     <hr/>
                 </p>
                 <div className="gridCont1">
@@ -97,19 +97,19 @@ function CardPage(props) {
                 <div className="mainPart">
                     <div className="topPart">
                         <div className="buttonCont"><button onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
-                        <p className="text1"><img width="12px" src={clock} alt=""/>  Tezliklə çatdırılma </p>
+                        <p className="text1"><img width="12px" src={clock} alt=""/> {lang === "AZ" && `Tezliklə çatdırılma` || lang === "EN" && `Delivery soon` || lang === "RU" && `Доставка скоро`} </p>
                         <p className="text">30 yanvar <div className="date">BE</div></p>
                     </div>
                     
                     <div className="downPart">
-                        <div className="goods"><p className="key">Ümumi paketin çəkisi</p> <p className="value ">{FinalWeight}</p> </div> 
-                        <div className="goods"><p className="key">Ümumi məhsulların sayı</p> <p className="value ">{FinalGoods}</p> </div> 
+                        <div className="goods"><p className="key">{lang === "AZ" && `Ümumi paketin çəkisi` || lang === "EN" && `Weight Parcel` || lang === "RU" && `Вес посылки`}</p> <p className="value ">{FinalWeight}</p> </div> 
+                        <div className="goods"><p className="key">{lang === "AZ" && `Ümumi məhsulların sayı` || lang === "EN" && `Total number of products` || lang === "RU" && `Общее количество продуктов`} </p> <p className="value ">{FinalGoods}</p> </div> 
                         <div className="cost"><p className="key">Qiymət</p> <p className="value value2"> {money === '₼' ? FinalPrice : Math.floor(FinalPrice )} {money} </p> </div> 
-                        <Button1 disabled={FinalPrice < MinOrder ? true : false} value="Ödəniş səhifəsinə keçin" color="#085096" function={props.functionOpenCheckoutPage} /> 
-                        <p className="cashback">Alacağınız ümumi bonus {money === '₼' ? FinalPrice : Math.floor(FinalPrice   / 10) }  {money} </p>
+                        <Button1 disabled={FinalPrice < MinOrder ? true : false} value={lang === "AZ" && `Ödəniş səhifəsinə keçid edin` || lang === "EN" && `Go to payment` || lang === "RU" && `Перейти к оплате`} color="#085096" function={props.functionOpenCheckoutPage} /> 
+                        <p className="cashback">{lang === "AZ" && `Alacağınız ümumi bonus` || lang === "EN" && `Bonus` || lang === "RU" && `Бонус`}  {money === '₼' ? FinalPrice : Math.floor(FinalPrice   / 10) }  {money} </p>
                     </div>
                 </div>
-                    <button   className="clearBucket" onClick={clearBucket}><DeleteIcon/> Səbəti təmizlə</button>
+                    <button   className="clearBucket" onClick={clearBucket}><DeleteIcon/>{lang === "AZ" && ` Səbəti təmizlə` || lang === "EN" && `Clear the basket` || lang === "RU" && `Очистить корзину`} </button>
                 
             </aside>
         </div>

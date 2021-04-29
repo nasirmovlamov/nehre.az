@@ -1,10 +1,14 @@
 import axios from 'axios'
-import React from 'react'
+import React , {useContext} from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import "../assets/css/suppliers.css"
 import SupplierCard2 from './SupplierCard2'
+import {ProductListingContext} from '../components/ProductListingProvider'
+
 function Suppliers() {
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+
     const [Suppliers, setSuppliers] = useState([])
     useEffect(() => {
         axios.get('https://nehra.az/public/api/manufacturers')
@@ -13,11 +17,12 @@ function Suppliers() {
     })
     const supplierArr = []
     Suppliers.map(supplier => supplierArr.push(<SupplierCard2 name={supplier.name} image={supplier.avatar} id={supplier.id} star_count={supplier.star_count} />))
+    
     return (
         <div className="suppliersCont" >
             
             <div className="suppliers">
-                <p className="category"> <span>home •</span>  Manufacturer</p>
+                <p className="category"> <span>{lang === "AZ" && `Əsas Səhifə` || lang === "EN" && `Homepage` || lang === "RU" && `Домашняя страница`}  •</span>  {lang === "AZ" && `İstehsalçı` || lang === "EN" && `Manufacturer` || lang === "RU" && `Производитель`} </p>
                 <div className="supplier">
                     {supplierArr.map(element => element)}
                 </div>

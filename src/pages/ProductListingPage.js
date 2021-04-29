@@ -76,7 +76,7 @@ function ProductListingPage(props) {
         <div className="productPage"> 
             <div className="topPart">
                 <div className="titleProducts">
-                        <p className="category"> <span>home • {CategoryData?.category_data?.name}</span>  </p>
+                        <p className="category"> <span> {lang === "AZ" && `Əsas Səhifə` || lang === "EN" && `Homepage` || lang === "RU" && `Домашняя страница`}  • {CategoryData?.category_data?.name}</span>  </p>
                         <h2 className="categoryName">{CategoryData?.category_data?.name}</h2>
                         <div className="tags">
                           <button  id={`tagone${id}`} onClick={() => filterHandler(id)} className="tag" >Hamısı</button>
@@ -88,14 +88,13 @@ function ProductListingPage(props) {
             <div className="titleProductsCont">
                 <div className="dateAndItemCont">
                   <select className="selectionFilter">
-                      <option value="byPopularity">by popularity</option>
-                      <option value="byPopularity">alphabetically</option>
-                      <option value="byPopularity">new</option>
-                      <option value="byPopularity">expensive</option>
-                      <option value="byPopularity">cheaper</option>
-                      <option value="byPopularity">by supplier</option>
+                      <option value="byPopularity">{lang === "AZ" && `populyarlığa görə` || lang === "EN" && `by popularity` || lang === "RU" &&  `по популярности`}</option>
+                      <option value="byPopularity">{lang === "AZ" && `əlifba sırası ilə` || lang === "EN" && `alphabetically` || lang === "RU" && `по алфавиту`}  </option>
+                      <option value="byPopularity">{lang === "AZ" && `yeni` || lang === "EN" && `new` || lang === "RU" && `новый`}  </option>
+                      <option value="byPopularity">{lang === "AZ" && `bahalı` || lang === "EN" && `expensive` || lang === "RU" && `дорого`}  </option>
+                      <option value="byPopularity">{lang === "AZ" && `ucuz` || lang === "EN" && `cheaper` || lang === "RU" && `более дешевый`}  </option>
                   </select>
-                    <p className="itemsNumber">{ProductData.length} items</p>
+                    <p className="itemsNumber">{ProductData.length} {lang === "AZ" && `məhsul` || lang === "EN" && `items` || lang === "RU" &&  `предметы`}</p>
                 </div>
             </div>
 

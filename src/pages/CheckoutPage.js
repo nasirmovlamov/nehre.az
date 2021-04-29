@@ -11,7 +11,7 @@ import {Formik , Form , Field, ErrorMessage} from "formik"
 import {ProductListingContext} from '../components/ProductListingProvider'
 
 function CheckoutPage(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice , FinalWeight, setFinalWeight,FinalGoods, setFinalGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
     const notify = () => toast.info("Nuş olsun!");
 
     const [loader, setloader] = useState(false)
@@ -59,9 +59,9 @@ function CheckoutPage(props) {
         address:'',
     }
     const validationSchema = Yup.object({
-        name: Yup.string().required('Adınızı daxil edin'),
-        email: Yup.string().email('Emailinizi düzgün daxil edin').required('Emailinizi daxil edin'),
-        address: Yup.string().required('Ünvanınızı daxil edin'),
+        name: Yup.string().required(lang === "AZ" && `Adınızı daxil edin` || lang === "EN" && `Enter name` || lang === "RU" && `Введите имя`),
+        email: Yup.string().email(lang === "AZ" && `Elektron poçtunuzu düzgün daxil edin` || lang === "EN" && `Enter your email correctly` || lang === "RU" && `Введите свой адрес электронной почты правильно`).required(lang === "AZ" && 'Elektron poçt daxil edin' || lang === "EN" && `Enter email` || lang === "RU" && `Введите адрес электронной почты`),
+        address: Yup.string().required(lang === "AZ" && `Ünvanınızı daxil edin` || lang === "EN" && `Enter your address` || lang === "RU" && `Введите ваш адрес`),
     })
 
 
@@ -72,26 +72,26 @@ function CheckoutPage(props) {
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} validateOnChange={true} validateOnBlur={false}>
                 <Form  method="POST">
                     <div className="buttonCont"><button onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
-                    <p className="title">Əlaqə Məlumatları</p>
+                    <p className="title">{lang === "AZ" && `Əlaqə Məlumatları` || lang === "EN" && `Contact Details` || lang === "RU" && `Контактная информация`}</p>
                     <div className="inputCont">
                         <div className="errors">
-                            <Field name='name' type="text" placeholder="Adınızı daxil edin"/>
+                            <Field name='name' type="text"  placeholder={lang === "AZ" && `Adınız Soyadınız` || lang === "EN" && `Name Surname` || lang === "RU" && `Имя Фамилия`}/>
                             <ErrorMessage name="name"/>
                         </div>
                         <div className="errors">
-                            <Field name='email' type="email" placeholder="Elektron poçtunuzu daxil edin"/>
+                            <Field name='email' type="email" placeholder={lang === "AZ" && `nümunə@gmail.com` || lang === "EN" && `example@gmail.com` || lang === "RU" && `example@gmail.com`}/>
                             <ErrorMessage name="email"/>
                         </div>
                     </div>
                     <div className="deliveryAddress">
-                        <p className="title">Çatdırılma olacaq ünvan</p>
+                        <p className="title">{lang === "AZ" && `Çatdırılma olacaq ünvan` || lang === "EN" && `Delivery Address` || lang === "RU" && `Адресс доставки`}</p>
                         <div className="errors">
-                            <Field name='address' placeholder="Baku, st. Məşədi Əzizbəyov, house 1" className="address" />
+                            <Field name='address' placeholder={lang === "AZ" && `Çatdırılma olacaq ünvan` || lang === "EN" && `Delivery Address` || lang === "RU" && `Адресс доставки`} className="address" />
                             <ErrorMessage name="address"/>
                         </div>
                     </div>
 
-                    <p className="title">Çatdırılma günü</p>
+                    <p className="title">{lang === "AZ" && `Çatdırılma günü` || lang === "EN" && `Delivery day` || lang === "RU" && `День доставки`}</p>
 
                     <div className="typeOfPayment">
                         <div className="type1"><input value='1' name="dateTime1" checked="true"  id="checkBoxx1" onClick={() => clickHandler2(1)} type="checkbox"></input> <label>24 Aprel</label></div>
@@ -100,12 +100,12 @@ function CheckoutPage(props) {
 
                     <p className="title">Ödəniş növü</p>
                     <div className="typeOfPayment">
-                        <div className="type1"><input value='1' name="doorCash" checked="true"  id="checkBox1" onClick={() => clickHandler(1)} type="checkbox"></input> <label>Terminalla</label></div>
-                        <div className="type2"><input value='2' name="doorCard" id="checkBox2" onClick={() => clickHandler(2)} type="checkbox"></input> <label>Qapıda Kartla</label></div>
-                        <div className="type3"><input value='3' name="fromPoint" id="checkBox3" onClick={() => clickHandler(3)} type="checkbox"></input> <label>Balansdan </label></div>
-                        <div className="type3"><input value='4' name="onlinePayment" id="checkBox4" onClick={() => clickHandler(4)} type="checkbox"></input> <label>Online </label></div>
+                        <div className="type3"><input value='4' name="onlinePayment" id="checkBox4" onClick={() => clickHandler(4)} type="checkbox"></input> <label>{lang === "AZ" && `Online` || lang === "EN" && `Online` || lang === "RU" && `В сети`} </label></div>
+                        <div className="type3"><input value='3' name="fromPoint" id="checkBox3" onClick={() => clickHandler(3)} type="checkbox"></input> <label>{lang === "AZ" && `Balansdan` || lang === "EN" && `Balance` || lang === "RU" && `Остаток средств`} </label></div>
+                        <div className="type2"><input value='2' name="doorCard" id="checkBox2" onClick={() => clickHandler(2)} type="checkbox"></input> <label>{lang === "AZ" && `Qapıda Kartla` || lang === "EN" && `At door with card` || lang === "RU" && `У двери с картой`}</label></div>
+                        <div className="type1"><input value='1' name="doorCash" checked="true"  id="checkBox1" onClick={() => clickHandler(1)} type="checkbox"></input> <label>{lang === "AZ" && `Terminalla` || lang === "EN" && `with Terminal` || lang === "RU" && `с Терминалом`}</label></div>
                     </div>
-                    <button type='submit' className="goToPayment" >Təsdiqlə</button>
+                    <button type='submit' className="goToPayment" >{lang === "AZ" && `Təsdiqlə` || lang === "EN" && `Submit` || lang === "RU" && `Утвердить`}</button>
                     {loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={17} width={75} />}
                 </Form>
             </Formik>
