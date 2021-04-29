@@ -1,10 +1,10 @@
-import React,{useState, useRef, useEffect} from 'react'
+import React,{useState, useRef, useEffect , useContext} from 'react'
 import "../assets/css/memberArea.css"
 import avatar from "../assets/images/avatar.jpg"
 import Button1 from "./Button1"
 import { Link, Route, BrowserRouter as Router,Switch } from "react-router-dom"
 import gogerti from "../assets/images/gogerti.jpg"
-
+import {ProductListingContext} from '../components/ProductListingProvider'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
 import LockIcon from '@material-ui/icons/Lock';
@@ -34,6 +34,7 @@ import Drawer from '@material-ui/core/Drawer';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import Orders from './Orders'
 import Bookmarks from './Bookmarks'
+
 const stylesForSwiper = makeStyles({
     list: {
       width: "100%",

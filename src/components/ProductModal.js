@@ -25,7 +25,7 @@ import {ProductListingContext} from '../components/ProductListingProvider'
 import axios from 'axios';
 
 function ProductModal(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
 
     const [Product, setProduct] = useState()
     useEffect(() => {
@@ -85,7 +85,7 @@ function ProductModal(props) {
                     <p className="titleItem">{Product?.title}</p>
                     <p className="supllierName">{Product?.seller_data.name}</p>
                     <div className="reviewCont">
-                        <div className="starsAndReviews"><StarSystem numberStar={props.numberStar}/>  <div className="reviews">33 reviews</div> </div>
+                        <div className="starsAndReviews"><StarSystem numberStar={props.numberStar}/>  <div className="reviews">33 {lang === "AZ" && `Şərh` || lang === "EN" && `Reviews` || lang === "RU" && `Отзывы`}</div> </div>
                         <div className="favorites"><FavoriteBorderIcon style={{fontSize:"25px",color:"red",}}/> </div> 
                     </div>
                     <p className="desc">
@@ -99,7 +99,7 @@ function ProductModal(props) {
                             <button   className="valueBtn">{Product?.id !== undefined && Product?.id !== null  && Product?.id !== ""  ? (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count) : 0}</button>
                             <button  value="1" onClick={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm)}  className="incBtn">+</button>
                         </div>
-                        <div className="part2"><Button1 value="Səbətə əlavə et" color="#285999" function={ () => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm)}/></div>
+                        <div className="part2"><Button1 value={lang === "AZ" && `Səbətə əlavə et` || lang === "EN" && `Add Basket` || lang === "RU" && `Добавить корзину`} color="#285999" function={ () => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm)}/></div>
                     </div>
                 </div> 
             </div>
@@ -109,9 +109,9 @@ function ProductModal(props) {
                 
                     <div className="topLinks">
                         <div className="btnContForLinks">
-                            <button className="button" style={checker ===1 ? styleChanger : null } id="btnLink1" onClick={() => clickHandler(1)}>Haqqında</button>
-                            <button className="button" style={checker ===2 ? styleChanger : null } id="btnLink2" onClick={() => clickHandler(2)}>Şərhlər (Num) </button>
-                            <button className="button" style={checker ===3 ? styleChanger: null}  id="btnLink3" onClick={() => clickHandler(3)}>Sertifikatlar</button>
+                            <button className="button" style={checker ===1 ? styleChanger : null } id="btnLink1" onClick={() => clickHandler(1)}>{lang === "AZ" && `Haqqında` || lang === "EN" && `About` || lang === "RU" && `О`}</button>
+                            <button className="button" style={checker ===2 ? styleChanger : null } id="btnLink2" onClick={() => clickHandler(2)}> {lang === "AZ" && `Şərh` || lang === "EN" && `Reviews` || lang === "RU" && `Отзывы`} </button>
+                            <button className="button" style={checker ===3 ? styleChanger: null}  id="btnLink3" onClick={() => clickHandler(3)}> {lang === "AZ" && `Sertifikatlar` || lang === "EN" && `Certificates` || lang === "RU" && `Сертификаты`}</button>
                             <hr/>
 
                             <div className="linkComponent">

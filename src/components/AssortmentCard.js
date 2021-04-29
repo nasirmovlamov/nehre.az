@@ -1,9 +1,12 @@
-import React from 'react'
+import React , {useContext} from 'react'
 import "../assets/css/assortmentCard.css"
 import {
     Link,
   } from "react-router-dom";
+import {ProductListingContext} from '../components/ProductListingProvider'
+
 function AssortmentCard(props) {
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
     const imgHandler = {
         background: `url('https://nehra.az/storage/app/public/${props.image}') no-repeat`,
         backgroundPosition: "top center",
@@ -13,7 +16,7 @@ function AssortmentCard(props) {
         <Link to={`/category/${props.id}`} className="assortmentCard" style={imgHandler}>
             <div  className="imgContAssortment"></div>
             <div className="overlay">
-                <p className="assortSubTitle">{props.desc}  çox məhsulla xidmətinizdəyik</p>
+                <p className="assortSubTitle">{props.desc}  {lang === "AZ" && ` çox məhsulla xidmətinizdəyik` || lang === "EN" && ` with products , at your service` || lang === "RU" && ` с продуктами, к вашим услугам`}</p>
                 <p className="assortTitle">{props.title}</p>
             </div>
         </Link>
