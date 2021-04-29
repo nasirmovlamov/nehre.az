@@ -8,7 +8,11 @@ export function ProductListingProvider(props) {
     const [FinalPrice, setFinalPrice] = useState(0)
     const [FinalWeight, setFinalWeight] = useState(0)
     const [FinalGoods, setFinalGoods] = useState(0)
-    
+    const langArr = ["AZ" , "EN" , "RU"]
+    const [lang, setlang] = useState(sessionStorage.getItem('lang') === null ? 'AZ' : sessionStorage.getItem('lang'))
+    const [money, setmoney] = useState(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
+
+
     const addItem = (num,price , weight) => {
         if(weight !== null && weight !== undefined)
         {
@@ -42,7 +46,7 @@ export function ProductListingProvider(props) {
  
 
     return (
-        <ProductListingContext.Provider value={[ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem]}>
+        <ProductListingContext.Provider value={[ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr]}>
             {props.children}
         </ProductListingContext.Provider>
     )

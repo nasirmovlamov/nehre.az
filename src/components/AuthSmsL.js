@@ -19,7 +19,7 @@ function AuthSms(props) {
     return (
         <div className='authSms'>
             <p className="tit">Hesab Təsdiqləmə</p>
-            +{Phone} <br/> Nömrəsinə göndərilən kodu <br/> Daxil edin
+            {Phone} <br/> Nömrəsinə göndərilən kodu <br/> Daxil edin
             <input onChange={(e) => onChange(e)} type="text" name="" id=""/>
         </div>
     )

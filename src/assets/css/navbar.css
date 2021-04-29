@@ -88,7 +88,7 @@
   margin-top: 185px;
 }
 
-.navbar .dropCont:hover .dropMenu p {
+.navbar .dropCont:hover .dropMenu a {
   margin: 0px;
   opacity: 1;
   border: 1px solid #2d5d9b;
@@ -97,19 +97,24 @@
           transform: rotateY(0deg);
 }
 
-.navbar .dropCont:hover .dropMenu p:nth-child(1) {
+.navbar .dropCont:hover .dropMenu a:nth-child(1) {
   -webkit-transition: 0.3s all;
   transition: 0.3s all;
 }
 
-.navbar .dropCont:hover .dropMenu p:nth-child(2) {
+.navbar .dropCont:hover .dropMenu a:nth-child(2) {
   -webkit-transition: 0.8s all;
   transition: 0.8s all;
 }
 
-.navbar .dropCont:hover .dropMenu p:nth-child(3) {
+.navbar .dropCont:hover .dropMenu a:nth-child(3) {
   -webkit-transition: 1.2s all;
   transition: 1.2s all;
+}
+
+.navbar .dropCont:hover .dropMenu a:nth-child(4) {
+  -webkit-transition: 1.5s all;
+  transition: 1.5s all;
 }
 
 .navbar .dropCont .dropMenu {
@@ -136,7 +141,7 @@
   transition: all 0.3s;
 }
 
-.navbar .dropCont .dropMenu p {
+.navbar .dropCont .dropMenu a {
   margin: 0px;
   height: 70px;
   color: white;
@@ -162,11 +167,11 @@
   opacity: 0;
 }
 
-.navbar .dropCont .dropMenu p:nth-child(3) {
+.navbar .dropCont .dropMenu a:nth-child(4) {
   border-radius: 0px 0px 10px 10px;
 }
 
-.navbar .dropCont .dropMenu p:hover {
+.navbar .dropCont .dropMenu a:hover {
   background-color: white;
   color: #2d5d9b;
   cursor: pointer;

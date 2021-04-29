@@ -12,6 +12,27 @@
     display: flex;
     z-index: 1;
     flex-direction: column;
+    .phoneCont
+    {
+        display: flex;
+        color: black;
+        input 
+        {
+            width: 285px !important;
+        }
+        span 
+        {
+            height: 38px;
+            padding-left: 5px;
+            background-color: #F2F0ED;
+            border-radius: 5px;
+            margin-right: -10px;
+            font-family: "Arial";
+            z-index: 2;
+            display: flex;
+            align-items: center;
+        }
+    }
     .addFile
     {
         margin: 0px;
@@ -106,6 +127,10 @@
             background-color: #F2F0ED;
             border-radius: 5px;
             align-self: center;
+            &:focus 
+            {
+                outline: none;
+            }
         }
     }
     .moreAbout

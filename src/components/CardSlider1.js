@@ -17,7 +17,7 @@ function CardSlider1(props) {
     //     inputDesc?.current?.setAttribute('style' , 'background-color:rgba(0,0,0,0);')
     // }
     return (
-        <>
+        <a href={`${props.link}`}>
             
                 <div className="cardSlider1" style={imgHandler}>
                     <div className="cardSlider2"  >
@@ -28,7 +28,7 @@ function CardSlider1(props) {
                         </div>
                     </div>
                 </div>
-        </>
+        </a>
     )
 }
 

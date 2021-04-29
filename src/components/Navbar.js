@@ -9,9 +9,10 @@ function Navbar() {
                 <div className='dropCont'> 
                     <p className='dropTitle'>Haqqımızda</p>
                     <div className='dropMenu'> 
-                        <p className='dropSubTitle'>Salam1</p>
-                        <p className='dropSubTitle'>Salam2</p>
-                        <p className='dropSubTitle'>Salam3</p>
+                        <Link to='/who' className='dropSubTitle'>Biz kimik</Link>
+                        <Link to='/suppliers' className='dropSubTitle'>Tədarükçülər</Link>
+                        <Link to='/quality' className='dropSubTitle'>Keyfiyyət</Link>
+                        <Link to='/reviews' className='dropSubTitle'>Şərhlər</Link>
                     </div>
                 </div>
                 <a href="/elaqe">Əlaqə</a>

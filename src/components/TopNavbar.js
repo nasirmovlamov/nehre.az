@@ -54,8 +54,8 @@ function TopNavbar(props) {
     const searchTopMQ = useMediaQuery('(min-width:1000px)');
     const enableMobile = useMediaQuery('(min-width:650px)') 
     const elements = useMediaQuery('(min-width:650px)') 
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice , FinalWeight, setFinalWeight,FinalGoods, setFinalGoods] = useContext(ProductListingContext)
-
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+    
     const [UserData, setUserData] = useState(0)
     useEffect(() => {
         if (UserData?.id === undefined) {
@@ -92,23 +92,26 @@ function TopNavbar(props) {
     const [moneyType, setmoneyType] = useState("₼")
 
     const moneyChanger = () => {
-        if(moneyType === "₼")
+        if(money === "₼")
         {
-            setmoneyType("$")
+            sessionStorage.setItem('money' , "$")
+            window.location.reload();
             setdrop1(false)
         }
         else 
         {
-            setmoneyType("₼")
+            sessionStorage.setItem('money' , "₼")
+            window.location.reload();
             setdrop1(false)
         }
     }
 
     
-    var lang = ["AZ" , "EN" , "RU"]
-    const [langM, setlangM] = useState(lang[0])
+    
     const languageChanger = (lang) => {
-        setlangM(lang)
+        sessionStorage.setItem('lang' , lang)
+        window.location.href = `nehra.az/locale/${lang}`
+        window.location.reload();
     }
     
     const langChangerMouseLeave1 = () => {
@@ -170,7 +173,7 @@ function TopNavbar(props) {
                 <div className="assortmentDrawer">
                         <button onClick={() => DrawerAssort()} className="title"><WidgetsIcon /> <p> Məhsul Çeşidləri </p> <ArrowDropUpIcon/></button>
                         <div className='assortmentCont' id='assrtDrawId'>
-                            {props.assortmentArr.map(element => <a href={`/category/${element.id}`}>{element.name}</a>)}
+                            {props.TopCategory.map(element => <a href={`/category/${element.id}`}>{element.name}</a>)}
                         </div >
                 </div>
 
@@ -224,7 +227,7 @@ function TopNavbar(props) {
         >
         <div className="searchSwiperCont">  
             <div className='menu'> <p>Axtarış</p>  <button onClick={toggleDrawer1(anchor, false)}> &#10006;</button></div>  
-            <div className='search'> <input onChange={(e) => searchChange(e)} type="text" placeholder="Axtarış"/> <button onClick={() => searchHandler()} className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button></div> 
+            <div className='search'> <input onChange={(e) => searchChange(e)} type="text" placeholder={lang === "AZ" && `Axtarış` || lang === "EN" && `Search` || lang === "RU" && `Поиск`}/> <button onClick={() => searchHandler()} className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button></div> 
         </div>
     </div>
     );
@@ -241,7 +244,7 @@ function TopNavbar(props) {
 
                         <div className="searchAndIcons">
                             {searchTopMQ && <div className="inputAndIcon">
-                                <input onChange={(e) => searchChange(e)} type="text" placeholder="Axtarış"/>
+                                <input onChange={(e) => searchChange(e)} type="text" placeholder={lang === "AZ" && `Axtarış` || lang === "EN" && `Search` || lang === "RU" && `Поиск`}/>
                                 <button onClick={() => searchHandler()} className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
                             </div>}
 
@@ -253,10 +256,10 @@ function TopNavbar(props) {
                             <div className="selection">
                                 {elements &&<Link to="/">
                                     <div className="shoppingBtnDiv" onMouseLeave={() => langChangerMouseLeave1()}> 
-                                        <button onClick={() => myFunction1(drop1)} onBlur={() => myFunctionBlur1(drop1)} className="shoppingBtn1 dropbtn">{moneyType}</button>
+                                        <button onClick={() => myFunction1(drop1)} onBlur={() => myFunctionBlur1(drop1)} className="shoppingBtn1 dropbtn">{money}</button>
                                         {drop1 && 
                                             <div id="myDropdown" className="dropdown-content">
-                                                <button onClick={() => moneyChanger()}>{moneyType === "₼" ? "$" : "₼"}</button>
+                                                <button onClick={() => moneyChanger()}>{money === "₼" ? "$" : "₼"}</button>
                                             </div>
                                         }
                                     </div>
@@ -264,11 +267,11 @@ function TopNavbar(props) {
                                 {/*  */}
                                 {elements &&<Link to="/">
                                     <div className="shoppingBtnDiv2" onMouseLeave={() => langChangerMouseLeave2()}>
-                                            <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} className="shoppingBtn2">{langM}</button>
+                                            <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} className="shoppingBtn2">{lang}</button>
                                             {drop2 && <div id="myDropdown" className="dropdown-content">
-                                                {langM === "AZ" ? "" : <button onClick={() => languageChanger(lang[0])}>{lang[0]}</button>}
-                                                {langM === "EN" ? "" : <button onClick={() => languageChanger(lang[1])}>{lang[1]}</button>}
-                                                {langM === "RU" ? "" : <button onClick={() => languageChanger(lang[2])}> {lang[2]}</button>}
+                                                {lang === "AZ" ? "" : <button onClick={() => languageChanger(langArr[0])}>{langArr[0]}</button>}
+                                                {lang === "EN" ? "" : <button onClick={() => languageChanger(langArr[1])}>{langArr[1]}</button>}
+                                                {lang === "RU" ? "" : <button onClick={() => languageChanger(langArr[2])}> {langArr[2]}</button>}
                                             </div>}
                                     </div>
                                 </Link>}
@@ -295,7 +298,7 @@ function TopNavbar(props) {
                                     <StarBorderIcon/> 
                                 </Link>}
                                 {elements && <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={() => props.modalOpener()} >  
-                                    <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {FinalPrice + " ₼"}</span>} 
+                                    <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {FinalPrice + " " + money}</span>} 
                                 </button>}
                                 { 
                                     !elements && 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {useContext} from 'react'
 import '../assets/css/productListingPage.css'
 import xalisBal from "../assets/images/xalisBal.jpg"
 import ItemCard from '../components/ItemCard'
@@ -13,6 +13,8 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import ReactLoading from 'react-loading';
+import {ProductListingContext} from '../components/ProductListingProvider'
+
 const useStyles = makeStyles((theme) => ({
     formControl: {
       margin: theme.spacing(1),
@@ -23,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));  
 function ProductListingPage(props) {
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
     const [loader, setloader] = useState(false)
     let { id } = useParams()
     const classes = useStyles();
@@ -84,36 +87,22 @@ function ProductListingPage(props) {
 
             <div className="titleProductsCont">
                 <div className="dateAndItemCont">
-                <FormControl className={classes.formControl}>
-                <InputLabel id="demo-simple-select-label">Tarix</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={age}
-                  onChange={handleChange}
-                >
-                  <MenuItem value={7}>Son 7 gün </MenuItem>
-                  <MenuItem value={30}>Son 30 gün</MenuItem>
-                  <MenuItem value={90}>Son 90 gün</MenuItem>
-                </Select>
-              </FormControl>
-                    <p className="itemsNumber">343 items</p>
+                  <select className="selectionFilter">
+                      <option value="byPopularity">by popularity</option>
+                      <option value="byPopularity">alphabetically</option>
+                      <option value="byPopularity">new</option>
+                      <option value="byPopularity">expensive</option>
+                      <option value="byPopularity">cheaper</option>
+                      <option value="byPopularity">by supplier</option>
+                  </select>
+                    <p className="itemsNumber">{ProductData.length} items</p>
                 </div>
-                <select className="selectionFilter">
-                    <option value="byPopularity">by popularity</option>
-                    <option value="byPopularity">alphabetically</option>
-                    <option value="byPopularity">new</option>
-                    <option value="byPopularity">expensive</option>
-                    <option value="byPopularity">cheaper</option>
-                    <option value="byPopularity">by supplier</option>
-                </select>
             </div>
 
             <div className="productsCont">
-                
                 {
                   loader === true ? <div className="loader"><ReactLoading type={"bubbles"} color={"#2d5d9b"} height={27} width={125} /></div> :
-                  ( ProductData.length >= 1 ? ProductData.map(product =>  <ItemCard ParcelWeight={props.ParcelWeight} setParcelWeight={props.setParcelWeight} NumberOfGoods={props.NumberOfGoods} setNumberOfGoods={props.setNumberOfGoods} setPaymentPrice={props.setPaymentPrice} PaymentPrice={props.PaymentPrice}  modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb}    title={product.title} desc={product.seller_id} price={product.qiymet} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>) : "Məhsul stokda mövcud deyil ")
+                  ( ProductData.length >= 1 ? ProductData.map(product =>  <ItemCard ParcelWeight={props.ParcelWeight} setParcelWeight={props.setParcelWeight} NumberOfGoods={props.NumberOfGoods} setNumberOfGoods={props.setNumberOfGoods} setPaymentPrice={props.setPaymentPrice} PaymentPrice={props.PaymentPrice}  modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb}    title={product.title} desc={product.seller_id} price={money === "₼" ? product.qiymet : Math.floor(product.qiymet / 1.7)} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>) : "Məhsul stokda mövcud deyil ")
                 }
             </div>
         </div>

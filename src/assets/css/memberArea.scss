@@ -6,6 +6,63 @@
     margin-top: 25px;
     column-gap: 40px;
     justify-content: center;
+    .balanceCont
+    {
+        display: flex;
+        width: 100%;
+        justify-content: flex-start;
+        button 
+        {
+            margin-left: 20px;
+            height: 40px;
+            font-size: 15px;border: none;font-family: "DaxlineR";border-radius: 10px;color: white;background-color: #285999;
+        }
+    }
+    .FlexContPass
+    {
+        display: flex;
+        flex-direction: column;
+        grid-gap: 10px;
+        margin-top: 10px;
+        .key 
+        {
+            width: auto;
+            font-size: 18px;
+            margin-top: 15px;
+            color: #525252;
+            font-weight: 700;
+            font-family: "DaxlineR";
+            opacity: 0.8;
+            p 
+            {
+                width: auto;
+                text-align: start;
+            }
+        }
+        .value 
+        {
+            width: 98%;
+            font-size: 17px;
+            color: #525252;
+            justify-self: start;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 5px;
+            padding-left: 2%;
+            font-weight: 600;
+            color: gray;
+            font-family: inherit;
+            border:1px solid lightgray;
+        }
+        .errors
+        {
+            display: flex;
+            flex-direction: column;
+            row-gap: 5px;
+            color: red;
+            font-family: "DaxlineR";
+        }
+    }
     .OrderNotFound
     {
         padding-top: 20px !important;

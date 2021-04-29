@@ -16,6 +16,7 @@ function CheckoutPage(props) {
 
     const [loader, setloader] = useState(false)
     const [selectedValue, setselectedValue] = useState(1)
+    const [selectedDateTime, setSelectedDateTime] = useState(1)
 
     const imgHandler = {
         background: `url(${props.image}) no-repeat`,
@@ -29,7 +30,14 @@ function CheckoutPage(props) {
             document.getElementById(`checkBox${i}`).checked = false
         }
         document.getElementById(`checkBox${num}`).checked  = true
-        console.log(document.getElementById(`checkBox${num}`).value)
+    }
+    const clickHandler2 = (num) => {
+        for (var i =1; i<3; i++)
+        {
+            document.getElementById(`checkBoxx${i}`).checked = false
+        }
+        document.getElementById(`checkBoxx${num}`).checked  = true
+        // setSelectedDateTime(document.getElementById(`checkBoxx${num}`).name)
     }
     
     const token = Cookies.getItem('XSRF-TOKEN')
@@ -82,9 +90,17 @@ function CheckoutPage(props) {
                             <ErrorMessage name="address"/>
                         </div>
                     </div>
-                        <p className="title">Ödəniş növü</p>
+
+                    <p className="title">Çatdırılma günü</p>
+
                     <div className="typeOfPayment">
-                        <div className="type1"><input value='1' name="doorCash" checked="true"  id="checkBox1" onClick={() => clickHandler(1)} type="checkbox"></input> <label>Qapıda Nağd </label></div>
+                        <div className="type1"><input value='1' name="dateTime1" checked="true"  id="checkBoxx1" onClick={() => clickHandler2(1)} type="checkbox"></input> <label>24 Aprel</label></div>
+                        <div className="type2"><input value='2' name="dateTime2" id="checkBoxx2" onClick={() => clickHandler2(2)} type="checkbox"></input> <label>32 Aprel</label></div>
+                    </div>
+
+                    <p className="title">Ödəniş növü</p>
+                    <div className="typeOfPayment">
+                        <div className="type1"><input value='1' name="doorCash" checked="true"  id="checkBox1" onClick={() => clickHandler(1)} type="checkbox"></input> <label>Terminalla</label></div>
                         <div className="type2"><input value='2' name="doorCard" id="checkBox2" onClick={() => clickHandler(2)} type="checkbox"></input> <label>Qapıda Kartla</label></div>
                         <div className="type3"><input value='3' name="fromPoint" id="checkBox3" onClick={() => clickHandler(3)} type="checkbox"></input> <label>Balansdan </label></div>
                         <div className="type3"><input value='4' name="onlinePayment" id="checkBox4" onClick={() => clickHandler(4)} type="checkbox"></input> <label>Online </label></div>

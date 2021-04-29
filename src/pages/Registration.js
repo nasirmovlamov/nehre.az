@@ -26,7 +26,7 @@ import AuthSms from '../components/AuthSms';
 
 toast.configure()
 function Registration(props) {
-    // The first commit of Material-UI
+// The first commit of Material-UI
 const notify = () => toast.info("Hesabınız müvəffəqiyyətlə yaradıldı!");
 const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!");
 
@@ -39,31 +39,46 @@ const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!")
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
-    const phoneRegExp = /([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/
+    // const phoneRegExp = /^.*$/
     const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
     
     const [Error, setError] = useState(false)
     const [userId, setuserId] = useState('')
     const onSubmit =  (values) => {
+        let defualtValue = '994'
+        if (phoneValue.length > 9) {
+            defualtValue += phoneValue.slice(1,10)
+        }
+        else 
+        {
+            defualtValue += phoneValue
+        }
         setloader(true)
         const dt = new FormData()
         dt.append('name' , values.name)
         dt.append('email' , values.email)
-        dt.append('phone' , values.phone.slice(1,14))
+        dt.append('phone' ,   defualtValue)
         dt.append('password' , values.password)
         dt.append('birthdate' , selectedDate)
         if (profilePhoto !== null) {
             dt.append('profilePhoto' , profilePhoto)
         }
-        dt.append('auth_type' , authT)
+        dt.append('auth_type' , 1)
         axios.post('https://nehra.az/public/api/login', dt , headers)
-        .then(res => (setloader(false) , console.log(res.data) ,  res.status === 200 && (localStorage.setItem("LoginUserData" , JSON.stringify(res.data)) ,  notify() ,  handleOpen() ) ) ) 
+        .then(res => (setloader(false) , res.status === 200 && (localStorage.setItem("LoginUserData" , JSON.stringify(res.data)) ,  notify() ,  handleOpen() ) ) ) 
         .catch(err => (setloader(false) , setError(true)) )
     }
+
+    const [phoneValue, setphoneValue] = useState()
+    const handleChange1 = (e) => {
+        const value = e.target.value.replace(/\D/g, "");
+        setphoneValue(value);
+    }
+
     const initialValues = {
         name:'',
         email:'',
-        phone:'',
+        // phone:'',
         password:'',
         confirmPassword:'',
     }
@@ -94,7 +109,7 @@ const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!")
     const validationSchema = yup.object({
         name: yup.string().required('Adınızı daxil edin'),
         email: yup.string().email('Emailinizi düzgün daxil edin').required('Emailinizi daxil edin'),
-        phone:  yup.string().matches(phoneRegExp, 'Telefon nömrəsini düzgün daxil edin').required('Telefon nömrənizi daxil edin'),
+        // phone:  yup.string().required('Telefon nömrənizi daxil edin'),
         password: yup.string().matches(passRegex ,'Şifrəniz ən az 8 simvol 1 böyük hərf 1 kiçik hərf və 1 rəqəm təşkil etməlidir').required('Şifrənizi daxil edin'),
         confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Şifrələr uyğun deyil').required("Şifrənizi daxil edin")
     })
@@ -150,17 +165,17 @@ const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!")
 
                     <label  className="key" >Telefon Nömrəsi</label>            
                     <div className="errors">            
-                        <Field className="value" name="phone" placeholder="Telefon Nömrəsi"/>
+                        <div className='phoneCont'> <span>+994</span> <Field required value={phoneValue} onChange={handleChange1} className="value" maxlength='10' minlength='9' type='text' name="phone" placeholder="0555555555"/></div>
                         <ErrorMessage name="phone"/>
                     </div>
 
                     <label  className="key" ></label>                                        <LocalizationProvider dateAdapter={AdapterDateFns}> <DatePicker label="Doğum tarixiniz"  value={selectedDate} minDate={'02-01-1920'} maxDate={'02-29-2020'} inputFormat="dd/MM/yyyy" onChange={(newValue) => { setSelectedDate(newValue); }} renderInput={(params) => <TextField {...params} />}/></LocalizationProvider>
 
-                    <label  className="key" >Hesab təsdiqləmə növü</label>
-                    <div className="authType">
+                    {/* <label  className="key" >Hesab təsdiqləmə növü</label> */}
+                    {/* <div className="authType">
                         <div className="authTypeCh authTypeCh1"><input checked className="authType1" onClick={() => authTypeHandler(1)}  type="checkbox" name="sms" id=""/> <label htmlFor="">Telefon</label></div>
                         <div className="authTypeCh authTypeCh2"><input className="authType2" onClick={() => authTypeHandler(2)} type="checkbox" name="sms" id=""/> <label htmlFor="">Elektron poçt</label></div>
-                    </div>
+                    </div> */}
 
                     <label  className="key" >Profil Şəkli</label>                           <button type="button" className="addFile"> <p className="textPhoto">{profilePhoto?.name !== undefined ? profilePhoto.name  : "Şəklinizi yükləyin"}</p><input onChange={ppchanger} type="file" className="addFileInput" name="profile" id=""/></button>
                     <button className="submitBtn"  type="submit" >Submit {loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={"30px"} width={"30px"} />}</button>

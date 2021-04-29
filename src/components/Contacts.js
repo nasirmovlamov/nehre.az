@@ -10,22 +10,22 @@ import * as Yup from 'yup';
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import ReactLoading from 'react-loading';
+import AuthSms from '../components/AuthSms'
+import Modal from '@material-ui/core/Modal';
+import BalanceUp from './BalanceUp';
 
 toast.configure()
 function Contacts(props) {
     const [UserData, setUserData] = useState(0)
     const phoneRegExp = /([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/
-
-
-
     const [selectedDate, setSelectedDate] = React.useState(new Date('2000-08-18T21:11:54'));
+
     const handleDateChange = (date) => {
         setSelectedDate(date);
       };
     useEffect(() => {
         if (UserData?.id === undefined) {
             setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
-            console.log("ALO")
         }
     })
     
@@ -92,7 +92,14 @@ function Contacts(props) {
         phone: Yup.string().matches(phoneRegExp, 'Telefon nömrəsini düzgün daxil edin').required(),
     })
 
+    const [open, setOpen] = React.useState(false);
 
+    const handleOpen = () => {
+        setOpen(true);
+    }
+    const handleClose = () => {
+        setOpen(false);
+    }
 
     return (
         <div className="contactCont123">
@@ -101,7 +108,7 @@ function Contacts(props) {
                 <Form  className="gridCont">
                     <p className="name key">* Name and Surname</p> <Field  className="value"  placeHolder={`${UserData.name}`}  type="text" name="name" />
                     <div className="loader"><ErrorMessage name="name"/></div>
-                    <p className="key">Balance</p> <p className="valueBalance">{UserData.balance === null ? 0 : UserData.balance} AZN</p>
+                    <p className="key">Balance</p> <div className='balanceCont'><p className="valueBalance">{UserData.balance === null ? 0 : UserData.balance} AZN</p>  <button onClick={() => handleOpen()} type='button'>Balansı artır</button></div>
                     <p className="email key ">* Email</p> <Field placeHolder={`${UserData.email}`} className="value"  type="email" name="email" />
                     <div className="loader"><ErrorMessage name="email"/></div>
                     <p className="phone key">* Phone</p> <Field placeHolder={`${UserData.phone}`} className="value"  type="num  " name="phone" />
@@ -113,7 +120,13 @@ function Contacts(props) {
                     <div className="loader">{loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={"35px"} width={"80px"} />}</div>
                 </Form>
             </Formik>
-
+            <Modal  
+                style={{display:"flex", justifyContent:"center",overflow:"auto"}}
+                open={open}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description">
+                {<BalanceUp UserId={UserData?.id} functionClose={() => handleClose() } />}
+            </Modal>
         </div>
     )
 }

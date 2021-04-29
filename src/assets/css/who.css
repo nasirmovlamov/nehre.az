@@ -1,0 +1,138 @@
+.whoPage {
+  width: 70%;
+  min-height: 700px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: auto;
+}
+
+.whoPage .topPart {
+  width: 100%;
+  height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: start;
+  background-color: #fff;
+  padding-bottom: 10px;
+  padding-top: 50px;
+}
+
+.whoPage .topPart .titleProducts {
+  width: 100%;
+  height: auto;
+}
+
+.whoPage .topPart .titleProducts .category {
+  margin-top: 0px;
+}
+
+.whoPage .topPart .titleProducts .category span:nth-child(1) {
+  opacity: 0.33;
+  font-weight: 700;
+}
+
+.whoPage .topPart .titleProducts .categoryName {
+  font-size: 33px;
+  color: #3d332d;
+}
+
+.whoPage .bannerWho {
+  width: 94%;
+  height: 184px;
+  padding: 20px 3% 20px 3%;
+  background-color: #1f62bb;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+}
+
+.whoPage .bannerWho hr {
+  width: 45%;
+}
+
+.whoPage .bannerWho .title {
+  font-size: 33px;
+  font-family: 'DaxlineR';
+}
+
+.whoPage .bannerWho .text {
+  font-size: 21px;
+  font-family: 'DaxlineR';
+}
+
+.whoPage .imgVideoText {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  row-gap: 20px;
+}
+
+.whoPage .imgVideoText iframe {
+  width: 65%;
+  border: none;
+}
+
+.whoPage .imgVideoText hr {
+  width: 65%;
+  border: none;
+  height: 2px;
+  background-color: #1f62bb;
+}
+
+.whoPage .imgVideoText .text {
+  width: 65%;
+  font-size: 18px;
+  font-family: "DaxlineR";
+  color: #616060;
+}
+
+@media screen and (max-width: 1011px) {
+  .whoPage {
+    width: 95%;
+    text-align: center;
+  }
+  .whoPage .bannerWho {
+    height: auto;
+  }
+  .whoPage .bannerWho hr {
+    width: 85%;
+  }
+  .whoPage .imgVideoText iframe {
+    width: 100%;
+  }
+  .whoPage .imgVideoText hr {
+    width: 90%;
+  }
+  .whoPage .imgVideoText .text {
+    width: 90%;
+  }
+}
+/*# sourceMappingURL=who.css.map */

@@ -33,6 +33,7 @@ import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import Orders from './Orders'
+import Bookmarks from './Bookmarks'
 const stylesForSwiper = makeStyles({
     list: {
       width: "100%",
@@ -105,15 +106,7 @@ function addAddress(props){return (
         </form>
     </div>
 ) }
-function bookmarks(props){return (
-    <div className="cabinetCont bookmarks ">
-        <p className="title">Featured Products</p>
-        <p className="selection"><button className="button"><HelpOutlineIcon/> Assortment for: <p>all dates <ArrowRightIcon/></p> </button></p>
-        <div className="gridCont1">
-            {<ItemCard />}
-        </div>
-    </div>
-) }
+
 
 function reminders(props){return (
     <div className="cabinetCont orders bookmarks reminders">
@@ -294,7 +287,7 @@ function MemberArea(props) {
                     <Route path="/memberarea/password"><PasswordUpdate/></Route>
                     <Route path="/memberarea/address/add">{addAddress}</Route>
                     <Route path="/memberarea/address">{address}</Route>
-                    <Route path="/memberarea/bookmarks">{bookmarks}</Route>
+                    <Route path="/memberarea/bookmarks"><Bookmarks/></Route>
                     <Route path="/memberarea/orders"><Orders/></Route>
                     <Route path="/memberarea/reminders">{reminders}</Route>
                     <Route path="/memberarea/bonuses">{bonuses}</Route>

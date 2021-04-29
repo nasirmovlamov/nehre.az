@@ -19,6 +19,33 @@
           flex-direction: column;
 }
 
+.registrationPage .phoneCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: black;
+}
+
+.registrationPage .phoneCont input {
+  width: 285px !important;
+}
+
+.registrationPage .phoneCont span {
+  height: 38px;
+  padding-left: 5px;
+  background-color: #F2F0ED;
+  border-radius: 5px;
+  margin-right: -10px;
+  font-family: "Arial";
+  z-index: 2;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .registrationPage .addFile {
   margin: 0px;
   padding: 0px;
@@ -131,6 +158,10 @@
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
+}
+
+.registrationPage .login .value:focus {
+  outline: none;
 }
 
 .registrationPage .moreAbout {

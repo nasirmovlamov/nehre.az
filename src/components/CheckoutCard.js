@@ -17,7 +17,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 function CheckoutCard(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr] = useContext(ProductListingContext)
     const checkoutMobile = useMediaQuery('(max-width:600px)');
 
     const [Product, setProduct] = useState()
@@ -70,7 +70,7 @@ function CheckoutCard(props) {
                             <div className="aboutItem">
                             
                                 <p className="title">{Product?.title}</p>
-                                <p className="priceAndWeight">{ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost} ₼  / {Product?.ceki_hecm} g.</p>
+                                <p className="priceAndWeight">{ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost} {money}  / {Product?.ceki_hecm} g.</p>
                                 <div className="dates">
                                     <DarkTT title="Delivery possible for" placement="top" arrow>
                                     <div className="date">Be</div>
@@ -101,7 +101,7 @@ function CheckoutCard(props) {
                                         <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm)} value={<AddIcon/>}  color="#085096"/>
                                     </div>
 
-                                    <p className="price">{Product?.id !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count * ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost) : 0}  ₼</p>
+                                    <p className="price">{Product?.id !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count * ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost) : 0}  {money}</p>
                                     <button onClick={() => props.deleteCard(Product?.id , Product?.price)} className="delete"><DeleteIcon/></button>
                                 </>    
                             }

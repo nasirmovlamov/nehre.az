@@ -11,6 +11,7 @@
       -ms-flex-direction: column;
           flex-direction: column;
   text-align: start;
+  color: black;
   padding: 20px;
   -webkit-transition: 1s -webkit-box-shadow;
   transition: 1s -webkit-box-shadow;

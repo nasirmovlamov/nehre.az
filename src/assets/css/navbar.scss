@@ -60,7 +60,7 @@
                 transition: 0.5s all;
                 height: 125px;
                 margin-top: 185px;
-                p 
+                a
                 {
                     margin: 0px;
                     opacity: 1;
@@ -76,6 +76,10 @@
                     &:nth-child(3)
                     {
                         transition: 1.2s all;
+                    }
+                    &:nth-child(4)
+                    {
+                        transition: 1.5s all;
                     }
                     height: 70px;
                     transform: rotateY(0deg);
@@ -99,10 +103,10 @@
             z-index: 123312;
             display: flex;
             transition: all 0.3s;
-            p 
+            a
             {
                 
-                &:nth-child(3)
+                &:nth-child(4)
                 {
                     border-radius: 0px 0px 10px 10px ;
                 }

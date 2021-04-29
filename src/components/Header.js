@@ -42,6 +42,9 @@ import AuthSmsL from '../components/AuthSmsL'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import {ProductListingContext} from '../components/ProductListingProvider'
+import Quality from '../pages/Quality'
+import Who from '../pages/Who'
+import Contacts from './Contacts'
 
 function Header() {
   // const TopNavbar = useMediaQuery('(min-width:600px)');
@@ -56,11 +59,15 @@ function Header() {
         .then(res => (res.status ===200 && handleOpenSMS()) )
     
   }
+  const logout = () => {
+    localStorage.clear()
+    window.location.reload()
+  }
   const notifyAuth = () => toast.error(
     <div className="authCont">
       <p className="title">Hesabınızı təsdiqləyin!</p>  
-      <button onClick={() => smsHandle()} className='phoneAuth'>Telefonla təsdiqləmək üçün klikləyin</button>
-      <button onClick={() => smsHandle()} className='emailAuth'>Elektron poçtla təsdiqləmək üçün klikləyin</button>
+      <button onClick={() => smsHandle()} className='phoneAuth'>Telefonla təsdiqləmək</button>
+      <button onClick={() => logout()} className='phoneAuth'>Çıxış</button>
     </div>
     , {
     position: "top-right",
@@ -100,12 +107,12 @@ function Header() {
     }
   })
   
-  Assortment.map(assortment => ( assortmentArr.push( <AssortmentCard title={assortment.name} desc={assortment.count} image={assortment.thumb}/>)))
+  Assortment.map(assortment => ( assortmentArr.push( <AssortmentCard id={assortment.id} title={assortment.name} desc={assortment.count} image={assortment.thumb}/>)))
   const styleBtn =  {
     position: "fixed",
     width: "60px",
     height: "60px",
-    backgroundColor: "#285999",
+    backgroundColor: "#aebaa3",
     bottom:"50px",
     right:"50px",
     border:'none',
@@ -116,7 +123,7 @@ function Header() {
     position: "fixed",
     width: "60px",
     height: "60px",
-    backgroundColor: "#285999",
+    backgroundColor: "#aebaa3",
     bottom:"50px",
     left:"50px",
     border:'none',
@@ -140,7 +147,6 @@ function Header() {
     if(UserData?.id !== undefined)
     {
       setOpen2(true);
-      
     }
     else 
     {
@@ -157,10 +163,18 @@ function Header() {
     setOpen2(false);
   };
   const  history = useHistory();
+
+  const [statusOK, setstatusOK] = useState()
   const handleOpen3 = () => {
-    UserData?.id !== undefined ? ( sessionStorage.getItem('status') == 1 ? window.location.href = '/memberarea'  : notifyAuth()) :  setOpen3(true) ;
+    UserData?.id !== undefined ? axios.get(`https://nehra.az/public/api/checkstatus?user_id=${JSON.parse(localStorage.getItem('LoginUserData'))?.id}`)
+                                      .then(res => (res.data == 1 ? window.location.href = '/memberarea'  : notifyAuth())) 
+                                      :  setOpen3(true)
+      
   }
-  
+  useEffect(() => {
+    axios.get(`https://nehra.az/public/api/checkstatus?user_id=${JSON.parse(localStorage.getItem('LoginUserData'))?.id}` )
+         .then(res =>  setstatusOK(res.data))
+  }, []) 
   const handleClose3 = () => {
     setOpen3(false)  
   };
@@ -241,13 +255,7 @@ function Header() {
         
       });
     
-    useEffect(() => {
-      if (JSON.parse(localStorage.getItem('LoginUserData'))?.id  !== undefined) {
-          axios.get(`https://nehra.az/public/api/checkstatus?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
-              .then(res => sessionStorage.setItem('status' , res.data))
-      }
-    }, [])
-
+    
 
     const  scrolltoTop = () =>  {
       window.scroll(0,0)
@@ -267,7 +275,7 @@ function Header() {
     }
     
 
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice , FinalWeight, setFinalWeight,FinalGoods, setFinalGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money,langArr] = useContext(ProductListingContext)
 
 
     return (
@@ -277,9 +285,9 @@ function Header() {
            
             <div className="AllCont">
                 <button type="button" style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button>
-                <button type="button" className='checkMBtnC' style={checkMBtn} onClick={() => handleOpen()}><ShoppingBasketIcon width='60px' height='60px'/> {FinalPrice > 0 && (FinalPrice + " ₼")}</button>
+               { !MidNavbar &&  <button type="button" className='checkMBtnC' style={checkMBtn} onClick={() => handleOpen()}><ShoppingBasketIcon width='60px' height='60px'/> {FinalPrice > 0 && (FinalPrice + " ₼")}</button> }
 
-                <TopNavbar assortmentArr={Assortment} PaymentPrice={PaymentPrice} number2={number2} number1={number1} UserData={UserData}  modalOpener={handleOpen} modalOpener3={handleOpen3}/>
+                <TopNavbar TopCategory={TopCategory} assortmentArr={Assortment} PaymentPrice={PaymentPrice} number2={number2} number1={number1} UserData={UserData}  modalOpener={handleOpen} modalOpener3={handleOpen3}/>
                 {MidNavbar && <Navbar/>}
 
                 <header id="header" className="header">
@@ -288,15 +296,18 @@ function Header() {
                 </header>
 
                 <Switch>
-                    <Route   path={`/category/:id`}>          <ProductListingPage  PaymentPrice={PaymentPrice} />                                         </Route>
-                    <Route   path="/about" >                  <About/>                                                                 </Route>
-                    <Route   path="/search" >                  <SearchResult/>                                                                 </Route>
-                    <Route   path="/reviews" >                <ReviewPage/>                                                            </Route>
-                    <Route   path="/memberarea">              {UserData?.id !== undefined  ?  <MemberArea  UserData={UserData}/> : <F04/> }    </Route>
-                    <Route  path="/promotions" >              <ProductListingPage category="Promotional products" notags={1}/>          </Route>
-                    <Route  path="/suppliers/:id" >           <SelectedSupplier/>                                                            </Route>
-                    <Route  path="/suppliers" >               <Suppliers/>                                                              </Route>
-                    <Route  path="/" >                        <HomePage assortmentArr={assortmentArr} modalOpener3={handleOpen3}/>        </Route>
+                    <Route   path={`/category/:id`}>            <ProductListingPage  PaymentPrice={PaymentPrice} />                                               </Route>
+                    <Route   path="/about" >                    <About/>                                                                                          </Route>
+                    <Route   path="/contact" >                  <Contacts/>                                                                                       </Route>
+                    <Route   path="/who" >                      <Who/>                                                                                            </Route>
+                    <Route   path="/quality" >                  <Quality/>                                                                                        </Route>
+                    <Route   path="/reviews" >                  <ReviewPage/>                                                                                     </Route>
+                    <Route   path="/search" >                   <SearchResult/>                                                                                   </Route>
+                    {statusOK && <Route   path="/memberarea">   {(UserData?.id !== undefined  && statusOK == 1) ?  <MemberArea  UserData={UserData}/> : <F04/> }  </Route>}
+                    <Route  path="/promotions" >                <ProductListingPage category="Promotional products" notags={1}/>                                  </Route>
+                    <Route  path="/suppliers/:id" >             <SelectedSupplier/>                                                                               </Route>
+                    <Route  path="/suppliers" >                 <Suppliers/>                                                                                      </Route>
+                    <Route  path="/" >                          <HomePage assortmentArr={assortmentArr} modalOpener3={handleOpen3}/>                              </Route>
                 </Switch>
                 
                 <Footer/>

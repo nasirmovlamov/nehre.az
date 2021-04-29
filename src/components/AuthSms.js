@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../assets/css/authSms.css'
 import { ToastContainer, toast } from 'react-toastify';
 import { useState } from 'react';
+import Modal from '@material-ui/core/Modal';
 
 function AuthSms(props) {
     const [Phone, setPhone] = useState(JSON.parse(localStorage.getItem('LoginUserData')).phone)
@@ -19,7 +20,7 @@ function AuthSms(props) {
     return (
         <div className='authSms'>
             <p className="tit">Hesab Təsdiqləmə</p>
-            +{Phone} <br/> Nömrəsinə göndərilən kodu <br/> Daxil edin
+            {Phone} <br/> Nömrəsinə göndərilən kodu <br/> Daxil edin
             <input onChange={(e) => onChange(e)} type="text" name="" id=""/>
         </div>
     )

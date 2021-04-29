@@ -20,7 +20,16 @@
 }
 
 .Toastify__toast-container {
-  width: 450px !important;
+  width: 350px !important;
+}
+
+.Toastify__toast--error {
+  background: white !important;
+  border-radius: 20px !important;
+}
+
+.Toastify__close-button {
+  color: black !important;
 }
 
 .authCont {
@@ -34,10 +43,15 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   text-align: center;
   row-gap: 10px;
   height: auto;
-  width: 400px;
+  width: 300px;
+  background-color: white;
+  font-family: 'DaxlineR';
 }
 
 .authCont p {
@@ -46,10 +60,15 @@
 
 .authCont .title {
   font-size: 24px;
+  color: black;
 }
 
 .authCont button {
-  background-color: #1f62bb;
+  border-radius: 20px !important;
+  background-color: #AEBAA3;
+  font-family: 'DaxlineR';
+  width: 262px;
+  height: 40px;
   color: white;
   border: none;
   border-radius: 10px;

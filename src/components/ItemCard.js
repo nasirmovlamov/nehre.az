@@ -25,8 +25,12 @@ import {ProductListingContext} from '../components/ProductListingProvider'
 import moment from 'moment';
 import 'moment/locale/az';
 import defP from '../assets/images/defP.png'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 function ItemCard(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr] = useContext(ProductListingContext)
     
     const [UserData, setUserData] = useState(0)
     useEffect(() => {
@@ -74,10 +78,10 @@ function ItemCard(props) {
         if (discount !== 0 && discount !== null) {
             var discountPrice = 0;
             discountPrice =  Math.round( ((props.price - (props.price * discount) / 100)) )
-            return discountPrice;         
+            return Math.floor(discountPrice);         
         } 
         else {
-            return props.price
+            return Math.floor(props.price)
         }
     }
 
@@ -135,17 +139,61 @@ function ItemCard(props) {
 
 
 
+
+    //Select ITEM  //Select ITEM
+    const selectItem = (num) => {
+        const notify2 = (rate) => toast.success(`Seçilmişlərdən çıxarıldı` , {draggable: true,});
+        const notify1 = (rate) => toast.success(`Seçilmişlərə Əlavə olundu` , {draggable: true,});
+        if(UserData?.id !== undefined)
+        {  
+            if(sessionStorage.getItem('SecilmishProduct') === null)
+            {
+                sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
+                var selecteds = []
+                selecteds = [...selecteds , {id:num , ParcelWeight:props.ParcelWeight , setParcelWeight:props.setParcelWeight, NumberOfGoods:props.NumberOfGoods, setNumberOfGoods:props.setNumberOfGoods, setPaymentPrice:props.setPaymentPrice, PaymentPrice:props.PaymentPrice,  modalOpener3:props.modalOpener3, cardId:props.cardId, image:props.image,    title:props.title, desc:props.desc, price:props.qiymet, weight:props.price, discount:props.discount,  star:props.star}]
+                sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
+                // document.getElementById(`${props.id}`).setAttribute('style' , 'color:red;')
+                notify1()
+                return 0 
+            }        
+            else 
+            {
+                var selecteds = JSON.parse(sessionStorage.getItem('SecilmishProduct'))
+            }
+
+            var index = selecteds.findIndex(x=> x.id === num)
+            console.log(index);
+            if (index === -1) {
+                selecteds = [...selecteds , {id:num , ParcelWeight:props.ParcelWeight , setParcelWeight:props.setParcelWeight, NumberOfGoods:props.NumberOfGoods, setNumberOfGoods:props.setNumberOfGoods, setPaymentPrice:props.setPaymentPrice, PaymentPrice:props.PaymentPrice,  modalOpener3:props.modalOpener3, cardId:props.cardId, image:props.image,    title:props.title, desc:props.desc, price:props.qiymet, weight:props.price, discount:props.discount,  star:props.star}]
+                sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
+                // document.getElementById(`${props.id}`).setAttribute('style' , 'color:red;')
+                notify1()
+            }
+            else 
+            {
+                var newArr = selecteds.filter((item) => item.id !== num)
+                sessionStorage.setItem('SecilmishProduct' , JSON.stringify(newArr))
+                // document.getElementById(`${props.id}`).setAttribute('style' , 'color:white;')
+                notify2()
+            }
+        }
+        else 
+        {
+            window.location.href = "/login"
+        }
+    }
+    //Select ITEM  //Select ITEM
     return (
-        <div className="itemCard">
+        <div key={props.id} className="itemCard">
             <button  type="button"  className="imgCont" style={imgHandler}>
                 <div className="iconAndBtn">
-                    <button className="favIco">
+                    <button onClick={() => selectItem(props.id)} className="favIco">
                         <StarBorderIcon/>
                     </button>
                 </div>
 
                 <div className="overlayImg">
-                    <button onClick={() => handleOpen()} type="button" >{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</button>
+                    <button  type="button" >{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</button>
                 </div>
 
                 <div className="dates">
@@ -173,8 +221,8 @@ function ItemCard(props) {
             <p className="subTitleItem">{0 && props.desc} Dadlı keyfiyyətli məhsullar</p>
             <div className="textCont">
                 <div className="starAndAbout">
-                    <p className="dscPrc">{(props.discount !== 0 && props.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{(props.price)} ₼</span></span>)}</p>
-                    <p className="priceAndWeightItem"><span className="element1"  style={props.discount && colorChang}>{discountHandler(props.discount)} ₼</span> / <span className="element2">{props.weight}</span> </p>
+                    <p className="dscPrc">{(props.discount !== 0 && props.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{Math.floor(props.price)} {money}</span></span>)}</p>
+                    <p className="priceAndWeightItem"><span className="element1"  style={props.discount && colorChang}>{discountHandler(props.discount)}  {money}</span> / <span className="element2">{props.weight}</span> </p>
                     <StarSystem numberStar={props.star}/>
                 </div>   
                 <BuyButton functionAdd={() => addItem(props.cardId , discountHandler(props.discount))}  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>

@@ -13,6 +13,83 @@
           justify-content: center;
 }
 
+.memberAreaCont .balanceCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.memberAreaCont .balanceCont button {
+  margin-left: 20px;
+  height: 40px;
+  font-size: 15px;
+  border: none;
+  font-family: "DaxlineR";
+  border-radius: 10px;
+  color: white;
+  background-color: #285999;
+}
+
+.memberAreaCont .FlexContPass {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  grid-gap: 10px;
+  margin-top: 10px;
+}
+
+.memberAreaCont .FlexContPass .key {
+  width: auto;
+  font-size: 18px;
+  margin-top: 15px;
+  color: #525252;
+  font-weight: 700;
+  font-family: "DaxlineR";
+  opacity: 0.8;
+}
+
+.memberAreaCont .FlexContPass .key p {
+  width: auto;
+  text-align: start;
+}
+
+.memberAreaCont .FlexContPass .value {
+  width: 98%;
+  font-size: 17px;
+  color: #525252;
+  -ms-grid-column-align: start;
+      justify-self: start;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+  padding-left: 2%;
+  font-weight: 600;
+  color: gray;
+  font-family: inherit;
+  border: 1px solid lightgray;
+}
+
+.memberAreaCont .FlexContPass .errors {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 5px;
+  color: red;
+  font-family: "DaxlineR";
+}
+
 .memberAreaCont .OrderNotFound {
   padding-top: 20px !important;
   padding-bottom: 20px !important;

@@ -81,8 +81,26 @@
     {
         color: red;
         font-weight: 600;
-        font-size: 18px;
+        font-size: 16px;
+        font-family: "DaxlineR";
         margin-top: 5px;
         margin-left: 5px;
+        
+    }
+    .errorsAndForgot
+    {
+        font-family: "DaxlineR";
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px !important;
+        .forgotPassBtn
+        {
+            border: none;
+            font-size: 16px;
+            background-color: transparent;
+            font-family: 'DaxlineR';
+            margin-top: 4px;
+            color: #085096;
+        }
     }
 }

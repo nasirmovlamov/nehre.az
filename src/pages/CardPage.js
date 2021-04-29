@@ -19,7 +19,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { TramRounded } from '@material-ui/icons';
 
 function CardPage(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr] = useContext(ProductListingContext)
     
     const functionHandler = () => {
         if(props.UserId)
@@ -78,7 +78,7 @@ function CardPage(props) {
             
             <main className="mainSide">
                 <p className="title">
-                    <p className="basketTitle">Səbət {FinalPrice < MinOrder   ?  <div className="minOrder"> <InfoIcon/> Minimum sifariş qiyməti {MinOrder} ₼</div> : " " }</p>
+                    <p className="basketTitle">Səbət {FinalPrice < MinOrder   ?  <div className="minOrder"> <InfoIcon/> Minimum sifariş qiyməti {money === '₼' ? MinOrder : Math.floor(MinOrder / 1.7) } {money}</div> : " " }</p>
                     <hr/>
                 </p>
                 <div className="gridCont1">
@@ -104,9 +104,9 @@ function CardPage(props) {
                     <div className="downPart">
                         <div className="goods"><p className="key">Ümumi paketin çəkisi</p> <p className="value ">{FinalWeight}</p> </div> 
                         <div className="goods"><p className="key">Ümumi məhsulların sayı</p> <p className="value ">{FinalGoods}</p> </div> 
-                        <div className="cost"><p className="key">Qiymət</p> <p className="value value2"> {FinalPrice} ₼ </p> </div> 
+                        <div className="cost"><p className="key">Qiymət</p> <p className="value value2"> {money === '₼' ? FinalPrice : Math.floor(FinalPrice )} {money} </p> </div> 
                         <Button1 disabled={FinalPrice < MinOrder ? true : false} value="Ödəniş səhifəsinə keçin" color="#085096" function={props.functionOpenCheckoutPage} /> 
-                        <p className="cashback">Alacağınız ümumi bonus {FinalPrice / 10} ₼ </p>
+                        <p className="cashback">Alacağınız ümumi bonus {money === '₼' ? FinalPrice : Math.floor(FinalPrice   / 10) }  {money} </p>
                     </div>
                 </div>
                     <button   className="clearBucket" onClick={clearBucket}><DeleteIcon/> Səbəti təmizlə</button>

@@ -8,18 +8,32 @@ function ReviewPage() {
             <p className="subTitle">Every feedback is important to us, thank you</p>
 
             <div className="reviewCont">
-                <div className="review">
+                <div className="reviewItem">
                     <div className="supplierCont">
                         <div className="imgCont"></div>
-                        <p className="name"></p>
-                        <p className="type"></p>
+                        <p className="name">Akif Quliyev</p>
+                        <p className="type">Qatiq satan</p>
                     </div>
 
-                    <Review />
-                    <Review />
-                    <Review />
-                    <Review />
+                    <div className='reviews'> 
+                        <Review />
+                        <Review />
+                        <a className='seeAllbutton' href="/suppliers">Bütün şərhləri gör</a>
+                    </div>
+                </div>
+                
+                <div className="reviewItem">
+                    <div className="supplierCont">
+                        <div className="imgCont"></div>
+                        <p className="name">Akif Quliyev</p>
+                        <p className="type">Qatiq satan</p>
+                    </div>
 
+                    <div className='reviews'> 
+                        <Review />
+                        <Review />
+                        <a className='seeAllbutton' href="/suppliers">Bütün şərhləri gör</a>
+                    </div>
                 </div>
 
             </div>

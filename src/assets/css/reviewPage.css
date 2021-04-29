@@ -26,4 +26,98 @@
   font-weight: 600;
   color: #525252;
 }
+
+.reviewPage .reviewCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 50px;
+}
+
+.reviewPage .reviewCont .reviewItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-top: 30px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.reviewPage .reviewCont .reviewItem .supplierCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: auto;
+  height: 421px;
+  background-color: #edf4f6;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.reviewPage .reviewCont .reviewItem .supplierCont .name {
+  font-size: 25px;
+  text-align: center;
+  font-family: 'DaxlineR';
+  margin-top: 5px;
+}
+
+.reviewPage .reviewCont .reviewItem .supplierCont .type {
+  font-size: 16px;
+  font-family: 'DaxlineR';
+  text-align: center;
+}
+
+.reviewPage .reviewCont .reviewItem .supplierCont .imgCont {
+  width: 364px;
+  height: 364px;
+  background-color: red;
+  border-radius: 10px;
+}
+
+.reviewPage .reviewCont .reviewItem .reviews {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.reviewPage .reviewCont .reviewItem .reviews .seeAllbutton {
+  font-size: 18px;
+  padding: 18px 30px;
+  font-family: "DaxlineR";
+  color: #333;
+  background-color: #edf4f6;
+  border-radius: 50px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.reviewPage .reviewCont .reviewItem .reviews .seeAllbutton:hover {
+  background-color: #bec3c4;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
 /*# sourceMappingURL=reviewPage.css.map */

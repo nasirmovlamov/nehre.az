@@ -1,5 +1,8 @@
 import React from 'react'
 import "../assets/css/supplierCard.css"
+import {
+    Link,
+  } from "react-router-dom";
 function SupplierCard(props) {
     const imgHandler = {
         background: `url('https://nehra.az/storage/app/public/${props.image}') no-repeat`,
@@ -17,8 +20,7 @@ function SupplierCard(props) {
         backgroundSize: "cover",
     }
     return (
-        <div className="supplierCard">
-            
+        <Link to={`/suppliers/${props.id}`} className="supplierCard">
             <div className="imgAndAbout">
                 <div className="imgAvatar" style={imgHandler}></div>
                 <div>
@@ -31,7 +33,7 @@ function SupplierCard(props) {
                 <div className="productImg" style={imgHandler2}></div>
                 <div className="productImg" style={imgHandler3}></div>
             </div>
-        </div>
+        </Link>
     )
 }
 

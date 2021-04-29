@@ -71,7 +71,7 @@ function DownNavbar(props) {
         <div className="navCont">
             <nav className="downNavbar">
                 <Slider {...settings}>
-                    {TopCatArr.map(element => element)}
+                    {TopCatArr.map((element, index) => <span key={index}>{element}</span>)}
                 </Slider>
             </nav>
         </div>
