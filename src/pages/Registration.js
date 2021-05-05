@@ -26,10 +26,9 @@ import AuthSms from '../components/AuthSms';
 
 toast.configure()
 function Registration(props) {
-const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
-    // The first commit of Material-UI
-const notify = () => toast.info("Hesabınız müvəffəqiyyətlə yaradıldı!");
-const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!");
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+    const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!");
+    const notify = () => toast.info("Hesabınız müvəfəqiyyətlə yaradıldı!");
 
   const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
   const token = Cookies.getItem('XSRF-TOKEN')
@@ -60,7 +59,7 @@ const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!")
         dt.append('email' , values.email)
         dt.append('phone' ,   defualtValue)
         dt.append('password' , values.password)
-        dt.append('birthdate' , selectedDate)
+        dt.append('birthdate' , selectedDate.toISOString().slice(0,10))
         if (profilePhoto !== null) {
             dt.append('profilePhoto' , profilePhoto)
         }
@@ -134,7 +133,7 @@ const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!")
     
     return (
         <div  className="registrationPage">
-            <div className="buttonCont"><button onClick={() => props.functionCloseReg()} className="removeModalBtn">×</button></div>
+            <div className="buttonCont"><button type='button' onClick={() => props.functionCloseReg()} className="removeModalBtn">×</button></div>
             <p className="title">{lang === "AZ" && `Qeydiyyat` || lang === "EN" && `Registration` || lang === "RU" && `Регистрация`}</p>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} validateOnChange={true} validateOnBlur={false}>

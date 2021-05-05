@@ -28,7 +28,6 @@ import defP from '../assets/images/defP.png'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 function ItemCard(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr] = useContext(ProductListingContext)
     
@@ -136,14 +135,21 @@ function ItemCard(props) {
     var newwednesday = moment(wednesday).format( 'dddd, D MMMM');
     var newthursday = moment(thursday).format( 'dddd, D MMMM');
     var newfriday = moment(friday).format( 'dddd, D MMMM');
-
-
-
+    
+    
+    
+    //Select ITEM  //Select ITEM
+    const [indexSelected, setindexSelected] = useState(JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.id))
+    useEffect(() => {
+        var selecteds = JSON.parse(sessionStorage.getItem('SecilmishProduct'))
+        setindexSelected(selecteds?.findIndex(x=> x.id === props.id))
+    }, [indexSelected])
 
     //Select ITEM  //Select ITEM
     const selectItem = (num) => {
         const notify2 = (rate) => toast.success(`Seçilmişlərdən çıxarıldı` , {draggable: true,});
         const notify1 = (rate) => toast.success(`Seçilmişlərə Əlavə olundu` , {draggable: true,});
+        
         if(UserData?.id !== undefined)
         {  
             if(sessionStorage.getItem('SecilmishProduct') === null)
@@ -166,6 +172,7 @@ function ItemCard(props) {
             if (index === -1) {
                 selecteds = [...selecteds , {id:num , ParcelWeight:props.ParcelWeight , setParcelWeight:props.setParcelWeight, NumberOfGoods:props.NumberOfGoods, setNumberOfGoods:props.setNumberOfGoods, setPaymentPrice:props.setPaymentPrice, PaymentPrice:props.PaymentPrice,  modalOpener3:props.modalOpener3, cardId:props.cardId, image:props.image,    title:props.title, desc:props.desc, price:props.qiymet, weight:props.price, discount:props.discount,  star:props.star}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
+                setindexSelected(1)
                 // document.getElementById(`${props.id}`).setAttribute('style' , 'color:red;')
                 notify1()
             }
@@ -173,6 +180,7 @@ function ItemCard(props) {
             {
                 var newArr = selecteds.filter((item) => item.id !== num)
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(newArr))
+                setindexSelected(-1)
                 // document.getElementById(`${props.id}`).setAttribute('style' , 'color:white;')
                 notify2()
             }
@@ -182,18 +190,21 @@ function ItemCard(props) {
             window.location.href = "/login"
         }
     }
-    //Select ITEM  //Select ITEM
+
     return (
         <div key={props.id} className="itemCard">
             <button  type="button"  className="imgCont" style={imgHandler}>
-                <div className="iconAndBtn">
-                    <button onClick={() => selectItem(props.id)} className="favIco">
-                        <StarBorderIcon/>
-                    </button>
+                <div className="valueAndBtn"> 
+                    {ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count > 0 && <div className='valueBtn'>{ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count}</div>}
+                    <div className="iconAndBtn"> <button onClick={() => selectItem(props.id)} className="favIco"> {parseInt(indexSelected) === -1 ? <StarBorderIcon/> :  <StarIcon/>}</button></div>
                 </div>
 
                 <div className="overlayImg">
-                    <button  type="button" >{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</button>
+                    <div className='overlayBtn'>
+                        {ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count > 0 && <button onClick={() => removeItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType)}>-</button> }
+                        <button  type="button" onClick={handleOpen}>{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</button>
+                        {ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count > 0 && <button onClick={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType)}>+</button>}
+                    </div>
                 </div>
 
                 <div className="dates">
@@ -212,20 +223,18 @@ function ItemCard(props) {
                     <DarkTT title={`${newfriday}  çatdırılma `} placement="top" arrow>
                         <div className="date">C</div>
                     </DarkTT>
-                    
-                    
                 </div>
             </button>
 
             <p className="titleItem">{props.title}</p>
-            <p className="subTitleItem">{0 && props.desc} Dadlı keyfiyyətli məhsullar</p>
+            <p className="subTitleItem">{props.desc}</p>
             <div className="textCont">
                 <div className="starAndAbout">
                     <p className="dscPrc">{(props.discount !== 0 && props.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{Math.floor(props.price)} {money}</span></span>)}</p>
-                    <p className="priceAndWeightItem"><span className="element1"  style={props.discount && colorChang}>{discountHandler(props.discount)}  {money}</span> / <span className="element2">{props.weight}</span> </p>
+                    <p className="priceAndWeightItem"><span className="element1"  style={props.discount && colorChang}>{discountHandler(props.discount)}  {money}</span> / <span className="element2">{props.weight + " " + (parseInt(props.unitType) === 1 && `kq` || parseInt(props.unitType) === 2 && `qr` || parseInt(props.unitType) === 3 && `l` || parseInt(props.unitType) === 4 && `vedrə` )}</span> </p>
                     <StarSystem numberStar={props.star}/>
                 </div>   
-                <BuyButton functionAdd={() => addItem(props.cardId , discountHandler(props.discount))}  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>
+                <BuyButton functionAdd={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType)}  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>
             </div>
             {/* {
                 ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count >= 1 && 
@@ -240,10 +249,9 @@ function ItemCard(props) {
                 <Modal  
                     style={{display:"flex", justifyContent:"center",overflow:"auto"}}
                     open={open}
-                    onClose={handleClose}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description">
-                    {<ProductModal id={props.id} functionClose={handleClose}  title={props.title} desc={props.desc} price={props.price} weight={props.weight} numberStar="3.5"/>}
+                    {<ProductModal indexSelected={indexSelected} selectItem={selectItem} id={props.id} functionClose={handleClose}  title={props.title} desc={props.desc} price={props.price} weight={props.weight} numberStar={props.star}/>}
                 </Modal>
             </div>
         </div>

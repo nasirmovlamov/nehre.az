@@ -1,14 +1,14 @@
 import React from 'react'
 import "../assets/css/certificates.css"
 
-function Certificates() {
+function Certificates(props) {
+    const bgImage = {
+        backgroundImage: `url(https://nehra.az/storage/app/public/${props.Product.cert_thumb})`,
+        backgroundSize: 'cover',
+    }
     return (
         <div className="certificates">
-            
-            <div className="certificate"></div>
-            <div className="certificate"></div>
-            <div className="certificate"></div>
-            <div className="certificate"></div>
+            <a style={bgImage} href={`https://nehra.az/${props.Product.cert_pdf}`} download className="certificate"></a>
         </div>
     )
 }

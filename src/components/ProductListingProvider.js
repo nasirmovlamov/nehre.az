@@ -1,9 +1,13 @@
 import React, {useState , createContext} from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export const ProductListingContext = createContext()
-
 export function ProductListingProvider(props) {
+    const notifyAddBasket = () => toast.success(`Səbətə Əlavə olundu` , {draggable: true, autoClose: 1000,});
     
+
     const [ProdutData, setProdutData] = useState([])
     const [FinalPrice, setFinalPrice] = useState(0)
     const [FinalWeight, setFinalWeight] = useState(0)
@@ -13,11 +17,15 @@ export function ProductListingProvider(props) {
     const [money, setmoney] = useState(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
 
 
-    const addItem = (num,price , weight) => {
-        if(weight !== null && weight !== undefined)
+    const addItem = (num,price , weight , unitType) => {
+        if (unitType === 2) {
+            setFinalWeight(FinalWeight + (parseInt(weight) / 100))
+        }
+        else 
         {
             setFinalWeight(FinalWeight + parseInt(weight))
         }
+
         setFinalPrice(FinalPrice + parseInt(price))
         setFinalGoods(FinalGoods + 1)
         var index = ProdutData.findIndex(x=> x.id === num);
@@ -30,9 +38,10 @@ export function ProductListingProvider(props) {
             newArr[index].count++
             setProdutData(newArr)
         }
-        
+        notifyAddBasket()
     }
-    const removeItem = (num,price , weight) => {
+
+    const removeItem = (num, price , weight , unitType) => {
         var index = ProdutData.findIndex(x=> x.id === num);
         if (ProdutData[index].count >= 1) {
             setFinalPrice(FinalPrice - parseInt(price))

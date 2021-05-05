@@ -109,9 +109,9 @@ function Contacts(props) {
                     <p className="name key">* Name and Surname</p> <Field  className="value"  placeHolder={`${UserData.name}`}  type="text" name="name" />
                     <div className="loader"><ErrorMessage name="name"/></div>
                     <p className="key">Balance</p> <div className='balanceCont'><p className="valueBalance">{UserData.balance === null ? 0 : UserData.balance} AZN</p>  <button onClick={() => handleOpen()} type='button'>Balansı artır</button></div>
-                    <p className="email key ">* Email</p> <Field placeHolder={`${UserData.email}`} className="value"  type="email" name="email" />
+                    <p className="email key ">* Email</p> <Field disabled placeHolder={`${UserData.email}`} className="value"  type="email" name="email" />
                     <div className="loader"><ErrorMessage name="email"/></div>
-                    <p className="phone key">* Phone</p> <Field placeHolder={`${UserData.phone}`} className="value"  type="num  " name="phone" />
+                    <p className="phone key">* Phone</p> <Field disabled placeHolder={`${UserData.phone}`} className="value"  type="num  " name="phone" />
                     <div className="loader"><ErrorMessage name="phone"/></div>
                     <p className="date key">* Birthday</p> <LocalizationProvider dateAdapter={AdapterDateFns}> <DatePicker label="Doğum tarixiniz"  value={selectedDate} minDate={'02-01-1920'} maxDate={'02-29-2020'} inputFormat="dd/MM/yyyy" onChange={(newValue) => { setSelectedDate(newValue.slice(0,10)); }} renderInput={(params) => <TextField {...params} />}/></LocalizationProvider>
                     <p className="key" style={{alignSelf:"start"}}>Profile picture </p> <div className="valueImg" style={imgHandler}></div>

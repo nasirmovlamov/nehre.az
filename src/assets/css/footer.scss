@@ -1,15 +1,22 @@
 footer 
 {
-    width: 1300px;
+    width: 1169px;
     background-color: #edf4f6;
     border-radius: 20px 20px 0px 0px ;
     margin-top: 50px;
     display: flex;
     justify-content: center;
     padding: 25px;
+    .elementsCont
+    {
+        display: flex;
+        flex-direction: column;
+        row-gap: 7px;
+    }
     h3 
     {
         font-family: "DaxlineR";
+        margin-bottom: 4px;
     }
     .footerCont 
     {
@@ -20,7 +27,15 @@ footer
     .social
     {
         display: flex;
-        column-gap: 30px;
+        justify-content: space-between;
+    }
+    a 
+    {
+        color: black;
+        &:hover 
+        {
+            color: gray;
+        }
     }
 }
 

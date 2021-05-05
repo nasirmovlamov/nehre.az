@@ -65,6 +65,11 @@ function CheckoutPage(props) {
     })
 
 
+    const [address, setaddress] = useState([])
+    useEffect(() => {
+        axios.get(`https://nehra.az/public/api/getaddress?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
+            .then(res => setaddress(res.data))
+    }, [])
 
     return (
         
@@ -72,8 +77,8 @@ function CheckoutPage(props) {
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} validateOnChange={true} validateOnBlur={false}>
                 <Form  method="POST">
                     <div className="buttonCont"><button onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
-                    <p className="title">{lang === "AZ" && `Əlaqə Məlumatları` || lang === "EN" && `Contact Details` || lang === "RU" && `Контактная информация`}</p>
-                    <div className="inputCont">
+                    {/* <p className="title">{lang === "AZ" && `Əlaqə Məlumatları` || lang === "EN" && `Contact Details` || lang === "RU" && `Контактная информация`}</p> */}
+                    {/* <div className="inputCont">
                         <div className="errors">
                             <Field name='name' type="text"  placeholder={lang === "AZ" && `Adınız Soyadınız` || lang === "EN" && `Name Surname` || lang === "RU" && `Имя Фамилия`}/>
                             <ErrorMessage name="name"/>
@@ -82,12 +87,13 @@ function CheckoutPage(props) {
                             <Field name='email' type="email" placeholder={lang === "AZ" && `nümunə@gmail.com` || lang === "EN" && `example@gmail.com` || lang === "RU" && `example@gmail.com`}/>
                             <ErrorMessage name="email"/>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="deliveryAddress">
                         <p className="title">{lang === "AZ" && `Çatdırılma olacaq ünvan` || lang === "EN" && `Delivery Address` || lang === "RU" && `Адресс доставки`}</p>
                         <div className="errors">
-                            <Field name='address' placeholder={lang === "AZ" && `Çatdırılma olacaq ünvan` || lang === "EN" && `Delivery Address` || lang === "RU" && `Адресс доставки`} className="address" />
-                            <ErrorMessage name="address"/>
+                            {/* <Field name='address' placeholder={lang === "AZ" && `Çatdırılma olacaq ünvan` || lang === "EN" && `Delivery Address` || lang === "RU" && `Адресс доставки`} className="address" /> */}
+                            {/* <ErrorMessage name="address"/> */}
+                            {address?.map((address , index) => <div key={address.id} className='addressElement'><p className='addressText'>{(index+1) + ". "}{address.adres}</p></div>)}
                         </div>
                     </div>
 

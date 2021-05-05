@@ -8,14 +8,9 @@ function App() {
   
   return (
     <ProductListingProvider>
-      <Router>
-        <Switch>
-            <Route path="/">
-              <Header />
-            </Route>
-            
-      </Switch>
-      </Router>
+      <>
+        <Header/>
+      </>
     </ProductListingProvider>
 
   );

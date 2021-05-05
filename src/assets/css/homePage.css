@@ -40,10 +40,11 @@ a, button {
 }
 
 .homePage .deliveryText {
-  font-size: 40px;
+  font-size: 25px;
   text-align: start;
   width: 100%;
   padding-top: 40px;
+  font-family: 'DaxlineR';
   color: #3D332D;
 }
 
@@ -68,11 +69,12 @@ a, button {
   -webkit-column-gap: 20px;
           column-gap: 20px;
   margin-top: 20px;
+  font-family: 'DaxlineR';
 }
 
 .homePage .aboutCards .aboutCard {
   width: 33.3%;
-  height: 366.66px;
+  height: 336.66px;
   padding: 20px;
   -webkit-box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
           box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
@@ -113,37 +115,55 @@ a, button {
   width: 100%;
   height: 446px;
   border-radius: 20px;
-  margin-top: 100px;
+  margin-top: 40px;
   background: url(../images/bannerTest.jpg) no-repeat;
   background-size: cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  overflow: hidden;
 }
 
 .homePage .perfectSet .textCont2 {
-  float: left;
+  text-transform: capitalize;
   width: 600px;
-  padding: 100px;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-rows: 70px 110px 40px;
-      grid-template-rows: 70px 110px 40px;
+  height: 345px;
+  padding: 50px;
+  padding-left: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  row-gap: 30px;
+  background: -webkit-gradient(linear, right top, left top, from(rgba(255, 255, 255, 0)), to(rgba(0, 0, 0, 0.860382)));
+  background: linear-gradient(-90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.860382) 100%);
   text-align: start;
 }
 
 .homePage .perfectSet .textCont2 .title2 {
   font-size: 40px;
   margin: 0px;
-  margin-bottom: 20px;
+  color: white;
 }
 
 .homePage .perfectSet .textCont2 .desc {
   font-size: 18px;
   margin: 0px;
-  margin-top: 10px;
+  color: white;
   font-family: "DaxlineR";
 }
 
 .homePage .ourAssortment {
-  width: 95%;
+  width: 1119px;
   margin-top: 50px;
   background-color: #eaf4ee;
   border-radius: 30px;
@@ -154,6 +174,7 @@ a, button {
 .homePage .ourAssortment .title3 {
   text-align: start;
   font-size: 40px;
+  margin-bottom: 15px;
 }
 
 .homePage .ourAssortment .assortmentCont {
@@ -168,9 +189,11 @@ a, button {
           align-items: center;
   -ms-flex-pack: distribute;
       justify-content: space-around;
-  grid-gap: 30px;
   -ms-flex-line-pack: center;
       align-content: center;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  row-gap: 20px;
 }
 
 .homePage .banner {
@@ -180,7 +203,7 @@ a, button {
   background-position: 650px 0px;
   background-repeat: no-repeat;
   border-radius: 10px;
-  margin-top: 100px;
+  margin-top: 20px;
   text-align: flex-start;
   padding-left: 2.5%;
   padding-right: 2.5%;
@@ -200,12 +223,13 @@ a, button {
 }
 
 .homePage .itemsCont {
-  width: 95%;
+  width: 1119px;
   margin-top: 20px;
   background-color: #eaf4ee;
   padding: 50px;
   padding-top: 0px;
   border-radius: 20px;
+  padding-bottom: 20px;
 }
 
 .homePage .itemsCont .supplierCard {
@@ -219,6 +243,7 @@ a, button {
   font-size: 40px;
   font-family: "DaxlinePro";
   margin-bottom: 0;
+  margin-top: 30px;
   font-weight: 700;
 }
 

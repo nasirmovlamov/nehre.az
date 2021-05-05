@@ -166,7 +166,7 @@ function Header() {
 
   const [statusOK, setstatusOK] = useState()
   const handleOpen3 = () => {
-    UserData?.id !== undefined ? axios.get(`https://nehra.az/public/api/checkstatus?user_id=${JSON.parse(localStorage.getItem('LoginUserData'))?.id}`)
+    UserData?.id !== undefined ? axios.get(`https://nehra.az/public/api/checkstatus?user_id=${UserData?.id}`)
                                       .then(res => (res.data == 1 ? window.location.href = '/memberarea'  : notifyAuth())) 
                                       :  setOpen3(true)
       
@@ -279,22 +279,18 @@ function Header() {
 
 
     return (
-        <>
-
+        <Router>
             <ScrolltoTop/>
-           
             <div className="AllCont">
                 <button type="button" style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button>
                { !MidNavbar &&  <button type="button" className='checkMBtnC' style={checkMBtn} onClick={() => handleOpen()}><ShoppingBasketIcon width='60px' height='60px'/> {FinalPrice > 0 && (FinalPrice + " ₼")}</button> }
 
                 <TopNavbar TopCategory={TopCategory} assortmentArr={Assortment} PaymentPrice={PaymentPrice} number2={number2} number1={number1} UserData={UserData}  modalOpener={handleOpen} modalOpener3={handleOpen3}/>
                 {MidNavbar && <Navbar/>}
-
                 <header id="header" className="header">
                     <TopNavbarPart2 PaymentPrice={PaymentPrice} number2={number2} number1={number1} UserData={UserData}   modalOpener={handleOpen} modalOpener3={handleOpen3}/>
                     {MidNavbar && <DownNavbar  TopCategory={TopCategory}/>}
                 </header>
-
                 <Switch>
                     <Route   path={`/category/:id`}>            <ProductListingPage  PaymentPrice={PaymentPrice} />                                               </Route>
                     <Route   path="/about" >                    <About/>                                                                                          </Route>
@@ -303,11 +299,12 @@ function Header() {
                     <Route   path="/quality" >                  <Quality/>                                                                                        </Route>
                     <Route   path="/reviews" >                  <ReviewPage/>                                                                                     </Route>
                     <Route   path="/search" >                   <SearchResult/>                                                                                   </Route>
-                    {statusOK && <Route   path="/memberarea">   {(UserData?.id !== undefined  && statusOK == 1) ?  <MemberArea  UserData={UserData}/> : <F04/> }  </Route>}
+                    <Route   path="/memberarea">      {(UserData?.id !== undefined  && parseInt(statusOK) === 1) &&  <MemberArea  UserData={UserData}/>  }               </Route>
                     <Route  path="/promotions" >                <ProductListingPage category="Promotional products" notags={1}/>                                  </Route>
                     <Route  path="/suppliers/:id" >             <SelectedSupplier/>                                                                               </Route>
                     <Route  path="/suppliers" >                 <Suppliers/>                                                                                      </Route>
-                    <Route  path="/" >                          <HomePage assortmentArr={assortmentArr} modalOpener3={handleOpen3}/>                              </Route>
+                    <Route  path="/" >                          <HomePage assortmentArr={assortmentArr} modalOpener3={handleOpen3} productModal={handleOpen}/>                              </Route>
+                    <Route path="*"><F04 /></Route>
                 </Switch>
                 
                 <Footer/>
@@ -333,7 +330,7 @@ function Header() {
             <Modal  
                 style={{display:"flex", justifyContent:"center",overflow:"auto"}}
                 open={open3}
-                onClose={handleClose3}
+                // onClose={handleClose3}
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description">
                 {<LoginPage functionClose={() => handleClose3()}  registerFunc={() => handleOpen4()}/>}
@@ -341,7 +338,7 @@ function Header() {
             <Modal  
                 style={{display:"flex", justifyContent:"center",overflow:"auto"}}
                 open={open4}
-                onClose={handleClose4}
+                // onClose={handleClose4}
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description">
                 {<Registration functionCloseReg={() => handleClose4()}  />}
@@ -354,7 +351,7 @@ function Header() {
                 {<AuthSmsL functionClose={() => handleCloseSMS() }  />}
             </Modal>
 
-        </>
+        </Router>
     )
 }
 

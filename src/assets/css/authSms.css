@@ -22,6 +22,23 @@
   text-align: center;
 }
 
+.authSms .closeBtn {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.authSms .closeBtn button {
+  border: none;
+  background-color: transparent;
+  font-size: 18px;
+  color: #575454;
+}
+
 .authSms p {
   margin: 0px;
   font-size: 25px;
@@ -37,6 +54,10 @@
 
 .authSms input:focus {
   outline: none;
+}
+
+.authSms .moreAbout {
+  width: 100% !important;
 }
 
 .forgotPass {

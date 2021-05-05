@@ -34,6 +34,12 @@
   background-color: #285999;
 }
 
+.memberAreaCont .reviewNotFound {
+  width: 100%;
+  font-family: 'DaxlineR';
+  text-align: center;
+}
+
 .memberAreaCont .FlexContPass {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -64,14 +70,14 @@
 .memberAreaCont .FlexContPass .value {
   width: 98%;
   font-size: 17px;
-  color: #525252;
+  color: #888787;
   -ms-grid-column-align: start;
       justify-self: start;
   padding-top: 10px;
   padding-bottom: 10px;
   border-radius: 5px;
   padding-left: 2%;
-  font-weight: 600;
+  font-weight: 400;
   color: gray;
   font-family: inherit;
   border: 1px solid lightgray;
@@ -232,7 +238,7 @@
   -ms-flex-item-align: end;
       align-self: flex-end;
   height: 35px;
-  width: 100px;
+  width: auto;
   margin-top: 20px;
 }
 
@@ -244,8 +250,64 @@
   text-align: start;
 }
 
+.memberAreaCont main .address .allAddress {
+  margin-top: 20px;
+  row-gap: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.memberAreaCont main .address .allAddress .addressElement {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.memberAreaCont main .address .allAddress .addressElement .addressText {
+  height: 35px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-left: 1%;
+  margin-right: 1%;
+  border-radius: 5px;
+}
+
+.memberAreaCont main .address .allAddress .addressElement .editAddress, .memberAreaCont main .address .allAddress .addressElement .removeAddress {
+  background-color: #285999;
+  width: auto;
+  padding-left: 3px;
+  padding-right: 3px;
+  margin-right: 5px;
+  color: white;
+  border-radius: 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.memberAreaCont main .address .allAddress .addressElement p {
+  width: 100%;
+}
+
+.memberAreaCont main .address .allAddress .addressElement button {
+  border: none;
+  margin-top: 0px;
+}
+
 .memberAreaCont main .address a {
-  width: 150px;
   -ms-flex-item-align: end;
       align-self: flex-end;
 }
@@ -629,16 +691,52 @@
 
 .memberAreaCont main .addAddress form {
   margin-top: 30px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.memberAreaCont main .addAddress form .btnsCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+}
+
+.memberAreaCont main .addAddress form .btnsCont .backTo {
+  border: none;
+  width: 120px;
+  height: 40px;
+  border-radius: 25px;
+  background-color: #285999;
+  color: white;
+  font-size: 18px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-family: 'DaxlineR';
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .memberAreaCont main .addAddress .flexContAddress, .memberAreaCont main .addAddress .flexContAddress2, .memberAreaCont main .addAddress .flexContAddress3 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   margin-top: 20px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .memberAreaCont main .addAddress .flexContAddress .againDiv, .memberAreaCont main .addAddress .flexContAddress2 .againDiv, .memberAreaCont main .addAddress .flexContAddress3 .againDiv {
@@ -651,7 +749,7 @@
 }
 
 .memberAreaCont main .addAddress .flexContAddress .label, .memberAreaCont main .addAddress .flexContAddress2 .label, .memberAreaCont main .addAddress .flexContAddress3 .label {
-  font-size: 12px;
+  font-size: 20px;
   font-weight: 500;
   color: #525252;
   width: 80px;

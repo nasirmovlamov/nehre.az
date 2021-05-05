@@ -246,6 +246,13 @@
       -ms-flex-align: center;
           align-items: center;
   color: #939598;
+  border: none;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  align-items: center;
+  background-color: transparent;
 }
 
 .productModal .sliderAndAbout .aboutCont .reviewCont .favorites svg {

@@ -28,6 +28,9 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import SearchIcon from '@material-ui/icons/Search';
+import WhatsAppIcon from '@material-ui/icons/WhatsApp';
+import ContactMailIcon from '@material-ui/icons/ContactMail';
+
 const stylesForSwiper = makeStyles({
     list: {
       width: "80%",
@@ -110,7 +113,7 @@ function TopNavbar(props) {
     
     const languageChanger = (lang) => {
         sessionStorage.setItem('lang' , lang)
-        window.location.href = `nehra.az/locale/${lang}`
+        window.location.href = `https://nehra.az/${lang}`
         window.location.reload();
     }
     
@@ -232,7 +235,7 @@ function TopNavbar(props) {
     </div>
     );
 
-
+    
     return (
         <div className="topNavbar">
                 <div className="topPart">    
@@ -249,12 +252,12 @@ function TopNavbar(props) {
                             </div>}
 
                             {enableMobile && <div className="phoneCont">
-                                <p className="phone"> <PhoneIcon/> <a href={`tel:${props.number1}`}>{props.number1}</a> </p>
-                                <p className="phone"> <PhoneIcon/> <a href={`tel:${props.number2}`}>{props.number2}</a></p>
+                                <p className="phone"> <PhoneIcon/> <a href={`tel:${props.number1}`}>{props.number2}</a> </p>
+                                <p className="phone"> <WhatsAppIcon/> <a href={`https://api.whatsapp.com/send/?phone=%2B994556800055&text&app_absent=0`}>{props.number1}</a></p>
                             </div>}
 
                             <div className="selection">
-                                {elements &&<Link to="/">
+                                {elements &&<a>
                                     <div className="shoppingBtnDiv" onMouseLeave={() => langChangerMouseLeave1()}> 
                                         <button onClick={() => myFunction1(drop1)} onBlur={() => myFunctionBlur1(drop1)} className="shoppingBtn1 dropbtn">{money}</button>
                                         {drop1 && 
@@ -263,9 +266,9 @@ function TopNavbar(props) {
                                             </div>
                                         }
                                     </div>
-                                </Link>}
+                                </a>}
                                 {/*  */}
-                                {elements &&<Link to="/">
+                                {elements &&<a >
                                     <div className="shoppingBtnDiv2" onMouseLeave={() => langChangerMouseLeave2()}>
                                             <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} className="shoppingBtn2">{lang}</button>
                                             {drop2 && <div id="myDropdown" className="dropdown-content">
@@ -274,7 +277,7 @@ function TopNavbar(props) {
                                                 {lang === "RU" ? "" : <button onClick={() => languageChanger(langArr[2])}> {langArr[2]}</button>}
                                             </div>}
                                     </div>
-                                </Link>}
+                                </a>}
                                 {/*  */}
 
                                 { 
@@ -291,7 +294,7 @@ function TopNavbar(props) {
                                     </div>
                                 }
                                 <Link to={`/`}>
-                                     <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}><PersonIcon/></button>    
+                                     <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}>{ (JSON.parse(localStorage.getItem('LoginUserData'))?.id !== null && JSON.parse(localStorage.getItem('LoginUserData'))?.id !== undefined)  ?  <ContactMailIcon/> : <PersonIcon/> }</button>    
                                 </Link>
                                 {/*  */}
                                 {elements && <Link to="/memberarea/bookmarks">

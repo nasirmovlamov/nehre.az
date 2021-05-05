@@ -25,10 +25,11 @@ a, button
     }
     .deliveryText
     {
-        font-size: 40px;
+        font-size: 25px;
         text-align: start;
         width: 100%;
         padding-top: 40px;
+        font-family: 'DaxlineR';
         color:#3D332D;
     }
     .videoHome
@@ -47,13 +48,13 @@ a, button
         justify-content: center;
         column-gap: 20px;
         margin-top: 20px;
+        font-family: 'DaxlineR';
         .aboutCard
         {
             width: 33.3%;
-            height: 366.66px;
+            height: 336.66px;
             padding: 20px;
             box-shadow: 5px 5px 20px rgba(0,0,0,0.1);
-
             padding-top: 10px;
             border-radius: 20px;
             background-color: #fff;
@@ -84,29 +85,36 @@ a, button
         width: 100%;
         height: 446px;
         border-radius: 20px;
-        margin-top: 100px;
+        margin-top: 40px;
         background:url(../images/bannerTest.jpg) no-repeat;
         background-size: cover;
-       
+        display: flex;
+        justify-content: flex-start;
+        overflow: hidden;
         .textCont2
         {
-            float: left;
+            text-transform: capitalize;
             width: 600px;
-            padding: 100px;
-            display: grid;
-            grid-template-rows: 70px 110px 40px;
+            height: 345px;
+            padding: 50px;
+            padding-left: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            row-gap: 30px;
+            background: linear-gradient(-90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.860382) 100%);
             text-align: start;
             .title2
             {
                 font-size: 40px;
                 margin: 0px;
-                margin-bottom: 20px;
+                color: white;
             }
             .desc
             {
                 font-size: 18px;
                 margin: 0px;
-                margin-top: 10px;
+                    color: white;
                 font-family: "DaxlineR";
             }
         }
@@ -115,7 +123,7 @@ a, button
 
     .ourAssortment
     {
-        width: 95%;
+        width: 1119px;
         margin-top: 50px;
         background-color: #eaf4ee;
         border-radius: 30px;
@@ -125,6 +133,7 @@ a, button
         {
             text-align: start;
             font-size: 40px;
+            margin-bottom: 15px;
         }
         .assortmentCont
         {
@@ -133,8 +142,9 @@ a, button
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-around;
-            grid-gap: 30px;
             align-content: center;
+            column-gap: 20px;
+            row-gap: 20px;
         }
     }
 
@@ -146,7 +156,7 @@ a, button
         background-position: 650px 0px;
         background-repeat: no-repeat;
         border-radius: 10px;
-        margin-top: 100px;
+        margin-top: 20px;
         text-align: flex-start;
         padding-left: 2.5%;
         padding-right: 2.5%;
@@ -168,13 +178,13 @@ a, button
 
     .itemsCont
     {
-        width: 95%;
+        width: 1119px;
         margin-top: 20px;
         background-color: #eaf4ee;
         padding: 50px;
         padding-top: 0px;
         border-radius: 20px;
-        
+        padding-bottom: 20px;
         .supplierCard
         {
             transform: scale(0.9) !important;
@@ -186,6 +196,7 @@ a, button
             font-size: 40px;
             font-family: "DaxlinePro";
             margin-bottom: 0;
+            margin-top: 30px;
             font-weight: 700;
             &:hover 
             {
@@ -304,6 +315,7 @@ a, button
         }
         .banner
         {
+
             .titleBanner
             {
                 font-size: 30px;

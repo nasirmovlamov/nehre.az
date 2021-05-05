@@ -1,5 +1,5 @@
 footer {
-  width: 1300px;
+  width: 1169px;
   background-color: #edf4f6;
   border-radius: 20px 20px 0px 0px;
   margin-top: 50px;
@@ -12,8 +12,20 @@ footer {
   padding: 25px;
 }
 
+footer .elementsCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 7px;
+}
+
 footer h3 {
   font-family: "DaxlineR";
+  margin-bottom: 4px;
 }
 
 footer .footerCont {
@@ -29,8 +41,17 @@ footer .social {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-column-gap: 30px;
-          column-gap: 30px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+footer a {
+  color: black;
+}
+
+footer a:hover {
+  color: gray;
 }
 
 @media screen and (max-width: 1350px) {

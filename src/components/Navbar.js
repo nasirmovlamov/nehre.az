@@ -18,7 +18,7 @@ function Navbar() {
                         <Link to='/reviews' className='dropSubTitle'> {lang === "AZ" && `Şərhlər` || lang === "EN" && `Comments` || lang === "RU" && `Комментарии`}</Link>
                     </div>
                 </div>
-                <a href="/elaqe">{lang === "AZ" && `Göndər` || lang === "EN" && `Submit` || lang === "RU" && `Bходить`}</a>
+                <a href="/elaqe">{lang === "AZ" && `Əlaqə` || lang === "EN" && `Contact` || lang === "RU" && `Контакт`}</a>
         </nav>
     )
 }

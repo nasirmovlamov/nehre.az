@@ -18,7 +18,7 @@ import axios from 'axios'
 import Avatar from '@material-ui/core/Avatar';
 import {ProductListingContext} from '../components/ProductListingProvider'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-
+import ContactsIcon from '@material-ui/icons/Contacts';
 function TopNavbarPart2(props) {
     const elements = useMediaQuery('(min-width:650px)') 
 
@@ -87,7 +87,7 @@ function TopNavbarPart2(props) {
     
     const languageChanger = (lang) => {
         sessionStorage.setItem('lang' , lang)
-        window.location.href = `nehra.az/locale/${lang}`
+        window.location.href = `https://nehra.az/${lang}`
         window.location.reload();
     }
     

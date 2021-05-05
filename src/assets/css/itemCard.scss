@@ -43,24 +43,72 @@
             align-items: center;
             margin: 0px;
             padding: 0px;
-            button 
+            .overlayBtn
             {
-                position: absolute;
-                pointer-events: all;
-                border: none;
-                background-color:transparent;
-                    
+                display: flex;
+                justify-content: center;
+                color: white;
+                column-gap: 10px;
+                button 
+                {
+                    font-size: 50px;
+                    background-color: transparent;
+                    color: white;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: none;
+                    margin: 0px;
+                    padding: 0px;
+                    &:nth-child(1)
+                    {
+                        width: 30px;
+                    }
+                    &:nth-child(3)
+                    {
+                        width: 30px;
+                    }
+
+                }
+            }
+        }
+        
+        .valueAndBtn
+        {
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-size: 20px;
+            height: 40px;
+            margin-top: 10px;
+            z-index: 20;
+        }
+        .valueBtn
+        {
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 30;
+            opacity: 1;
+            width: 30px;
+            padding-top: 2px;
+            height: 28px;
+            border-radius: 5px;
+            box-shadow: 5px solid gray;
+            background-color: rgba(0, 0, 0, 0.8);
+            &:hover 
+            {
+                opacity: 1;
             }
         }
         .iconAndBtn
         {
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            flex-direction: column;
+            
             .favIco
             {
-                margin-left: 10px;
                 align-self: flex-end;
                 border: none;
                 z-index: 3;
@@ -70,7 +118,6 @@
                 align-items: center;
                 justify-content: center;
                 border-radius: 5px;
-                margin-top: 10px;
                 margin-right: 10px;
                 background-color: #f06279;
                 svg 
@@ -188,6 +235,7 @@
         padding-top: 0px;
         margin-top: 10px;
         display: flex;
+        height: 50px;
         justify-content: space-between;
         align-items: center;
         .priceAndWeightItem

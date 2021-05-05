@@ -5,12 +5,13 @@ import Button1 from './Button1'
 import Cookies from 'js-cookie'
 import * as yup from 'yup';
 import {ProductListingContext} from '../components/ProductListingProvider'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function PasswordUpdate(props){
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
-    
+    const notifyPass = () => toast.info(lang === "AZ" && `Şifrəniz yeniləndi!` || lang === "EN" && `Your password has been updated!` || lang === "RU" && `Ваш пароль был обновлен!`);
     const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
     const validationSchema = yup.object({
         oldPassword: yup.string().matches(passRegex , (lang === "AZ" && `Şifrəniz ən az 8 simvol 1 böyük hərf 1 kiçik hərf və 1 rəqəm təşkil etməlidir` || lang === "EN" && `Your password must be at least 8 characters, 1 uppercase letter, 1 lowercase letter, and 1 digit` || lang === "RU" && `Ваш пароль должен состоять не менее чем из 8 символов, 1 заглавной буквы, 1 строчной буквы и 1 цифры.`)).required(lang === "AZ" && `Şifrənizi daxil edin` || lang === "EN" && `Enter password` || lang === "RU" && `Введите пароль`),
@@ -24,8 +25,8 @@ function PasswordUpdate(props){
     }
     const [Error, setError] = useState(false)
     const onSubmit =  (values) => {
-        axios.post('https://nehra.az/public/api/updateuserpass', {user_id: JSON.parse(localStorage.getItem('LoginUserData')) ,  password:values.oldPassword} , headers )
-        .then(res => console.log(res))
+        axios.post('https://nehra.az/public/api/updateuserpass', {user_id: JSON.parse(localStorage.getItem('LoginUserData')) ,  password:values.password} , headers )
+        .then(res => res.status === 200 && console.log(res.data))
         .catch(err => setError(true))
     }
     
