@@ -9,6 +9,18 @@
     display: flex;
     z-index: 1;
     flex-direction: column;
+    form 
+    {
+        display:flex;
+        flex-direction:column;
+    }
+    .datesCont
+    {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        row-gap: 20px;
+    }
     .goToPayment
     {
         border: none;
@@ -18,7 +30,7 @@
         background-color: #085096;
         color: white;
         font-size: 18px;
-        align-self: center;
+        align-self: flex-end;
         margin-top: 50px;
         display: flex;
         justify-content: center;

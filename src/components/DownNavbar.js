@@ -42,15 +42,7 @@ function DownNavbar(props) {
         autoplay:false,
         responsive: [
         {
-            breakpoint: 1655,
-            settings: {
-              slidesToShow: 6,
-              slidesToScroll: 1,
-              initialSlide: 1
-            }
-        },
-        {
-            breakpoint: 1355,
+            breakpoint: 1200,
             settings: {
               slidesToShow: 4,
               slidesToScroll: 1,

@@ -45,6 +45,7 @@ import {ProductListingContext} from '../components/ProductListingProvider'
 import Quality from '../pages/Quality'
 import Who from '../pages/Who'
 import Contacts from './Contacts'
+import Combo from '../pages/Combo'
 
 function Header() {
   // const TopNavbar = useMediaQuery('(min-width:600px)');
@@ -292,6 +293,7 @@ function Header() {
                     {MidNavbar && <DownNavbar  TopCategory={TopCategory}/>}
                 </header>
                 <Switch>
+                    <Route  path="/combos/:slug" >                <Combo/>                                                                                      </Route>
                     <Route   path={`/category/:id`}>            <ProductListingPage  PaymentPrice={PaymentPrice} />                                               </Route>
                     <Route   path="/about" >                    <About/>                                                                                          </Route>
                     <Route   path="/contact" >                  <Contacts/>                                                                                       </Route>

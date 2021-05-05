@@ -12,12 +12,13 @@ export function ProductListingProvider(props) {
     const [FinalPrice, setFinalPrice] = useState(0)
     const [FinalWeight, setFinalWeight] = useState(0)
     const [FinalGoods, setFinalGoods] = useState(0)
+    const [DateGoods, setDateGoods] = useState([])
     const langArr = ["AZ" , "EN" , "RU"]
     const [lang, setlang] = useState(sessionStorage.getItem('lang') === null ? 'AZ' : sessionStorage.getItem('lang'))
     const [money, setmoney] = useState(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
 
 
-    const addItem = (num,price , weight , unitType) => {
+    const addItem = (num,price , weight , unitType , dates) => {
         if (unitType === 2) {
             setFinalWeight(FinalWeight + (parseInt(weight) / 100))
         }
@@ -25,12 +26,16 @@ export function ProductListingProvider(props) {
         {
             setFinalWeight(FinalWeight + parseInt(weight))
         }
-
         setFinalPrice(FinalPrice + parseInt(price))
         setFinalGoods(FinalGoods + 1)
+        var arrayA = DateGoods;
+        var arrayB = dates;
+        var newArray = arrayA.concat(arrayB.filter(x => !arrayA.some(y => y === x)))
+        setDateGoods(newArray)
+        console.log(DateGoods)
         var index = ProdutData.findIndex(x=> x.id === num);
         if (index === -1) {
-            setProdutData([...ProdutData , {id:num , count:1, cost:parseInt(price).toFixed(0)}])
+            setProdutData([...ProdutData , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates }])
         }
         else 
         {
@@ -55,7 +60,7 @@ export function ProductListingProvider(props) {
  
 
     return (
-        <ProductListingContext.Provider value={[ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr]}>
+        <ProductListingContext.Provider value={[ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods]}>
             {props.children}
         </ProductListingContext.Provider>
     )

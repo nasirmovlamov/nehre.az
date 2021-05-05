@@ -30,7 +30,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function ItemCard(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr] = useContext(ProductListingContext)
-    
     const [UserData, setUserData] = useState(0)
     useEffect(() => {
         if (UserData?.id === undefined) {
@@ -118,8 +117,8 @@ function ItemCard(props) {
 
     //Date //Date //Date
     const today = new Date()
-    const tomorrow = new Date(today)
-    tomorrow.setDate(tomorrow.getDate() + 2)
+    const tomorrow = new Date()
+    tomorrow.setDate(tomorrow.getDate() + 1)
     const monday = new Date()
     monday.setDate(tomorrow.getDate() + (1 + 7 - tomorrow.getDay()) % 7);
     const tuesday = new Date()
@@ -130,11 +129,17 @@ function ItemCard(props) {
     thursday.setDate(tomorrow.getDate() + (4 + 7 - tomorrow.getDay()) % 7);
     const friday = new Date()
     friday.setDate(tomorrow.getDate() + (5 + 7 - tomorrow.getDay()) % 7);
+    const saturday = new Date()
+    saturday.setDate(tomorrow.getDate() + (6 + 7 - tomorrow.getDay()) % 7);
+    const sunday = new Date()
+    sunday.setDate(tomorrow.getDate() + (7 + 7 - tomorrow.getDay()) % 7);
     var newmonday = moment(monday).format( 'dddd, D MMMM');
     var newtuesday = moment(tuesday).format( 'dddd, D MMMM');
     var newwednesday = moment(wednesday).format( 'dddd, D MMMM');
     var newthursday = moment(thursday).format( 'dddd, D MMMM');
     var newfriday = moment(friday).format( 'dddd, D MMMM');
+    var newsaturday = moment(saturday).format( 'dddd, D MMMM');
+    var newsunday = moment(sunday).format( 'dddd, D MMMM');
     
     
     
@@ -190,7 +195,6 @@ function ItemCard(props) {
             window.location.href = "/login"
         }
     }
-
     return (
         <div key={props.id} className="itemCard">
             <button  type="button"  className="imgCont" style={imgHandler}>
@@ -208,21 +212,52 @@ function ItemCard(props) {
                 </div>
 
                 <div className="dates">
-                    <DarkTT title={`${newmonday}  çatdırılma `} placement="top" arrow>
-                        <div className="date">Be</div>
-                    </DarkTT>
-                    <DarkTT title={`${newtuesday}  çatdırılma `}  placement="top" arrow>
-                        <div className="date">Ça</div>
-                    </DarkTT>
-                    <DarkTT title={`${newwednesday}  çatdırılma `} placement="top" arrow>
-                        <div className="date">Ç</div>
-                    </DarkTT>
-                    <DarkTT title={`${newthursday}  çatdırılma `} placement="top" arrow>
-                        <div className="date">Ca</div>
-                    </DarkTT>
-                    <DarkTT title={`${newfriday}  çatdırılma `} placement="top" arrow>
-                        <div className="date">C</div>
-                    </DarkTT>
+                    {props.delivery?.map(delivery =>
+                        <>
+                            {
+                                delivery === "1" &&
+                                <DarkTT title={`${newmonday}  çatdırılma `} placement="top" arrow>
+                                    <div className="date">Be</div>
+                                </DarkTT>
+                            }
+                            {
+                                delivery === "2" &&
+                                <DarkTT title={`${newtuesday}  çatdırılma `}  placement="top" arrow>
+                                    <div className="date">Ça</div>
+                                </DarkTT>
+                            }
+                            {
+                                delivery === "3" &&
+                                <DarkTT title={`${newwednesday}  çatdırılma `} placement="top" arrow>
+                                    <div className="date">Ç</div>
+                                </DarkTT>
+                            }
+                            {
+                                delivery === "4" &&
+                                <DarkTT title={`${newthursday}  çatdırılma `} placement="top" arrow>
+                                    <div className="date">Ca</div>
+                                </DarkTT>
+                            }
+                            {
+                                delivery === "5" &&
+                                <DarkTT title={`${newfriday}  çatdırılma `} placement="top" arrow>
+                                    <div className="date">C</div>
+                                </DarkTT>
+                            }
+                            {
+                                delivery === "6" &&
+                                <DarkTT title={`${newsaturday}  çatdırılma `} placement="top" arrow>
+                                    <div className="date">C</div>
+                                </DarkTT>
+                            }
+                            {
+                                delivery === "7" &&
+                                <DarkTT title={`${newsunday}  çatdırılma `} placement="top" arrow>
+                                    <div className="date">C</div>
+                                </DarkTT>
+                            }
+                        </>
+                    )}
                 </div>
             </button>
 
@@ -234,7 +269,7 @@ function ItemCard(props) {
                     <p className="priceAndWeightItem"><span className="element1"  style={props.discount && colorChang}>{discountHandler(props.discount)}  {money}</span> / <span className="element2">{props.weight + " " + (parseInt(props.unitType) === 1 && `kq` || parseInt(props.unitType) === 2 && `qr` || parseInt(props.unitType) === 3 && `l` || parseInt(props.unitType) === 4 && `vedrə` )}</span> </p>
                     <StarSystem numberStar={props.star}/>
                 </div>   
-                <BuyButton functionAdd={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType)}  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>
+                <BuyButton functionAdd={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery)}  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>
             </div>
             {/* {
                 ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count >= 1 && 
