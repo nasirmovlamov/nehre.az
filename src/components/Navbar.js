@@ -4,7 +4,7 @@ import {Link} from "react-router-dom"
 import {ProductListingContext} from '../components/ProductListingProvider'
 
 function Navbar() {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     return (
         <nav className="navbar">
                 <Link to="/promotions">{lang === "AZ" && `Endirimlər` || lang === "EN" && `Discounts` || lang === "RU" && `Скидки`}</Link>

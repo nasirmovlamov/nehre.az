@@ -10,11 +10,11 @@ import ReactLoading from 'react-loading';
 import {Formik , Form , Field, ErrorMessage} from "formik"
 import {ProductListingContext} from '../components/ProductListingProvider'
 import moment from 'moment';
-import 'moment/locale/az';
 import { set } from 'js-cookie'
-
+import 'moment/locale/az';
+import 'moment/locale/ru';
 function CheckoutPage(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     
     const notify = () => toast.info("Nuş olsun!");
     const [loader, setloader] = useState(false)
@@ -34,15 +34,25 @@ function CheckoutPage(props) {
         }
         document.getElementById(`checkBox${num}`).checked  = true
     }
+    const [deliveryDay, setdeliveryDay] = useState()
     const [nondeliveryProducts, setnondeliveryProducts] = useState([])
+    const [deliveryProducts, setdeliveryProducts] = useState([])
+    const [deliveryy, setdeliveryy] = useState([])
+
+
+
+
+
     const clickHandler2 = (num) => {
         for (var i =1; i<7; i++)
         {
-            if(typeof  document.getElementById(`checkBoxx${i}`) !== undefined)
+            if(typeof  document.getElementById(`checkBoxx${i}`) !== undefined && typeof  document.getElementById(`checkBoxx${i}`) !== null)
             {
                 document.getElementById(`checkBoxx${i}`).checked = false
             }
         }
+
+
         document.getElementById(`checkBoxx${num}`).checked  = true
         const today = new Date()
         const tomorrow = new Date(today)
@@ -50,14 +60,20 @@ function CheckoutPage(props) {
         const deliveryday = new Date()
         deliveryday.setDate(tomorrow.getDate() + (num + 7 - tomorrow.getDay()) % 7);
         console.log('-------------------------')
+        var newdeliveryday = moment(deliveryday).format( 'dddd, D MMMM');
+        console.log(newdeliveryday)
+        setdeliveryDay(newdeliveryday)
+        console.log(deliveryProducts)
         console.log(nondeliveryProducts)
         console.log('-------------------------')
-        console.log('-------------------------')
-        console.log('-------------------------')
-
-        console.log(deliveryday)
-        setnondeliveryProducts([])
         console.log(ProdutData);
+        // console.log("will be delivered" + deliveryProducts)
+        // console.log("will not be delivered" + nondeliveryProducts)
+        console.log('-------------------------')
+        console.log('-------------------------')
+        
+        var dateIds = []
+        var nondateIds = []
         const dateChecker = (date , id) => {
             for (let i = 0; i < date.length; i++) {
                 const today = new Date()
@@ -66,17 +82,37 @@ function CheckoutPage(props) {
                 const elementday = new Date()
                 elementday.setDate(tomorrow.getDate() + (parseInt(date[i]) + 7 - tomorrow.getDay()) % 7);
                 console.log(elementday);
-                if(elementday <= deliveryday)
+                if(elementday.getDate()  < deliveryday.getDate() )
                 {
                     console.log('YEs')
-                    setnondeliveryProducts([...nondeliveryProducts , id])
+                    dateIds.push(id)
+                    nondateIds = nondateIds.filter(element => element !== id)
+                    // setdeliveryProducts([...deliveryProducts , id])
                     return 0 
                 }
-                
+                else if(elementday.getDate()  > deliveryday.getDate() )
+                {
+                    nondateIds.push(id)
+                }
+                else 
+                {
+                    console.log('YEs')
+                    dateIds.push(id)
+                    nondateIds = nondateIds.filter(element => element !== id)
+                    // setdeliveryProducts([...deliveryProducts , id])
+                    return 0 
+                    // setnondeliveryProducts([...nondeliveryProducts , id])
+                }
             }
             console.log('-------------------------')
         }
-        ProdutData.map(elements => dateChecker(elements.date , elements.id))        
+        ProdutData.map(elements => dateChecker(elements.date , elements.id))     
+        nondateIds = [...new Set(nondateIds)];   
+        console.log(dateIds)
+        console.log(nondateIds)
+        setdeliveryProducts(dateIds)
+        setnondeliveryProducts(nondateIds)
+        // setnondeliveryProducts(nondateIds)
     }
     
     const token = Cookies.getItem('XSRF-TOKEN')
@@ -85,21 +121,44 @@ function CheckoutPage(props) {
     }
     const [Error, setError] = useState(false)
     const onSubmit =  (values) => {
+        const vrt2 = (id , element) => {
+            for (let i = 0; i < nondeliveryProducts.length; i++) {
+                if(id === nondeliveryProducts[i])
+                {
+                    return element
+                }
+            }
+        }
+        var newarr = ProdutData.map((element, index ) =>  vrt2(element.id , element))
+        newarr = newarr.filter(element => element !== undefined)
+        localStorage.setItem('ProdutData' , JSON.stringify(newarr))
+
         setloader(true)
-        axios.post('https://nehra.az/public/api/payment', {name: values.name , email: values.email , address:values.address , payment_type:selectedValue , total_price: FinalPrice , total_count: FinalGoods, product_data: ProdutData, user_id:props.UserId}  , headers )
-         .then(res => (setloader(false) , console.log(res) , res.status === 200 && ( notify(), props.functionClose() , setTimeout(() => { window.location.href = '/payment'}, 3000) ))) 
+        const vrt = (id , element) => {
+            for (let i = 0; i < deliveryProducts.length; i++) {
+                if(id === deliveryProducts[i])
+                {
+                    return element
+                }
+            }
+        }
+        var newarr2 = ProdutData.map((element, index ) =>  vrt(element.id , element))
+        newarr2 = newarr2.filter(element => element !== undefined)
+        // console.log(ProdutData)
+        // console.log(newarr2)
+        axios.post('https://jsonplaceholder.typicode.com/posts', {name: values.name , email: values.email , address:values.address , payment_type:selectedValue , total_price: FinalPrice , total_count: FinalGoods, product_data: newarr2, user_id:props.UserId}  , headers )
+         .then(res => (setloader(false) , console.log(res)  )) 
+        //  res.status === 200 && ( notify(), props.functionClose() , setTimeout(() => { window.location.href = '/payment'}, 3000) )
          .catch(err => (setError(true) , setloader(false)))
     }
 
     const initialValues = {
-        name:'',
-        email:'',
-        address:'',
+        // name:'',
+        // email:'',
+        // address:'',
     }
     const validationSchema = Yup.object({
-        name: Yup.string().required(lang === "AZ" && `Adınızı daxil edin` || lang === "EN" && `Enter name` || lang === "RU" && `Введите имя`),
-        email: Yup.string().email(lang === "AZ" && `Elektron poçtunuzu düzgün daxil edin` || lang === "EN" && `Enter your email correctly` || lang === "RU" && `Введите свой адрес электронной почты правильно`).required(lang === "AZ" && 'Elektron poçt daxil edin' || lang === "EN" && `Enter email` || lang === "RU" && `Введите адрес электронной почты`),
-        address: Yup.string().required(lang === "AZ" && `Ünvanınızı daxil edin` || lang === "EN" && `Enter your address` || lang === "RU" && `Введите ваш адрес`),
+        // address: Yup.string().required(lang === "AZ" && `Ünvanınızı daxil edin` || lang === "EN" && `Enter your address` || lang === "RU" && `Введите ваш адрес`),
     })
     const [address, setaddress] = useState([])
     useEffect(() => {
@@ -131,15 +190,27 @@ function CheckoutPage(props) {
         saturday.setDate(tomorrow.getDate() + (6 + 7 - tomorrow.getDay()) % 7);
         const sunday = new Date()
         sunday.setDate(tomorrow.getDate() + (7 + 7 - tomorrow.getDay()) % 7);
-        var newmonday = moment(monday).format( 'dddd, D MMMM');
-        var newtuesday = moment(tuesday).format( 'dddd, D MMMM');
-        var newwednesday = moment(wednesday).format( 'dddd, D MMMM');
-        var newthursday = moment(thursday).format( 'dddd, D MMMM');
-        var newfriday = moment(friday).format( 'dddd, D MMMM');
-        var newsaturday = moment(saturday).format( 'dddd, D MMMM');
-        var newsunday = moment(sunday).format( 'dddd, D MMMM');
+        var newmonday = moment(monday).locale('az').format( 'dddd, D MMMM');
+        var newtuesday = moment(tuesday).locale('az').format( 'dddd, D MMMM');
+        var newwednesday = moment(wednesday).locale('az').format( 'dddd, D MMMM');
+        var newthursday = moment(thursday).locale('az').format( 'dddd, D MMMM');
+        var newfriday = moment(friday).locale('az').format( 'dddd, D MMMM');
+        var newsaturday = moment(saturday).locale('az').format( 'dddd, D MMMM');
+        var newsunday = moment(sunday).locale('az').format( 'dddd, D MMMM');
    //Date Problems
-
+   
+    
+    const vrt = (id , element) => {
+        for (let i = 0; i < nondeliveryProducts.length; i++) {
+            if(id === nondeliveryProducts[i])
+            {
+                return element
+            }
+        }
+    }
+    var newarr = ProdutData.map((element, index ) =>  vrt(element.id , element))
+    newarr = newarr.filter(element => element !== undefined)
+    // console.log(newarr)
     return (
         
         <div className="checkoutPage">
@@ -162,7 +233,7 @@ function CheckoutPage(props) {
                             DateGoods.map(
                             date=>
                             <>
-                                {date === '1' && <div className="type1"><input value='1' name="dateTime1" id="checkBoxx1" onClick={() => clickHandler2(1)} type="checkbox"></input> <label>{newmonday}</label></div>}
+                                {date === '1' && <div className="type2"><input value='1' name="dateTime1" id="checkBoxx1" onClick={() => clickHandler2(1)} type="checkbox"></input> <label>{newmonday}</label></div>}
                                 {date === '2' && <div className="type2"><input value='2' name="dateTime2" id="checkBoxx2" onClick={() => clickHandler2(2)} type="checkbox"></input> <label>{newtuesday}</label></div>}
                                 {date === '3' && <div className="type2"><input value='3' name="dateTime2" id="checkBoxx3" onClick={() => clickHandler2(3)} type="checkbox"></input> <label>{newwednesday}</label></div>}
                                 {date === '4' && <div className="type2"><input value='4' name="dateTime2" id="checkBoxx4" onClick={() => clickHandler2(4)} type="checkbox"></input> <label>{newthursday}</label></div>}
@@ -173,6 +244,21 @@ function CheckoutPage(props) {
                         }
                     </div>
 
+                   {
+                       newarr.length > 0 && 
+                        <>
+                        <p className="title1"> {deliveryDay} </p>
+                        <p className="title2"> Çatdırılma olunmayacaq məhsullar  </p>
+                        <div>
+                            {newarr.map((element , index)=> <p className='nondeliveryItem'>{index+1}. {element?.name}</p>)}
+                        </div>
+                        </>
+                    }
+
+                    <div className="typeOfPayment">
+                        
+                    </div>
+
                     <p className="title">Ödəniş növü</p>
                     <div className="typeOfPayment">
                         <div className="type3"><input value='4' name="onlinePayment" id="checkBox4" onClick={() => clickHandler(4)} type="checkbox"></input> <label>{lang === "AZ" && `Online` || lang === "EN" && `Online` || lang === "RU" && `В сети`} </label></div>
@@ -180,9 +266,10 @@ function CheckoutPage(props) {
                         <div className="type2"><input value='2' name="doorCard" id="checkBox2" onClick={() => clickHandler(2)} type="checkbox"></input> <label>{lang === "AZ" && `Qapıda Kartla` || lang === "EN" && `At door with card` || lang === "RU" && `У двери с картой`}</label></div>
                         <div className="type1"><input value='1' name="doorCash" checked="true"  id="checkBox1" onClick={() => clickHandler(1)} type="checkbox"></input> <label>{lang === "AZ" && `Terminalla` || lang === "EN" && `with Terminal` || lang === "RU" && `с Терминалом`}</label></div>
                     </div>
-
-                    <button type='submit' className="goToPayment" >{lang === "AZ" && `Təsdiqlə` || lang === "EN" && `Submit` || lang === "RU" && `Утвердить`}</button>
-                    {loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={17} width={75} />}
+                    <div className='btnCont'>
+                        <button type='submit' className="goToPayment" >{lang === "AZ" && `Təsdiqlə` || lang === "EN" && `Submit` || lang === "RU" && `Утвердить`}</button>
+                        {loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={17} width={75} />}
+                    </div>
                 </Form>
             </Formik>
         </div>

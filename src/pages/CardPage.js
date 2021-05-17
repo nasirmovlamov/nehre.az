@@ -19,7 +19,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { TramRounded } from '@material-ui/icons';
 
 function CardPage(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     
     const functionHandler = () => {
         if(props.UserId)
@@ -50,15 +50,34 @@ function CardPage(props) {
         setFinalWeight(0)
         setProdutData([])
         setItems([])
+        localStorage.setItem('ProdutData' , JSON.stringify([]))
+        localStorage.setItem('FinalGoods' , (0))
+        localStorage.setItem('FinalPrice' , (0))
+        localStorage.setItem('FinalWeight' , (0))
+        localStorage.setItem('DateGoods' , JSON.stringify([]))
     }
     
     const deleteCard = (num , price) => {
         var index = ProdutData.findIndex(x=> x.id === num);
-        setFinalPrice(FinalPrice - (ProdutData[index].cost * ProdutData[index].count))
-        setFinalGoods(FinalGoods - ProdutData[index].count )
-        setFinalWeight(FinalWeight - (ProdutData[index].weight * ProdutData[index].count ) )
+        setFinalPrice(FinalPrice - (ProdutData[index]?.cost * ProdutData[index].count))
+        setFinalGoods(FinalGoods - ProdutData[index]?.count )
+        setFinalWeight(FinalWeight - (ProdutData[index]?.weight * ProdutData[index]?.count ) )
         setProdutData(ProdutData.filter((item) => item.id !== num))
         setItems(Items.filter((item) => item.id !== num))
+        var testarr = ProdutData.filter((item) => item.id !== num)
+        var dates = []
+        for (let i = 0; i < testarr.length; i++) {
+            for (let i = 0; i < testarr[i]?.date?.length; i++) {
+                dates.push(testarr[i]?.date[i])
+            }
+        }
+        setDateGoods(dates)
+
+        localStorage.setItem('FinalPrice' , (FinalPrice - (ProdutData[index]?.cost * ProdutData[index].count)))
+        localStorage.setItem('FinalGoods' , (FinalGoods - ProdutData[index]?.count ))
+        localStorage.setItem('FinalWeight' , (FinalWeight - (ProdutData[index]?.weight * ProdutData[index]?.count ) ))
+        localStorage.setItem('ProdutData' , JSON.stringify(ProdutData.filter((item) => item.id !== num)))   
+        localStorage.setItem('DateGoods' , JSON.stringify(dates))
     }
 
     const discountHandler = (discount , count , cost) => {

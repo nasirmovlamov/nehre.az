@@ -26,7 +26,7 @@ function TopNavbarPart2(props) {
     const searchBottomMQ = useMediaQuery('(min-width:786px)');
 
 
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     const [drop1, setdrop1] = useState(false)
     const [drop2, setdrop2] = useState(false)
     const [number1, setNumber1] = useState(0)

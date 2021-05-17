@@ -6,7 +6,7 @@ import {
 import {ProductListingContext} from '../components/ProductListingProvider'
 
 function AssortmentCard(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     const imgHandler = {
         background: `url('https://nehra.az/storage/app/public/${props.image}') no-repeat`,
         backgroundPosition: "top center",

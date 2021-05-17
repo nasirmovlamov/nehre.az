@@ -26,7 +26,7 @@ import AuthSms from '../components/AuthSms';
 
 toast.configure()
 function Registration(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!");
     const notify = () => toast.info("Hesabınız müvəfəqiyyətlə yaradıldı!");
 

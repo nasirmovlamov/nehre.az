@@ -10,7 +10,7 @@ import ReactLoading from 'react-loading';
 import {ProductListingContext} from '../components/ProductListingProvider'
 
 function ForgotPass(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
 
     const [loader, setloader] = useState(false)
     const onSubmit =  (values) => {

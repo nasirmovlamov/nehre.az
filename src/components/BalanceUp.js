@@ -7,7 +7,7 @@ import { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 
 function BalanceUp(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     const [amount, setamount] = useState()
     const [error, seterror] = useState(false)
     const notify = () => toast.info("Sorğunuz göndərildi!");

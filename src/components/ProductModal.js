@@ -29,7 +29,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Rating from '@material-ui/lab/Rating';
 
 function ProductModal(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     const notify = (rate) => toast.success(`${rate === null ? 5 : rate}   Ulduz göndərildi` , {draggable: true,});
     const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
     const [Product, setProduct] = useState()

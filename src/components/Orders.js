@@ -5,7 +5,7 @@ import { useState } from 'react';
 import {ProductListingContext} from '../components/ProductListingProvider'
 
 function Orders() {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
 
     const [Orders, setOrders] = useState([])
     const sendOrderRequest = async () => {

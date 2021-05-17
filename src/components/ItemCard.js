@@ -29,7 +29,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function ItemCard(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     const [UserData, setUserData] = useState(0)
     useEffect(() => {
         if (UserData?.id === undefined) {
@@ -152,8 +152,8 @@ function ItemCard(props) {
 
     //Select ITEM  //Select ITEM
     const selectItem = (num) => {
-        const notify2 = (rate) => toast.success(`Seçilmişlərdən çıxarıldı` , {draggable: true,});
-        const notify1 = (rate) => toast.success(`Seçilmişlərə Əlavə olundu` , {draggable: true,});
+        const notify2 = (rate) => toast.success(`Seçilmişlərdən çıxarıldı` , {draggable: true,autoClose: 1000});
+        const notify1 = (rate) => toast.success(`Seçilmişlərə Əlavə olundu` , {draggable: true,autoClose: 1000});
         
         if(UserData?.id !== undefined)
         {  
@@ -199,15 +199,15 @@ function ItemCard(props) {
         <div key={props.id} className="itemCard">
             <button  type="button"  className="imgCont" style={imgHandler}>
                 <div className="valueAndBtn"> 
-                    {ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count > 0 && <div className='valueBtn'>{ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count}</div>}
+                    {ProdutData[ProdutData?.findIndex(x=> x.id === props.id)]?.count > 0 && <div className='valueBtn'>{ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count}</div>}
                     <div className="iconAndBtn"> <button onClick={() => selectItem(props.id)} className="favIco"> {parseInt(indexSelected) === -1 ? <StarBorderIcon/> :  <StarIcon/>}</button></div>
                 </div>
 
                 <div className="overlayImg">
                     <div className='overlayBtn'>
-                        {ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count > 0 && <button onClick={() => removeItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType)}>-</button> }
+                        {ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count > 0 && <button onClick={() => removeItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title)}>-</button> }
                         <button  type="button" onClick={handleOpen}>{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</button>
-                        {ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count > 0 && <button onClick={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType)}>+</button>}
+                        {ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count > 0 && <button onClick={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title)}>+</button>}
                     </div>
                 </div>
 
@@ -247,13 +247,13 @@ function ItemCard(props) {
                             {
                                 delivery === "6" &&
                                 <DarkTT title={`${newsaturday}  çatdırılma `} placement="top" arrow>
-                                    <div className="date">C</div>
+                                    <div className="date">Ş</div>
                                 </DarkTT>
                             }
                             {
                                 delivery === "7" &&
                                 <DarkTT title={`${newsunday}  çatdırılma `} placement="top" arrow>
-                                    <div className="date">C</div>
+                                    <div className="date">B</div>
                                 </DarkTT>
                             }
                         </>
@@ -269,7 +269,7 @@ function ItemCard(props) {
                     <p className="priceAndWeightItem"><span className="element1"  style={props.discount && colorChang}>{discountHandler(props.discount)}  {money}</span> / <span className="element2">{props.weight + " " + (parseInt(props.unitType) === 1 && `kq` || parseInt(props.unitType) === 2 && `qr` || parseInt(props.unitType) === 3 && `l` || parseInt(props.unitType) === 4 && `vedrə` )}</span> </p>
                     <StarSystem numberStar={props.star}/>
                 </div>   
-                <BuyButton functionAdd={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery)}  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>
+                <BuyButton functionAdd={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title)}  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>
             </div>
             {/* {
                 ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count >= 1 && 
