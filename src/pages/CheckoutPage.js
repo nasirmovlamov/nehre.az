@@ -44,15 +44,8 @@ function CheckoutPage(props) {
 
 
     const clickHandler2 = (num) => {
-        for (var i =1; i<7; i++)
-        {
-            if(typeof  document.getElementById(`checkBoxx${i}`) !== undefined && typeof  document.getElementById(`checkBoxx${i}`) !== null)
-            {
-                document.getElementById(`checkBoxx${i}`).checked = false
-            }
-        }
-
-
+        DateGoods.map(element => document.getElementById(`checkBoxx${element}`).checked = false)
+         
         document.getElementById(`checkBoxx${num}`).checked  = true
         const today = new Date()
         const tomorrow = new Date(today)
@@ -121,6 +114,7 @@ function CheckoutPage(props) {
     }
     const [Error, setError] = useState(false)
     const onSubmit =  (values) => {
+        setloader(true)
         const vrt2 = (id , element) => {
             for (let i = 0; i < nondeliveryProducts.length; i++) {
                 if(id === nondeliveryProducts[i])
@@ -131,9 +125,31 @@ function CheckoutPage(props) {
         }
         var newarr = ProdutData.map((element, index ) =>  vrt2(element.id , element))
         newarr = newarr.filter(element => element !== undefined)
+        var dates = []
+        var WholeCost = 0
+        var WholeWeight = 0
+        var WholeCount = 0
+        for (let i = 0; i < newarr.length; i++) {
+            WholeCost += (parseInt(newarr[i].cost) * parseInt(newarr[i].count) )
+            WholeWeight += (parseFloat(newarr[i].weight) * parseInt(newarr[i].count))
+            WholeCount +=  parseInt(newarr[i].count)
+            for (let j = 0; j < newarr[i]?.date?.length; j++) {
+                dates.push(newarr[i]?.date[j])
+            }
+        }
+        let uniqueDates = [...new Set(dates)];
+
+        setFinalPrice(WholeCost)
+        setFinalGoods(WholeCount)
+        setProdutData(newarr)
+        setFinalWeight(WholeWeight)
+
+        localStorage.setItem('FinalWeight' ,WholeWeight)
+        localStorage.setItem('FinalGoods' ,  WholeCount)
+        localStorage.setItem('FinalPrice' , WholeCost)
+        localStorage.setItem('DateGoods' , JSON.stringify(uniqueDates))
         localStorage.setItem('ProdutData' , JSON.stringify(newarr))
 
-        setloader(true)
         const vrt = (id , element) => {
             for (let i = 0; i < deliveryProducts.length; i++) {
                 if(id === deliveryProducts[i])
@@ -144,8 +160,7 @@ function CheckoutPage(props) {
         }
         var newarr2 = ProdutData.map((element, index ) =>  vrt(element.id , element))
         newarr2 = newarr2.filter(element => element !== undefined)
-        // console.log(ProdutData)
-        // console.log(newarr2)
+        setDateGoods(dates)
         axios.post('https://jsonplaceholder.typicode.com/posts', {name: values.name , email: values.email , address:values.address , payment_type:selectedValue , total_price: FinalPrice , total_count: FinalGoods, product_data: newarr2, user_id:props.UserId}  , headers )
          .then(res => (setloader(false) , console.log(res)  )) 
         //  res.status === 200 && ( notify(), props.functionClose() , setTimeout(() => { window.location.href = '/payment'}, 3000) )

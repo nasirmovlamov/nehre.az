@@ -173,7 +173,6 @@ function ItemCard(props) {
             }
 
             var index = selecteds.findIndex(x=> x.id === num)
-            console.log(index);
             if (index === -1) {
                 selecteds = [...selecteds , {id:num , ParcelWeight:props.ParcelWeight , setParcelWeight:props.setParcelWeight, NumberOfGoods:props.NumberOfGoods, setNumberOfGoods:props.setNumberOfGoods, setPaymentPrice:props.setPaymentPrice, PaymentPrice:props.PaymentPrice,  modalOpener3:props.modalOpener3, cardId:props.cardId, image:props.image,    title:props.title, desc:props.desc, price:props.qiymet, weight:props.price, discount:props.discount,  star:props.star}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
@@ -266,7 +265,7 @@ function ItemCard(props) {
             <div className="textCont">
                 <div className="starAndAbout">
                     <p className="dscPrc">{(props.discount !== 0 && props.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{Math.floor(props.price)} {money}</span></span>)}</p>
-                    <p className="priceAndWeightItem"><span className="element1"  style={props.discount && colorChang}>{discountHandler(props.discount)}  {money}</span> / <span className="element2">{props.weight + " " + (parseInt(props.unitType) === 1 && `kq` || parseInt(props.unitType) === 2 && `qr` || parseInt(props.unitType) === 3 && `l` || parseInt(props.unitType) === 4 && `vedrə` )}</span> </p>
+                    <p className="priceAndWeightItem"><span className="element1"  style={props.discount && colorChang}>{discountHandler(props.discount)}  {money}</span> / <span className="element2">{props.weight + " " + (parseInt(props.unitType) === 1 && `kq` || parseInt(props.unitType) === 4 && `qr` || parseInt(props.unitType) === 2 && `l`)}</span> </p>
                     <StarSystem numberStar={props.star}/>
                 </div>   
                 <BuyButton functionAdd={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title)}  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>

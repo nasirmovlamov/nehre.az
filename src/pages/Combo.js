@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));  
 function Combo(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     const [loader, setloader] = useState(false)
     let { slug } = useParams();
     const classes = useStyles();
@@ -70,7 +70,10 @@ function Combo(props) {
       sendGetRequestCategoryFilter(num)
     }
 
-    const buyElement = (discount , id , weight , unitType , price) => {
+    const greater = (id) => {
+      console.log("YES" + id);
+    }
+    const buyElement = (discount , id , weight , unitType , price , title, dates) => {
         const discountHandler = (discount) => {
           if (discount !== 0 && discount !== null) {
               var discountPrice = 0;
@@ -81,12 +84,13 @@ function Combo(props) {
               return Math.floor(price)
           }
         }
-        console.log(id);
-        addItem(id , discountHandler(discount) , weight  , unitType)
+        greater(id)
+        console.log(discount + " " +  id + " " +  weight + " " +  unitType + " " +  price + " " +  title+ " " + " " +  dates);
+        addItem(id , discountHandler(discount) , weight , unitType , dates , title)
     }
 
     const buyCombo = () => {
-        ProductData.forEach(product => { buyElement(product?.discount , product.id , product?.ceki_hecm , product?.unit , product?.qiymet)});
+        ProductData.forEach(product => { buyElement(product?.discount , product.id , product?.ceki_hecm , product?.unit , product?.qiymet , product?.title , product?.delivery)});
         // ProductData.map(product => buyElement(product.discount , product.id , product.ceki_hecm , product.unit , product.qiymet))
     }
 

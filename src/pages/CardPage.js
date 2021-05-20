@@ -57,27 +57,38 @@ function CardPage(props) {
         localStorage.setItem('DateGoods' , JSON.stringify([]))
     }
     
-    const deleteCard = (num , price) => {
+    const deleteCard = (num , price, dates) => {
+        
         var index = ProdutData.findIndex(x=> x.id === num);
-        setFinalPrice(FinalPrice - (ProdutData[index]?.cost * ProdutData[index].count))
-        setFinalGoods(FinalGoods - ProdutData[index]?.count )
-        setFinalWeight(FinalWeight - (ProdutData[index]?.weight * ProdutData[index]?.count ) )
+        setFinalPrice(parseInt(FinalPrice) - parseInt(ProdutData[index]?.cost * ProdutData[index]?.count))
+        setFinalGoods(parseInt(FinalGoods) - parseInt(ProdutData[index]?.count) )
+        console.log(ProdutData[index]);
+        if (parseInt(ProdutData[index]?.unitType) === 4) {
+            setFinalWeight(parseFloat(FinalWeight) - ((parseFloat(ProdutData[index]?.weight) / 1000) * parseInt(ProdutData[index]?.count)) )
+        }
+        else 
+        {
+            setFinalWeight(parseFloat(FinalWeight) - (parseFloat(ProdutData[index]?.weight) * parseInt(ProdutData[index]?.count) ) )
+        }
         setProdutData(ProdutData.filter((item) => item.id !== num))
         setItems(Items.filter((item) => item.id !== num))
         var testarr = ProdutData.filter((item) => item.id !== num)
-        var dates = []
-        for (let i = 0; i < testarr.length; i++) {
-            for (let i = 0; i < testarr[i]?.date?.length; i++) {
-                dates.push(testarr[i]?.date[i])
+        const datesss = []
+        const nonDeletedP = Items.filter((item) => item.id !== num)
+        for (let i = 0; i < nonDeletedP.length; i++) {
+            for (let j = 0; j < nonDeletedP[i]?.date?.length; j++) {
+                datesss.push(nonDeletedP[i]?.date[j])
             }
         }
-        setDateGoods(dates)
+        let uniqueDates = [...new Set(datesss)];
 
-        localStorage.setItem('FinalPrice' , (FinalPrice - (ProdutData[index]?.cost * ProdutData[index].count)))
+        
+        setDateGoods(uniqueDates)
+        localStorage.setItem('FinalPrice' , (FinalPrice - (ProdutData[index]?.cost * ProdutData[index]?.count)))
         localStorage.setItem('FinalGoods' , (FinalGoods - ProdutData[index]?.count ))
         localStorage.setItem('FinalWeight' , (FinalWeight - (ProdutData[index]?.weight * ProdutData[index]?.count ) ))
-        localStorage.setItem('ProdutData' , JSON.stringify(ProdutData.filter((item) => item.id !== num)))   
-        localStorage.setItem('DateGoods' , JSON.stringify(dates))
+        localStorage.setItem('ProdutData' , (JSON.stringify(ProdutData.filter((item) => item.id !== num))))   
+        localStorage.setItem('DateGoods' , (JSON.stringify(uniqueDates)))
     }
 
     const discountHandler = (discount , count , cost) => {
@@ -105,7 +116,7 @@ function CardPage(props) {
                             !loader 
                             &&
                             <>
-                                {Items.map( element => <CheckoutCard key={element.id} deleteCard={deleteCard}  id={element.id} />)}
+                                {Items.map( element => <CheckoutCard key={element.id} deleteCard={deleteCard}  id={element.id}  delivery={element.date} />)}
                             </>
                         }
                         {loader &&  <div className="loader"><CircularProgress color="secondary" /></div>}
@@ -121,7 +132,7 @@ function CardPage(props) {
                     </div>
                     
                     <div className="downPart">
-                        <div className="goods"><p className="key">{lang === "AZ" && `Ümumi paketin çəkisi` || lang === "EN" && `Weight Parcel` || lang === "RU" && `Вес посылки`}</p> <p className="value ">{FinalWeight}</p> </div> 
+                        <div className="goods"><p className="key">{lang === "AZ" && `Ümumi paketin çəkisi` || lang === "EN" && `Weight Parcel` || lang === "RU" && `Вес посылки`}</p> <p className="value ">{FinalWeight.toFixed(2)} kq</p> </div> 
                         <div className="goods"><p className="key">{lang === "AZ" && `Ümumi məhsulların sayı` || lang === "EN" && `Total number of products` || lang === "RU" && `Общее количество продуктов`} </p> <p className="value ">{FinalGoods}</p> </div> 
                         <div className="cost"><p className="key">Qiymət</p> <p className="value value2"> {money === '₼' ? FinalPrice : Math.floor(FinalPrice )} {money} </p> </div> 
                         <Button1 disabled={FinalPrice < MinOrder ? true : false} value={lang === "AZ" && `Ödəniş səhifəsinə keçid edin` || lang === "EN" && `Go to payment` || lang === "RU" && `Перейти к оплате`} color="#085096" function={props.functionOpenCheckoutPage} /> 

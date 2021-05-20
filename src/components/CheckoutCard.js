@@ -15,6 +15,8 @@ import {ProductListingContext} from '../components/ProductListingProvider'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Skeleton from '@material-ui/lab/Skeleton';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import moment from 'moment';
+import 'moment/locale/az';
 
 function CheckoutCard(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
@@ -58,6 +60,42 @@ function CheckoutCard(props) {
         backgroundRepeat: 'no-repeat',
         backgroundSize: "cover",
     }
+
+//
+    //Date //Date //Date
+    const today = new Date()
+    const tomorrow = new Date()
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    const monday = new Date()
+    monday.setDate(tomorrow.getDate() + (1 + 7 - tomorrow.getDay()) % 7);
+    const tuesday = new Date()
+    tuesday.setDate(tomorrow.getDate() + (2 + 7 - tomorrow.getDay()) % 7);
+    const wednesday = new Date()
+    wednesday.setDate(tomorrow.getDate() + (3 + 7 - tomorrow.getDay()) % 7);
+    const thursday = new Date()
+    thursday.setDate(tomorrow.getDate() + (4 + 7 - tomorrow.getDay()) % 7);
+    const friday = new Date()
+    friday.setDate(tomorrow.getDate() + (5 + 7 - tomorrow.getDay()) % 7);
+    const saturday = new Date()
+    saturday.setDate(tomorrow.getDate() + (6 + 7 - tomorrow.getDay()) % 7);
+    const sunday = new Date()
+    sunday.setDate(tomorrow.getDate() + (7 + 7 - tomorrow.getDay()) % 7);
+    var newmonday = moment(monday).format( 'dddd, D MMMM');
+    var newtuesday = moment(tuesday).format( 'dddd, D MMMM');
+    var newwednesday = moment(wednesday).format( 'dddd, D MMMM');
+    var newthursday = moment(thursday).format( 'dddd, D MMMM');
+    var newfriday = moment(friday).format( 'dddd, D MMMM');
+    var newsaturday = moment(saturday).format( 'dddd, D MMMM');
+    var newsunday = moment(sunday).format( 'dddd, D MMMM');
+//
+
+
+
+
+
+
+
+    console.log(props.delivery)
     
     return (
         <>
@@ -72,37 +110,65 @@ function CheckoutCard(props) {
                                 <p className="title">{Product?.title}</p>
                                 <p className="priceAndWeight">{ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost} {money}  / {Product?.ceki_hecm} g.</p>
                                 <div className="dates">
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                    <div className="date">Be</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ç</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ça</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">C</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">Ş</div>
-                                    </DarkTT>
-                                    <DarkTT title="Delivery possible for" placement="top" arrow>
-                                        <div className="date">B</div>
-                                    </DarkTT>
+                                {props.delivery?.map(delivery =>
+                                    <>
+                                        {
+                                            delivery === "1" &&
+                                            <DarkTT title={`${newmonday}  çatdırılma `} placement="top" arrow>
+                                                <div className="date">Be</div>
+                                            </DarkTT>
+                                        }
+                                        {
+                                            delivery === "2" &&
+                                            <DarkTT title={`${newtuesday}  çatdırılma `}  placement="top" arrow>
+                                                <div className="date">Ça</div>
+                                            </DarkTT>
+                                        }
+                                        {
+                                            delivery === "3" &&
+                                            <DarkTT title={`${newwednesday}  çatdırılma `} placement="top" arrow>
+                                                <div className="date">Ç</div>
+                                            </DarkTT>
+                                        }
+                                        {
+                                            delivery === "4" &&
+                                            <DarkTT title={`${newthursday}  çatdırılma `} placement="top" arrow>
+                                                <div className="date">Ca</div>
+                                            </DarkTT>
+                                        }
+                                        {
+                                            delivery === "5" &&
+                                            <DarkTT title={`${newfriday}  çatdırılma `} placement="top" arrow>
+                                                <div className="date">C</div>
+                                            </DarkTT>
+                                        }
+                                        {
+                                            delivery === "6" &&
+                                            <DarkTT title={`${newsaturday}  çatdırılma `} placement="top" arrow>
+                                                <div className="date">Ş</div>
+                                            </DarkTT>
+                                        }
+                                        {
+                                            delivery === "7" &&
+                                            <DarkTT title={`${newsunday}  çatdırılma `} placement="top" arrow>
+                                                <div className="date">B</div>
+                                            </DarkTT>
+                                        }
+                                    </>
+                                )}
                                 </div>
                             </div>
                             {
                                 !checkoutMobile &&
                                 <>
                                     <div className="btnCont">
-                                        <Button1 function={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm)} value={<RemoveIcon/>} color="#085096"/>
+                                        {ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count && <Button1 function={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title)} value={<RemoveIcon/>} color="#085096"/>}
                                         <p className="priceValue">{Product?.id !== undefined ? (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count) : 0}</p>
-                                        <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm)} value={<AddIcon/>}  color="#085096"/>
+                                        <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title)} value={<AddIcon/>}  color="#085096"/>
                                     </div>
 
                                     <p className="price">{Product?.id !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count * ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost) : 0}  {money}</p>
-                                    <button onClick={() => props.deleteCard(Product?.id , Product?.price)} className="delete"><DeleteIcon/></button>
+                                    <button onClick={() => props.deleteCard(Product?.id , Product?.price , Product?.delivery)} className="delete"><DeleteIcon/></button>
                                 </>    
                             }
 
@@ -111,9 +177,9 @@ function CheckoutCard(props) {
                                 checkoutMobile &&
                                 <div className='mobileCheckout'>
                                     <div className="btnCont">
-                                        <Button1 function={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm)} value={<RemoveIcon/>} color="#085096"/>
-                                        <p className="priceValue">{Product?.id !== undefined ? (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count) : 0}</p>
-                                        <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm)} value={<AddIcon/>}  color="#085096"/>
+                                        <Button1 function={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit , Product?.delivery , Product?.title)} value={<RemoveIcon/>} color="#085096"/>
+                                        <p className="priceValue">{ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count}</p>
+                                        <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit , Product?.delivery , Product?.title)} value={<AddIcon/>}  color="#085096"/>
                                     </div>
 
                                     <p className="price">{Product?.id !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count * ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost) : 0}  ₼</p>

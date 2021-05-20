@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));  
 function ProductListingPage(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     const [loader, setloader] = useState(false)
     let { id } = useParams()
     const classes = useStyles();
@@ -101,7 +101,7 @@ function ProductListingPage(props) {
             <div className="productsCont">
                 {
                   loader === true ? <div className="loader"><ReactLoading type={"bubbles"} color={"#2d5d9b"} height={27} width={125} /></div> :
-                  ( ProductData.length >= 1 ? ProductData.map(product =>  <ItemCard ParcelWeight={props.ParcelWeight} setParcelWeight={props.setParcelWeight} NumberOfGoods={props.NumberOfGoods} setNumberOfGoods={props.setNumberOfGoods} setPaymentPrice={props.setPaymentPrice} PaymentPrice={props.PaymentPrice}  modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb}    title={product.title} desc={product.seller_id} price={money === "₼" ? product.qiymet : Math.floor(product.qiymet / 1.7)} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>) : "Məhsul stokda mövcud deyil ")
+                  ( ProductData.length >= 1 ? ProductData.map(product =>  <ItemCard delivery={product.delivery} id={product.id} ParcelWeight={props.ParcelWeight} setParcelWeight={props.setParcelWeight} NumberOfGoods={props.NumberOfGoods} setNumberOfGoods={props.setNumberOfGoods} setPaymentPrice={props.setPaymentPrice} PaymentPrice={props.PaymentPrice}  modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb}    title={product.title}  desc={product.seller_id}  unitType={product.unit} price={money === "₼" ? product.qiymet : Math.floor(product.qiymet / 1.7)} weight={product.ceki_hecm} discount={product.discount}   productModal={props.productModal} id={product.id}  star={product.starsall}/>) : "Məhsul stokda mövcud deyil ")
                 }
             </div>
         </div>
