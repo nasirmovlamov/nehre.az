@@ -179,7 +179,7 @@
           justify-content: start;
   width: 94%;
   min-height: 410px;
-  grid-gap: 75px;
+  grid-gap: 18px;
   background-color: #edf4f6;
   padding-top: 40px;
   padding-bottom: 40px;
@@ -190,10 +190,6 @@
   -ms-flex-item-align: top;
       -ms-grid-row-align: top;
       align-self: top;
-}
-
-.comboPage .productsCont .overlayImg {
-  width: 14%;
 }
 
 .comboPage .buyComboCont {
@@ -223,7 +219,7 @@
 }
 
 .comboPage .buyComboCont .buyCombo {
-  width: 200px;
+  width: 250px;
   height: 50px;
   display: -webkit-box;
   display: -ms-flexbox;

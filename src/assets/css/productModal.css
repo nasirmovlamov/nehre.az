@@ -227,6 +227,96 @@
   display: flex;
 }
 
+.productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont {
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
+  position: absolute;
+  margin-top: 30px;
+  background-color: white;
+  border-radius: 5px;
+  width: auto;
+  height: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-shadow: 0px 0px 10000px 10000px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 0px 10000px 10000px rgba(0, 0, 0, 0.5);
+  z-index: 100000000;
+  width: 380px;
+  overflow: hidden;
+}
+
+.productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont .buttonContReviewSend {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: -1px;
+  z-index: 2;
+}
+
+.productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont .buttonContReviewSend .rateCont {
+  width: auto;
+  margin-left: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 5px;
+          column-gap: 5px;
+  font-size: 10px;
+}
+
+.productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont .buttonContReviewSend .Buttons {
+  margin-left: 10px;
+}
+
+.productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont textarea {
+  width: 95%;
+  border-radius: 0px;
+  border: 0px solid gray;
+  height: 100px;
+  padding-top: 10px;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+  border-bottom: 1px dashed gray;
+}
+
+.productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont textarea:focus {
+  outline: none;
+}
+
+.productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont .submit {
+  height: 33px;
+  border-radius: 0px;
+  border: none;
+  background-color: #285999;
+  color: white;
+}
+
+.productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont button {
+  width: 70px;
+  height: 33px;
+  border-radius: 0px;
+  border: none;
+  background-color: #ec6275;
+  color: white;
+}
+
 .productModal .sliderAndAbout .aboutCont .reviewCont .stars {
   width: 150px;
   -webkit-box-pack: start;

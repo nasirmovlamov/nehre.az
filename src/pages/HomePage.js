@@ -61,63 +61,22 @@ function HomePage(props) {
     const [Banners2, setBanners2] = useState([])
     
     
-
-
-    
-    const sendGetRequest = async () => {
-        try {
-            const resp = await axios.get('https://nehra.az/public/api/newproducts')
-            setProduct(resp.data)
-        } catch (err) {
-            // Handle Error Here
-            console.error(err);
-        }
-    };
-
-    const sendGetRequest2 = async () => {
-        try {
-            const resp = await axios.get('https://nehra.az/public/api/specials')
-            setSpecialOffers(resp.data)
-        } catch (err) {
-            // Handle Error Here
-            console.error(err);
-        }
-    };
-
-    const sendGetRequest3 = async () => {
-        try {
-            const resp = await axios.get('https://nehra.az/public/api/manufacturerslider')
-            setSuppliersCard(resp.data)
-        } catch (err) {
-            // Handle Error Here
-            console.error(err);
-        }
-    };
-    const sendGetRequest4 = async () => {
-        try {
-            const resp = await axios.get('https://nehra.az/public/api/slayder')
-            setTopCards(resp.data)
-        } catch (err) {
-            // Handle Error Here
-            console.error(err);
-        }
-    };
-    const sendGetRequest5 = async () => {
-        try {
-            const resp = await axios.get('https://nehra.az/public/api/questions')
-            setAnswerCard(resp.data)
-        } catch (err) {
-            // Handle Error Here
-            console.error(err);
-        }
-    };
-    
-    const sendGetRequestBanners = async () => {
+    const sendGetRequests = async () => {
         try {
             const resp1 = await axios.get('https://nehra.az/public/api/banner/first_banner')
             setBanners1(resp1.data)
             const resp2 = await axios.get('https://nehra.az/public/api/banner/bonus_banner')
             setBanners2(resp2.data)
+            const resp3 = await axios.get('https://nehra.az/public/api/questions')
+            setAnswerCard(resp3.data)
+            const resp4 = await axios.get('https://nehra.az/public/api/slayder')
+            setTopCards(resp4.data)
+            const resp5 = await axios.get('https://nehra.az/public/api/manufacturerslider')
+            setSuppliersCard(resp5.data)
+            const resp6 = await axios.get('https://nehra.az/public/api/specials')
+            setSpecialOffers(resp6.data)
+            const resp7 = await axios.get('https://nehra.az/public/api/newproducts')
+            setProduct(resp7.data)
         } catch (err) {
             // Handle Error Here
             console.error(err);
@@ -125,19 +84,14 @@ function HomePage(props) {
     };
     
     useEffect(() => {
-            sendGetRequest4();
-            sendGetRequest5();
-            sendGetRequest3();
-            sendGetRequest();
-            sendGetRequest2();
-            sendGetRequestBanners()
+            sendGetRequests()
     }, [])
 
     TopCards.map(bucket => ( topCards.push(             <CardSlider1 link={bucket.link} id={bucket.id} turndesc={bucket.turndesc} turnetrafli={bucket.turnetrafli}  turnoverlay={bucket.turnoverlay}  turntitle={bucket.turntitle}   name={bucket.name} image={bucket.image} desc={bucket.description}/>)))
     SuppliersCard.map(supply => ( suppliersCard.push(   <SupplierCard id={supply.id} image={supply.avatar} title={supply.name} supplier={supply.type_id} image2={testImg6} image3={testImg7}/>   )))
     AnswerCard.map(question => ( answerCard.push(       <AnswersCard  answer={question.description} question={question.name} />)))
-    NewProducts.map(product =>  ( newItems.push(        <ItemCard delivery={product?.delivery} id={product?.id} NumberOfGoods={props?.NumberOfGoods}  modalOpener3={props.modalOpener3} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={product?.seller_id}  unitType={product?.unit.id} price={money === "₼" ? product?.qiymet : Math.floor(product?.qiymet / 1.7)} weight={product?.ceki_hecm}   discount={product?.discount} productModal={props?.productModal} id={product?.id}  star={product?.starsall}/>)))
-    SpecialOffers.map(product =>( specialOffers.push(   <ItemCard delivery={product?.delivery} id={product?.id} NumberOfGoods={props?.NumberOfGoods}  modalOpener3={props.modalOpener3} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={product?.seller_id}  unitType={product?.unit.id} price={money === "₼" ? product?.qiymet : Math.floor(product?.qiymet / 1.7)}  weight={product?.ceki_hecm}  discount={product?.discount} productModal={props?.productModal}  id={product?.id}  star={product?.starsall}/>)))
+    NewProducts.map(product =>  ( newItems.push(        <ItemCard delivery={product?.delivery} id={product?.id} NumberOfGoods={props?.NumberOfGoods}  modalOpener3={props.modalOpener3} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={product?.seller_data?.name}  unitType={product?.unit.id} price={money === "₼" ? product?.qiymet : Math.floor(product?.qiymet / 1.7)} weight={product?.ceki_hecm}   discount={product?.discount} productModal={props?.productModal} id={product?.id}  star={product?.starsall}/>)))
+    SpecialOffers.map(product =>( specialOffers.push(   <ItemCard delivery={product?.delivery} id={product?.id} NumberOfGoods={props?.NumberOfGoods}  modalOpener3={props.modalOpener3} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={product?.seller_data?.name}  unitType={product?.unit.id} price={money === "₼" ? product?.qiymet : Math.floor(product?.qiymet / 1.7)}  weight={product?.ceki_hecm}  discount={product?.discount} productModal={props?.productModal}  id={product?.id}  star={product?.starsall}/>)))
     
     const bannerImg1 = {
         backgroundImage:`url(https://nehra.az/storage/app/public/${Banners1[0]?.image})`,

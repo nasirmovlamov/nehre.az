@@ -15,12 +15,11 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
+            padding-top: 10px;
             .imgAndLinks
             {
                 display: flex;
-                align-items: flex-end;
-                
-                
+                align-items: flex-end; 
             }
             .phoneCont
                 {
@@ -313,6 +312,21 @@
                             color: white;
                             border: none;
                             background-color: transparent;
+                            padding: 0px;
+                            border: none;
+                            .btnInside
+                            {
+                                width: 35px !important;
+                                height: 35px !important;
+                                padding: 0px !important;
+                                margin: 0px !important;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                border: none !important;
+                                color: white;
+                                background-color: #d39b17;
+                            }
                             &:nth-child(2)
                             {
                                 border-top: 1px dashed white;
@@ -320,6 +334,10 @@
                             &:hover 
                             {
                                 background-color: #d39b17;
+                                a 
+                                {
+                                    color: #d39b17;
+                                }
                             }
                         }
                         position: absolute;

@@ -25,6 +25,7 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   width: 100%;
+  padding-top: 10px;
 }
 
 .topNavbar .topPart .imgAndLinks {
@@ -420,6 +421,27 @@
   color: white;
   border: none;
   background-color: transparent;
+  padding: 0px;
+  border: none;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(2) .dropdown-content button .btnInside {
+  width: 35px !important;
+  height: 35px !important;
+  padding: 0px !important;
+  margin: 0px !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: none !important;
+  color: white;
+  background-color: #d39b17;
 }
 
 .topNavbar .searchAndIcons .selection a:nth-child(2) .dropdown-content button:nth-child(2) {
@@ -428,6 +450,10 @@
 
 .topNavbar .searchAndIcons .selection a:nth-child(2) .dropdown-content button:hover {
   background-color: #d39b17;
+}
+
+.topNavbar .searchAndIcons .selection a:nth-child(2) .dropdown-content button:hover a {
+  color: #d39b17;
 }
 
 .topNavbar .searchAndIcons .selection a:nth-child(2) .dropdown-content a {

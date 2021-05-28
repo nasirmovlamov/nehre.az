@@ -19,7 +19,7 @@ function Cabinet(props) {
 
     return (
         <div className="cabinetCont">
-            <p className="title">My info</p>
+            <p className="title">My info </p>
             <div className="gridCont">
                 <p className="key">Last name and first name</p> <p className="value">{UserData.name}</p>
                 <p className="key">Balance</p> <p className="value">{UserData.balance === null ? 0 : UserData.balance}</p>

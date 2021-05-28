@@ -43,14 +43,14 @@ function SelectedSupplier() {
     return (
         <div className="selectedSupllierCont">
             <div className="selectedSupplier">
-                <p className="category"> <span>home • Manufacturer • </span>  {Supplier.name}</p>
+                <p className="category"> <span>{sessionStorage.getItem('lang') === "AZ" && `əsas səhifə` || sessionStorage.getItem('lang') === "EN" && `home` || sessionStorage.getItem('lang') === "RU" && `главная`}  •  {sessionStorage.getItem('lang') === "AZ" && `kəndli` || sessionStorage.getItem('lang') === "EN" && `Manufacturer` || sessionStorage.getItem('lang') === "RU" && `Производитель`} • </span>  {Supplier.name}</p>
 
 
                 <div className="videoAndAbout">
                     <iframe  className="supplierVideo" src="https://www.youtube.com/embed/tgbNymZ7vqY" ></iframe>
                     <div className="about">
                         <p className="name">{Supplier.name}</p>
-                        <div className="starAndReview"><StarSystem numberStar={Supplier.star_count}/>  <p>{Supplier.review_count} reviews </p> </div>
+                        <div className="starAndReview"><StarSystem numberStar={Supplier.star_count}/>  <p>{Supplier.review_count}  {sessionStorage.getItem('lang') === "AZ" && `şərh` || sessionStorage.getItem('lang') === "EN" && `reviews` || sessionStorage.getItem('lang') === "RU" && `отзывы`} </p> </div>
                         <p className="text">
                             {Supplier.description}
                         </p>

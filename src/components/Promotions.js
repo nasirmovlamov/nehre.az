@@ -7,8 +7,8 @@ import Products from './Products'
         <div className="promotionsCont" >
             
             <div className="promotions">
-                <p className="category"> <span>home •</span>  Promotions</p>
-                <p className="suppliersTitle">Meet our suppliers</p>
+                <p className="category"> <span> {sessionStorage.getItem('lang') === "AZ" && `əsas səhifə` || sessionStorage.getItem('lang') === "EN" && `home` || sessionStorage.getItem('lang') === "RU" && `главная`} •</span>   {lang === "AZ" && `Endirimlər` || lang === "EN" && `Promotions` || lang === "RU" && `Акции`}</p>
+                <p className="suppliersTitle">{lang === "AZ" && `Endirimlərlə tanış olun ` || lang === "EN" && `Get acquainted with discounts` || lang === "RU" && `Ознакомьтесь со скидками`}</p>
                 <div className="products">
                     <Products/>
                 </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import Button1 from './Button1'
 import TextField from '@material-ui/core/TextField';
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
@@ -13,9 +13,14 @@ import ReactLoading from 'react-loading';
 import AuthSms from '../components/AuthSms'
 import Modal from '@material-ui/core/Modal';
 import BalanceUp from './BalanceUp';
+import {ProductListingContext} from '../components/ProductListingProvider'
 
 toast.configure()
 function Contacts(props) {
+
+
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+
     const [UserData, setUserData] = useState(0)
     const phoneRegExp = /([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/
     const [selectedDate, setSelectedDate] = React.useState(new Date('2000-08-18T21:11:54'));
@@ -54,7 +59,7 @@ function Contacts(props) {
         backgroundRepeat: "no-repeat"
     }
 
-    const notify = () => toast.info("Məlumatlar yeniləndi!");
+    const notify = () => toast.info(lang === "AZ" && `Məlumatlar yeniləndi!` || lang === "EN" && `Information updated!` || lang === "RU" && `Информация обновлена!`);
     const [loader, setloader] = useState(false)
     const clickHandler = () => {
         props.functionClose()
@@ -88,8 +93,8 @@ function Contacts(props) {
     }
     const validationSchema = Yup.object({
         name: Yup.string().required(),
-        email: Yup.string().email('Emailinizi düzgün daxil edin').required(),
-        phone: Yup.string().matches(phoneRegExp, 'Telefon nömrəsini düzgün daxil edin').required(),
+        email: Yup.string().email(lang === "AZ" && `Elektron poçtunuzu düzgün daxil edin` || lang === "EN" && `Enter your email correctly` || lang === "RU" && `Введите свой адрес электронной почты правильно`).required(lang === "AZ" && `Elektron poçtunuzu daxil edin` || lang === "EN" && `Enter your email` || lang === "RU" && `Введите адрес электронной почты` ),
+        phone: Yup.string().matches(phoneRegExp, (lang === "AZ" && `Telefon nömrəsini düzgün daxil edin` || lang === "EN" && `Enter the phone number correctly` || lang === "RU" && `Введите номер телефона правильно`)).required(lang === "AZ" && `Telefon nömrənizi daxil edin` || lang === "EN" && `Enter your phone number` || lang === "RU" && `Введите свой номер телефона`),
     })
 
     const [open, setOpen] = React.useState(false);
@@ -106,17 +111,17 @@ function Contacts(props) {
             <p className="title">My info</p>
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} validateOnChange={true} validateOnBlur={false}>
                 <Form  className="gridCont">
-                    <p className="name key">* Name and Surname</p> <Field  className="value"  placeHolder={`${UserData.name}`}  type="text" name="name" />
+                    <p className="name key">* {lang === "AZ" && `Adınız  Soyadınız` || lang === "EN" && `Name Surname` || lang === "RU" && `Имя Фамилия`}</p> <Field  className="value"  placeHolder={`${UserData.name}`}  type="text" name="name" />
                     <div className="loader"><ErrorMessage name="name"/></div>
-                    <p className="key">Balance</p> <div className='balanceCont'><p className="valueBalance">{UserData.balance === null ? 0 : UserData.balance} AZN</p>  <button onClick={() => handleOpen()} type='button'>Balansı artır</button></div>
-                    <p className="email key ">* Email</p> <Field disabled placeHolder={`${UserData.email}`} className="value"  type="email" name="email" />
+                    <p className="key"> {lang === "AZ" && `Balans ` || lang === "EN" && `Balance ` || lang === "RU" && `Баланс `}</p> <div className='balanceCont'><p className="valueBalance">{UserData.balance === null ? 0 : UserData.balance} AZN</p>  <button onClick={() => handleOpen()} type='button'>Balansı artır</button></div>
+                    <p className="email key ">* {lang === "AZ" && `Elektron poçt ünvanı` || lang === "EN" && `Email address` || lang === "RU" && `Адрес электронной почты`}</p> <Field disabled placeHolder={`${UserData.email}`} className="value"  type="email" name="email" />
                     <div className="loader"><ErrorMessage name="email"/></div>
-                    <p className="phone key">* Phone</p> <Field disabled placeHolder={`${UserData.phone}`} className="value"  type="num  " name="phone" />
+                    <p className="phone key">* {lang === "AZ" && `Telefon` || lang === "EN" && `Phone` || lang === "RU" && `Телефон`}</p> <Field disabled placeHolder={`${UserData.phone}`} className="value"  type="num  " name="phone" />
                     <div className="loader"><ErrorMessage name="phone"/></div>
-                    <p className="date key">* Birthday</p> <LocalizationProvider dateAdapter={AdapterDateFns}> <DatePicker label="Doğum tarixiniz"  value={selectedDate} minDate={'02-01-1920'} maxDate={'02-29-2020'} inputFormat="dd/MM/yyyy" onChange={(newValue) => { setSelectedDate(newValue.slice(0,10)); }} renderInput={(params) => <TextField {...params} />}/></LocalizationProvider>
+                    <p className="date key">* {lang === "AZ" && `Doğum tarixi` || lang === "EN" && `Date of birth` || lang === "RU" && `Дата рождения`}</p> <LocalizationProvider dateAdapter={AdapterDateFns}> <DatePicker label={lang === "AZ" && `Doğum tarixi` || lang === "EN" && `Date of birth` || lang === "RU" && `Дата рождения`}  value={selectedDate} minDate={'02-01-1920'} maxDate={'02-29-2020'} inputFormat="dd/MM/yyyy" onChange={(newValue) => { setSelectedDate(newValue.slice(0,10)); }} renderInput={(params) => <TextField {...params} />}/></LocalizationProvider>
                     <p className="key" style={{alignSelf:"start"}}>Profile picture </p> <div className="valueImg" style={imgHandler}></div>
-                    <button type="button" className="addFile"> <p className="textPhoto">{profilePhoto?.name !== undefined ? profilePhoto.name  : "Şəklinizi yeniləyin"}</p><input onChange={ppchanger} type="file" className="addFileInput" name="profile" id=""/></button>
-                    <Button1 type="submit" value="Məlumatlarınızı yeniləyin" color="#285999"/>
+                    <button type="button" className="addFile"> <p className="textPhoto">{profilePhoto?.name !== undefined ? profilePhoto.name  : (lang === "AZ" && `Şəkil` || lang === "EN" && `Picture` || lang === "RU" && `Картина`)}</p><input onChange={ppchanger} type="file" className="addFileInput" name="profile" id=""/></button>
+                    <Button1 type="submit" value={lang === "AZ" && `Təsdiqləyin` || lang === "EN" && `Confirm` || lang === "RU" && `Подтверждать`}  color="#285999"/>
                     <div className="loader">{loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={"35px"} width={"80px"} />}</div>
                 </Form>
             </Formik>

@@ -7,7 +7,7 @@ import SupplierCard2 from './SupplierCard2'
 import {ProductListingContext} from '../components/ProductListingProvider'
 
 function Suppliers() {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
 
     const [Suppliers, setSuppliers] = useState([])
     useEffect(() => {

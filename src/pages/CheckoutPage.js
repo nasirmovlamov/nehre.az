@@ -13,8 +13,11 @@ import moment from 'moment';
 import { set } from 'js-cookie'
 import 'moment/locale/az';
 import 'moment/locale/ru';
+import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 function CheckoutPage(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     
     const notify = () => toast.info("Nuş olsun!");
     const [loader, setloader] = useState(false)
@@ -38,49 +41,68 @@ function CheckoutPage(props) {
     const [nondeliveryProducts, setnondeliveryProducts] = useState([])
     const [deliveryProducts, setdeliveryProducts] = useState([])
     const [deliveryy, setdeliveryy] = useState([])
+    const [paymentType, setpaymentType] = useState(1)
+    
 
+    const notifyAddress = (rate) => toast.success(`Ünvan əlavə edildi!` , {draggable: true,});
+    const notifyDelete = (rate) => toast.success(`Ünvan silindi!` , {draggable: true,});
+    
+    const [addressC, setaddressC] = useState("")
+    const onChangeAddress = (e) => {
+        setaddressC(e.target.value)
+    }
+    
+    const [addressR, setaddressR] = useState([])
+    const onChangeAddressR = (e) => {
+        setaddressR(e.target.value)
+        setaddressC("")
+    }
 
-
+    const addnewAddress = () => {
+        axios.post('https://nehra.az/public/api/postaddress' , {user_id:JSON.parse(localStorage.getItem('LoginUserData')).id, address:addressC})
+            .then(res => ( console.log(res.data) , res.status === 200 && (notifyAddress() , setaddress(res.data))))
+    }
+    const deleteAddress = (id) => {
+        axios.post(`https://nehra.az/public/api/removeaddress` , {id:id , user_id:JSON.parse(localStorage.getItem('LoginUserData')).id })
+             .then(res =>( setaddress(res.data)  , notifyDelete()))
+    }
 
 
     const clickHandler2 = (num) => {
-        DateGoods.map(element => document.getElementById(`checkBoxx${element}`).checked = false)
-         
-        document.getElementById(`checkBoxx${num}`).checked  = true
+
         const today = new Date()
+        
         const tomorrow = new Date(today)
-        tomorrow.setDate(tomorrow.getDate() + 1)
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        
         const deliveryday = new Date()
-        deliveryday.setDate(tomorrow.getDate() + (num + 7 - tomorrow.getDay()) % 7);
-        console.log('-------------------------')
+        
+        
+        console.log(num);
+        deliveryday.setDate(tomorrow.getDate() + (parseInt(num) + 7 - tomorrow.getDay()) % 7);
+        console.log(deliveryday);
+
+
+        
         var newdeliveryday = moment(deliveryday).format( 'dddd, D MMMM');
-        console.log(newdeliveryday)
         setdeliveryDay(newdeliveryday)
-        console.log(deliveryProducts)
-        console.log(nondeliveryProducts)
-        console.log('-------------------------')
-        console.log(ProdutData);
-        // console.log("will be delivered" + deliveryProducts)
-        // console.log("will not be delivered" + nondeliveryProducts)
-        console.log('-------------------------')
-        console.log('-------------------------')
         
         var dateIds = []
         var nondateIds = []
         const dateChecker = (date , id) => {
+            console.log(date);
             for (let i = 0; i < date.length; i++) {
                 const today = new Date()
                 tomorrow.setDate(today.getDate() + 1)
-                // console.log(tomorrow);
                 const elementday = new Date()
                 elementday.setDate(tomorrow.getDate() + (parseInt(date[i]) + 7 - tomorrow.getDay()) % 7);
-                console.log(elementday);
+                
+
+                // console.log(elementday);
                 if(elementday.getDate()  < deliveryday.getDate() )
                 {
-                    console.log('YEs')
                     dateIds.push(id)
                     nondateIds = nondateIds.filter(element => element !== id)
-                    // setdeliveryProducts([...deliveryProducts , id])
                     return 0 
                 }
                 else if(elementday.getDate()  > deliveryday.getDate() )
@@ -89,23 +111,16 @@ function CheckoutPage(props) {
                 }
                 else 
                 {
-                    console.log('YEs')
                     dateIds.push(id)
                     nondateIds = nondateIds.filter(element => element !== id)
-                    // setdeliveryProducts([...deliveryProducts , id])
                     return 0 
-                    // setnondeliveryProducts([...nondeliveryProducts , id])
                 }
             }
-            console.log('-------------------------')
         }
         ProdutData.map(elements => dateChecker(elements.date , elements.id))     
         nondateIds = [...new Set(nondateIds)];   
-        console.log(dateIds)
-        console.log(nondateIds)
         setdeliveryProducts(dateIds)
         setnondeliveryProducts(nondateIds)
-        // setnondeliveryProducts(nondateIds)
     }
     
     const token = Cookies.getItem('XSRF-TOKEN')
@@ -113,6 +128,11 @@ function CheckoutPage(props) {
         "X-CSRF-TOKEN":token
     }
     const [Error, setError] = useState(false)
+
+
+
+
+
     const onSubmit =  (values) => {
         setloader(true)
         const vrt2 = (id , element) => {
@@ -131,12 +151,24 @@ function CheckoutPage(props) {
         var WholeCount = 0
         for (let i = 0; i < newarr.length; i++) {
             WholeCost += (parseInt(newarr[i].cost) * parseInt(newarr[i].count) )
-            WholeWeight += (parseFloat(newarr[i].weight) * parseInt(newarr[i].count))
+            console.log(newarr[i].unitType);
+
+            if (parseInt(newarr[i].unitType) === 4) {
+                WholeWeight += (parseFloat(newarr[i].weight / 1000) * parseInt(newarr[i].count))
+            }
+            else 
+            {
+                WholeWeight += (parseFloat(newarr[i].weight) * parseInt(newarr[i].count))
+            }
+
             WholeCount +=  parseInt(newarr[i].count)
             for (let j = 0; j < newarr[i]?.date?.length; j++) {
                 dates.push(newarr[i]?.date[j])
             }
         }
+       
+        
+       
         let uniqueDates = [...new Set(dates)];
 
         setFinalPrice(WholeCost)
@@ -160,11 +192,36 @@ function CheckoutPage(props) {
         }
         var newarr2 = ProdutData.map((element, index ) =>  vrt(element.id , element))
         newarr2 = newarr2.filter(element => element !== undefined)
+
+        var DeliveryDates = []
+        var DeliveryCost = 0
+        var DeliveryWeight = 0
+        var DeliveryCount = 0
+        for (let i = 0; i < newarr2.length; i++) {
+            DeliveryCost += (parseInt(newarr2[i].cost) * parseInt(newarr2[i].count) )
+            if (parseInt(newarr2[i].unitType) === 4) {
+                DeliveryWeight += (parseFloat(newarr2[i].weight / 1000) * parseInt(newarr2[i].count))
+            }
+            else 
+            {
+                DeliveryWeight += (parseFloat(newarr2[i].weight) * parseInt(newarr2[i].count))
+            }
+
+            DeliveryCount +=  parseInt(newarr2[i].count)
+            for (let j = 0; j < newarr2[i]?.date?.length; j++) {
+                DeliveryDates.push(newarr2[i]?.date[j])
+            }
+        }
+        console.log(DeliveryCost);
+        console.log(DeliveryWeight);
+        console.log(DeliveryCount);
+        console.log(DeliveryDates);
+
         setDateGoods(dates)
-        axios.post('https://jsonplaceholder.typicode.com/posts', {name: values.name , email: values.email , address:values.address , payment_type:selectedValue , total_price: FinalPrice , total_count: FinalGoods, product_data: newarr2, user_id:props.UserId}  , headers )
-         .then(res => (setloader(false) , console.log(res)  )) 
-        //  res.status === 200 && ( notify(), props.functionClose() , setTimeout(() => { window.location.href = '/payment'}, 3000) )
-         .catch(err => (setError(true) , setloader(false)))
+        axios.post('https://jsonplaceholder.typicode.com/posts', {address: addressC !== "" ? addressC : addressR , payment_type:paymentType , total_price: DeliveryCost ,  weight:DeliveryWeight  , total_count: DeliveryCount , product_data: newarr2, user_id:props.UserId}  , headers )
+         .then(res => (setloader(false) , console.log(res))) 
+        //  .catch(err => (setError(true) , setloader(false)))
+        //  props.functionClose()
     }
 
     const initialValues = {
@@ -176,9 +233,11 @@ function CheckoutPage(props) {
         // address: Yup.string().required(lang === "AZ" && `Ünvanınızı daxil edin` || lang === "EN" && `Enter your address` || lang === "RU" && `Введите ваш адрес`),
     })
     const [address, setaddress] = useState([])
+    
     useEffect(() => {
         axios.get(`https://nehra.az/public/api/getaddress?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
-            .then(res => setaddress(res.data))
+            .then(res => (setaddress(res.data) , setaddressR(res?.data[0]?.adres)))
+        clickHandler2(DateGoods[0])
     }, [])
 
 
@@ -186,6 +245,7 @@ function CheckoutPage(props) {
 
 
 
+    moment.locale(sessionStorage.getItem('lang'))
 
     //Date Problems
         const today = new Date()
@@ -205,13 +265,14 @@ function CheckoutPage(props) {
         saturday.setDate(tomorrow.getDate() + (6 + 7 - tomorrow.getDay()) % 7);
         const sunday = new Date()
         sunday.setDate(tomorrow.getDate() + (7 + 7 - tomorrow.getDay()) % 7);
-        var newmonday = moment(monday).locale('az').format( 'dddd, D MMMM');
-        var newtuesday = moment(tuesday).locale('az').format( 'dddd, D MMMM');
-        var newwednesday = moment(wednesday).locale('az').format( 'dddd, D MMMM');
-        var newthursday = moment(thursday).locale('az').format( 'dddd, D MMMM');
-        var newfriday = moment(friday).locale('az').format( 'dddd, D MMMM');
-        var newsaturday = moment(saturday).locale('az').format( 'dddd, D MMMM');
-        var newsunday = moment(sunday).locale('az').format( 'dddd, D MMMM');
+
+        var newmonday = moment(monday).format( 'dddd, D MMMM');
+        var newtuesday = moment(tuesday).format( 'dddd, D MMMM');
+        var newwednesday = moment(wednesday).format( 'dddd, D MMMM');
+        var newthursday = moment(thursday).format( 'dddd, D MMMM');
+        var newfriday = moment(friday).format( 'dddd, D MMMM');
+        var newsaturday = moment(saturday).format( 'dddd, D MMMM');
+        var newsunday = moment(sunday).format( 'dddd, D MMMM');
    //Date Problems
    
     
@@ -225,7 +286,6 @@ function CheckoutPage(props) {
     }
     var newarr = ProdutData.map((element, index ) =>  vrt(element.id , element))
     newarr = newarr.filter(element => element !== undefined)
-    // console.log(newarr)
     return (
         
         <div className="checkoutPage">
@@ -234,29 +294,26 @@ function CheckoutPage(props) {
                     <div className="buttonCont"><button onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
                     
                     <div className="deliveryAddress">
-                        <p className="title">{lang === "AZ" && `Çatdırılma olacaq ünvan` || lang === "EN" && `Delivery Address` || lang === "RU" && `Адресс доставки`}</p>
+                        <p className="title titleBB">{lang === "AZ" && `Çatdırılma olacaq ünvan` || lang === "EN" && `Delivery Address` || lang === "RU" && `Адресс доставки`}</p>
                         <div className="errors">
-                            {/* <Field name='address' placeholder={lang === "AZ" && `Çatdırılma olacaq ünvan` || lang === "EN" && `Delivery Address` || lang === "RU" && `Адресс доставки`} className="address" /> */}
-                            {/* <ErrorMessage name="address"/> */}
-                            {address?.map((address , index) => <div key={address.id} className='addressElement'><p className='addressText'>{(index+1) + ". "}{address.adres}</p></div>)}
+                            <select className='addressElement' name="" id="">{address?.map((address , index) => <option value="" > {address.adres} </option> )}</select>
+                            {address?.length < 5 && <div className='addAddress'> <input value={addressC} onChange={onChangeAddress} type="text" placeHolder='Address Əlavə edin'  className='addAdressinput'/>  </div>}
                         </div>
                     </div>
 
-                    <p className="title">{lang === "AZ" && `Çatdırılma günləri` || lang === "EN" && `Delivery day` || lang === "RU" && `День доставки`}</p>
                     <div className="datesCont">
+                        <p className="title titleB">{lang === "AZ" && `Çatdırılma günləri` || lang === "EN" && `Delivery day` || lang === "RU" && `День доставки`}</p>
+                        <select className='selectdateDelivery' onChange={(e) => clickHandler2(e.target.value)} name="" id="">
                         {
                             DateGoods.map(
                             date=>
                             <>
-                                {date === '1' && <div className="type2"><input value='1' name="dateTime1" id="checkBoxx1" onClick={() => clickHandler2(1)} type="checkbox"></input> <label>{newmonday}</label></div>}
-                                {date === '2' && <div className="type2"><input value='2' name="dateTime2" id="checkBoxx2" onClick={() => clickHandler2(2)} type="checkbox"></input> <label>{newtuesday}</label></div>}
-                                {date === '3' && <div className="type2"><input value='3' name="dateTime2" id="checkBoxx3" onClick={() => clickHandler2(3)} type="checkbox"></input> <label>{newwednesday}</label></div>}
-                                {date === '4' && <div className="type2"><input value='4' name="dateTime2" id="checkBoxx4" onClick={() => clickHandler2(4)} type="checkbox"></input> <label>{newthursday}</label></div>}
-                                {date === '5' && <div className="type2"><input value='5' name="dateTime2" id="checkBoxx5" onClick={() => clickHandler2(5)} type="checkbox"></input> <label>{newfriday}</label></div>}
-                                {date === '6' && <div className="type2"><input value='6' name="dateTime2" id="checkBoxx6" onClick={() => clickHandler2(6)} type="checkbox"></input> <label>{newsaturday}</label></div>}
-                                {date === '7' && <div className="type2"><input value='7' name="dateTime2" id="checkBoxx7" onClick={() => clickHandler2(7)} type="checkbox"></input> <label>{newsunday}</label></div>}
+                                    { 
+                                        <option value={date} className="checkBoxDateCont">{(date === '1'  &&  newmonday) ||  (date === '2' && newtuesday) || (date === '3' && newwednesday) || (date === '4' && newthursday) || (date === '5' && newfriday) || (date === '6' && newsaturday) || (date === '7' && newsunday)}</option>
+                                    }
                             </>)
                         }
+                        </select>
                     </div>
 
                    {
@@ -274,16 +331,18 @@ function CheckoutPage(props) {
                         
                     </div>
 
-                    <p className="title">Ödəniş növü</p>
                     <div className="typeOfPayment">
-                        <div className="type3"><input value='4' name="onlinePayment" id="checkBox4" onClick={() => clickHandler(4)} type="checkbox"></input> <label>{lang === "AZ" && `Online` || lang === "EN" && `Online` || lang === "RU" && `В сети`} </label></div>
-                        <div className="type3"><input value='3' name="fromPoint" id="checkBox3" onClick={() => clickHandler(3)} type="checkbox"></input> <label>{lang === "AZ" && `Balansdan` || lang === "EN" && `Balance` || lang === "RU" && `Остаток средств`} </label></div>
-                        <div className="type2"><input value='2' name="doorCard" id="checkBox2" onClick={() => clickHandler(2)} type="checkbox"></input> <label>{lang === "AZ" && `Qapıda Kartla` || lang === "EN" && `At door with card` || lang === "RU" && `У двери с картой`}</label></div>
-                        <div className="type1"><input value='1' name="doorCash" checked="true"  id="checkBox1" onClick={() => clickHandler(1)} type="checkbox"></input> <label>{lang === "AZ" && `Terminalla` || lang === "EN" && `with Terminal` || lang === "RU" && `с Терминалом`}</label></div>
+                        <p className="title titleB">Ödəniş növü</p>
+                        <select name=""  className='selectPayment' value={paymentType} onChange={(e) =>  setpaymentType(e.target.value)} id="">
+                            <option value={1}>{lang === "AZ" && `Online` || lang === "EN" && `Online` || lang === "RU" && `В сети`}</option>
+                            <option value={2}>{lang === "AZ" && `Balansdan` || lang === "EN" && `Balance` || lang === "RU" && `Остаток средств`}</option>
+                            <option value={3}>{lang === "AZ" && `Qapıda Kartla` || lang === "EN" && `At door with card` || lang === "RU" && `У двери с картой`}</option>
+                            <option value={4}>{lang === "AZ" && `Terminalla` || lang === "EN" && `with Terminal` || lang === "RU" && `с Терминалом`}</option>
+                        </select>
                     </div>
-                    <div className='btnCont'>
+                    <div className='btnCont btnContForLoader'>
                         <button type='submit' className="goToPayment" >{lang === "AZ" && `Təsdiqlə` || lang === "EN" && `Submit` || lang === "RU" && `Утвердить`}</button>
-                        {loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={17} width={75} />}
+                        <div className="loaderCont">{ loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={17} width={75} />}</div>
                     </div>
                 </Form>
             </Formik>

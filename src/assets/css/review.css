@@ -1,6 +1,5 @@
 .review {
   border-radius: 20px;
-  background-color: #fff;
   width: 95%;
   height: auto;
   padding-top: 15px;
@@ -34,6 +33,43 @@
 }
 
 .review .text {
+  margin: 0px;
+  margin-bottom: 5px;
+}
+
+.notification {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 10px;
+  border-radius: 20px;
+  width: 95%;
+  height: auto;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  row-gap: 20px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.notification .dateAndStar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.notification .text {
   margin: 0px;
   margin-bottom: 5px;
 }

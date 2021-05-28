@@ -1,0 +1,40 @@
+.notification {
+  border-radius: 20px;
+  background-color: #fff;
+  width: 95%;
+  height: auto;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.notification .name {
+  margin-top: 0px;
+  font-size: 18px;
+  margin-bottom: 0px;
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+.notification .dateAndStar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 40px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.notification .text {
+  margin: 0px;
+  margin-bottom: 5px;
+}
+/*# sourceMappingURL=notification.css.map */

@@ -15,7 +15,7 @@ import ReactLoading from 'react-loading';
 toast.configure()
 
 function LoginPage(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     const notify = () => toast.info(lang === "AZ" && `Hesabınıza daxil oldunuz!` || lang === "EN" && `You have logged in to your account!` || lang === "RU" && `Вы вошли в свою учетную запись!`);
     // const notifyW = () => toast.error("Daxil etdiyiniz məlumatlar yanlışdır!");
     const [loader, setloader] = useState(false)
@@ -76,6 +76,7 @@ function LoginPage(props) {
                 { Error && <p className="errors errorsAndForgot">{lang === "AZ" && `Daxil etdiyiniz məlumatlar yanlışdır. ` || lang === "EN" && `The information you entered is incorrect.` || lang === "RU" && `Введенная вами информация неверна.`}<button type='button' onClick={handleOpen} className='forgotPassBtn'>{lang === "AZ" && `Şifrəni unutmusunuz?` || lang === "EN" && `Forgot password?` || lang === "RU" && `забыл пароль?`}</button> </p>}
                 <p className="subTitle">{lang === "AZ" && `Hesabınız yoxdur? ` || lang === "EN" && `Not Account?` || lang === "RU" && `Не Аккаунт?`}<button className="regBtn" onClick={() => clickHandler()}>{lang === "AZ" && `Qeydiyyatdan keçin ` || lang === "EN" && `Create Account` || lang === "RU" && `Зарегистрироваться`}</button> </p>
                 {loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={17} width={75} />}
+                
                 <Modal  
                     style={{display:"flex", justifyContent:"center",overflow:"auto"}}
                     open={open}

@@ -14,6 +14,9 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import ReactLoading from 'react-loading';
 import {ProductListingContext} from '../components/ProductListingProvider'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -25,12 +28,13 @@ const useStyles = makeStyles((theme) => ({
     },
   }));  
 function Combo(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     const [loader, setloader] = useState(false)
     let { slug } = useParams();
     const classes = useStyles();
     const [age, setAge] = React.useState('');
     const handleChange = (event) => { setAge(event.target.value);};
+    const notifyAddBasket = () => toast.success(`Combo səbətə əlavə olundu` , {draggable: true, autoClose: 1000,});
 
 
     const [CategoryData, setCategoryData] = useState()
@@ -74,25 +78,79 @@ function Combo(props) {
       console.log("YES" + id);
     }
     const buyElement = (discount , id , weight , unitType , price , title, dates) => {
-        const discountHandler = (discount) => {
-          if (discount !== 0 && discount !== null) {
-              var discountPrice = 0;
-              discountPrice =  Math.round( ((price - (price * discount) / 100)) )
-              return Math.floor(discountPrice);         
-          } 
-          else {
-              return Math.floor(price)
-          }
-        }
+        
         greater(id)
         console.log(discount + " " +  id + " " +  weight + " " +  unitType + " " +  price + " " +  title+ " " + " " +  dates);
-        addItem(id , discountHandler(discount) , weight , unitType , dates , title)
     }
 
     const buyCombo = () => {
-        ProductData.forEach(product => { buyElement(product?.discount , product.id , product?.ceki_hecm , product?.unit , product?.qiymet , product?.title , product?.delivery)});
-        // ProductData.map(product => buyElement(product.discount , product.id , product.ceki_hecm , product.unit , product.qiymet))
-    }
+        const notifyAddBasket = () => toast.success(`Səbətə Əlavə olundu` , {draggable: true, autoClose: 1000,});
+        var WholeWeight = FinalWeight
+        var WholePrice = FinalPrice
+        var WholeGoods = FinalGoods
+        var datesCombo = []
+        var productsCombo = []
+
+        const addItemCombo  = (num,price , weight , unitType , dates , name) => {
+            if (parseInt(unitType) === 4) {
+              WholeWeight  += (parseFloat(weight) / 1000)
+            }
+            else 
+            {
+              WholeWeight += parseFloat(weight)
+            }
+            WholePrice += parseInt(price)
+            WholeGoods += 1
+
+            var arrayA = DateGoods;
+            var arrayB = dates;
+            var newArray = arrayA.concat(arrayB.filter(x => !arrayA.some(y => y === x)))
+            let uniqueDates = [...new Set(newArray)];
+            datesCombo = uniqueDates
+            localStorage.setItem('DateGoods' , (JSON.stringify(uniqueDates)))
+            var index = ProdutData.findIndex(x=> x.id === num);
+            if (index === -1) {
+                productsCombo = [...productsCombo , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType}]
+            }
+            else 
+            {
+                var newArr = [...productsCombo]
+                newArr[index].count++
+                productsCombo = newArr
+            }
+            
+            
+          }  
+          
+          const discountHandler = (discount , mainprice) => {
+            if (discount !== 0 && discount !== null) {
+              var discountPrice = 0;
+              discountPrice =  Math.round( ((mainprice - (mainprice * discount) / 100)) )
+              return Math.floor(discountPrice);         
+            } 
+          else {
+            return Math.floor(mainprice)
+          }
+        }
+        
+        
+        notifyAddBasket()
+
+        for (let i = 0; i < ProductData.length; i++) {
+          addItemCombo(ProductData[i].id , discountHandler(ProductData[i].discount , ProductData[i].qiymet) , parseFloat(ProductData[i].ceki_hecm) ,  ProductData[i]?.unit?.id ,  ProductData[i].delivery ,  ProductData[i].title)
+        }
+        
+        setFinalPrice((parseInt(WholePrice)))
+        setFinalWeight((parseFloat(WholeWeight)))
+        setProdutData((productsCombo))
+        setFinalGoods((parseInt(WholeGoods)))
+        setDateGoods(datesCombo)
+        
+        localStorage.setItem('FinalGoods' , (parseInt(WholeGoods)))
+        localStorage.setItem('FinalPrice' , (parseInt(WholePrice)))
+        localStorage.setItem('FinalWeight' , (parseFloat(WholeWeight)))
+
+      }
 
     const comboImage =  {
         backgroundImage: `url(https://nehra.az/storage/app/public/${CategoryData?.overvew.images})`
@@ -102,7 +160,7 @@ function Combo(props) {
         <div className="comboPage"> 
             <div className="topPart">
                 <div className="titleProducts">
-                        <p className="category"> <span> {lang === "AZ" && `Əsas Səhifə` || lang === "EN" && `Homepage` || lang === "RU" && `Домашняя страница`}  • {CategoryData?.overvew.name}</span>  </p>
+                        <p className="category"> <span> {lang === "AZ" && `əsas səhifə` || lang === "EN" && `home` || lang === "RU" && `домашняя страница`}  • {CategoryData?.overvew.name}</span>  </p>
                         <h2 className="categoryName">{CategoryData?.overvew.name}</h2>
                 </div>
             </div>
@@ -118,13 +176,13 @@ function Combo(props) {
                 {
                   loader === true ? <div className="loader"><ReactLoading type={"bubbles"} color={"#2d5d9b"} height={27} width={125} /></div> 
                   :
-                  ( ProductData.length >= 1 ? ProductData.map(product =>  <ItemCard ParcelWeight={props.ParcelWeight} setParcelWeight={props.setParcelWeight} NumberOfGoods={props.NumberOfGoods} setNumberOfGoods={props.setNumberOfGoods} setPaymentPrice={props.setPaymentPrice} PaymentPrice={props.PaymentPrice}  modalOpener3={props.modalOpener3} cardId={product.id} image={product.thumb}    title={product.title} desc={product.seller_id} price={money === "₼" ? product.qiymet : Math.floor(product.qiymet / 1.7)} weight={product.ceki_hecm} discount={product.discount} star={product.star_count}/>) : "Məhsul stokda mövcud deyil ")
+                  ( ProductData.length >= 1 ? ProductData.map(product =>  <ItemCard  delivery={product?.delivery} image={product?.thumb}  title={product?.title}  desc={product?.seller_data?.name}  unitType={product?.unit?.id} id={product?.id} price={money === "₼" ? product?.qiymet : Math.floor(product?.qiymet / 1.7)}  weight={product?.ceki_hecm}  discount={product?.discount} productModal={props?.productModal}  id={product?.id}  star={product?.starsall}/>) :  ((lang === "AZ" && `Məhsul stokda mövcud deyil `) || (lang === "EN" && `The product is not available in stock`) || (lang === "RU" && `Товара нет в наличии`)))
                 }
             </div>
 
             <p className="buyComboCont">
                 <p className="price">Combonun qiyməti: <span>  {CategoryData?.overvew?.price}</span> </p>
-                <button onClick={buyCombo} className="buyCombo">Səbətə əlavə edin</button>
+                <button onClick={() => buyCombo()} className="buyCombo"> {(lang === "AZ" && `Kombonu Səbətə əlavə edin`) || (lang === "EN" && `Add  comb to the basket`) || (lang === "RU" && `Добавьте расческу в корзину`)}</button>
             </p>
 
         </div>

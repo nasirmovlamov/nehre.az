@@ -19,6 +19,8 @@ import Avatar from '@material-ui/core/Avatar';
 import {ProductListingContext} from '../components/ProductListingProvider'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ContactsIcon from '@material-ui/icons/Contacts';
+import ContactMailIcon from '@material-ui/icons/ContactMail';
+
 function TopNavbarPart2(props) {
     const elements = useMediaQuery('(min-width:650px)') 
 
@@ -26,7 +28,7 @@ function TopNavbarPart2(props) {
     const searchBottomMQ = useMediaQuery('(min-width:786px)');
 
 
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     const [drop1, setdrop1] = useState(false)
     const [drop2, setdrop2] = useState(false)
     const [number1, setNumber1] = useState(0)
@@ -87,8 +89,7 @@ function TopNavbarPart2(props) {
     
     const languageChanger = (lang) => {
         sessionStorage.setItem('lang' , lang)
-        window.location.href = `https://nehra.az/${lang}`
-        window.location.reload();
+        window.location.href = `https://nehra.az/locale/${lang}`
     }
     
     const langChangerMouseLeave1 = () => {
@@ -97,13 +98,24 @@ function TopNavbarPart2(props) {
     const langChangerMouseLeave2 = () => {
             setdrop2(false)
     }
-   
+
+    const [searchResult, setsearchResult] = useState('')
+    const searchChange = (e) => {
+        setsearchResult(e.target.value)
+    }
+    const searchHandler = () => {
+        if(searchResult !== "")
+        {
+            sessionStorage.setItem('searchResult' , searchResult)
+        }
+    }
+
     return (
         <div className="downPart" id="downPart">
             <div className="downCont" id="downCont">
                     <Link to="/"  id="logoNehre"><img src={logoNehre2} alt="" width="100" height="auto"/></Link>
                     <div className="searchAndIcons">
-                        <div className="inputAndIcon">
+                        <form className="inputAndIcon" action='search' onSubmit={() => searchHandler()}> 
                            {phoneNumbersMQ && 
                            <div className="phoneCont">
                                 <p className="phone"> <PhoneIcon/> <a href={`tel:${props.number2}`}>{props.number2}</a></p>
@@ -111,10 +123,10 @@ function TopNavbarPart2(props) {
                             </div>}
                             {searchBottomMQ &&
                             <>
-                            <input type="text" placeholder="Axtarış"/>
-                            <button className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
+                            <input  onChange={(e) => searchChange(e)} type="text" placeholder={lang === "AZ" && `Axtarış` || lang === "EN" && `Search` || lang === "RU" && `Поиск`}/>
+                            <button type='submit' className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
                             </>}
-                        </div>
+                        </form>
 
                         <div className="selection">
                             {/*  */}
@@ -129,19 +141,19 @@ function TopNavbarPart2(props) {
                                     </div>
                                 </Link>}
                                 {/*  */}
-                                {elements &&<Link to="/">
+                                {elements &&<a >
                                     <div className="shoppingBtnDiv2" onMouseLeave={() => langChangerMouseLeave2()}>
                                         <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} className="shoppingBtn2">{lang}</button>
                                         {drop2 && <div id="myDropdown" className="dropdown-content">
-                                            {lang === "AZ" ? "" : <button onClick={() => languageChanger(langArr[0])}>{langArr[0]}</button>}
-                                            {lang === "EN" ? "" : <button onClick={() => languageChanger(langArr[1])}>{langArr[1]}</button>}
-                                            {lang === "RU" ? "" : <button onClick={() => languageChanger(langArr[2])}> {langArr[2]}</button>}
+                                            {lang === "AZ" ? "" : <button onClick={() => languageChanger(langArr[0])}><a className='btnInside' href='/locale/az'> {langArr[0]}  </a></button> }
+                                            {lang === "EN" ? "" : <button onClick={() => languageChanger(langArr[1])}><a className='btnInside' href='/locale/en'> {langArr[1]}  </a></button> }
+                                            {lang === "RU" ? "" : <button onClick={() => languageChanger(langArr[2])}><a className='btnInside' href='/locale/ru'> {langArr[2]} </a></button>}
                                         </div>}
                                     </div>
-                                </Link>}
+                                </a>}
                             {/*  */}
                             <Link to="/">
-                                <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}><PersonIcon/></button> 
+                                <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}>{ (JSON.parse(localStorage.getItem('LoginUserData'))?.id !== null && JSON.parse(localStorage.getItem('LoginUserData'))?.id !== undefined)  ?  <ContactMailIcon/> : <PersonIcon/> }</button> 
                             </Link>
                             {/*  */}
                             {elements &&<Link to="/memberarea/bookmarks">

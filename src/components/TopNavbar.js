@@ -57,7 +57,7 @@ function TopNavbar(props) {
     const searchTopMQ = useMediaQuery('(min-width:1000px)');
     const enableMobile = useMediaQuery('(min-width:650px)') 
     const elements = useMediaQuery('(min-width:650px)') 
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     
     const [UserData, setUserData] = useState(0)
     useEffect(() => {
@@ -171,20 +171,20 @@ function TopNavbar(props) {
         >
         <div className="swiperCont">
             <div>
-                <div className='menu'> <p>Menyu</p>  <button onClick={toggleDrawer(anchor, false)}> &#10006;</button></div>  
+                <div className='menu'> <p> {lang === "AZ" && `Menyu` || lang === "EN" && `Menu` || lang === "RU" && `Меню`}</p>  <button onClick={toggleDrawer(anchor, false)}> &#10006;</button></div>  
 
                 <div className="assortmentDrawer">
-                        <button onClick={() => DrawerAssort()} className="title"><WidgetsIcon /> <p> Məhsul Çeşidləri </p> <ArrowDropUpIcon/></button>
+                        <button onClick={() => DrawerAssort()} className="title"><WidgetsIcon /> <p>  {lang === "AZ" && `Məhsul Çeşidləri` || lang === "EN" && `Product Assortments` || lang === "RU" && `Ассортимент продукции`}</p> <ArrowDropUpIcon/></button>
                         <div className='assortmentCont' id='assrtDrawId'>
                             {props.TopCategory.map(element => <a href={`/category/${element.id}`}>{element.name}</a>)}
                         </div >
                 </div>
 
                 <div className="links">
-                        <Link to="/" id="homepage">Əsas səhifə</Link>
-                        <Link to="/promotions"  id="promotions">Endirimlər</Link>
-                        <Link to="/about" id="about">Haqqımızda</Link>
-                        <Link to="/contact" id="contact">Əlaqə</Link>
+                        <Link to="/" id="homepage"> {lang === "AZ" && `Əsas səhifə` || lang === "EN" && `Main page` || lang === "RU" && `Главная страница`}</Link>
+                        <Link to="/promotions"  id="promotions"> {lang === "AZ" && `Endirimlər` || lang === "EN" && `Discounts` || lang === "RU" && `Скидки`}</Link>
+                        <Link to="/about" id="about"> {lang === "AZ" && `Haqqımızda` || lang === "EN" && `About us` || lang === "RU" && `О нас`}</Link>
+                        <Link to="/contact" id="contact"> {lang === "AZ" && `Əlaqə` || lang === "EN" && `Contact` || lang === "RU" && `Контакт`}</Link>
                 </div>
                 <div className="lang"> 
                         <button>AZ</button>
@@ -198,7 +198,7 @@ function TopNavbar(props) {
                     <p className="phone">{props.number1}</p>
                     <p className="phone">{props.number2}</p>
                 </div>
-                <p className="location">Baku , Azerbaijan</p>
+                <p className="location"> {lang === "AZ" && `Bakı , Azerbaijan ` || lang === "EN" && `Baku, Azerbaijan` || lang === "RU" && `Баку, Азербайджан`}</p>
                 <p className="email">nehra@info.az</p>
                 <div className="social"> <FacebookIcon/> <InstagramIcon/> <TwitterIcon/>  </div>
             </div>
@@ -246,10 +246,13 @@ function TopNavbar(props) {
                         
 
                         <div className="searchAndIcons">
-                            {searchTopMQ && <div className="inputAndIcon">
-                                <input onChange={(e) => searchChange(e)} type="text" placeholder={lang === "AZ" && `Axtarış` || lang === "EN" && `Search` || lang === "RU" && `Поиск`}/>
-                                <button onClick={() => searchHandler()} className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
-                            </div>}
+                            {
+                                searchTopMQ && 
+                                <form action='search' onSubmit={() => searchHandler()}  className="inputAndIcon">
+                                    <input onChange={(e) => searchChange(e)} type="text" placeholder={lang === "AZ" && `Axtarış` || lang === "EN" && `Search` || lang === "RU" && `Поиск`}/>
+                                    <button type='button'  className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
+                                </form>
+                            }
 
                             {enableMobile && <div className="phoneCont">
                                 <p className="phone"> <PhoneIcon/> <a href={`tel:${props.number1}`}>{props.number2}</a> </p>
@@ -272,9 +275,9 @@ function TopNavbar(props) {
                                     <div className="shoppingBtnDiv2" onMouseLeave={() => langChangerMouseLeave2()}>
                                             <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} className="shoppingBtn2">{lang}</button>
                                             {drop2 && <div id="myDropdown" className="dropdown-content">
-                                                {lang === "AZ" ? "" : <button onClick={() => languageChanger(langArr[0])}>{langArr[0]}</button>}
-                                                {lang === "EN" ? "" : <button onClick={() => languageChanger(langArr[1])}>{langArr[1]}</button>}
-                                                {lang === "RU" ? "" : <button onClick={() => languageChanger(langArr[2])}> {langArr[2]}</button>}
+                                                {lang === "AZ" ? "" : <button onClick={() => languageChanger(langArr[0])}> <a className='btnInside' href="/locale/az">  {langArr[0]}  </a></button>}
+                                                {lang === "EN" ? "" : <button onClick={() => languageChanger(langArr[1])}> <a className='btnInside' href="/locale/en">  {langArr[1]}  </a></button>}
+                                                {lang === "RU" ? "" : <button onClick={() => languageChanger(langArr[2])}> <a className='btnInside' href="/locale/ru">  {langArr[2]}  </a></button>}
                                             </div>}
                                     </div>
                                 </a>}

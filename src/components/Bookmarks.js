@@ -5,7 +5,7 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import {ProductListingContext} from '../components/ProductListingProvider'
 
 function Bookmarks() {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     var bookmarks = JSON.parse(sessionStorage.getItem('SecilmishProduct'))
     return (
         <div className="cabinetCont bookmarks ">

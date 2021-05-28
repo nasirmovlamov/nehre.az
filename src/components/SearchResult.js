@@ -8,7 +8,7 @@ import ItemCard from './ItemCard'
 import {ProductListingContext} from '../components/ProductListingProvider'
 
 function SearchResult(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money, langArr] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
 
     const [loader, setloader] = useState(true)
     const [SearchResult, setSearchResult] = useState([])

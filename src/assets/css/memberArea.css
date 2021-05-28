@@ -5,6 +5,7 @@
   -webkit-column-gap: 10px;
           column-gap: 10px;
   width: 1180px;
+  min-height: 650px;
   margin-top: 25px;
   -webkit-column-gap: 40px;
           column-gap: 40px;

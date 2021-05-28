@@ -47,6 +47,12 @@
     {
         width: 100% !important;
     }
+    .errorMessage
+    {
+        font-size: 12px !important;
+        color: red;
+        font-family: "DaxlineR";
+    }
 }
 
 .forgotPass
@@ -89,11 +95,20 @@
         font-size: 25px;
         font-weight: bold;
     }
+    .subTitle
+    {
+        font-size: 15px;
+        text-align: justify;
+        margin-top: 10px;
+        color: red;
+        margin-bottom: 10px;
+        font-weight: 400 !important;
+    }
     input 
     {
         width: 97%;
         padding-left: 3%;
-        margin-top: 20px;
+        margin-top: 10px;
         padding-top: 4px;
         padding-bottom: 4px;
         height: 30px !important;

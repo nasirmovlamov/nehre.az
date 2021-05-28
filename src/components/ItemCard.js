@@ -24,12 +24,13 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import {ProductListingContext} from '../components/ProductListingProvider'
 import moment from 'moment';
 import 'moment/locale/az';
+import 'moment/locale/ru';
 import defP from '../assets/images/defP.png'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function ItemCard(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     const [UserData, setUserData] = useState(0)
     useEffect(() => {
         if (UserData?.id === undefined) {
@@ -115,6 +116,7 @@ function ItemCard(props) {
 
 
 
+    moment.locale(sessionStorage.getItem('lang'))
     //Date //Date //Date
     const today = new Date()
     const tomorrow = new Date()
@@ -160,8 +162,8 @@ function ItemCard(props) {
             if(sessionStorage.getItem('SecilmishProduct') === null)
             {
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
-                var selecteds = []
-                selecteds = [...selecteds , {id:num , ParcelWeight:props.ParcelWeight , setParcelWeight:props.setParcelWeight, NumberOfGoods:props.NumberOfGoods, setNumberOfGoods:props.setNumberOfGoods, setPaymentPrice:props.setPaymentPrice, PaymentPrice:props.PaymentPrice,  modalOpener3:props.modalOpener3, cardId:props.cardId, image:props.image,    title:props.title, desc:props.desc, price:props.qiymet, weight:props.price, discount:props.discount,  star:props.star}]
+                var selecteds = []  
+                selecteds = [...selecteds , {id:num , delivery: props.delivery, id:props.id,  modalOpener3:props.modalOpener3 , cardId:props.cardId,  image:props.image,  title:props.title, desc:props?.desc,  unitType:props.unitType,  price:props.price , weight:props.weight , discount:props.discount, productModal:props?.productModal, star:props.starsall}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
                 // document.getElementById(`${props.id}`).setAttribute('style' , 'color:red;')
                 notify1()
@@ -174,7 +176,7 @@ function ItemCard(props) {
 
             var index = selecteds.findIndex(x=> x.id === num)
             if (index === -1) {
-                selecteds = [...selecteds , {id:num , ParcelWeight:props.ParcelWeight , setParcelWeight:props.setParcelWeight, NumberOfGoods:props.NumberOfGoods, setNumberOfGoods:props.setNumberOfGoods, setPaymentPrice:props.setPaymentPrice, PaymentPrice:props.PaymentPrice,  modalOpener3:props.modalOpener3, cardId:props.cardId, image:props.image,    title:props.title, desc:props.desc, price:props.qiymet, weight:props.price, discount:props.discount,  star:props.star}]
+                selecteds = [...selecteds , {id:num , delivery: props.delivery, id:props.id,  modalOpener3:props.modalOpener3 , cardId:props.cardId,  image:props.image,  title:props.title, desc:props?.desc,  unitType:props.unitType,  price:props.price , weight:props.weight , discount:props.discount, productModal:props?.productModal, star:props.starsall}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
                 setindexSelected(1)
                 // document.getElementById(`${props.id}`).setAttribute('style' , 'color:red;')
@@ -215,43 +217,43 @@ function ItemCard(props) {
                         <>
                             {
                                 delivery === "1" &&
-                                <DarkTT title={`${newmonday}  çatdırılma `} placement="top" arrow>
+                                <DarkTT title={`${newmonday}   `} placement="top" arrow>
                                     <div className="date">Be</div>
                                 </DarkTT>
                             }
                             {
                                 delivery === "2" &&
-                                <DarkTT title={`${newtuesday}  çatdırılma `}  placement="top" arrow>
+                                <DarkTT title={`${newtuesday}   `}  placement="top" arrow>
                                     <div className="date">Ça</div>
                                 </DarkTT>
                             }
                             {
                                 delivery === "3" &&
-                                <DarkTT title={`${newwednesday}  çatdırılma `} placement="top" arrow>
+                                <DarkTT title={`${newwednesday}   `} placement="top" arrow>
                                     <div className="date">Ç</div>
                                 </DarkTT>
                             }
                             {
                                 delivery === "4" &&
-                                <DarkTT title={`${newthursday}  çatdırılma `} placement="top" arrow>
+                                <DarkTT title={`${newthursday}   `} placement="top" arrow>
                                     <div className="date">Ca</div>
                                 </DarkTT>
                             }
                             {
                                 delivery === "5" &&
-                                <DarkTT title={`${newfriday}  çatdırılma `} placement="top" arrow>
+                                <DarkTT title={`${newfriday}   `} placement="top" arrow>
                                     <div className="date">C</div>
                                 </DarkTT>
                             }
                             {
                                 delivery === "6" &&
-                                <DarkTT title={`${newsaturday}  çatdırılma `} placement="top" arrow>
+                                <DarkTT title={`${newsaturday}   `} placement="top" arrow>
                                     <div className="date">Ş</div>
                                 </DarkTT>
                             }
                             {
                                 delivery === "7" &&
-                                <DarkTT title={`${newsunday}  çatdırılma `} placement="top" arrow>
+                                <DarkTT title={`${newsunday}   `} placement="top" arrow>
                                     <div className="date">B</div>
                                 </DarkTT>
                             }
@@ -261,7 +263,7 @@ function ItemCard(props) {
             </button>
 
             <p className="titleItem">{props.title}</p>
-            <p className="subTitleItem">{props.desc}</p>
+            <p className="subTitleItem">  {(sessionStorage.getItem('lang') === "EN" && `from`) || (sessionStorage.getItem('lang') === "RU" && `из`)} {props.desc} {sessionStorage.getItem('lang') === "AZ" && `tərəfindən` }</p>
             <div className="textCont">
                 <div className="starAndAbout">
                     <p className="dscPrc">{(props.discount !== 0 && props.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{Math.floor(props.price)} {money}</span></span>)}</p>

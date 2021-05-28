@@ -151,14 +151,14 @@
         justify-content: start;
         width: 94%;
         min-height: 410px;
-        grid-gap: 75px;
+        grid-gap: 18px;
         background-color: #edf4f6;
         padding-top: 40px;
         padding-bottom: 40px;
         border-radius: 10px;
         .overlayImg
         {
-            width: 14%;
+            // width: 14%;
         }
     }
     .buyComboCont
@@ -179,7 +179,7 @@
         }
         .buyCombo
         {
-            width: 200px;
+            width: 250px;
             height: 50px;
             display: flex;
             justify-content: center;

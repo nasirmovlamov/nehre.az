@@ -29,7 +29,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Rating from '@material-ui/lab/Rating';
 
 function ProductModal(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     const notify = (rate) => toast.success(`${rate === null ? 5 : rate}   Ulduz göndərildi` , {draggable: true,});
     const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
     const [Product, setProduct] = useState()
@@ -121,6 +121,8 @@ function ProductModal(props) {
     }
 
     const [valueR, setvalueR] = useState(props.numberStar)
+    const [sendStar, setsendStar] = useState(3)
+    const [reviewAbout, setreviewAbout] = useState()
     const ratingHandler = (value) => {
         if (JSON.parse(localStorage.getItem('LoginUserData')).id === undefined) {
             notifyLogin()
@@ -131,12 +133,31 @@ function ProductModal(props) {
             {
                 value = props.numberStar
             }
-            axios.post('https://nehra.az/api/poststar', {id: props.id, star:value} )
-                .then(res => (res.status === 200 && notify(value)))
-                .catch(err => console.log(err))
+            console.log(value);
+            setsendStar(value)
+            console.log(document.querySelector('.reviewSendCont').style.pointerEvents );
+            console.log(document.querySelector('.reviewSendCont').style.opacity);
+            // document.querySelector('.reviewSendCont').style.display = 'flex'
+            document.querySelector('.reviewSendCont').style.pointerEvents = 'all'
+            document.querySelector('.reviewSendCont').style.opacity = '1'
         }
     }
 
+    const sendReview = () => {
+        axios.post('https://nehra.az/api/poststar', {id: props.id, star:reviewAbout} )
+                .then(res => (res.status === 200 && (notify(sendStar))))
+                .catch(err => console.log(err))
+        document.querySelector('.reviewSendCont').style.pointerEvents = 'none'
+        document.querySelector('.reviewSendCont').style.opacity = '0'
+        
+    }
+
+    const cancelReviewSend = () => {
+        document.querySelector('.reviewSendCont').style.pointerEvents = 'none'
+        document.querySelector('.reviewSendCont').style.opacity = '0'
+        console.log(document.querySelector('.reviewSendCont').style.pointerEvents );
+        console.log(document.querySelector('.reviewSendCont').style.opacity);
+    }
     return (
 
         <div className="productModal">
@@ -149,14 +170,15 @@ function ProductModal(props) {
                     <p className="titleItem">{Product?.title}</p>
                     <p className="supllierName">{Product?.seller_data.name}</p>
                     <div className="reviewCont">
-                        <div className="starsAndReviews"><Rating value={valueR} onChange={(event , newValue) => ratingHandler(newValue)}/> <div className="reviews">33 {lang === "AZ" && `Şərhlər` || lang === "EN" && `Reviews` || lang === "RU" && `Отзывы`}</div> </div>
+                        <div className="starsAndReviews"><Rating value={valueR} onChange={(event , newValue) => ratingHandler(newValue)}/> <div className="reviews">33 {lang === "AZ" && `Şərhlər` || lang === "EN" && `Reviews` || lang === "RU" && `Отзывы`}</div>
+                        <div className='reviewSendCont'><textarea value={reviewAbout} onChange={(e) => setreviewAbout(e.target.value)} type="text" placeholder='Fikrinizi bildirin'/>  <div className="buttonContReviewSend"><div className="rateCont"><Rating value={sendStar} onChange={(e , newvalue) => setsendStar(newvalue)} name="read-only"/> {sendStar} ulduz göndərilir </div>  <div className="Buttons"> <button onClick={()=>sendReview()} className='submit'>Göndər</button><button onClick={() => cancelReviewSend()} className='cancel'>Ləğv et</button></div></div> </div></div>
                         <button onClick={() => props.selectItem(props.id)} className="favorites">{props.indexSelected !== -1 ? <FavoriteIcon style={{fontSize:"25px",color:"red",}}/> : <FavoriteBorderIcon/>} </button> 
                     </div>
                     <p className="desc">
                         {Product?.description}
                     </p>
-                    <p className="ingredients"><span className="ingredientsText"> Tərkibi:</span> <span className="ingredientsFront">{Product?.terkibi}</span>    </p>
-                    <p className="priceCont"> <span className="priceText">Qiyməti:</span>  <span className="price">{Product?.qiymet}</span> - <span className="weight">{Product?.ceki_hecm}</span></p>
+                    <p className="ingredients"><span className="ingredientsText">  {lang === "AZ" && `Tərkibi:` || lang === "EN" && `Ingredients:` || lang === "RU" && `Ингредиенты:`}</span> <span className="ingredientsFront"> {lang === "AZ" && Product?.terkibi_az || lang === "EN" && Product?.terkibi_en || lang === "RU" && Product?.terkibi_ru}</span>    </p>
+                    <p className="priceCont"> <span className="priceText">  {lang === "AZ" && `Qiyməti:` || lang === "EN" && `Price:` || lang === "RU" && `Цена:`}</span>  <span className="price">{Product?.qiymet} azn</span> - <span className="weight">{Product?.ceki_hecm} gr</span></p>
                     <div className="buttonsCont">
                         {
                             ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count && 
@@ -180,7 +202,6 @@ function ProductModal(props) {
                             <button className="button" style={checker ===2 ? styleChanger : null } id="btnLink2" onClick={() => clickHandler(2)}> {lang === "AZ" && `Şərh` || lang === "EN" && `Reviews` || lang === "RU" && `Отзывы`} </button>
                             <button className="button" style={checker ===3 ? styleChanger: null}  id="btnLink3" onClick={() => clickHandler(3)}> {lang === "AZ" && `Sertifikatlar` || lang === "EN" && `Certificates` || lang === "RU" && `Сертификаты`}</button>
                             <hr/>
-
                             <div className="linkComponent">
                                 {checker === 1 ? <Description Product={Product} /> : "" }
                                 {checker === 2 ? <Reviews Product={Product}/> : ""}

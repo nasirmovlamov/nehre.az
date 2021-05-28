@@ -17,9 +17,10 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import moment from 'moment';
 import 'moment/locale/az';
+import 'moment/locale/ru';
 
 function CheckoutCard(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     const checkoutMobile = useMediaQuery('(max-width:600px)');
 
     const [Product, setProduct] = useState()
@@ -62,6 +63,7 @@ function CheckoutCard(props) {
     }
 
 //
+    moment.locale(sessionStorage.getItem('lang'))
     //Date //Date //Date
     const today = new Date()
     const tomorrow = new Date()
@@ -95,7 +97,7 @@ function CheckoutCard(props) {
 
 
 
-    console.log(props.delivery)
+    // console.log(props.delivery)
     
     return (
         <>
@@ -108,7 +110,7 @@ function CheckoutCard(props) {
                             <div className="aboutItem">
                             
                                 <p className="title">{Product?.title}</p>
-                                <p className="priceAndWeight">{ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost} {money}  / {Product?.ceki_hecm} g.</p>
+                                <p className="priceAndWeight">{ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost} {money}  / {Product?.ceki_hecm} {(parseInt(props.unitType) === 1 && `kq` || parseInt(props.unitType) === 4 && `gr` || parseInt(props.unitType) === 2 && `l`)}</p>
                                 <div className="dates">
                                 {props.delivery?.map(delivery =>
                                     <>

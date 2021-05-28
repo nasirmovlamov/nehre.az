@@ -1,6 +1,7 @@
 import React, {useState , createContext, useEffect} from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Cookies from 'js-cookie';
 
 
 export const ProductListingContext = createContext()
@@ -15,6 +16,9 @@ export function ProductListingProvider(props) {
     const [lang, setlang] = useState(sessionStorage.getItem('lang') === null ? 'AZ' : sessionStorage.getItem('lang'))
     const [money, setmoney] = useState(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
     
+
+
+
     useEffect(() => {
         localStorage.setItem('ProdutData' , JSON.stringify(ProdutData))
         var priceGoodsWeightHandler = (element) => {
@@ -42,7 +46,6 @@ export function ProductListingProvider(props) {
         var arrayB = dates;
         var newArray = arrayA.concat(arrayB.filter(x => !arrayA.some(y => y === x)))
         let uniqueDates = [...new Set(newArray)];
-
         setDateGoods(uniqueDates)
         var index = ProdutData.findIndex(x=> x.id === num);
         if (index === -1) {
@@ -55,13 +58,10 @@ export function ProductListingProvider(props) {
             setProdutData(newArr)
         }
         notifyAddBasket()
-
-
-
         localStorage.setItem('FinalGoods' , (parseInt(FinalGoods) + 1))
         localStorage.setItem('FinalPrice' , (parseInt(FinalPrice) + parseInt(price)))
         if (parseInt(unitType) === 4) {
-            localStorage.setItem('FinalWeight' , (parseFloat(FinalWeight) + (parseFloat(weight) / 100)))
+            localStorage.setItem('FinalWeight' , (parseFloat(FinalWeight) + (parseFloat(weight) / 1000)).toFixed(2))
         }
         else 
         {
@@ -95,11 +95,11 @@ export function ProductListingProvider(props) {
             setDateGoods(newArray)
 
             if (parseInt(ProdutData[index]?.unitType) === 4) {
-                setFinalWeight(parseFloat(FinalWeight) - ((parseFloat(ProdutData[index]?.weight) / 1000) * parseInt(ProdutData[index]?.count)) )
+                setFinalWeight(parseFloat(FinalWeight) - ((parseFloat(ProdutData[index]?.weight) / 1000)) )
             }
             else 
             {
-                setFinalWeight(parseFloat(FinalWeight) - (parseFloat(ProdutData[index]?.weight) * parseInt(ProdutData[index]?.count) ) )
+                setFinalWeight(parseFloat(FinalWeight) - (parseFloat(ProdutData[index]?.weight)) )
             }
 
             localStorage.setItem('FinalGoods' , (parseInt(FinalGoods) - 1))
@@ -119,7 +119,7 @@ export function ProductListingProvider(props) {
  
 
     return (
-        <ProductListingContext.Provider value={[ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods]}>
+        <ProductListingContext.Provider value={[ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods]}>
             {props.children}
         </ProductListingContext.Provider>
     )

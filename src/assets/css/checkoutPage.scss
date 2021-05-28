@@ -1,13 +1,13 @@
 .checkoutPage
 {
     width: 598px;
-    height: 750px;
+    height: auto;
     overflow-y: auto;
-    background-color: #fff;
-    margin-top: 100px;
+    margin-top: 0px;
     border-radius: 10px;
-    padding: 20px;
+    padding: 0px;
     display: flex;
+    align-items: center;
     z-index: 1;
     &::-webkit-scrollbar {
         width: 3px;
@@ -26,8 +26,12 @@
         display:flex;
         flex-direction:column;
         row-gap: 20px;
-        
+        background-color: #fff;
+        width: 100%;
+        height: auto;
         padding-bottom: 20px;
+        padding: 30px;
+        border-radius: 10px;
     }
     .datesCont
     {
@@ -35,6 +39,31 @@
         flex-wrap: wrap;
         justify-content: space-between;
         row-gap: 10px;
+        display: flex;
+        flex-direction: column;
+        
+        .checkBoxDateCont 
+        {
+            display: flex;
+            align-items: center;
+            column-gap: 10px;
+            border-radius: 10px;
+            font-size: 18px ;
+            background: transparent ;
+            border: none ;
+            width: 100% ;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            padding: 10px;
+        }
+        label
+        {
+            width: 100%;
+            
+        }
+    }
+    .titleB
+    {
+        margin-bottom: 0px;
     }
     .goToPayment
     {
@@ -50,6 +79,79 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    .addAddress
+    {
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+        button 
+        {
+            background-color: transparent;
+            border: none;
+            margin-left: -40px;
+            svg 
+            {
+                color: #085096;
+                width: 30px;
+                height: 30px;
+            }
+        }
+        input
+        { 
+            width: 100% !important;
+            border-radius: 10px;
+            font-size: 18px !important;
+            background: transparent !important;
+            border: none !important;
+            width: 100% !important;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            padding: 10px;
+            &:focus 
+            {
+                outline: none;
+            }
+        }
+    }
+    .addressElement
+    {
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        color: black !important;
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+        padding: 5px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        border: none;
+    }
+    .selectdateDelivery
+    {
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        color: black !important;
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+        padding: 5px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        border: none;
+    }
+    .selectPayment
+    {
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        color: black !important;
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+        padding: 5px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        border: none;
+        width: 100%;
     }
     .removeModalBtn 
     {
@@ -78,6 +180,10 @@
         font-weight: 600;
         font-size: 23px;
         margin-top: 0px;
+    }
+    .titleBB
+    {
+        margin-bottom: 10px;
     }
     .title2 , .title1
     {
@@ -153,17 +259,21 @@
             display: flex;
             align-items: center;
             column-gap: 10px;
-            
         }
     }
     .btnCont
     {
         display: flex;
-        justify-content: flex-end;
+        flex-direction: column;
         width: 100%;
-        height: 100px;
         margin-top: 10px;
         padding-bottom: 20px;
+    }
+    .loaderCont
+    {
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
     .moreAbout 
     {

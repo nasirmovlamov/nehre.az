@@ -45,6 +45,8 @@ import {ProductListingContext} from '../components/ProductListingProvider'
 import Quality from '../pages/Quality'
 import Who from '../pages/Who'
 import Contacts from './Contacts'
+import Cookies from 'js-cookie';
+
 import Combo from '../pages/Combo'
 
 function Header() {
@@ -56,9 +58,9 @@ function Header() {
   const notifyLOGIN = () => toast.warn("Hesabınıza daxil olun və yaxud yeni hesab yaradın!");
   const smsHandle = () => {
     handleOpenSMS()
-    axios.post('https://nehra.az/public/api/resendsms' , {user_id:JSON.parse(localStorage.getItem('LoginUserData')).id})
-        .then(res => (res.status ===200 && handleOpenSMS()) )
-    
+    // axios.post('https://nehra.az/public/api/resendsms' , {user_id:JSON.parse(localStorage.getItem('LoginUserData')).id})
+    //     .then(res => (res.status ===200 && (handleOpenSMS() , sessionStorage.setItem('smscount' , res.data))) )
+    console.log(Cookies.get('second'));
   }
   const logout = () => {
     localStorage.clear()
@@ -66,7 +68,7 @@ function Header() {
   }
   const notifyAuth = () => toast.error(
     <div className="authCont">
-      <p className="title">Hesabınızı təsdiqləyin!</p>  
+      <p className="title">{document.cookie.second === 0 ?  <>Hesabınızı təsdiqləyin!</> : <>{document.cookie.minute}  dəqiqə sonra yenidən cəhed edin</>} </p>  
       <button onClick={() => smsHandle()} className='phoneAuth'>Telefonla təsdiqləmək</button>
       <button onClick={() => logout()} className='phoneAuth'>Çıxış</button>
     </div>
@@ -86,21 +88,16 @@ function Header() {
   const assortmentArr = []
   const sendGetRequest6 = async () => {
     try {
-        const resp = await axios.get('https://nehra.az/public/api/assortment')
-        setAssortment(resp.data)
+        const resp1 = await axios.get('https://nehra.az/public/api/assortment')
+        setAssortment(resp1.data)
+        const resp2 = await axios.get('https://nehra.az/public/api/featuredcats')
+        setTopCategory(resp2.data)
     } catch (err) {
         // Handle Error Here
         console.error(err);
     }
   };
-  const sendGetRequestTopCategory = async () => {
-    try {
-        const resp = await axios.get('https://nehra.az/public/api/featuredcats')
-        setTopCategory(resp.data)
-    } catch (err) {
-        console.error(err);
-    }
-  };
+  
   
   useEffect(() => {
     if (UserData?.id === undefined) {
@@ -170,12 +167,13 @@ function Header() {
     UserData?.id !== undefined ? axios.get(`https://nehra.az/public/api/checkstatus?user_id=${UserData?.id}`)
                                       .then(res => (res.data == 1 ? window.location.href = '/memberarea'  : notifyAuth())) 
                                       :  setOpen3(true)
-      
   }
+  
   useEffect(() => {
     axios.get(`https://nehra.az/public/api/checkstatus?user_id=${JSON.parse(localStorage.getItem('LoginUserData'))?.id}` )
          .then(res =>  setstatusOK(res.data))
   }, []) 
+
   const handleClose3 = () => {
     setOpen3(false)  
   };
@@ -199,6 +197,7 @@ function Header() {
       const resp = await axios.get('https://nehra.az/public/api/settings')
       setNumber1(resp.data.phone1) 
       setNumber2(resp.data.phone2)
+      console.log(resp.data)
     } catch (err) {
       // Handle Error Here
       console.error(err);
@@ -207,7 +206,6 @@ function Header() {
   useEffect(() => {
     sendGetRequest10()
     sendGetRequest6()
-    sendGetRequestTopCategory()
   } , [] )
   const handleClose4 = () => {
         setOpen4(false);
@@ -317,7 +315,7 @@ function Header() {
                 onClose={handleClose}
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description">
-                {<CardPage  functionOpenCheckoutPage={handleOpen2} functionClose={() => handleClose()}  />}
+                {<CardPage   functionOpenCheckoutPage={handleOpen2} functionClose={() => handleClose()}  />}
             </Modal>
 
             <Modal  

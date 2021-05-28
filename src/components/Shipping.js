@@ -1,10 +1,13 @@
-import React from 'react'
+import React, {useEffect, useState, useContext} from 'react'
+import {ProductListingContext} from '../components/ProductListingProvider'
 
 function Shipping() {
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+
     return (
         <div className="reviewCont aboutShipping">
-            <p className="title">About Shipping</p>
-            <p className="subTitle">We have grouped here all products ordered in the last 30 days for which you have not yet had a review.</p>
+            <p className="title">{lang === "AZ" && `Çatdırılma haqqında` || lang === "EN" && `About delivery` || lang === "RU" && `О доставке`} </p>
+            <p className="subTitle"></p>
             <div className="aboutShippingText">
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci libero possimus totam incidunt? Aut provident, quidem totam nesciunt qui repudiandae odio, officia, expedita veniam enim quisquam? Obcaecati magni blanditiis vel!</p>
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci libero possimus totam incidunt? Aut provident, quidem totam nesciunt qui repudiandae odio, officia, expedita veniam enim quisquam? Obcaecati magni blanditiis vel!</p>

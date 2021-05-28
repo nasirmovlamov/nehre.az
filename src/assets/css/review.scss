@@ -1,35 +1,62 @@
 .review
+{
+    border-radius: 20px;
+    width: 95%;
+    height: auto;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    flex-wrap: wrap;
+    .name
     {
-        border-radius: 20px;
-        background-color: #fff;
-        width: 95%;
-        height: auto;
-        padding-top: 15px;
-        padding-bottom: 15px;
-        padding-left: 2.5%;
-        padding-right: 2.5%;
-        flex-wrap: wrap;
-        .name
-        {
-            margin-top: 0px;
-            font-size: 18px;
-            margin-bottom: 0px;
-            font-weight: 700;
-            opacity: 0.8;
-        }
-        .dateAndStar
-        {
-            display: flex;
-            height: 40px;
-            align-items: center;
-            column-gap: 20px;
-            font-size: 16px;
-            color: rgba(0,0,0,0.6);
-        }
-        .text 
-        {
-            margin: 0px;
-            margin-bottom: 5px;
-            
-        }
+        margin-top: 0px;
+        font-size: 18px;
+        margin-bottom: 0px;
+        font-weight: 700;
+        opacity: 0.8;
     }
+    .dateAndStar
+    {
+        display: flex;
+        height: 40px;
+        align-items: center;
+        column-gap: 20px;
+        font-size: 16px;
+        color: rgba(0,0,0,0.6);
+    }
+    .text 
+    {
+        margin: 0px;
+        margin-bottom: 5px;
+        
+    }
+}
+.notification 
+{
+    display: flex;
+    margin-top: 10px;
+    border-radius: 20px;
+    width: 95%;
+    height: auto;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    .dateAndStar
+    {
+        display: flex;
+        column-gap: 20px;
+        font-size: 16px;
+        color: rgba(0,0,0,0.6);
+    }
+    .text 
+    {
+        margin: 0px;
+        margin-bottom: 5px;
+    }
+}

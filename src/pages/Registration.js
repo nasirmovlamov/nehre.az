@@ -26,7 +26,7 @@ import AuthSms from '../components/AuthSms';
 
 toast.configure()
 function Registration(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!");
     const notify = () => toast.info("Hesabınız müvəfəqiyyətlə yaradıldı!");
 
@@ -66,7 +66,7 @@ function Registration(props) {
         dt.append('auth_type' , 1)
         axios.post('https://nehra.az/public/api/login', dt , headers)
         .then(res => (setloader(false) , res.status === 200 && (localStorage.setItem("LoginUserData" , JSON.stringify(res.data)) ,  notify() ,  handleOpen() ) ) ) 
-        .catch(err => (setloader(false) , setError(true)) )
+        .catch(err => (setloader(false) , setError(true)))
     }
 
     const [phoneValue, setphoneValue] = useState()
@@ -82,8 +82,6 @@ function Registration(props) {
         password:'',
         confirmPassword:'',
     }
-
-
 
 
     const [profilePhoto, setprofilePhoto] = useState(null)
@@ -107,7 +105,6 @@ function Registration(props) {
     const [authT, setauthT] = useState(1)
     const [open, setOpen] = useState(false);
 
-
     const validationSchema = yup.object({
         name: yup.string().required(lang === "AZ" && `Adınızı daxil edin` || lang === "EN" && `Enter name` || lang === "RU" && `Введите имя`),
         email: yup.string().email(lang === "AZ" && `Elektron poçtunuzu düzgün daxil edin` || lang === "EN" && `Enter your email correctly` || lang === "RU" && `Введите свой адрес электронной почты правильно`).required(lang === "AZ" && 'Elektron poçt daxil edin' || lang === "EN" && `Enter email` || lang === "RU" && `Введите адрес электронной почты`),
@@ -123,10 +120,10 @@ function Registration(props) {
         setauthT(num)
     }
 
-
     const handleOpen = () => {
         setOpen(true);
     }
+
     const handleClose = () => {
         setOpen(false);
     }

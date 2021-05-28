@@ -17,9 +17,14 @@ import InfoIcon from '@material-ui/icons/Info';
 import {ProductListingContext} from '../components/ProductListingProvider'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { TramRounded } from '@material-ui/icons';
+import moment from 'moment';
+import { set } from 'js-cookie'
+import 'moment/locale/az';
+import 'moment/locale/ru';
+
 
 function CardPage(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
     
     const functionHandler = () => {
         if(props.UserId)
@@ -37,11 +42,11 @@ function CardPage(props) {
         .catch(err=> (console.log(err) , setloader(false)))
     } , [])
     
-    useEffect(() => {
-        axios.get('https://nehra.az/public/api/settings/')
-             .then(res => setMinOrder(res.data.min_order_amount))
-             .then(err => console.log(err))
-    }, [])
+    // useEffect(() => {
+    //     axios.get('https://nehra.az/public/api/settings/')
+    //          .then(res => setMinOrder(res.data.min_order_amount))
+    //          .then(err => console.log(err))
+    // }, [])
 
     
     const clearBucket = () => {
@@ -82,7 +87,6 @@ function CardPage(props) {
         }
         let uniqueDates = [...new Set(datesss)];
 
-        
         setDateGoods(uniqueDates)
         localStorage.setItem('FinalPrice' , (FinalPrice - (ProdutData[index]?.cost * ProdutData[index]?.count)))
         localStorage.setItem('FinalGoods' , (FinalGoods - ProdutData[index]?.count ))
@@ -103,6 +107,72 @@ function CardPage(props) {
     }
 
     
+
+
+
+
+
+    //Date Problems
+    const today = new Date()
+    const tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    const monday = new Date()
+    monday.setDate(tomorrow.getDate() + (1 + 7 - tomorrow.getDay()) % 7);
+    const tuesday = new Date()
+    tuesday.setDate(tomorrow.getDate() + (2 + 7 - tomorrow.getDay()) % 7);
+    const wednesday = new Date()
+    wednesday.setDate(tomorrow.getDate() + (3 + 7 - tomorrow.getDay()) % 7);
+    const thursday = new Date()
+    thursday.setDate(tomorrow.getDate() + (4 + 7 - tomorrow.getDay()) % 7);
+    const friday = new Date()
+    friday.setDate(tomorrow.getDate() + (5 + 7 - tomorrow.getDay()) % 7);
+    const saturday = new Date()
+    saturday.setDate(tomorrow.getDate() + (6 + 7 - tomorrow.getDay()) % 7);
+    const sunday = new Date()
+    sunday.setDate(tomorrow.getDate() + (7 + 7 - tomorrow.getDay()) % 7);
+
+    var newmonday = moment(monday).locale('az').format( 'dddd, D MMMM');
+    var newtuesday = moment(tuesday).locale('az').format( 'dddd, D MMMM');
+    var newwednesday = moment(wednesday).locale('az').format( 'dddd, D MMMM');
+    var newthursday = moment(thursday).locale('az').format( 'dddd, D MMMM');
+    var newfriday = moment(friday).locale('az').format( 'dddd, D MMMM');
+    var newsaturday = moment(saturday).locale('az').format( 'dddd, D MMMM');
+    var newsunday = moment(sunday).locale('az').format( 'dddd, D MMMM');
+    //Date Problems
+
+    const [nextDelivery, setnextDelivery] = useState()
+
+    const dateSorter = () => {
+        var sortedArr = []
+        console.log(DateGoods);
+        for (let i = 1; i <= 7; i++) {
+            if (DateGoods.includes(String(i))) {
+                const tomorrow = new Date(today)
+                tomorrow.setDate(tomorrow.getDate() + 1)
+                const sortedday = new Date()
+                sortedday.setDate(tomorrow.getDate() + (i + 7 - tomorrow.getDay()) % 7);
+                sortedArr.push(sortedday)
+                console.log("YES")
+            }
+        }
+        sortedArr = sortedArr.sort((a, b) => b - a)
+        console.log(sortedArr)
+        var nextday = moment(sortedArr[sortedArr.length - 1]).locale('az').format( 'dddd, D MMMM');
+        setnextDelivery(nextday)
+    }
+
+
+
+
+    useEffect(() => {
+        dateSorter()
+    }, [DateGoods])
+
+
+
+
+
+
     return (
         <div className="cardCont">
             
@@ -116,7 +186,7 @@ function CardPage(props) {
                             !loader 
                             &&
                             <>
-                                {Items.map( element => <CheckoutCard key={element.id} deleteCard={deleteCard}  id={element.id}  delivery={element.date} />)}
+                                {ProdutData.map( element => <CheckoutCard key={element.id} deleteCard={deleteCard}  id={element.id}  delivery={element.date} unitType={element.unitType}/>)}
                             </>
                         }
                         {loader &&  <div className="loader"><CircularProgress color="secondary" /></div>}
@@ -127,19 +197,19 @@ function CardPage(props) {
                 <div className="mainPart">
                     <div className="topPart">
                         <div className="buttonCont"><button onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
-                        <p className="text1"><img width="12px" src={clock} alt=""/> {lang === "AZ" && `Tezliklə çatdırılma` || lang === "EN" && `Delivery soon` || lang === "RU" && `Доставка скоро`} </p>
-                        <p className="text">30 yanvar <div className="date">BE</div></p>
+                        <p className="text1"><img width="12px" src={clock} alt=""/> {lang === "AZ" && `Ən tez çatdırılma müddəti` || lang === "EN" && `Delivery soon` || lang === "RU" && `Доставка скоро`} </p>
+                        <p className="text">{nextDelivery}</p>
                     </div>
                     
                     <div className="downPart">
                         <div className="goods"><p className="key">{lang === "AZ" && `Ümumi paketin çəkisi` || lang === "EN" && `Weight Parcel` || lang === "RU" && `Вес посылки`}</p> <p className="value ">{FinalWeight.toFixed(2)} kq</p> </div> 
                         <div className="goods"><p className="key">{lang === "AZ" && `Ümumi məhsulların sayı` || lang === "EN" && `Total number of products` || lang === "RU" && `Общее количество продуктов`} </p> <p className="value ">{FinalGoods}</p> </div> 
-                        <div className="cost"><p className="key">Qiymət</p> <p className="value value2"> {money === '₼' ? FinalPrice : Math.floor(FinalPrice )} {money} </p> </div> 
+                        <div className="cost"><p className="key"> {lang === "AZ" && `Yükun Qiymət` || lang === "EN" && `Final Price` || lang === "RU" && `Окончательная цена`}</p> <p className="value value2"> {money === '₼' ? FinalPrice : Math.floor(FinalPrice )} {money} </p> </div> 
                         <Button1 disabled={FinalPrice < MinOrder ? true : false} value={lang === "AZ" && `Ödəniş səhifəsinə keçid edin` || lang === "EN" && `Go to payment` || lang === "RU" && `Перейти к оплате`} color="#085096" function={props.functionOpenCheckoutPage} /> 
                         <p className="cashback">{lang === "AZ" && `Alacağınız ümumi bonus` || lang === "EN" && `Bonus` || lang === "RU" && `Бонус`}  {money === '₼' ? FinalPrice : Math.floor(FinalPrice   / 10) }  {money} </p>
                     </div>
                 </div>
-                    <button   className="clearBucket" onClick={clearBucket}><DeleteIcon/>{lang === "AZ" && ` Səbəti təmizlə` || lang === "EN" && `Clear the basket` || lang === "RU" && `Очистить корзину`} </button>
+                <button   className="clearBucket" onClick={clearBucket}><DeleteIcon/>{lang === "AZ" && ` Səbəti təmizlə` || lang === "EN" && `Clear the basket` || lang === "RU" && `Очистить корзину`} </button>
                 
             </aside>
         </div>
