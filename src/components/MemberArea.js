@@ -68,7 +68,7 @@ function output  () {
 }
 function MemberArea(props) {
 
-  const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+  const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
 
   const memberMQ = useMediaQuery("(min-width:900px)");
   const [UserData, setUserData] = useState(JSON.parse(localStorage.getItem('LoginUserData')))

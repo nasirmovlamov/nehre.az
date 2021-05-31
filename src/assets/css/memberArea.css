@@ -319,6 +319,11 @@
   margin-top: 20px;
 }
 
+.memberAreaCont main .bookmarks .itemCard {
+  -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+          box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
 .memberAreaCont main .bookmarks .selection {
   -ms-flex-item-align: start;
       align-self: flex-start;

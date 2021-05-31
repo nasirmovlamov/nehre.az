@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));  
 function ProductListingPage(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang ,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
     const [loader, setloader] = useState(false)
     let { id } = useParams()
     const classes = useStyles();
@@ -36,7 +36,7 @@ function ProductListingPage(props) {
 
     const [CategoryData, setCategoryData] = useState()
     const [CategoryNum, setCategoryNum] = useState(id)
-    const [ProductData, setProductData] = useState([0])
+    const [ProductData, setProductData] = useState([])
     const sendGetRequestCategory = async () => {
       document.getElementById(`tagone${id}`).setAttribute('style' , 'background-color: #2d5d9b;color: white; border: 1px solid white;transition: 0.5s all;')
       try {

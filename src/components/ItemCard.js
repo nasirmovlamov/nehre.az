@@ -30,13 +30,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function ItemCard(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
     const [UserData, setUserData] = useState(0)
     useEffect(() => {
         if (UserData?.id === undefined) {
             setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
         }
     })
+
+    const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
 
     
     const [state, setState] = React.useState({
@@ -156,27 +158,27 @@ function ItemCard(props) {
     
     
     //Select ITEM  //Select ITEM
-    const [indexSelected, setindexSelected] = useState(JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.id) !== undefined ? JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.id) : -1)
+    const [indexSelected, setindexSelected] = useState(JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.cardId) !== undefined ? JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.cardId) : -1)
     useEffect(() => {
         if (sessionStorage.getItem('SecilmishProduct') !== null) {
-            var selecteds = JSON.parse(sessionStorage.getItem('SecilmishProduct'))
-            setindexSelected(selecteds?.findIndex(x=> x.id === props.id))
+            var selecteds = SelectedsProduct
+            setindexSelected(selecteds?.findIndex(x=> x.id === props.cardItem))
         }
-    }, [])
+    }, [SelectedsProduct])
 
     //Select ITEM  //Select ITEM
     const selectItem = (num) => {
         const notify2 = (rate) => toast.success(`Seçilmişlərdən çıxarıldı` , {draggable: true,autoClose: 1000});
         const notify1 = (rate) => toast.success(`Seçilmişlərə Əlavə olundu` , {draggable: true,autoClose: 1000});
-        
         if(UserData?.id !== undefined)
         {  
             if(sessionStorage.getItem('SecilmishProduct') === null)
             {
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
                 var selecteds = []  
-                selecteds = [...selecteds , {id:num , delivery: props.delivery, id:props.id,  cardId:props.cardId,  image:props.image,  title:props.title, desc:props?.desc,  unitType:props.unitType,  price:props.price , weight:props.weight , discount:props.discount, productModal:props?.productModal, star:props.starsall}]
+                selecteds = [...selecteds , {id:props.cardId , delivery: props.delivery,    thumb:props.image,  title:props.title, desc:props?.desc,  unitType:props.unitType,  qiymet:props.price , ceki_hecm:props.weight , discount:props.discount, productModal:props?.productModal, starsall:props.star}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
+                setSelectedsProduct(selecteds)
                 notify1()
                 return 0 
             }        
@@ -184,10 +186,13 @@ function ItemCard(props) {
             {
                 var selecteds = JSON.parse(sessionStorage.getItem('SecilmishProduct'))
             }
+            console.log(selecteds)
             var index = selecteds.findIndex(x=> x.id === num)
             if (index === -1) {
-                selecteds = [...selecteds , {id:num , delivery: props.delivery, id:props.id,  modalOpener3:props.modalOpener3 , cardId:props.cardId,  image:props.image,  title:props.title, desc:props?.desc,  unitType:props.unitType,  price:props.price , weight:props.weight , discount:props.discount, productModal:props?.productModal, star:props.starsall}]
+                selecteds = [...selecteds , {id:props.cardId , delivery: props.delivery,    thumb:props.image,  title:props.title, desc:props?.desc,  unitType:props.unitType,  qiymet:props.price , ceki_hecm:props.weight , discount:props.discount, productModal:props?.productModal, starsall:props.star}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
+                setSelectedsProduct(selecteds)
+                console.log("YES");
                 setindexSelected(1)
                 notify1()
             }
@@ -195,28 +200,29 @@ function ItemCard(props) {
             {
                 var newArr = selecteds.filter((item) => item.id !== num)
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(newArr))
+                setSelectedsProduct(newArr)
                 setindexSelected(-1)
                 notify2()
             }
         }
         else 
         {
-            window.location.href = "/login"
+            notifyLogin()
         }
     }
     return (
-        <div key={props.id} className="itemCard">
+        <div key={props.cardId} className="itemCard">
             <button  type="button"  className="imgCont" style={imgHandler}>
                 <div className="valueAndBtn"> 
-                    {ProdutData[ProdutData?.findIndex(x=> x.id === props.id)]?.count > 0 && <div className='valueBtn'>{ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count}</div>}
-                    <div className="iconAndBtn"> <button onClick={() => selectItem(props.id)} className="favIco"> {parseInt(indexSelected) === -1 ? <StarBorderIcon/> :  <StarIcon/>}</button></div>
+                    {ProdutData[ProdutData?.findIndex(x=> x.id === props.cardId)]?.count > 0 && <div className='valueBtn'>{ProdutData[ProdutData.findIndex(x=> x.id === props.cardId)]?.count}</div>}
+                    <div className="iconAndBtn"> <button onClick={() => selectItem(props.cardId)} className="favIco"> {SelectedsProduct.findIndex(x=> x.id === props.cardId) === -1 ? <StarBorderIcon/> :  <StarIcon/>}</button></div>
                 </div>
 
                 <div className="overlayImg">
                     <div className='overlayBtn'>
-                        {ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count > 0 && <button onClick={() => removeItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title)}>-</button> }
+                        {ProdutData[ProdutData.findIndex(x=> x.id === props.cardId)]?.count > 0 && <button onClick={() => removeItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title)}>-</button> }
                         <button  type="button" onClick={handleOpen}>{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</button>
-                        {ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count > 0 && <button onClick={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title)}>+</button>}
+                        {ProdutData[ProdutData.findIndex(x=> x.id === props.cardId)]?.count > 0 && <button onClick={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title)}>+</button>}
                     </div>
                 </div>
 
@@ -295,7 +301,7 @@ function ItemCard(props) {
                     open={open}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description">
-                    {<ProductModal indexSelected={indexSelected} selectItem={selectItem} id={props.id} functionClose={handleClose}  title={props.title} desc={props.desc} price={props.price} weight={props.weight} numberStar={props.star}/>}
+                    {<ProductModal indexSelected={indexSelected} selectItem={selectItem} id={props.cardId} functionClose={handleClose}  title={props.title} desc={props.desc} price={props.price} weight={props.weight} numberStar={props.star}/>}
                 </Modal>
             </div>
         </div>

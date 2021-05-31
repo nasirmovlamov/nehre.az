@@ -20,6 +20,8 @@ import {ProductListingContext} from '../components/ProductListingProvider'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ContactsIcon from '@material-ui/icons/Contacts';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function TopNavbarPart2(props) {
     const elements = useMediaQuery('(min-width:650px)') 
@@ -28,11 +30,13 @@ function TopNavbarPart2(props) {
     const searchBottomMQ = useMediaQuery('(min-width:786px)');
 
 
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
     const [drop1, setdrop1] = useState(false)
     const [drop2, setdrop2] = useState(false)
     const [number1, setNumber1] = useState(0)
     const [number2, setNumber2] = useState(0)
+    const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
+
     const sendGetRequest7 = async () => {
         try {
             const resp = await axios.get('https://nehra.az/public/api/settings')
@@ -156,7 +160,8 @@ function TopNavbarPart2(props) {
                                 <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}>{ (JSON.parse(localStorage.getItem('LoginUserData'))?.id !== null && JSON.parse(localStorage.getItem('LoginUserData'))?.id !== undefined)  ?  <ContactMailIcon/> : <PersonIcon/> }</button> 
                             </Link>
                             {/*  */}
-                            {elements &&<Link to="/memberarea/bookmarks">
+                            {(elements && (JSON.parse(localStorage.getItem('LoginUserData'))?.id !== null && JSON.parse(localStorage.getItem('LoginUserData'))?.id !== undefined)) &&
+                            <Link className='bookmarksLL' to={"/memberarea/bookmarks"}>
                                 <StarBorderIcon/> 
                             </Link>}
                             {elements &&

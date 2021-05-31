@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));  
 function Combo(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
     const [loader, setloader] = useState(false)
     let { slug } = useParams();
     const classes = useStyles();
@@ -109,12 +109,13 @@ function Combo(props) {
             datesCombo = uniqueDates
             localStorage.setItem('DateGoods' , (JSON.stringify(uniqueDates)))
             var index = ProdutData.findIndex(x=> x.id === num);
+            console.log(index)
             if (index === -1) {
                 productsCombo = [...productsCombo , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType}]
             }
             else 
             {
-                var newArr = [...productsCombo]
+                var newArr = [... ProdutData]
                 newArr[index].count++
                 productsCombo = newArr
             }
@@ -149,7 +150,6 @@ function Combo(props) {
         localStorage.setItem('FinalGoods' , (parseInt(WholeGoods)))
         localStorage.setItem('FinalPrice' , (parseInt(WholePrice)))
         localStorage.setItem('FinalWeight' , (parseFloat(WholeWeight)))
-
       }
 
     const comboImage =  {
@@ -160,8 +160,8 @@ function Combo(props) {
         <div className="comboPage"> 
             <div className="topPart">
                 <div className="titleProducts">
-                        <p className="category"> <span> {lang === "AZ" && `əsas səhifə` || lang === "EN" && `home` || lang === "RU" && `домашняя страница`}  • {CategoryData?.overvew.name}</span>  </p>
-                        <h2 className="categoryName">{CategoryData?.overvew.name}</h2>
+                        <p className="category"> <span> {lang === "AZ" && `əsas səhifə` || lang === "EN" && `home` || lang === "RU" && `домашняя страница`}  • {lang === "AZ" && CategoryData?.overvew.name_az || lang === "EN" && CategoryData?.overvew.name_en || lang === "RU" && CategoryData?.overvew.name_ru }</span>  </p>
+                        <h2 className="categoryName">{lang === "AZ" && CategoryData?.overvew.name_az || lang === "EN" && CategoryData?.overvew.name_en || lang === "RU" && CategoryData?.overvew.name_ru }</h2>
                 </div>
             </div>
 
@@ -169,9 +169,9 @@ function Combo(props) {
             <div className="comboImage" style={comboImage}></div>
             
             <p className="comboDescription">
-              {CategoryData?.overvew?.description}
+              {lang === "AZ" && CategoryData?.overvew?.description_az || lang === "EN" && CategoryData?.overvew?.description_en || lang === "RU" && CategoryData?.overvew?.description_ru}
             </p>
-            <p className="comboItemsNum">Comboya daxil olan məhsullar</p>
+            <p className="comboItemsNum">{lang === "AZ" && "Comboya daxil olan məhsullar" || lang === "EN" && "Products included in the combination" || lang === "RU" && "Продукты, входящие в комбинацию"}</p>
             <div className="productsCont">
                 {
                   loader === true ? <div className="loader"><ReactLoading type={"bubbles"} color={"#2d5d9b"} height={27} width={125} /></div> 

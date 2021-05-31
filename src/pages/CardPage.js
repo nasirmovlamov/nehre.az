@@ -24,7 +24,7 @@ import 'moment/locale/ru';
 
 
 function CardPage(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
     
     const functionHandler = () => {
         if(props.UserId)
@@ -62,17 +62,17 @@ function CardPage(props) {
     }
     
     const deleteCard = (num , price, dates) => {
-        
         var index = ProdutData.findIndex(x=> x.id === num);
         setFinalPrice(parseInt(FinalPrice) - parseInt(ProdutData[index]?.cost * ProdutData[index]?.count))
         setFinalGoods(parseInt(FinalGoods) - parseInt(ProdutData[index]?.count) )
-        console.log(ProdutData[index]);
         if (parseInt(ProdutData[index]?.unitType) === 4) {
             setFinalWeight(parseFloat(FinalWeight) - ((parseFloat(ProdutData[index]?.weight) / 1000) * parseInt(ProdutData[index]?.count)) )
+            localStorage.setItem('FinalWeight' , (FinalWeight - ((parseFloat(ProdutData[index]?.weight) / 1000) * ProdutData[index]?.count ) ))
         }
         else 
         {
             setFinalWeight(parseFloat(FinalWeight) - (parseFloat(ProdutData[index]?.weight) * parseInt(ProdutData[index]?.count) ) )
+            localStorage.setItem('FinalWeight' , (FinalWeight - (parseFloat(ProdutData[index]?.weight) * ProdutData[index]?.count ) ))
         }
         setProdutData(ProdutData.filter((item) => item.id !== num))
         setItems(Items.filter((item) => item.id !== num))
@@ -89,7 +89,6 @@ function CardPage(props) {
         setDateGoods(uniqueDates)
         localStorage.setItem('FinalPrice' , (FinalPrice - (ProdutData[index]?.cost * ProdutData[index]?.count)))
         localStorage.setItem('FinalGoods' , (FinalGoods - ProdutData[index]?.count ))
-        localStorage.setItem('FinalWeight' , (FinalWeight - (ProdutData[index]?.weight * ProdutData[index]?.count ) ))
         localStorage.setItem('ProdutData' , (JSON.stringify(ProdutData.filter((item) => item.id !== num))))   
         localStorage.setItem('DateGoods' , (JSON.stringify(uniqueDates)))
     }
@@ -150,7 +149,6 @@ function CardPage(props) {
                 const sortedday = new Date()
                 sortedday.setDate(tomorrow.getDate() + (i + 7 - tomorrow.getDay()) % 7);
                 sortedArr.push(sortedday)
-                console.log("YES")
             }
         }
         sortedArr = sortedArr.sort((a, b) => b - a)

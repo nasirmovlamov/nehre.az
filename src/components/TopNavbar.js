@@ -30,6 +30,8 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import SearchIcon from '@material-ui/icons/Search';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const stylesForSwiper = makeStyles({
     list: {
@@ -57,7 +59,8 @@ function TopNavbar(props) {
     const searchTopMQ = useMediaQuery('(min-width:1000px)');
     const enableMobile = useMediaQuery('(min-width:650px)') 
     const elements = useMediaQuery('(min-width:650px)') 
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
+    const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
     
     const [UserData, setUserData] = useState(0)
     useEffect(() => {
@@ -300,7 +303,7 @@ function TopNavbar(props) {
                                      <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}>{ (JSON.parse(localStorage.getItem('LoginUserData'))?.id !== null && JSON.parse(localStorage.getItem('LoginUserData'))?.id !== undefined)  ?  <ContactMailIcon/> : <PersonIcon/> }</button>    
                                 </Link>
                                 {/*  */}
-                                {elements && <Link to="/memberarea/bookmarks">
+                                {(elements  && (JSON.parse(localStorage.getItem('LoginUserData'))?.id !== null && JSON.parse(localStorage.getItem('LoginUserData'))?.id !== undefined)) && <Link className='bookmarkMember' to="/memberarea/bookmarks">
                                     <StarBorderIcon/> 
                                 </Link>}
                                 {elements && <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={() => props.modalOpener()} >  

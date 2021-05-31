@@ -18,7 +18,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { AddToHomeScreenRounded } from '@material-ui/icons'
 
 function CheckoutPage(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
     
     const notify = () => toast.info("Nuş olsun!");
     const [loader, setloader] = useState(false)
@@ -208,17 +208,10 @@ function CheckoutPage(props) {
                 DeliveryDates.push(newarr2[i]?.date[j])
             }
         }
-        // console.log(DeliveryCost);
-        // console.log(DeliveryWeight);
-        // console.log(DeliveryCount);
-        // console.log(DeliveryDates);
 
         setDateGoods(dates)
         axios.post('https://jsonplaceholder.typicode.com/posts', {address: addressC !== "" ? addressC : addressR , payment_type:paymentType , total_price: DeliveryCost ,  weight:DeliveryWeight  , total_count: DeliveryCount , product_data: productsName, user_id:props.UserId}  , headers )
-         .then(res => (setloader(false) , console.log(res))) 
-        //  .catch(err => (setError(true) , setloader(false)))
-        //  props.functionClose()
-
+         .then(res => (setloader(false) , console.log(res) , props.functionClose())) 
 
     }
 
@@ -296,7 +289,7 @@ function CheckoutPage(props) {
                         <p className="title titleBB">{lang === "AZ" && `Çatdırılma olacaq ünvan` || lang === "EN" && `Delivery Address` || lang === "RU" && `Адресс доставки`}</p>
                         <div className="errors">
                             {address?.length > 0 && <select className='addressElement' name="" id="">{address?.map((address , index) => <option value="" > {address.adres} </option> )}</select>}
-                            <div className='addAddress'> <input value={addressC} onChange={onChangeAddress} type="text" placeHolder='Address Əlavə edin'  className='addAdressinput'/>  </div>
+                            <div className='addAddress'> <input value={addressC} onChange={onChangeAddress} type="text" placeHolder={lang === "AZ" && `Address Əlavə edin` || lang === "EN" && `Add Address` || lang === "RU" && `Добавить адрес`}  className='addAdressinput'/>  </div>
                         </div>
                     </div>
 
@@ -319,7 +312,7 @@ function CheckoutPage(props) {
                        newarr.length > 0 && 
                         <>
                         <p className="title1"> {deliveryDay} </p>
-                        <p className="title2"> Çatdırılma olunmayacaq məhsullar  </p>
+                        <p className="title2"> {lang === "AZ" && `Çatdırılma olunmayacaq məhsullar  ` || lang === "EN" && `Products that will not be delivered` || lang === "RU" && `Товары, которые не будут доставлены`}</p>
                         <div>
                             {newarr.map((element , index)=> <p className='nondeliveryItem'>{index+1}. {element?.name}</p>)}
                         </div>
@@ -331,7 +324,7 @@ function CheckoutPage(props) {
                     </div>
 
                     <div className="typeOfPayment">
-                        <p className="title titleB">Ödəniş növü</p>
+                        <p className="title titleB">{lang === "AZ" && `Ödəniş növü ` || lang === "EN" && `Type of payment` || lang === "RU" && `Тип платежа`}</p>
                         <select name=""  className='selectPayment' value={paymentType} onChange={(e) =>  setpaymentType(e.target.value)} id="">
                             <option value={1}>{lang === "AZ" && `Online` || lang === "EN" && `Online` || lang === "RU" && `В сети`}</option>
                             <option value={2}>{lang === "AZ" && `Balansdan` || lang === "EN" && `Balance` || lang === "RU" && `Остаток средств`}</option>

@@ -13,7 +13,7 @@ import {
 import {ProductListingContext} from '../components/ProductListingProvider'
 
 function AddressEdit() {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
 
     const notifyAddress = (rate) => toast.success(((lang === "AZ" && `Ünvan yeniləndi!`) || (lang === "EN" && `Address updated!`) || (lang === "RU" && `Адрес обновлен!`)) , {draggable: true,});
     const [address, setaddress] = useState("")

@@ -45,7 +45,7 @@ import {ProductListingContext} from '../components/ProductListingProvider'
 
 function HomePage(props) {
     
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang ,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
 
     const topCards = []
     const newItems = []
@@ -93,8 +93,8 @@ function HomePage(props) {
     TopCards.map(bucket => ( topCards.push(             <CardSlider1 link={bucket.link} id={bucket.id} turndesc={bucket.turndesc} turnetrafli={bucket.turnetrafli}  turnoverlay={bucket.turnoverlay}  turntitle={bucket.turntitle}   name={bucket.name} image={bucket.image} desc={bucket.description}/>)))
     SuppliersCard.map(supply => ( suppliersCard.push(   <SupplierCard id={supply.id} image={supply.avatar} title={supply.name} supplier={supply.type_id} image2={testImg6} image3={testImg7}/>   )))
     AnswerCard.map(question => ( answerCard.push(       <AnswersCard  answer={question.description} question={question.name} />)))
-    NewProducts.map(product =>  ( newItems.push(        <ItemCard delivery={product?.delivery} id={product?.id} NumberOfGoods={props?.NumberOfGoods}  modalOpener3={props.modalOpener3} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={product?.seller_data?.name}  unitType={product?.unit.id} price={money === "₼" ? product?.qiymet : Math.floor(product?.qiymet / 1.7)} weight={product?.ceki_hecm}   discount={product?.discount} productModal={props?.productModal} id={product?.id}  star={product?.starsall}/>)))
-    SpecialOffers.map(product =>( specialOffers.push(   <ItemCard delivery={product?.delivery} id={product?.id} NumberOfGoods={props?.NumberOfGoods}  modalOpener3={props.modalOpener3} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={product?.seller_data?.name}  unitType={product?.unit.id} price={money === "₼" ? product?.qiymet : Math.floor(product?.qiymet / 1.7)}  weight={product?.ceki_hecm}  discount={product?.discount} productModal={props?.productModal}  id={product?.id}  star={product?.starsall}/>)))
+    NewProducts.map(product =>  ( newItems.push(        <ItemCard delivery={product?.delivery}  NumberOfGoods={props?.NumberOfGoods}  modalOpener3={props.modalOpener3} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={product?.seller_data?.name}  unitType={product?.unit.id} price={money === "₼" ? product?.qiymet : Math.floor(product?.qiymet / 1.7)} weight={product?.ceki_hecm}   discount={product?.discount} productModal={props?.productModal}  star={product?.starsall}/>)))
+    SpecialOffers.map(product =>( specialOffers.push(   <ItemCard delivery={product?.delivery}  NumberOfGoods={props?.NumberOfGoods}  modalOpener3={props.modalOpener3} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={product?.seller_data?.name}  unitType={product?.unit.id} price={money === "₼" ? product?.qiymet : Math.floor(product?.qiymet / 1.7)}  weight={product?.ceki_hecm}  discount={product?.discount} productModal={props?.productModal}   star={product?.starsall}/>)))
     
     const bannerImg1 = {
         backgroundImage:`url(https://nehra.az/storage/app/public/${Banners1[0]?.image})`,
@@ -108,6 +108,8 @@ function HomePage(props) {
         backgroundSize:'cover',
         backgroundPosition:'top center',
     }
+
+    
     return (
 
         <div className="homePage">

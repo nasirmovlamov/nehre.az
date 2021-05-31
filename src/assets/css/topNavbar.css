@@ -115,8 +115,8 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  -webkit-column-gap: 20px;
-          column-gap: 20px;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
   width: 750px;
 }
 
@@ -141,7 +141,7 @@
 .topNavbar .searchAndIcons input {
   padding: 10px;
   border-radius: 25px;
-  width: 350px;
+  width: 240px;
   border: none;
 }
 
@@ -181,11 +181,18 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 400px;
-  grid-gap: 10px;
+  width: 210px;
+  grid-gap: 5px;
   height: 85px;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.topNavbar .searchAndIcons .selection .bookmarksLL {
+  width: 36px !important;
 }
 
 .topNavbar .searchAndIcons .selection a {
@@ -918,7 +925,7 @@
 }
 
 .searchSwiperCont .search input {
-  width: 300px;
+  width: 240px;
   height: 30px;
   border-radius: 5px;
   border: 1px solid lightgray;

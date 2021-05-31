@@ -71,7 +71,7 @@
             display: flex;
             align-items: flex-end;
             justify-content: space-between;
-            column-gap: 20px;
+            column-gap: 10px;
             width: 750px;
             .inputAndIcon
             {
@@ -91,7 +91,7 @@
             {
                 padding: 10px;
                 border-radius: 25px;
-                width: 350px;
+                width: 240px;
                 border: none;
                 &:focus 
                 {
@@ -124,10 +124,15 @@
             .selection
             {
                 display: flex;
-                width: 400px;
-                grid-gap: 10px;
+                width: 210px;
+                grid-gap: 5px;
                 height: 85px;
                 flex-wrap: wrap;
+                align-items: flex-end;
+                .bookmarksLL
+                {
+                    width: 36px !important;
+                }
             a 
             {
                 width: 35px;
@@ -727,7 +732,7 @@
         column-gap: 10px;
         input 
         {
-            width: 300px;
+            width: 240px;
             height: 30px;
             border-radius: 5px;
             border: 1px solid lightgray;

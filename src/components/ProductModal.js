@@ -29,7 +29,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Rating from '@material-ui/lab/Rating';
 
 function ProductModal(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
     const notify = (rate) => toast.success(`${rate === null ? 5 : rate}   Ulduz göndərildi` , {draggable: true,});
     const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
     const [Product, setProduct] = useState()
@@ -48,7 +48,6 @@ function ProductModal(props) {
     const [checker, setchecker] = useState(1)
     const clickHandler = (num) => {
         setchecker(num)
-        
     }
 
     const [value, setvalue] = useState(1)
@@ -64,17 +63,17 @@ function ProductModal(props) {
         }
     }
 
-    const suppliersCard = []
-    suppliersCard.push(  <SupplierCard image={avatar} title="Zinaida and Sergey Belan" supplier="Pickles and preserves " image2={testImg6} image3={testImg7}/>,<SupplierCard image={avatar} title="Zinaida and Sergey Belan" supplier="Pickles and preserves " image2={testImg6} image3={testImg7}/>,<SupplierCard image={avatar} title="Zinaida and Sergey Belan" supplier="Pickles and preserves " image2={testImg6} image3={testImg7}/>,<SupplierCard image={avatar} title="Zinaida and Sergey Belan" supplier="Pickles and preserves " image2={testImg6} image3={testImg7}/>)
+    const imagescard = []
+    Product?.shekil.map(element => imagescard.push( <img width='300px' height='auto' src={`https://nehra.az/storage/app/public/${element}`}/>))
     
     const discountHandler = (discount) => {
         if (discount !== 0 && discount !== null  && discount !== undefined) {
             var discountPrice = 0;
-            discountPrice = parseInt(ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost)
+            discountPrice =  Math.round( ((Product?.qiymet - (Product?.qiymet * discount) / 100)) )
             return discountPrice;         
         } 
         else {
-            return ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost
+            return Product?.qiymet
         }
     }
 
@@ -89,7 +88,7 @@ function ProductModal(props) {
                 var selecteds = []
                 selecteds = [...selecteds , {id:num , ParcelWeight:props.ParcelWeight , setParcelWeight:props.setParcelWeight, NumberOfGoods:props.NumberOfGoods, setNumberOfGoods:props.setNumberOfGoods, setPaymentPrice:props.setPaymentPrice, PaymentPrice:props.PaymentPrice,  modalOpener3:props.modalOpener3, cardId:props.cardId, image:props.image,    title:props.title, desc:props.desc, price:props.qiymet, weight:props.price, discount:props.discount,  star:props.star}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
-                // document.getElementById(`${props.id}`).setAttribute('style' , 'color:red;')
+                setSelectedsProduct(selecteds)
                 notify1()
                 return 0 
             }        
@@ -103,14 +102,14 @@ function ProductModal(props) {
             if (index === -1) {
                 selecteds = [...selecteds , {id:num , ParcelWeight:props.ParcelWeight , setParcelWeight:props.setParcelWeight, NumberOfGoods:props.NumberOfGoods, setNumberOfGoods:props.setNumberOfGoods, setPaymentPrice:props.setPaymentPrice, PaymentPrice:props.PaymentPrice,  modalOpener3:props.modalOpener3, cardId:props.cardId, image:props.image,    title:props.title, desc:props.desc, price:props.qiymet, weight:props.price, discount:props.discount,  star:props.star}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
-                // document.getElementById(`${props.id}`).setAttribute('style' , 'color:red;')
+                setSelectedsProduct(selecteds)
                 notify1()
             }
             else 
             {
                 var newArr = selecteds.filter((item) => item.id !== num)
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(newArr))
-                // document.getElementById(`${props.id}`).setAttribute('style' , 'color:white;')
+                setSelectedsProduct(selecteds)
                 notify2()
             }
         }
@@ -124,7 +123,7 @@ function ProductModal(props) {
     const [sendStar, setsendStar] = useState(3)
     const [reviewAbout, setreviewAbout] = useState()
     const ratingHandler = (value) => {
-        if (JSON.parse(localStorage.getItem('LoginUserData')).id === undefined) {
+        if (JSON.parse(localStorage.getItem('LoginUserData'))?.id === undefined || JSON.parse(localStorage.getItem('LoginUserData'))?.id === null) {
             notifyLogin()
         }
         else 
@@ -133,11 +132,7 @@ function ProductModal(props) {
             {
                 value = props.numberStar
             }
-            console.log(value);
             setsendStar(value)
-            console.log(document.querySelector('.reviewSendCont').style.pointerEvents );
-            console.log(document.querySelector('.reviewSendCont').style.opacity);
-            // document.querySelector('.reviewSendCont').style.display = 'flex'
             document.querySelector('.reviewSendCont').style.pointerEvents = 'all'
             document.querySelector('.reviewSendCont').style.opacity = '1'
         }
@@ -158,19 +153,20 @@ function ProductModal(props) {
         console.log(document.querySelector('.reviewSendCont').style.pointerEvents );
         console.log(document.querySelector('.reviewSendCont').style.opacity);
     }
+
     return (
 
         <div className="productModal">
             <div className="buttonCont"><button onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
             <div className="sliderAndAbout">
                 <div className="sliderCont">
-                    {<OurSlider itemShow1={1} itemShow2={1} itemShow3={1} itemShow4={1} elements={suppliersCard} numOfSld={1}/>}
+                    {<OurSlider itemShow1={1} itemShow2={1} itemShow3={1} itemShow4={1} elements={imagescard} numOfSld={1}/>}
                 </div>
                 <div className="aboutCont">
                     <p className="titleItem">{Product?.title}</p>
                     <p className="supllierName">{Product?.seller_data.name}</p>
                     <div className="reviewCont">
-                        <div className="starsAndReviews"><Rating value={valueR} onChange={(event , newValue) => ratingHandler(newValue)}/> <div className="reviews">33 {lang === "AZ" && `Şərhlər` || lang === "EN" && `Reviews` || lang === "RU" && `Отзывы`}</div>
+                        <div className="starsAndReviews"><Rating value={valueR} onChange={(event , newValue) => ratingHandler(newValue)}/>  <div className="reviews">  {lang === "AZ" && `Şərh sayı - ` || lang === "EN" && `Reviews - ` || lang === "RU" && `Отзывы - `} {Product?.reviews?.length}</div>
                         <div className='reviewSendCont'><textarea value={reviewAbout} onChange={(e) => setreviewAbout(e.target.value)} type="text" placeholder='Fikrinizi bildirin'/>  <div className="buttonContReviewSend"><div className="rateCont"><Rating value={sendStar} onChange={(e , newvalue) => setsendStar(newvalue)} name="read-only"/> {sendStar} ulduz göndərilir </div>  <div className="Buttons"> <button onClick={()=>sendReview()} className='submit'>Göndər</button><button onClick={() => cancelReviewSend()} className='cancel'>Ləğv et</button></div></div> </div></div>
                         <button onClick={() => props.selectItem(props.id)} className="favorites">{props.indexSelected !== -1 ? <FavoriteIcon style={{fontSize:"25px",color:"red",}}/> : <FavoriteBorderIcon/>} </button> 
                     </div>
@@ -178,17 +174,17 @@ function ProductModal(props) {
                         {Product?.description}
                     </p>
                     <p className="ingredients"><span className="ingredientsText">  {lang === "AZ" && `Tərkibi:` || lang === "EN" && `Ingredients:` || lang === "RU" && `Ингредиенты:`}</span> <span className="ingredientsFront"> {lang === "AZ" && Product?.terkibi_az || lang === "EN" && Product?.terkibi_en || lang === "RU" && Product?.terkibi_ru}</span>    </p>
-                    <p className="priceCont"> <span className="priceText">  {lang === "AZ" && `Qiyməti:` || lang === "EN" && `Price:` || lang === "RU" && `Цена:`}</span>  <span className="price">{Product?.qiymet} azn</span> - <span className="weight">{Product?.ceki_hecm} gr</span></p>
+                    <p className="priceCont"> <span className="priceText">  {lang === "AZ" && `Qiyməti:` || lang === "EN" && `Price:` || lang === "RU" && `Цена:`}</span>  <span className="price">{Product?.qiymet} {money} </span> - <span className="weight">{props.weight + " " + (parseInt(Product?.unit?.id) === 1 && `kq` || parseInt(Product?.unit?.id) === 4 && `gr` || parseInt(Product?.unit?.id) === 2 && `l`)}</span></p>
                     <div className="buttonsCont">
                         {
                             ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count && 
                             <div className="part1">
-                                <button  value="1" onClick={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit , Product?.delivery , Product?.title)} className="decBtn"  >{<RemoveIcon style={{fontSize:"20px"}}/>}</button>
+                                <button  value="1" onClick={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title)} className="decBtn"  >{<RemoveIcon style={{fontSize:"20px"}}/>}</button>
                                 <button   className="valueBtn">{Product?.id !== undefined ? (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count) : 0}</button>
-                                <button  value="1" onClick={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit , Product?.delivery , Product?.title)}  className="incBtn">+</button>
+                                <button  value="1" onClick={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title)}  className="incBtn">+</button>
                             </div>
                         }
-                        <div className="part2"><Button1 value={lang === "AZ" && `Səbətə əlavə et` || lang === "EN" && `Add Basket` || lang === "RU" && `Добавить корзину`} color="#285999" function={ () => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit , Product?.delivery , Product?.title)}/></div>
+                        <div className="part2"><Button1 value={lang === "AZ" && `Səbətə əlavə et` || lang === "EN" && `Add Basket` || lang === "RU" && `Добавить корзину`} color="#285999" function={ () => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title)}/></div>
                     </div>
                 </div> 
             </div>
@@ -210,8 +206,6 @@ function ProductModal(props) {
                         </div>
                     </div>
 
-
-                    
 
 
             </div>

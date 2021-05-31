@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {ProductListingContext} from '../components/ProductListingProvider'
 
 function AddAddress() {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
 
     const notifyAddress = (rate) => toast.success(((lang === "AZ" && `Ünvan əlavə edildi!`) || (lang === "EN" && `Address added!`) || (lang === "RU" && `Адрес добавлен!`)) , {draggable: true,});
     const [address, setaddress] = useState("")

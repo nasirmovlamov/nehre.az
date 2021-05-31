@@ -12,10 +12,10 @@ export function ProductListingProvider(props) {
     const [FinalWeight, setFinalWeight] = useState(localStorage.getItem('FinalWeight') !== null ?  parseFloat(localStorage.getItem('FinalWeight')) : 0)
     const [FinalGoods, setFinalGoods] = useState(localStorage.getItem('FinalGoods') !== null ?  parseInt(localStorage.getItem('FinalGoods')) : 0)
     const [DateGoods, setDateGoods] = useState(localStorage.getItem('DateGoods') !== null ? JSON.parse(localStorage.getItem('DateGoods')) : [])
+    const [SelectedsProduct, setSelectedsProduct] = useState(sessionStorage.getItem('SecilmishProduct') !== null ? JSON.parse(sessionStorage.getItem('SecilmishProduct')) : [])
     const langArr = ["AZ" , "EN" , "RU"]
     const [lang, setlang] = useState(sessionStorage.getItem('lang') === null ? 'AZ' : sessionStorage.getItem('lang'))
     const [money, setmoney] = useState(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
-    
 
 
 
@@ -96,22 +96,15 @@ export function ProductListingProvider(props) {
 
             if (parseInt(ProdutData[index]?.unitType) === 4) {
                 setFinalWeight(parseFloat(FinalWeight) - ((parseFloat(ProdutData[index]?.weight) / 1000)) )
+                localStorage.setItem('FinalWeight' , (parseFloat(FinalWeight) - (parseFloat(ProdutData[index]?.weight) / 1000)))
             }
             else 
             {
+                localStorage.setItem('FinalWeight' , (parseFloat(FinalWeight) - parseFloat(ProdutData[index]?.weight) ))
                 setFinalWeight(parseFloat(FinalWeight) - (parseFloat(ProdutData[index]?.weight)) )
             }
-
             localStorage.setItem('FinalGoods' , (parseInt(FinalGoods) - 1))
             localStorage.setItem('FinalPrice' , (parseInt(FinalPrice) - parseInt(price)))
-            if (parseInt(unitType) === 4) {
-                localStorage.setItem('FinalWeight' , (parseFloat(FinalWeight) - (parseFloat(weight) / 100)))
-            }
-            else 
-            {
-                localStorage.setItem('FinalWeight' , (parseFloat(FinalWeight) - parseFloat(weight) ))
-            }
-
             localStorage.setItem('DateGoods' , (JSON.stringify(newArray)))
             localStorage.setItem('ProdutData' , (JSON.stringify(newArr)))
         }
@@ -119,7 +112,7 @@ export function ProductListingProvider(props) {
  
 
     return (
-        <ProductListingContext.Provider value={[ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods]}>
+        <ProductListingContext.Provider value={[ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct]}>
             {props.children}
         </ProductListingContext.Provider>
     )

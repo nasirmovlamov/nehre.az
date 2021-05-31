@@ -51,7 +51,7 @@ import Combo from '../pages/Combo'
 import ForgetPassword from '../pages/ForgetPassword'
 
 function Header() {
-  const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang ,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+  const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
 
 
   // const TopNavbar = useMediaQuery('(min-width:600px)');
@@ -307,21 +307,21 @@ function Header() {
                     {MidNavbar && <DownNavbar  TopCategory={TopCategory}/>}
                 </header>
                 <Switch>
-                    <Route  path="/combos/:slug" >                <Combo/>                                                                                      </Route>
-                    <Route   path={`/category/:id`}>            <ProductListingPage  PaymentPrice={PaymentPrice} />                                               </Route>
-                    <Route   path="/about" >                    <About/>                                                                                          </Route>
-                    <Route   path="/contact" >                  <Contacts/>                                                                                       </Route>
-                    <Route   path="/public/forgetpassword" >           <ForgetPassword/>                                                                                       </Route>
-                    <Route   path="/who" >                      <Who/>                                                                                            </Route>
-                    <Route   path="/quality" >                  <Quality/>                                                                                        </Route>
-                    <Route   path="/reviews" >                  <ReviewPage/>                                                                                     </Route>
-                    <Route   path="/search" >                   <SearchResult/>                                                                                   </Route>
-                    <Route   path="/memberarea">                {(UserData?.id !== undefined  && parseInt(statusOK) === 1) &&  <MemberArea  UserData={UserData}/>  }               </Route>
-                    <Route   path="/promotions" >                <ProductListingPage category="Promotional products" notags={1}/>                                  </Route>
-                    <Route   path="/suppliers/:id" >             <SelectedSupplier/>                                                                               </Route>
-                    <Route   path="/suppliers" >                 <Suppliers/>                                                                                      </Route>
-                    <Route   exact path="/" >                          <HomePage assortmentArr={assortmentArr} modalOpener3={handleOpen3} productModal={handleOpen}/>                              </Route>
-                    <Route   path="*"><F04 /></Route>
+                    <Route  path="/combos/:slug" >              <Combo/>                                                                                                      </Route>
+                    <Route   path={`/category/:id`}>            <ProductListingPage  PaymentPrice={PaymentPrice} />                                                           </Route>
+                    <Route   path="/about" >                    <About/>                                                                                                      </Route>
+                    <Route   path="/contact" >                  <Contacts/>                                                                                                   </Route>
+                    <Route   path="/public/forgetpassword" >    <ForgetPassword/>                                                                                             </Route>
+                    <Route   path="/who" >                      <Who/>                                                                                                        </Route>
+                    <Route   path="/quality" >                  <Quality/>                                                                                                    </Route>
+                    <Route   path="/reviews" >                  <ReviewPage/>                                                                                                 </Route>
+                    <Route   path="/search" >                   <SearchResult/>                                                                                               </Route>
+                    <Route   path="/memberarea">                {(UserData?.id !== undefined  && parseInt(statusOK) === 1) &&  <MemberArea  UserData={UserData}/>  }          </Route>
+                    <Route   path="/promotions" >               <ProductListingPage category="Promotional products" notags={1}/>                                              </Route>
+                    <Route   path="/suppliers/:id" >            <SelectedSupplier/>                                                                                           </Route>
+                    <Route   path="/suppliers" >                <Suppliers/>                                                                                                  </Route>
+                    <Route   exact path="/" >                   <HomePage assortmentArr={assortmentArr} modalOpener3={handleOpen3} productModal={handleOpen}/>                </Route>
+                    <Route   path="*">                          <F04 />                                                                                                       </Route>
                 </Switch>
                 
                 <Footer/>

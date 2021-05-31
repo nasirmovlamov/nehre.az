@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function PasswordUpdate(props){
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
     const notifyPass = () => toast.info(lang === "AZ" && `Şifrəniz yeniləndi!` || lang === "EN" && `Your password has been updated!` || lang === "RU" && `Ваш пароль был обновлен!`);
     const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
     const validationSchema = yup.object({
