@@ -48,19 +48,25 @@ import Contacts from './Contacts'
 import Cookies from 'js-cookie';
 
 import Combo from '../pages/Combo'
+import ForgetPassword from '../pages/ForgetPassword'
 
 function Header() {
+  const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang ,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+
+
   // const TopNavbar = useMediaQuery('(min-width:600px)');
   const MidNavbar = useMediaQuery('(min-width:622px)');
 
 
 
   const notifyLOGIN = () => toast.warn("Hesabınıza daxil olun və yaxud yeni hesab yaradın!");
+  const notifyTC = (till) => toast.warn(`${till/60} dəqiqə sonra yenidən cəhd edin`);
+
+
+  const [tillCount, settillCount] = useState(null)
   const smsHandle = () => {
-    handleOpenSMS()
-    // axios.post('https://nehra.az/public/api/resendsms' , {user_id:JSON.parse(localStorage.getItem('LoginUserData')).id})
-    //     .then(res => (res.status ===200 && (handleOpenSMS() , sessionStorage.setItem('smscount' , res.data))) )
-    console.log(Cookies.get('second'));
+    axios.post('https://nehra.az/public/api/resendsms' , {user_id:JSON.parse(localStorage.getItem('LoginUserData')).id})
+    .then(res => (res.status ===200 && ((res.data <= 0 && handleOpenSMS()) , notifyTC(res.data) , console.log(res.data))) )
   }
   const logout = () => {
     localStorage.clear()
@@ -68,9 +74,10 @@ function Header() {
   }
   const notifyAuth = () => toast.error(
     <div className="authCont">
-      <p className="title">{document.cookie.second === 0 ?  <>Hesabınızı təsdiqləyin!</> : <>{document.cookie.minute}  dəqiqə sonra yenidən cəhed edin</>} </p>  
+      <p className="title">{ <>{"Hesabınızı təsdiqləyin !" }</>} </p>  
       <button onClick={() => smsHandle()} className='phoneAuth'>Telefonla təsdiqləmək</button>
       <button onClick={() => logout()} className='phoneAuth'>Çıxış</button>
+      <p>{tillCount > 0 &&  <>{(tillCount/60)} dəqiqə sonra yenidən yoxlayın</> }</p>
     </div>
     , {
     position: "top-right",
@@ -82,6 +89,10 @@ function Header() {
     width:"450px",
     progress: undefined,
     });
+
+
+
+
   const [UserData, setUserData] = useState(0)
   const [Assortment, setAssortment] = useState([])
   const [TopCategory, setTopCategory] = useState([])
@@ -197,84 +208,89 @@ function Header() {
       const resp = await axios.get('https://nehra.az/public/api/settings')
       setNumber1(resp.data.phone1) 
       setNumber2(resp.data.phone2)
-      console.log(resp.data)
+      if (resp.data.lang === null || resp.data.lang === undefined || resp.data.lang === "" ) {
+          sessionStorage.setItem('lang' , 'AZ')
+      }
+      setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
     } catch (err) {
       // Handle Error Here
       console.error(err);
     }
   };
+
   useEffect(() => {
     sendGetRequest10()
     sendGetRequest6()
   } , [] )
-  const handleClose4 = () => {
-        setOpen4(false);
-    };
 
-    window.addEventListener("scroll", function(){
-        if (window.scrollY > 121)
-        {
-            document?.getElementById('header').setAttribute('style' , 'height:0px;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);overflow:inherit;')
-            document?.getElementById('downPart').setAttribute('style' , 'background:#f0f4f5;height:85.17px;overflow:inherit;')
-            document?.getElementById('logoNehre').setAttribute('style' , 'opacity:1;pointer-events:all;')
-            document?.getElementById('downCont').setAttribute('style' , 'padding-top: 30px;padding-bottom: 30px;')
-            var downNavImgCont = document.querySelectorAll('#downNavImgCont')
-            for (var i=0; i < downNavImgCont.length; i++) {
-              downNavImgCont[i]?.setAttribute('style' , 'height:0px;')
-            }
-            var downImg = document.querySelectorAll('#downNavImg')
-            for (var i=0; i < downImg.length; i++) {
-              downImg[i]?.setAttribute('style' , 'height:0px;')
-            }
-            var buttonNav = document.querySelectorAll('.buttonNav')
-            for (var i=0; i < buttonNav.length; i++) {
-              buttonNav[i]?.setAttribute('style' , 'height:30px;padding-bottom:0px;')
-            }
-            
-        }
-        else if (window.scrollY < 201)
-        {
-          document?.getElementById('downPart')?.setAttribute('style' , 'background:transparent;height:0px;padding-top: 0px;padding-bottom: 0px;overflow:hidden;')
-          document?.getElementById('logoNehre')?.setAttribute('style' , 'opacity:0;pointer-events:none;')  
-          document?.getElementById('downCont')?.setAttribute('style' , 'padding-top: 0px;padding-bottom: 0px;')
-          document?.getElementById('header')?.setAttribute('style' , 'height:110px;background:transparent; box-shadow: transparent;overflow:hidden;')
+  const handleClose4 = () => {
+      setOpen4(false);
+  };
+
+  window.addEventListener("scroll", function(){
+      if (window.scrollY > 121)
+      {
+          document?.getElementById('header').setAttribute('style' , 'height:0px;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);overflow:inherit;')
+          document?.getElementById('downPart').setAttribute('style' , 'background:#f0f4f5;height:85.17px;overflow:inherit;')
+          document?.getElementById('logoNehre').setAttribute('style' , 'opacity:1;pointer-events:all;')
+          document?.getElementById('downCont').setAttribute('style' , 'padding-top: 30px;padding-bottom: 30px;')
           var downNavImgCont = document.querySelectorAll('#downNavImgCont')
           for (var i=0; i < downNavImgCont.length; i++) {
-            downNavImgCont[i].setAttribute('style' , 'height:120px;')
+            downNavImgCont[i]?.setAttribute('style' , 'height:0px;')
           }
           var downImg = document.querySelectorAll('#downNavImg')
           for (var i=0; i < downImg.length; i++) {
-            downImg[i].setAttribute('style' , 'height:70px;')
+            downImg[i]?.setAttribute('style' , 'height:0px;')
           }
           var buttonNav = document.querySelectorAll('.buttonNav')
           for (var i=0; i < buttonNav.length; i++) {
-            buttonNav[i].setAttribute('style' , 'height:110px;')
+            buttonNav[i]?.setAttribute('style' , 'height:30px;padding-bottom:0px;')
           }
-        } 
-        
-      });
-    
-    
+          
+      }
+      else if (window.scrollY < 201)
+      {
+        document?.getElementById('downPart')?.setAttribute('style' , 'background:transparent;height:0px;padding-top: 0px;padding-bottom: 0px;overflow:hidden;')
+        document?.getElementById('logoNehre')?.setAttribute('style' , 'opacity:0;pointer-events:none;')  
+        document?.getElementById('downCont')?.setAttribute('style' , 'padding-top: 0px;padding-bottom: 0px;')
+        document?.getElementById('header')?.setAttribute('style' , 'height:110px;background:transparent; box-shadow: transparent;overflow:hidden;')
+        var downNavImgCont = document.querySelectorAll('#downNavImgCont')
+        for (var i=0; i < downNavImgCont.length; i++) {
+          downNavImgCont[i].setAttribute('style' , 'height:120px;')
+        }
+        var downImg = document.querySelectorAll('#downNavImg')
+        for (var i=0; i < downImg.length; i++) {
+          downImg[i].setAttribute('style' , 'height:70px;')
+        }
+        var buttonNav = document.querySelectorAll('.buttonNav')
+        for (var i=0; i < buttonNav.length; i++) {
+          buttonNav[i].setAttribute('style' , 'height:110px;')
+        }
+      } 
+      
+    });
+  
+  
 
-    const  scrolltoTop = () =>  {
-      window.scroll(0,0)
-    }
-    const [PaymentPrice, setPaymentPrice] = useState(0)
-    const [NumberOfGoods, setNumberOfGoods] = useState(0)
-    const [ParcelWeight, setParcelWeight] = useState(0)
+  const  scrolltoTop = () =>  {
+    window.scroll(0,0)
+  }
+  const [PaymentPrice, setPaymentPrice] = useState(0)
+  const [NumberOfGoods, setNumberOfGoods] = useState(0)
+  const [ParcelWeight, setParcelWeight] = useState(0)
 
 
-    const [openSMS, setOpenSMS] = React.useState(false);
+  const [openSMS, setOpenSMS] = React.useState(false);
 
-    const handleOpenSMS = () => {
-        setOpenSMS(true);
-    }
-    const handleCloseSMS = () => {
-        setOpenSMS(false);
-    }
-    
+  const handleOpenSMS = () => {
+      setOpenSMS(true);
+  }
 
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money,langArr] = useContext(ProductListingContext)
+  const handleCloseSMS = () => {
+      setOpenSMS(false);
+  }
+  
+
 
 
     return (
@@ -295,16 +311,17 @@ function Header() {
                     <Route   path={`/category/:id`}>            <ProductListingPage  PaymentPrice={PaymentPrice} />                                               </Route>
                     <Route   path="/about" >                    <About/>                                                                                          </Route>
                     <Route   path="/contact" >                  <Contacts/>                                                                                       </Route>
+                    <Route   path="/public/forgetpassword" >           <ForgetPassword/>                                                                                       </Route>
                     <Route   path="/who" >                      <Who/>                                                                                            </Route>
                     <Route   path="/quality" >                  <Quality/>                                                                                        </Route>
                     <Route   path="/reviews" >                  <ReviewPage/>                                                                                     </Route>
                     <Route   path="/search" >                   <SearchResult/>                                                                                   </Route>
-                    <Route   path="/memberarea">      {(UserData?.id !== undefined  && parseInt(statusOK) === 1) &&  <MemberArea  UserData={UserData}/>  }               </Route>
-                    <Route  path="/promotions" >                <ProductListingPage category="Promotional products" notags={1}/>                                  </Route>
-                    <Route  path="/suppliers/:id" >             <SelectedSupplier/>                                                                               </Route>
-                    <Route  path="/suppliers" >                 <Suppliers/>                                                                                      </Route>
-                    <Route  path="/" >                          <HomePage assortmentArr={assortmentArr} modalOpener3={handleOpen3} productModal={handleOpen}/>                              </Route>
-                    <Route path="*"><F04 /></Route>
+                    <Route   path="/memberarea">                {(UserData?.id !== undefined  && parseInt(statusOK) === 1) &&  <MemberArea  UserData={UserData}/>  }               </Route>
+                    <Route   path="/promotions" >                <ProductListingPage category="Promotional products" notags={1}/>                                  </Route>
+                    <Route   path="/suppliers/:id" >             <SelectedSupplier/>                                                                               </Route>
+                    <Route   path="/suppliers" >                 <Suppliers/>                                                                                      </Route>
+                    <Route   exact path="/" >                          <HomePage assortmentArr={assortmentArr} modalOpener3={handleOpen3} productModal={handleOpen}/>                              </Route>
+                    <Route   path="*"><F04 /></Route>
                 </Switch>
                 
                 <Footer/>
@@ -348,7 +365,7 @@ function Header() {
                 open={openSMS}
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description">
-                {<AuthSmsL functionClose={() => handleCloseSMS() }  />}
+                {<AuthSmsL functionClose={() => handleCloseSMS() }  tillCount={tillCount}/>}
             </Modal>
 
         </Router>

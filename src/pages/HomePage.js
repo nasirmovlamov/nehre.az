@@ -45,7 +45,7 @@ import {ProductListingContext} from '../components/ProductListingProvider'
 
 function HomePage(props) {
     
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang ,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
 
     const topCards = []
     const newItems = []
@@ -85,7 +85,10 @@ function HomePage(props) {
     
     useEffect(() => {
             sendGetRequests()
-    }, [])
+            if (JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.id) === undefined) {
+                sessionStorage.setItem('SecilmishProduct' , JSON.stringify([]))
+            }
+        }, [])
 
     TopCards.map(bucket => ( topCards.push(             <CardSlider1 link={bucket.link} id={bucket.id} turndesc={bucket.turndesc} turnetrafli={bucket.turnetrafli}  turnoverlay={bucket.turnoverlay}  turntitle={bucket.turntitle}   name={bucket.name} image={bucket.image} desc={bucket.description}/>)))
     SuppliersCard.map(supply => ( suppliersCard.push(   <SupplierCard id={supply.id} image={supply.avatar} title={supply.name} supplier={supply.type_id} image2={testImg6} image3={testImg7}/>   )))

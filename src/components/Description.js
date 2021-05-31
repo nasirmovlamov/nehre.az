@@ -8,7 +8,7 @@ import SimilarCard from './SimilarCard';
 import {ProductListingContext} from '../components/ProductListingProvider'
 
 function Description(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang ,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
 
     const imgHandler = {
         backgroundImage: `url(https://nehra.az/storage/app/public/${props?.Product?.seller_data?.avatar})`,

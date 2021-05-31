@@ -8,6 +8,7 @@ import {
   BrowserRouter as Router,
   Switch,
   useParams,
+  useLocation,
 } from "react-router-dom";
 import gogerti from "../assets/images/gogerti.jpg";
 import { ProductListingContext } from "../components/ProductListingProvider";
@@ -71,45 +72,12 @@ function MemberArea(props) {
 
   const memberMQ = useMediaQuery("(min-width:900px)");
   const [UserData, setUserData] = useState(JSON.parse(localStorage.getItem('LoginUserData')))
-  const clickHandler = (num) => {
-    for (let i = 1; i < 11; i++) {
-      document
-        .getElementById(`btn${i}`)
-        .setAttribute(
-          "style",
-          "color: #7d7068;border-left: 3px solid transparent;"
-        );
-      document
-        ?.getElementById("main")
-        ?.setAttribute("style", "box-shadow: 3px 1px 40px  rgba(0,0,0,0.2);");
-    }
-    if (num === 6 || num === 5) {
-      document
-        ?.getElementById("main")
-        ?.setAttribute("style", "box-shadow: none;");
-    }
-    document
-      .getElementById(`btn${num}`)
-      .setAttribute("style", "color:#285999;border-left: 3px solid #285999");
-  };
+  
 
   const url = window.location.href;
   const lastSegment = url.split("/").pop();
-  const borderHandler = (lastItem) => {
-    if (lastItem !== undefined && lastItem !== null) {
-      document
-        ?.querySelector(`.btn${lastItem}`)
-        ?.setAttribute("style", "color:#285999;border-left: 3px solid #285999");
-    }
-    if (window.location.href === "http://localhost:3000/memberarea/bookmarks") {
-      document
-        ?.getElementById("main")
-        ?.setAttribute("style", "box-shadow:none;");
-    }
-  };
-  useEffect(() => {
-    borderHandler(lastSegment);
-  }, []);
+ 
+
   const logOut = () => {
     localStorage.clear();
   };
@@ -139,123 +107,93 @@ function MemberArea(props) {
     >
       <div className="swiperCMember">
         <div className="menu">
-          {" "}
           <p>{JSON.parse(localStorage.getItem("LoginUserData")).name}</p>{" "}
           <button onClick={toggleDrawer(anchor, false)}> &#10006;</button>
         </div>
         <aside className="aside">
-          <Link to="/memberarea" className="contact">
-            {" "}
+          <Link to="/memberarea" className="contact" >
             <button
               className="btnmemberarea"
               id="btn1"
-              onClick={() => clickHandler(1)}
             >
-              {" "}
-              <AccountCircleIcon /> Şəxsi Kabinet{" "}
+              <AccountCircleIcon /> Şəxsi Kabinet
             </button>
           </Link>
           <Link to="/memberarea/password" className="password">
             <button
               className="btnpassword"
               id="btn2"
-              onClick={() => clickHandler(2)}
             >
-              {" "}
-              <LockIcon /> Şifrə{" "}
+              <LockIcon /> Şifrə
             </button>
           </Link>
           <Link to="/memberarea/address" className="address">
-            {" "}
             <button
               className="btnaddress"
               id="btn3"
-              onClick={() => clickHandler(3)}
             >
-              {" "}
               <LocationOnIcon />
-              Ünvan{" "}
+              Ünvan
             </button>
           </Link>
           <Link to="/memberarea/bookmarks" className="bookmarks">
-            {" "}
             <button
               className="btnbookmarks"
               id="btn4"
-              onClick={() => clickHandler(4)}
             >
-              {" "}
-              <FavoriteIcon /> Seçilmişlər{" "}
+              <FavoriteIcon /> Seçilmişlər
             </button>
           </Link>
           <Link to="/memberarea/orders" className="orders">
-            {" "}
             <button
               className="btnorders"
               id="btn5"
-              onClick={() => clickHandler(5)}
             >
-              {" "}
-              <DescriptionIcon /> Sifarişlər{" "}
+              <DescriptionIcon /> Sifarişlər
             </button>
           </Link>
           <Link to="/memberarea/reminders" className="reminders">
             <button
               className="btnreminders"
               id="btn6"
-              onClick={() => clickHandler(6)}
             >
-              {" "}
-              <NotificationsIcon /> Bildirişlər{" "}
+              <NotificationsIcon /> Bildirişlər
             </button>
           </Link>
           <Link to="/memberarea/bonuses" className="bonuses">
-            {" "}
             <button
               className="btnbonuses"
               id="btn7"
-              onClick={() => clickHandler(7)}
             >
-              {" "}
-              <MonetizationOnIcon /> Bonuslar{" "}
+              <MonetizationOnIcon /> Bonuslar
             </button>
           </Link>
           <Link to="/memberarea/deposite" className="deposites">
-            {" "}
             <button
               className="btndeposite"
               id="btn8"
-              onClick={() => clickHandler(8)}
             >
-              {" "}
               <AccountBalanceWalletIcon />
-              Depozitlər{" "}
+              Depozitlər
             </button>
           </Link>
           <Link to="/memberarea/free-shipping" className="freeShipping">
-            {" "}
             <button
               className="btnfree-shipping"
               id="btn9"
-              onClick={() => clickHandler(9)}
             >
-              {" "}
-              <LocalShippingIcon /> Çatdırılma{" "}
-            </button>{" "}
+              <LocalShippingIcon /> Çatdırılma
+            </button>
           </Link>
           <Link to="/memberarea/reviews" className="reviews">
-            {" "}
-            <button id="btnreviews" id="btn10" onClick={() => clickHandler(10)}>
-              {" "}
-              <ChatBubbleIcon /> Şərhlər{" "}
-            </button>{" "}
+            <button id="btnreviews" id="btn10" >
+              <ChatBubbleIcon /> Şərhlər
+            </button>
           </Link>
           <hr />
           <a href="/">
-            {" "}
             <button onClick={logOut}>
-              {" "}
-              <ExitToAppIcon /> Log out{" "}
+              <ExitToAppIcon /> Log out
             </button>
           </a>
         </aside>
@@ -264,8 +202,32 @@ function MemberArea(props) {
   );
   //}Swiper
 
+  const location = useLocation();
+
+
+  const buttonBorder = {
+        color: "#285999", 
+        borderLeft: "3px solid #285999"
+  }
+
+  const buttonBorderNormal = {
+    color:"#7d7068",
+    borderLeft: "3px solid white"
+  }
+
+  const styler = (link) => {
+    if (location.pathname === link) {
+      return buttonBorder
+    } 
+    else 
+    {
+      return buttonBorderNormal
+    }
+  }                                       
+
+  
+
   return (
-    <Router>
       <div className="memberAreaCont">
         {!memberMQ && (
           <React.Fragment key={"left"}>
@@ -288,67 +250,67 @@ function MemberArea(props) {
         {memberMQ && (
           <aside className="aside">
             <Link to="/memberarea" className="contact">
-              <button className="btnmemberarea" id="btn1" onClick={() => clickHandler(1)}>
+              <button style={styler('/memberarea')} >
                 <AccountCircleIcon />  {lang === "AZ" && `Şəxsi Kabinet ` || lang === "EN" && `Personal Cabinet` || lang === "RU" && `Личный кабинет`}
               </button>
             </Link>
 
             <Link to="/memberarea/password" className="password">
-              <button className="btnpassword" id="btn2" onClick={() => clickHandler(2)}>
+              <button  style={styler('/memberarea/password')} >
                 <LockIcon />   {lang === "AZ" && `Şifrə` || lang === "EN" && `Password` || lang === "RU" && `Пароль`}
               </button>
             </Link>
 
             <Link to="/memberarea/address" className="address">
-              <button className="btnaddress" id="btn3" onClick={() => clickHandler(3)}>
+              <button style={styler('/memberarea/address')}  >
                 <LocationOnIcon />
                 {lang === "AZ" && `Ünvan` || lang === "EN" && `Address` || lang === "RU" && `Адрес`}
               </button>
             </Link>
 
             <Link to="/memberarea/bookmarks" className="bookmarks">
-              <button className="btnbookmarks" id="btn4" onClick={() => clickHandler(4)}>
+              <button style={styler('/memberarea/bookmarks')}>
                 <FavoriteIcon /> 
                 {lang === "AZ" && `Seçilmişlər` || lang === "EN" && `Selected` || lang === "RU" && `Выбрано`}
               </button>
             </Link>
 
             <Link to="/memberarea/orders" className="orders">
-              <button className="btnorders" id="btn5" onClick={() => clickHandler(5)}>
+              <button  style={styler('/memberarea/orders')}>
                 <DescriptionIcon /> 
                 {lang === "AZ" && `Sifarişlər` || lang === "EN" && `Orders` || lang === "RU" && `Заказы`}
               </button>
             </Link>
 
             <Link to="/memberarea/reminders" className="reminders">
-              <button className="btnreminders" id="btn6" onClick={() => clickHandler(6)}>
+              <button style={styler('/memberarea/reminders')} >
                 <NotificationsIcon /> 
                 {lang === "AZ" && `Bildirişlər` || lang === "EN" && `Notifications` || lang === "RU" && `Уведомления`}
               </button>
             </Link>
 
             <Link to="/memberarea/bonuses" className="bonuses">
-              <button className="btnbonuses" id="btn7" onClick={() => clickHandler(7)}>
+              <button style={styler('/memberarea/bonuses')}>
                 <MonetizationOnIcon /> 
                 {lang === "AZ" && `Bonuslar` || lang === "EN" && `Bonuses` || lang === "RU" && `Бонусы`}
               </button>
             </Link>
 
             <Link to="/memberarea/deposite" className="deposites">
-              <button className="btndeposite" id="btn8" onClick={() => clickHandler(8)}>
+              <button style={styler('/memberarea/deposite')}>
                 <AccountBalanceWalletIcon />
                 {lang === "AZ" && `Depozitlər` || lang === "EN" && `Deposits` || lang === "RU" && `Депозиты`}
               </button>
             </Link>
 
             <Link to="/memberarea/free-shipping" className="freeShipping">
-              <button className="btnfree-shipping" id="btn9" onClick={() => clickHandler(9)}>
+              <button style={styler('/memberarea/free-shipping')}>
                 <LocalShippingIcon /> 
                 {lang === "AZ" && `Çatdırılma` || lang === "EN" && `Delivery` || lang === "RU" && `Доставка`}
               </button>
             </Link>
             <Link to="/memberarea/reviews" className="reviews">
-              <button id="btnreviews" id="btn10" onClick={() => clickHandler(10)}>
+              <button  style={styler('/memberarea/reviews')}>
                 <ChatBubbleIcon /> 
                 {lang === "AZ" && `Şərhlər` || lang === "EN" && `Comments` || lang === "RU" && `Комментарии`}
               </button>
@@ -406,7 +368,6 @@ function MemberArea(props) {
           </Switch>
         </main>
       </div>
-    </Router>
   );
 }
 

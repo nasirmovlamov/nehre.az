@@ -86,6 +86,10 @@
   height: 100%;
 }
 
+.topNavbar .mainLang {
+  text-transform: uppercase;
+}
+
 .topNavbar .phoneAndSearch {
   display: -webkit-box;
   display: -ms-flexbox;

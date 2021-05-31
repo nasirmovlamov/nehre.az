@@ -21,7 +21,6 @@ function Reminders() {
     useEffect(() => {
         sendOrderRequest()
     }, [])
-    console.log(Notfs);
     return (
         <div className="cabinetCont orders bookmarks reminders">
         <p className="title">{lang === "AZ" && `Bildirişlərim` || lang === "EN" && `Search` || lang === "RU" && `Мои уведомления`}</p>

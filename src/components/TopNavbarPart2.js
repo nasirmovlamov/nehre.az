@@ -143,11 +143,11 @@ function TopNavbarPart2(props) {
                                 {/*  */}
                                 {elements &&<a >
                                     <div className="shoppingBtnDiv2" onMouseLeave={() => langChangerMouseLeave2()}>
-                                        <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} className="shoppingBtn2">{lang}</button>
+                                        <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} className="shoppingBtn2 mainLang">{lang}</button>
                                         {drop2 && <div id="myDropdown" className="dropdown-content">
-                                            {lang === "AZ" ? "" : <button onClick={() => languageChanger(langArr[0])}><a className='btnInside' href='/locale/az'> {langArr[0]}  </a></button> }
-                                            {lang === "EN" ? "" : <button onClick={() => languageChanger(langArr[1])}><a className='btnInside' href='/locale/en'> {langArr[1]}  </a></button> }
-                                            {lang === "RU" ? "" : <button onClick={() => languageChanger(langArr[2])}><a className='btnInside' href='/locale/ru'> {langArr[2]} </a></button>}
+                                            {(lang === "AZ" || lang === "az")  ? "" : <button onClick={() => languageChanger(langArr[0])}><a className='btnInside' href='/locale/az'> {langArr[0]}  </a></button> }
+                                            {(lang === "EN" || lang === "en")  ? "" : <button onClick={() => languageChanger(langArr[1])}><a className='btnInside' href='/locale/en'> {langArr[1]}  </a></button> }
+                                            {(lang === "RU" || lang === "ru")  ? "" : <button onClick={() => languageChanger(langArr[2])}><a className='btnInside' href='/locale/ru'> {langArr[2]} </a></button>}
                                         </div>}
                                     </div>
                                 </a>}

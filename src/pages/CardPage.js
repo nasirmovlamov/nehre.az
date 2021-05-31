@@ -40,13 +40,12 @@ function CardPage(props) {
         axios.get(`https://nehra.az/public/api/product/${props.id}`)
         .then(res => (setProduct(res.data) , setloader(false)) )
         .catch(err=> (console.log(err) , setloader(false)))
+
+        axios.get('https://nehra.az/public/api/settings/')
+             .then(res => setMinOrder(res.data.min_order_amount))
+             .then(err => console.log(err))
     } , [])
     
-    // useEffect(() => {
-    //     axios.get('https://nehra.az/public/api/settings/')
-    //          .then(res => setMinOrder(res.data.min_order_amount))
-    //          .then(err => console.log(err))
-    // }, [])
 
     
     const clearBucket = () => {
@@ -138,7 +137,6 @@ function CardPage(props) {
     var newfriday = moment(friday).locale('az').format( 'dddd, D MMMM');
     var newsaturday = moment(saturday).locale('az').format( 'dddd, D MMMM');
     var newsunday = moment(sunday).locale('az').format( 'dddd, D MMMM');
-    //Date Problems
 
     const [nextDelivery, setnextDelivery] = useState()
 

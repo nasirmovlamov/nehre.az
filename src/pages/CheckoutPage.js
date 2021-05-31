@@ -15,6 +15,7 @@ import 'moment/locale/az';
 import 'moment/locale/ru';
 import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { AddToHomeScreenRounded } from '@material-ui/icons'
 
 function CheckoutPage(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods] = useContext(ProductListingContext)
@@ -37,6 +38,7 @@ function CheckoutPage(props) {
         }
         document.getElementById(`checkBox${num}`).checked  = true
     }
+
     const [deliveryDay, setdeliveryDay] = useState()
     const [nondeliveryProducts, setnondeliveryProducts] = useState([])
     const [deliveryProducts, setdeliveryProducts] = useState([])
@@ -75,15 +77,10 @@ function CheckoutPage(props) {
         const tomorrow = new Date(today)
         tomorrow.setDate(tomorrow.getDate() + 1);
         
-        const deliveryday = new Date()
-        
-        
-        console.log(num);
-        deliveryday.setDate(tomorrow.getDate() + (parseInt(num) + 7 - tomorrow.getDay()) % 7);
+        const deliveryday = new Date(tomorrow)      
+        deliveryday.setDate(tomorrow.getDate() + ((parseInt(num) + 7 - tomorrow.getDay()) % 7));
         console.log(deliveryday);
 
-
-        
         var newdeliveryday = moment(deliveryday).format( 'dddd, D MMMM');
         setdeliveryDay(newdeliveryday)
         
@@ -93,7 +90,6 @@ function CheckoutPage(props) {
             console.log(date);
             for (let i = 0; i < date.length; i++) {
                 const today = new Date()
-                tomorrow.setDate(today.getDate() + 1)
                 const elementday = new Date()
                 elementday.setDate(tomorrow.getDate() + (parseInt(date[i]) + 7 - tomorrow.getDay()) % 7);
                 
@@ -192,7 +188,7 @@ function CheckoutPage(props) {
         }
         var newarr2 = ProdutData.map((element, index ) =>  vrt(element.id , element))
         newarr2 = newarr2.filter(element => element !== undefined)
-
+        var productsName = newarr2.map(element => element.name)
         var DeliveryDates = []
         var DeliveryCost = 0
         var DeliveryWeight = 0
@@ -212,16 +208,18 @@ function CheckoutPage(props) {
                 DeliveryDates.push(newarr2[i]?.date[j])
             }
         }
-        console.log(DeliveryCost);
-        console.log(DeliveryWeight);
-        console.log(DeliveryCount);
-        console.log(DeliveryDates);
+        // console.log(DeliveryCost);
+        // console.log(DeliveryWeight);
+        // console.log(DeliveryCount);
+        // console.log(DeliveryDates);
 
         setDateGoods(dates)
-        axios.post('https://jsonplaceholder.typicode.com/posts', {address: addressC !== "" ? addressC : addressR , payment_type:paymentType , total_price: DeliveryCost ,  weight:DeliveryWeight  , total_count: DeliveryCount , product_data: newarr2, user_id:props.UserId}  , headers )
+        axios.post('https://jsonplaceholder.typicode.com/posts', {address: addressC !== "" ? addressC : addressR , payment_type:paymentType , total_price: DeliveryCost ,  weight:DeliveryWeight  , total_count: DeliveryCount , product_data: productsName, user_id:props.UserId}  , headers )
          .then(res => (setloader(false) , console.log(res))) 
         //  .catch(err => (setError(true) , setloader(false)))
         //  props.functionClose()
+
+
     }
 
     const initialValues = {
@@ -248,31 +246,32 @@ function CheckoutPage(props) {
     moment.locale(sessionStorage.getItem('lang'))
 
     //Date Problems
-        const today = new Date()
-        const tomorrow = new Date(today)
-        tomorrow.setDate(tomorrow.getDate() + 1)
-        const monday = new Date()
-        monday.setDate(tomorrow.getDate() + (1 + 7 - tomorrow.getDay()) % 7);
-        const tuesday = new Date()
-        tuesday.setDate(tomorrow.getDate() + (2 + 7 - tomorrow.getDay()) % 7);
-        const wednesday = new Date()
-        wednesday.setDate(tomorrow.getDate() + (3 + 7 - tomorrow.getDay()) % 7);
-        const thursday = new Date()
-        thursday.setDate(tomorrow.getDate() + (4 + 7 - tomorrow.getDay()) % 7);
-        const friday = new Date()
-        friday.setDate(tomorrow.getDate() + (5 + 7 - tomorrow.getDay()) % 7);
-        const saturday = new Date()
-        saturday.setDate(tomorrow.getDate() + (6 + 7 - tomorrow.getDay()) % 7);
-        const sunday = new Date()
-        sunday.setDate(tomorrow.getDate() + (7 + 7 - tomorrow.getDay()) % 7);
+    const today = new Date()
+    const tomorrow = new Date()
+    tomorrow.setDate(today.getDate() + 1)
 
-        var newmonday = moment(monday).format( 'dddd, D MMMM');
-        var newtuesday = moment(tuesday).format( 'dddd, D MMMM');
-        var newwednesday = moment(wednesday).format( 'dddd, D MMMM');
-        var newthursday = moment(thursday).format( 'dddd, D MMMM');
-        var newfriday = moment(friday).format( 'dddd, D MMMM');
-        var newsaturday = moment(saturday).format( 'dddd, D MMMM');
-        var newsunday = moment(sunday).format( 'dddd, D MMMM');
+    const monday = new Date(tomorrow)
+    monday.setDate(tomorrow.getDate() + ((1 + 7 - tomorrow.getDay()) % 7));
+    const tuesday = new Date(tomorrow)
+    tuesday.setDate(tomorrow.getDate() + ((2 + 7 - tomorrow.getDay()) % 7));
+    const wednesday = new Date(tomorrow)
+    wednesday.setDate(tomorrow.getDate() + ((3 + 7 - tomorrow.getDay()) % 7));
+    const thursday = new Date(tomorrow)
+    thursday.setDate(tomorrow.getDate() + ((4 + 7 - tomorrow.getDay()) % 7));
+    const friday = new Date(tomorrow)
+    friday.setDate(tomorrow.getDate() + ((5 + 7 - tomorrow.getDay()) % 7));
+    const saturday = new Date(tomorrow)
+    saturday.setDate(tomorrow.getDate() + ((6 + 7 - tomorrow.getDay()) % 7));
+    const sunday = new Date(tomorrow)
+    sunday.setDate(tomorrow.getDate() + ((7 + 7 - tomorrow.getDay()) % 7));
+    
+    var newmonday = moment(monday).format( 'dddd, D MMMM');
+    var newtuesday = moment(tuesday).format( 'dddd, D MMMM');
+    var newwednesday = moment(wednesday).format( 'dddd, D MMMM');
+    var newthursday = moment(thursday).format( 'dddd, D MMMM');
+    var newfriday = moment(friday).format( 'dddd, D MMMM');
+    var newsaturday = moment(saturday).format( 'dddd, D MMMM');
+    var newsunday = moment(sunday).format( 'dddd, D MMMM');
    //Date Problems
    
     
@@ -296,8 +295,8 @@ function CheckoutPage(props) {
                     <div className="deliveryAddress">
                         <p className="title titleBB">{lang === "AZ" && `Çatdırılma olacaq ünvan` || lang === "EN" && `Delivery Address` || lang === "RU" && `Адресс доставки`}</p>
                         <div className="errors">
-                            <select className='addressElement' name="" id="">{address?.map((address , index) => <option value="" > {address.adres} </option> )}</select>
-                            {address?.length < 5 && <div className='addAddress'> <input value={addressC} onChange={onChangeAddress} type="text" placeHolder='Address Əlavə edin'  className='addAdressinput'/>  </div>}
+                            {address?.length > 0 && <select className='addressElement' name="" id="">{address?.map((address , index) => <option value="" > {address.adres} </option> )}</select>}
+                            <div className='addAddress'> <input value={addressC} onChange={onChangeAddress} type="text" placeHolder='Address Əlavə edin'  className='addAdressinput'/>  </div>
                         </div>
                     </div>
 

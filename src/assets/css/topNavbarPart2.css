@@ -31,6 +31,10 @@
   margin-bottom: 1px;
 }
 
+.downPart .mainLang {
+  text-transform: uppercase;
+}
+
 .downPart .downCont {
   padding-top: 30px;
   padding-bottom: 30px;

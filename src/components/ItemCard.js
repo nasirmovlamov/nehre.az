@@ -117,24 +117,34 @@ function ItemCard(props) {
 
 
     moment.locale(sessionStorage.getItem('lang'))
+
     //Date //Date //Date
     const today = new Date()
-    const tomorrow = new Date()
+    
+    const tomorrow = new Date(today)
     tomorrow.setDate(tomorrow.getDate() + 1)
-    const monday = new Date()
-    monday.setDate(tomorrow.getDate() + (1 + 7 - tomorrow.getDay()) % 7);
-    const tuesday = new Date()
-    tuesday.setDate(tomorrow.getDate() + (2 + 7 - tomorrow.getDay()) % 7);
-    const wednesday = new Date()
-    wednesday.setDate(tomorrow.getDate() + (3 + 7 - tomorrow.getDay()) % 7);
-    const thursday = new Date()
-    thursday.setDate(tomorrow.getDate() + (4 + 7 - tomorrow.getDay()) % 7);
-    const friday = new Date()
-    friday.setDate(tomorrow.getDate() + (5 + 7 - tomorrow.getDay()) % 7);
-    const saturday = new Date()
-    saturday.setDate(tomorrow.getDate() + (6 + 7 - tomorrow.getDay()) % 7);
-    const sunday = new Date()
-    sunday.setDate(tomorrow.getDate() + (7 + 7 - tomorrow.getDay()) % 7);
+    
+    const monday = new Date(tomorrow)
+    monday.setDate(tomorrow.getDate() + ((1 + 7 - tomorrow.getDay()) % 7));
+
+    const tuesday = new Date(tomorrow)
+    tuesday.setDate(tomorrow.getDate() + ((2 + 7 - tomorrow.getDay()) % 7));
+
+    const wednesday = new Date(tomorrow)
+    wednesday.setDate(tomorrow.getDate() + ((3 + 7 - tomorrow.getDay()) % 7));
+
+    const thursday = new Date(tomorrow)
+    thursday.setDate(tomorrow.getDate() + ((4 + 7 - tomorrow.getDay()) % 7));
+
+    const friday = new Date(tomorrow)
+    friday.setDate(tomorrow.getDate() + ((5 + 7 - tomorrow.getDay()) % 7));
+
+    const saturday = new Date(tomorrow)
+    saturday.setDate(tomorrow.getDate() + ((6 + 7 - tomorrow.getDay()) % 7));
+
+    const sunday = new Date(tomorrow)
+    sunday.setDate(tomorrow.getDate() + ((7 + 7 - tomorrow.getDay()) % 7));
+    
     var newmonday = moment(monday).format( 'dddd, D MMMM');
     var newtuesday = moment(tuesday).format( 'dddd, D MMMM');
     var newwednesday = moment(wednesday).format( 'dddd, D MMMM');
@@ -146,11 +156,13 @@ function ItemCard(props) {
     
     
     //Select ITEM  //Select ITEM
-    const [indexSelected, setindexSelected] = useState(JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.id))
+    const [indexSelected, setindexSelected] = useState(JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.id) !== undefined ? JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.id) : -1)
     useEffect(() => {
-        var selecteds = JSON.parse(sessionStorage.getItem('SecilmishProduct'))
-        setindexSelected(selecteds?.findIndex(x=> x.id === props.id))
-    }, [indexSelected])
+        if (sessionStorage.getItem('SecilmishProduct') !== null) {
+            var selecteds = JSON.parse(sessionStorage.getItem('SecilmishProduct'))
+            setindexSelected(selecteds?.findIndex(x=> x.id === props.id))
+        }
+    }, [])
 
     //Select ITEM  //Select ITEM
     const selectItem = (num) => {
@@ -163,9 +175,8 @@ function ItemCard(props) {
             {
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
                 var selecteds = []  
-                selecteds = [...selecteds , {id:num , delivery: props.delivery, id:props.id,  modalOpener3:props.modalOpener3 , cardId:props.cardId,  image:props.image,  title:props.title, desc:props?.desc,  unitType:props.unitType,  price:props.price , weight:props.weight , discount:props.discount, productModal:props?.productModal, star:props.starsall}]
+                selecteds = [...selecteds , {id:num , delivery: props.delivery, id:props.id,  cardId:props.cardId,  image:props.image,  title:props.title, desc:props?.desc,  unitType:props.unitType,  price:props.price , weight:props.weight , discount:props.discount, productModal:props?.productModal, star:props.starsall}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
-                // document.getElementById(`${props.id}`).setAttribute('style' , 'color:red;')
                 notify1()
                 return 0 
             }        
@@ -173,13 +184,11 @@ function ItemCard(props) {
             {
                 var selecteds = JSON.parse(sessionStorage.getItem('SecilmishProduct'))
             }
-
             var index = selecteds.findIndex(x=> x.id === num)
             if (index === -1) {
                 selecteds = [...selecteds , {id:num , delivery: props.delivery, id:props.id,  modalOpener3:props.modalOpener3 , cardId:props.cardId,  image:props.image,  title:props.title, desc:props?.desc,  unitType:props.unitType,  price:props.price , weight:props.weight , discount:props.discount, productModal:props?.productModal, star:props.starsall}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
                 setindexSelected(1)
-                // document.getElementById(`${props.id}`).setAttribute('style' , 'color:red;')
                 notify1()
             }
             else 
@@ -187,7 +196,6 @@ function ItemCard(props) {
                 var newArr = selecteds.filter((item) => item.id !== num)
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(newArr))
                 setindexSelected(-1)
-                // document.getElementById(`${props.id}`).setAttribute('style' , 'color:white;')
                 notify2()
             }
         }

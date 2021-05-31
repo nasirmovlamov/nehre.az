@@ -12,7 +12,7 @@ function Bookmarks() {
             <p className="title">{lang === "AZ" && `Seçilmiş məhsullar` || lang === "EN" && `Selected Products` || lang === "RU" && `Избранные продукты`}</p>
             {/* <p className="selection"><button className="button"><HelpOutlineIcon/> Assortment for: <p>all dates <ArrowRightIcon/></p> </button></p> */}
             <div className="gridCont1">
-                {bookmarks.map(item => <ItemCard  id={item.id} ParcelWeight={item.ParcelWeight} setParcelWeight={item.setParcelWeight} NumberOfGoods={item.NumberOfGoods} setNumberOfGoods={item.setNumberOfGoods} setPaymentPrice={item.setPaymentPrice} PaymentPrice={item.PaymentPrice}  modalOpener3={item.modalOpener3} cardId={item.id} image={item.image}    title={item.title} desc={item.desc} price={item.price} weight={item.weight} discount={item.discount} id={item.id}  star={item.star}/>)}
+                {bookmarks.map(product => <ItemCard  delivery={product?.delivery} id={product?.id}   image={product?.image}  title={product?.title}  desc={product?.desc}  unitType={product?.unitType} price={money === "₼" ? product?.price : Math.floor(product?.price / 1.7)} weight={product?.weight}   discount={product?.discount} productModal={product?.productModal} id={product?.id}  star={product?.star}/>)}
             </div>
         </div>
     )

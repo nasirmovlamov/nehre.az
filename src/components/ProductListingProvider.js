@@ -73,7 +73,7 @@ export function ProductListingProvider(props) {
 
     const removeItem = (num, price , weight , unitType , dates , name) => {
         var index = ProdutData.findIndex(x=> x.id === num);
-        if (ProdutData[index].count > 1) {
+        if (ProdutData[index].count > 0) {
             setFinalPrice(FinalPrice - parseInt(price))
             setFinalGoods(FinalGoods - 1)
             var newArr = [...ProdutData]

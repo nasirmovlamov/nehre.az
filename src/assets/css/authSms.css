@@ -48,8 +48,9 @@
 .authSms input {
   width: 100%;
   height: 30px !important;
-  font-size: 18px;
+  font-size: 12px;
   border: 1px solid gray;
+  border-radius: 5px;
 }
 
 .authSms input:focus {

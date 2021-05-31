@@ -68,19 +68,19 @@ function CheckoutCard(props) {
     const today = new Date()
     const tomorrow = new Date()
     tomorrow.setDate(tomorrow.getDate() + 1)
-    const monday = new Date()
+    const monday = new Date(tomorrow)
     monday.setDate(tomorrow.getDate() + (1 + 7 - tomorrow.getDay()) % 7);
-    const tuesday = new Date()
+    const tuesday = new Date(tomorrow)
     tuesday.setDate(tomorrow.getDate() + (2 + 7 - tomorrow.getDay()) % 7);
-    const wednesday = new Date()
+    const wednesday = new Date(tomorrow)
     wednesday.setDate(tomorrow.getDate() + (3 + 7 - tomorrow.getDay()) % 7);
-    const thursday = new Date()
+    const thursday = new Date(tomorrow)
     thursday.setDate(tomorrow.getDate() + (4 + 7 - tomorrow.getDay()) % 7);
-    const friday = new Date()
+    const friday = new Date(tomorrow)
     friday.setDate(tomorrow.getDate() + (5 + 7 - tomorrow.getDay()) % 7);
-    const saturday = new Date()
+    const saturday = new Date(tomorrow)
     saturday.setDate(tomorrow.getDate() + (6 + 7 - tomorrow.getDay()) % 7);
-    const sunday = new Date()
+    const sunday = new Date(tomorrow)
     sunday.setDate(tomorrow.getDate() + (7 + 7 - tomorrow.getDay()) % 7);
     var newmonday = moment(monday).format( 'dddd, D MMMM');
     var newtuesday = moment(tuesday).format( 'dddd, D MMMM');
