@@ -21,7 +21,7 @@ function AuthSms(props) {
     const onSubmit = () =>{
         if (code !== "" && code !== undefined && code !== null) {
             axios.get(`https://nehra.az/qeydiyyat/sms/${code}`)
-                .then(res=> (res.status === 200 && (notify() , props.functionClose() , props.functionCloseReg() , sessionStorage.setItem('status' , 1))) )
+                .then(res=> (res.status === 200 && (notify() , props.functionClose()  , sessionStorage.setItem('status' , 1))) )
         }
     }
     const [err, seterr] = useState(false)
@@ -30,7 +30,7 @@ function AuthSms(props) {
 
     const resend = () => {
         axios.post('https://nehra.az/public/api/resendsms' , {user_id:JSON.parse(localStorage.getItem('LoginUserData')).id})
-            .then(res => (res.status ===200 && (settillCount(res.data) , console.log(res.data) , res.data <= 0 && setsecond(90))) )
+            .then(res => (res.status ===200 && (settillCount(res.data) , (res.data <= 0 && res.data !== "" && res.data !== null && res.data !== undefined) && setsecond(90))) )
             .catch(err => seterr(true))
     }
     

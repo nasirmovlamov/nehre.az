@@ -11,6 +11,8 @@ import searchIcon from "../assets/images/searchIcon.png"
 import {Link} from "react-router-dom"
 import PhoneIcon from '@material-ui/icons/Phone';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import StarIcon from '@material-ui/icons/Star';
+
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PersonIcon from '@material-ui/icons/Person';
 import axios from 'axios'
@@ -304,7 +306,7 @@ function TopNavbar(props) {
                                 </Link>
                                 {/*  */}
                                 {(elements  && (JSON.parse(localStorage.getItem('LoginUserData'))?.id !== null && JSON.parse(localStorage.getItem('LoginUserData'))?.id !== undefined)) && <Link className='bookmarkMember' to="/memberarea/bookmarks">
-                                    <StarBorderIcon/> 
+                                    <StarIcon/> 
                                 </Link>}
                                 {elements && <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={() => props.modalOpener()} >  
                                     <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {FinalPrice + " " + money}</span>} 

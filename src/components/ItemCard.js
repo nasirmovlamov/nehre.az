@@ -28,6 +28,7 @@ import 'moment/locale/ru';
 import defP from '../assets/images/defP.png'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Cookies from 'js-cookies'
 
 function ItemCard(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
@@ -159,6 +160,7 @@ function ItemCard(props) {
     
     //Select ITEM  //Select ITEM
     const [indexSelected, setindexSelected] = useState(JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.cardId) !== undefined ? JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.cardId) : -1)
+    
     useEffect(() => {
         if (sessionStorage.getItem('SecilmishProduct') !== null) {
             var selecteds = SelectedsProduct
@@ -167,6 +169,11 @@ function ItemCard(props) {
     }, [SelectedsProduct])
 
     //Select ITEM  //Select ITEM
+    const token = Cookies.getItem('XSRF-TOKEN')
+    const headers = {
+        "X-CSRF-TOKEN":token
+    }
+
     const selectItem = (num) => {
         const notify2 = (rate) => toast.success(`Seçilmişlərdən çıxarıldı` , {draggable: true,autoClose: 1000});
         const notify1 = (rate) => toast.success(`Seçilmişlərə Əlavə olundu` , {draggable: true,autoClose: 1000});
@@ -179,6 +186,7 @@ function ItemCard(props) {
                 selecteds = [...selecteds , {id:props.cardId , delivery: props.delivery,    thumb:props.image,  title:props.title, desc:props?.desc,  unitType:props.unitType,  qiymet:props.price , ceki_hecm:props.weight , discount:props.discount, productModal:props?.productModal, starsall:props.star}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
                 setSelectedsProduct(selecteds)
+                axios.post('https://nehra.az/public/api/addstring' , {user_id:UserData?.id , string:JSON.stringify(selecteds)} , headers)
                 notify1()
                 return 0 
             }        
@@ -186,13 +194,12 @@ function ItemCard(props) {
             {
                 var selecteds = JSON.parse(sessionStorage.getItem('SecilmishProduct'))
             }
-            console.log(selecteds)
             var index = selecteds.findIndex(x=> x.id === num)
             if (index === -1) {
                 selecteds = [...selecteds , {id:props.cardId , delivery: props.delivery,    thumb:props.image,  title:props.title, desc:props?.desc,  unitType:props.unitType,  qiymet:props.price , ceki_hecm:props.weight , discount:props.discount, productModal:props?.productModal, starsall:props.star}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
                 setSelectedsProduct(selecteds)
-                console.log("YES");
+                axios.post('https://nehra.az/public/api/addstring' , {user_id:UserData?.id , string:JSON.stringify(selecteds)} , headers)
                 setindexSelected(1)
                 notify1()
             }
@@ -201,6 +208,7 @@ function ItemCard(props) {
                 var newArr = selecteds.filter((item) => item.id !== num)
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(newArr))
                 setSelectedsProduct(newArr)
+                axios.post('https://nehra.az/public/api/addstring' , {user_id:UserData?.id , string:JSON.stringify(newArr)}  , headers)
                 setindexSelected(-1)
                 notify2()
             }
@@ -301,7 +309,7 @@ function ItemCard(props) {
                     open={open}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description">
-                    {<ProductModal indexSelected={indexSelected} selectItem={selectItem} id={props.cardId} functionClose={handleClose}  title={props.title} desc={props.desc} price={props.price} weight={props.weight} numberStar={props.star}/>}
+                    {<ProductModal userId={UserData?.id} indexSelected={indexSelected} selectItem={selectItem} id={props.cardId} functionClose={handleClose}  title={props.title} desc={props.desc} price={props.price} weight={props.weight} numberStar={props.star}/>}
                 </Modal>
             </div>
         </div>

@@ -66,7 +66,7 @@ function Header() {
   const [tillCount, settillCount] = useState(null)
   const smsHandle = () => {
     axios.post('https://nehra.az/public/api/resendsms' , {user_id:JSON.parse(localStorage.getItem('LoginUserData')).id})
-    .then(res => (res.status ===200 && ((res.data <= 0 && handleOpenSMS()) , notifyTC(res.data) , console.log(res.data))) )
+    .then(res => (res.status ===200 && (((res.data !== ""  && res.data <= 0) && handleOpenSMS()) , ((res.data > 0) && notifyTC(res.data)) )) )
   }
   const logout = () => {
     localStorage.clear()
@@ -175,15 +175,11 @@ function Header() {
 
   const [statusOK, setstatusOK] = useState()
   const handleOpen3 = () => {
-    UserData?.id !== undefined ? axios.get(`https://nehra.az/public/api/checkstatus?user_id=${UserData?.id}`)
-                                      .then(res => (res.data == 1 ? window.location.href = '/memberarea'  : notifyAuth())) 
-                                      :  setOpen3(true)
+      UserData?.id !== undefined ? axios.get(`https://nehra.az/public/api/checkstatus?user_id=${UserData?.id}`)
+                            .then(res => (res.data[0] == 1 ? window.location.href = '/memberarea'  : notifyAuth())) 
+                                    :  setOpen3(true)
   }
   
-  useEffect(() => {
-    axios.get(`https://nehra.az/public/api/checkstatus?user_id=${JSON.parse(localStorage.getItem('LoginUserData'))?.id}` )
-         .then(res =>  setstatusOK(res.data))
-  }, []) 
 
   const handleClose3 = () => {
     setOpen3(false)  
@@ -221,6 +217,8 @@ function Header() {
   useEffect(() => {
     sendGetRequest10()
     sendGetRequest6()
+    axios.get(`https://nehra.az/public/api/checkstatus?user_id=${JSON.parse(localStorage.getItem('LoginUserData'))?.id}` )
+         .then(res =>  ( setstatusOK(res.data[0]) , setSelectedsProduct(JSON.parse(res.data[1].text)) , sessionStorage.setItem('SecilmishProduct' , res.data[1].text)) )
   } , [] )
 
   const handleClose4 = () => {
@@ -308,7 +306,7 @@ function Header() {
                 </header>
                 <Switch>
                     <Route  path="/combos/:slug" >              <Combo/>                                                                                                      </Route>
-                    <Route   path={`/category/:id`}>            <ProductListingPage  PaymentPrice={PaymentPrice} />                                                           </Route>
+                    <Route   path={`/category/:id`}>            <ProductListingPage />                                                           </Route>
                     <Route   path="/about" >                    <About/>                                                                                                      </Route>
                     <Route   path="/contact" >                  <Contacts/>                                                                                                   </Route>
                     <Route   path="/public/forgetpassword" >    <ForgetPassword/>                                                                                             </Route>

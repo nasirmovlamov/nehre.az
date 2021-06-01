@@ -27,6 +27,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Rating from '@material-ui/lab/Rating';
+import Cookies from 'js-cookies'
 
 function ProductModal(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
@@ -77,6 +78,11 @@ function ProductModal(props) {
         }
     }
 
+    const token = Cookies.getItem('XSRF-TOKEN')
+    const headers = {
+        "X-CSRF-TOKEN":token
+    }
+
     const selectItem = (num) => {
         const notify2 = (rate) => toast.success(`Seçilmişlərdən çıxarıldı` , {draggable: true,});
         const notify1 = (rate) => toast.success(`Seçilmişlərə Əlavə olundu` , {draggable: true,});
@@ -88,6 +94,7 @@ function ProductModal(props) {
                 var selecteds = []
                 selecteds = [...selecteds , {id:num , ParcelWeight:props.ParcelWeight , setParcelWeight:props.setParcelWeight, NumberOfGoods:props.NumberOfGoods, setNumberOfGoods:props.setNumberOfGoods, setPaymentPrice:props.setPaymentPrice, PaymentPrice:props.PaymentPrice,  modalOpener3:props.modalOpener3, cardId:props.cardId, image:props.image,    title:props.title, desc:props.desc, price:props.qiymet, weight:props.price, discount:props.discount,  star:props.star}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
+                axios.post(`https://nehra.az/public/api/addstring/${props.userId}` , {string:JSON.stringify(selecteds)}).then(res => console.log(res))
                 setSelectedsProduct(selecteds)
                 notify1()
                 return 0 
@@ -102,6 +109,7 @@ function ProductModal(props) {
             if (index === -1) {
                 selecteds = [...selecteds , {id:num , ParcelWeight:props.ParcelWeight , setParcelWeight:props.setParcelWeight, NumberOfGoods:props.NumberOfGoods, setNumberOfGoods:props.setNumberOfGoods, setPaymentPrice:props.setPaymentPrice, PaymentPrice:props.PaymentPrice,  modalOpener3:props.modalOpener3, cardId:props.cardId, image:props.image,    title:props.title, desc:props.desc, price:props.qiymet, weight:props.price, discount:props.discount,  star:props.star}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
+                axios.post(`https://nehra.az/public/api/addstring/` , {user_id: props.userId,  string:JSON.stringify(selecteds)}).then(res => console.log(res))
                 setSelectedsProduct(selecteds)
                 notify1()
             }
@@ -109,6 +117,7 @@ function ProductModal(props) {
             {
                 var newArr = selecteds.filter((item) => item.id !== num)
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(newArr))
+                axios.post(`https://nehra.az/public/api/addstring/` , {user_id: props.userId , string:JSON.stringify(newArr)}).then(res => console.log(res))
                 setSelectedsProduct(selecteds)
                 notify2()
             }

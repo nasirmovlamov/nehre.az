@@ -93,7 +93,7 @@ function HomePage(props) {
     TopCards.map(bucket => ( topCards.push(             <CardSlider1 link={bucket.link} id={bucket.id} turndesc={bucket.turndesc} turnetrafli={bucket.turnetrafli}  turnoverlay={bucket.turnoverlay}  turntitle={bucket.turntitle}   name={bucket.name} image={bucket.image} desc={bucket.description}/>)))
     SuppliersCard.map(supply => ( suppliersCard.push(   <SupplierCard id={supply.id} image={supply.avatar} title={supply.name} supplier={supply.type_id} image2={testImg6} image3={testImg7}/>   )))
     AnswerCard.map(question => ( answerCard.push(       <AnswersCard  answer={question.description} question={question.name} />)))
-    NewProducts.map(product =>  ( newItems.push(        <ItemCard delivery={product?.delivery}  NumberOfGoods={props?.NumberOfGoods}  modalOpener3={props.modalOpener3} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={product?.seller_data?.name}  unitType={product?.unit.id} price={money === "₼" ? product?.qiymet : Math.floor(product?.qiymet / 1.7)} weight={product?.ceki_hecm}   discount={product?.discount} productModal={props?.productModal}  star={product?.starsall}/>)))
+    NewProducts.map(product =>  ( newItems.push(        <ItemCard delivery={product?.delivery}   NumberOfGoods={props?.NumberOfGoods}  modalOpener3={props.modalOpener3} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={product?.seller_data?.name}  unitType={product?.unit.id} price={money === "₼" ? product?.qiymet : Math.floor(product?.qiymet / 1.7)} weight={product?.ceki_hecm}   discount={product?.discount} productModal={props?.productModal}  star={product?.starsall}/>)))
     SpecialOffers.map(product =>( specialOffers.push(   <ItemCard delivery={product?.delivery}  NumberOfGoods={props?.NumberOfGoods}  modalOpener3={props.modalOpener3} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={product?.seller_data?.name}  unitType={product?.unit.id} price={money === "₼" ? product?.qiymet : Math.floor(product?.qiymet / 1.7)}  weight={product?.ceki_hecm}  discount={product?.discount} productModal={props?.productModal}   star={product?.starsall}/>)))
     
     const bannerImg1 = {
@@ -109,7 +109,7 @@ function HomePage(props) {
         backgroundPosition:'top center',
     }
 
-    
+    console.log(Banners1[0]?.video_link )
     return (
 
         <div className="homePage">
@@ -120,6 +120,7 @@ function HomePage(props) {
             
             <a href={`${Banners1[0]?.link}`}  className="videoHome"  style={bannerImg1}></a>
 
+            
             <div className="aboutCards">
                 <div className="aboutCard"> <p>{lang === "AZ" && `1500-dən çox məhsulla və 150-dən çox kəndlimizlə sizin qulluğunuzda hazırıq` || lang === "EN" && `We are at your service with more than 1,500 products and more than 150 villagers` || lang === "RU" && `Мы к вашим услугам с более чем 1500 продуктов и более чем 150 сельскими жителями.`}</p>  <img src={cardAboutImg1} alt="" className="aboutImg"/></div> 
                 <div className="aboutCard"> <p>{lang === "AZ" && `Kəndlilər sizin üçün məhsulları aldığınız gün hazır edir və növbəti gün çatdırılma olur.` || lang === "EN" && `The villagers prepare the products for you the day you buy them and the next day the delivery takes place.` || lang === "RU" && `Жители деревни готовят продукты для вас в тот день, когда вы их покупаете, а на следующий день происходит доставка.`}</p> <img src={cardAboutImg2} alt="" className="aboutImg"/></div>

@@ -12,8 +12,10 @@ import {Link} from "react-router-dom"
 import PhoneIcon from '@material-ui/icons/Phone';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import StarIcon from '@material-ui/icons/Star';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PersonIcon from '@material-ui/icons/Person';
+import Favorite from '@material-ui/icons/Favorite';
 import axios from 'axios'
 import Avatar from '@material-ui/core/Avatar';
 import {ProductListingContext} from '../components/ProductListingProvider'
@@ -36,7 +38,6 @@ function TopNavbarPart2(props) {
     const [number1, setNumber1] = useState(0)
     const [number2, setNumber2] = useState(0)
     const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
-
     const sendGetRequest7 = async () => {
         try {
             const resp = await axios.get('https://nehra.az/public/api/settings')
@@ -47,8 +48,6 @@ function TopNavbarPart2(props) {
             console.error(err);
         }
     };
-    useEffect(() => {
-    } , [] )
     function myFunction1(num) {
         if (num === false) {
             setdrop1(true)
@@ -111,6 +110,9 @@ function TopNavbarPart2(props) {
         if(searchResult !== "")
         {
             sessionStorage.setItem('searchResult' , searchResult)
+            setTimeout(() => {
+                window.location.href = '/search'
+            }, 50);
         }
     }
 
@@ -134,7 +136,7 @@ function TopNavbarPart2(props) {
 
                         <div className="selection">
                             {/*  */}
-                            {elements && <Link to="/">
+                            {elements && <a >
                                     <div className="shoppingBtnDiv" onMouseLeave={() => langChangerMouseLeave1()}>
                                         <button onClick={() => myFunction1(drop1)} onBlur={() => myFunctionBlur1(drop1)} className="shoppingBtn1 dropbtn">{money}</button>
                                         {drop1 && 
@@ -143,7 +145,7 @@ function TopNavbarPart2(props) {
                                             </div>
                                         }
                                     </div>
-                                </Link>}
+                                </a>}
                                 {/*  */}
                                 {elements &&<a >
                                     <div className="shoppingBtnDiv2" onMouseLeave={() => langChangerMouseLeave2()}>
@@ -156,13 +158,13 @@ function TopNavbarPart2(props) {
                                     </div>
                                 </a>}
                             {/*  */}
-                            <Link to="/">
+                            <a >
                                 <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}>{ (JSON.parse(localStorage.getItem('LoginUserData'))?.id !== null && JSON.parse(localStorage.getItem('LoginUserData'))?.id !== undefined)  ?  <ContactMailIcon/> : <PersonIcon/> }</button> 
-                            </Link>
+                            </a>
                             {/*  */}
                             {(elements && (JSON.parse(localStorage.getItem('LoginUserData'))?.id !== null && JSON.parse(localStorage.getItem('LoginUserData'))?.id !== undefined)) &&
                             <Link className='bookmarksLL' to={"/memberarea/bookmarks"}>
-                                <StarBorderIcon/> 
+                                <StarIcon/> 
                             </Link>}
                             {elements &&
                             <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={() => props.modalOpener()} >  
