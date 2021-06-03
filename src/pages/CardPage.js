@@ -108,7 +108,7 @@ function CardPage(props) {
 
 
 
-
+    moment.locale(sessionStorage.getItem('lang'))
 
     //Date Problems
     const today = new Date()

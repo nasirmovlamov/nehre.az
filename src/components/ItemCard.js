@@ -287,6 +287,7 @@ function ItemCard(props) {
 
             <p className="titleItem">{props.title}</p>
             <p className="subTitleItem">  {(sessionStorage.getItem('lang') === "EN" && `from`) || (sessionStorage.getItem('lang') === "RU" && `из`)} {props.desc} {sessionStorage.getItem('lang') === "AZ" && `tərəfindən` }</p>
+            
             <div className="textCont">
                 <div className="starAndAbout">
                     <p className="dscPrc">{(props.discount !== 0 && props.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{money === "₼" ? (props.price) : (props.price / 1.7).toFixed(1)} {money}</span></span>)}</p>
@@ -295,14 +296,6 @@ function ItemCard(props) {
                 </div>   
                 {!props.btnDisable && <BuyButton functionAdd={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title)}  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>}
             </div>
-            {/* {
-                ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count >= 1 && 
-                <div className="increaseDecrease">
-                    <button className="dBtn" onClick={() => removeItem(props.cardId , discountHandler(props.discount) , props.weight)}> <RemoveIcon/></button>
-                    <div className="valueID">{ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count}</div>
-                    <button className="iBtn" onClick={() => addItem(props.cardId , discountHandler(props.discount) , props.weight) }><AddIcon/></button>
-                </div>
-            } */}
 
             <div className="modalCont">
                 <Modal  

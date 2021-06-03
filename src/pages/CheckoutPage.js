@@ -11,11 +11,11 @@ import {Formik , Form , Field, ErrorMessage} from "formik"
 import {ProductListingContext} from '../components/ProductListingProvider'
 import moment from 'moment';
 import { set } from 'js-cookie'
-import 'moment/locale/az';
-import 'moment/locale/ru';
 import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { AddToHomeScreenRounded } from '@material-ui/icons'
+import 'moment/locale/az';
+import 'moment/locale/ru';
 
 function CheckoutPage(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
@@ -72,14 +72,12 @@ function CheckoutPage(props) {
 
     const clickHandler2 = (num) => {
 
-        const today = new Date()
-        
+        const today = new Date() 
         const tomorrow = new Date(today)
         tomorrow.setDate(tomorrow.getDate() + 1);
-        
+
         const deliveryday = new Date(tomorrow)      
         deliveryday.setDate(tomorrow.getDate() + ((parseInt(num) + 7 - tomorrow.getDay()) % 7));
-        console.log(deliveryday);
 
         var newdeliveryday = moment(deliveryday).format( 'dddd, D MMMM');
         setdeliveryDay(newdeliveryday)
@@ -94,7 +92,6 @@ function CheckoutPage(props) {
                 elementday.setDate(tomorrow.getDate() + (parseInt(date[i]) + 7 - tomorrow.getDay()) % 7);
                 
 
-                // console.log(elementday);
                 if(elementday.getDate()  < deliveryday.getDate() )
                 {
                     dateIds.push(id)
@@ -227,7 +224,7 @@ function CheckoutPage(props) {
     
     useEffect(() => {
         axios.get(`https://nehra.az/public/api/getaddress?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
-            .then(res => (setaddress(res.data) , setaddressR(res?.data[0]?.adres)))
+            .then(res => (console.log(res.data) , setaddressR(res?.data[0]?.adres)))
         clickHandler2(DateGoods[0])
     }, [])
 
@@ -237,7 +234,6 @@ function CheckoutPage(props) {
 
 
     moment.locale(sessionStorage.getItem('lang'))
-
     //Date Problems
     const today = new Date()
     const tomorrow = new Date()
@@ -278,6 +274,7 @@ function CheckoutPage(props) {
     }
     var newarr = ProdutData.map((element, index ) =>  vrt(element.id , element))
     newarr = newarr.filter(element => element !== undefined)
+
     return (
         
         <div className="checkoutPage">
@@ -286,15 +283,15 @@ function CheckoutPage(props) {
                     <div className="buttonCont"><button onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
                     
                     <div className="deliveryAddress">
-                        <p className="title titleBB">{lang === "AZ" && `Çatdırılma olacaq ünvan` || lang === "EN" && `Delivery Address` || lang === "RU" && `Адресс доставки`}</p>
+                        <p className="title titleBB">{lang === "AZ" && `Çatdırılma ünvanı seçin` || lang === "EN" && `Select delivery Address` || lang === "RU" && `Выберите адрес доставки`}</p>
                         <div className="errors">
-                            {address?.length > 0 && <select className='addressElement' name="" id="">{address?.map((address , index) => <option value="" > {address.adres} </option> )}</select>}
+                            {address?.length > 0 && <select className='addressElement' name="" id="">{address?.map((address , index) => <option value="" >Ünvan {address.adres} Şəhər </option> )}</select>}
                             <div className='addAddress'> <input value={addressC} onChange={onChangeAddress} type="text" placeHolder={lang === "AZ" && `Address Əlavə edin` || lang === "EN" && `Add Address` || lang === "RU" && `Добавить адрес`}  className='addAdressinput'/>  </div>
                         </div>
                     </div>
 
                     <div className="datesCont">
-                        <p className="title titleB">{lang === "AZ" && `Çatdırılma günləri` || lang === "EN" && `Delivery day` || lang === "RU" && `День доставки`}</p>
+                        <p className="title titleB">{lang === "AZ" && `Çatdırılma günü seçin` || lang === "EN" && `Select delivery day` || lang === "RU" && `Выберите день доставки`}</p>
                         <select className='selectdateDelivery' onChange={(e) => clickHandler2(e.target.value)} name="" id="">
                         {
                             DateGoods.map(
@@ -319,9 +316,6 @@ function CheckoutPage(props) {
                         </>
                     }
 
-                    <div className="typeOfPayment">
-                        
-                    </div>
 
                     <div className="typeOfPayment">
                         <p className="title titleB">{lang === "AZ" && `Ödəniş növü ` || lang === "EN" && `Type of payment` || lang === "RU" && `Тип платежа`}</p>
