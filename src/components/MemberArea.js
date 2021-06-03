@@ -329,6 +329,9 @@ function MemberArea(props) {
             <Route path="/memberarea/password">
               <PasswordUpdate />
             </Route>
+            <Route path="/memberarea/address/edit/:id">
+                <AddressEdit UserId={UserData.id}/>
+            </Route>
             <Route path="/memberarea/address/add">
                 <AddAddress/>
             </Route>
@@ -353,9 +356,7 @@ function MemberArea(props) {
             <Route path="/memberarea/free-shipping">
                 <Shipping/>
             </Route>
-            <Route path="/memberarea/reviews/:id">
-                <AddressEdit UserId={UserData.id}/>
-            </Route>
+            
             <Route path="/memberarea/reviews">
                 <MemberAreaReviews UserId={UserData.id}/>
             </Route>

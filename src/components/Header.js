@@ -46,12 +46,11 @@ import Quality from '../pages/Quality'
 import Who from '../pages/Who'
 import Contacts from './Contacts'
 import Cookies from 'js-cookie';
-
 import Combo from '../pages/Combo'
 import ForgetPassword from '../pages/ForgetPassword'
 
 function Header() {
-  const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
+  const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin] = useContext(ProductListingContext)
 
 
   // const TopNavbar = useMediaQuery('(min-width:600px)');
@@ -117,6 +116,7 @@ function Header() {
   })
   
   Assortment.map(assortment => ( assortmentArr.push( <AssortmentCard id={assortment.id} title={assortment.name} desc={assortment.count} image={assortment.thumb}/>)))
+
   const styleBtn =  {
     position: "fixed",
     width: "60px",
@@ -128,6 +128,7 @@ function Header() {
     borderRadius: '50%',
     zIndex: 99
   }
+
   const checkMBtn =  {
     position: "fixed",
     width: "60px",
@@ -139,6 +140,7 @@ function Header() {
     borderRadius: '50%',
     zIndex: 99
   }
+  
   const [open, setOpen]   = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const [open3, setOpen3] = React.useState(false);
@@ -175,14 +177,22 @@ function Header() {
 
   const [statusOK, setstatusOK] = useState()
   const handleOpen3 = () => {
-      UserData?.id !== undefined ? axios.get(`https://nehra.az/public/api/checkstatus?user_id=${UserData?.id}`)
-                            .then(res => (res.data[0] == 1 ? window.location.href = '/memberarea'  : notifyAuth())) 
-                                    :  setOpen3(true)
+    if (UserData?.id !== undefined ) {
+      axios.get(`https://nehra.az/public/api/checkstatus?user_id=${UserData?.id}`)
+      .then(res => (res.data[0] == 1 ? window.location.href = '/memberarea'  : notifyAuth())) 
+    }
+    else 
+    {
+      setOpen3(true) 
+      OpenLoginF()
+    }
+     
   }
   
 
   const handleClose3 = () => {
     setOpen3(false)  
+    CloseLoginF()
   };
   const handleClose5 = () => {
     setOpen3(false)  
@@ -344,7 +354,7 @@ function Header() {
 
             <Modal  
                 style={{display:"flex", justifyContent:"center",overflow:"auto"}}
-                open={open3}
+                open={OpenLogin}
                 // onClose={handleClose3}
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description">

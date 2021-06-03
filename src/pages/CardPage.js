@@ -21,7 +21,7 @@ import moment from 'moment';
 import { set } from 'js-cookie'
 import 'moment/locale/az';
 import 'moment/locale/ru';
-
+import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 
 function CardPage(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
@@ -178,6 +178,7 @@ function CardPage(props) {
                     <hr/>
                 </p>
                 <div className="gridCont1">
+
                         {
                             !loader 
                             &&
@@ -186,6 +187,7 @@ function CardPage(props) {
                             </>
                         }
                         {loader &&  <div className="loader"><CircularProgress color="secondary" /></div>}
+                        {!loader && ProdutData.length === 0 && <div className="noproduct"><RemoveShoppingCartIcon/></div>}
                 </div>
             </main>
             
@@ -198,9 +200,9 @@ function CardPage(props) {
                     </div>
                     
                     <div className="downPart">
-                        <div className="goods"><p className="key">{lang === "AZ" && `Ümumi paketin çəkisi` || lang === "EN" && `Weight Parcel` || lang === "RU" && `Вес посылки`}</p> <p className="value ">{FinalWeight.toFixed(2)} kq</p> </div> 
+                        <div className="goods"><p className="key">{lang === "AZ" && `Ümumi paketin çəkisi` || lang === "EN" && `Weight Parcel` || lang === "RU" && `Вес посылки`}</p> <p className="value ">{Math.abs(FinalWeight.toFixed(2))} kq</p> </div> 
                         <div className="goods"><p className="key">{lang === "AZ" && `Ümumi məhsulların sayı` || lang === "EN" && `Total number of products` || lang === "RU" && `Общее количество продуктов`} </p> <p className="value ">{FinalGoods}</p> </div> 
-                        <div className="cost"><p className="key"> {lang === "AZ" && `Yükun Qiymət` || lang === "EN" && `Final Price` || lang === "RU" && `Окончательная цена`}</p> <p className="value value2"> {money === '₼' ? FinalPrice : Math.floor(FinalPrice )} {money} </p> </div> 
+                        <div className="cost"><p className="key"> {lang === "AZ" && `Yükun Qiymət` || lang === "EN" && `Final Price` || lang === "RU" && `Окончательная цена`}</p> <p className="value value2"> {money === '₼' ? FinalPrice : Math.floor((money === "₼" ? FinalPrice : Math.floor(FinalPrice / 1.7)) )} {money} </p> </div> 
                         <Button1 disabled={FinalPrice < MinOrder ? true : false} value={lang === "AZ" && `Ödəniş səhifəsinə keçid edin` || lang === "EN" && `Go to payment` || lang === "RU" && `Перейти к оплате`} color="#085096" function={props.functionOpenCheckoutPage} /> 
                         <p className="cashback">{lang === "AZ" && `Alacağınız ümumi bonus` || lang === "EN" && `Bonus` || lang === "RU" && `Бонус`}  {money === '₼' ? FinalPrice : Math.floor(FinalPrice   / 10) }  {money} </p>
                     </div>

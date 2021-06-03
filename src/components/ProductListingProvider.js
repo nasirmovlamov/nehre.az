@@ -16,9 +16,14 @@ export function ProductListingProvider(props) {
     const langArr = ["AZ" , "EN" , "RU"]
     const [lang, setlang] = useState(sessionStorage.getItem('lang') === null ? 'AZ' : sessionStorage.getItem('lang'))
     const [money, setmoney] = useState(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
-
-
-
+    const [OpenLogin, setOpenLogin] = useState(false)
+    const OpenLoginF = () =>{
+        setOpenLogin(true)
+    }
+    const CloseLoginF = () =>{
+        setOpenLogin(false)
+    }
+    
     useEffect(() => {
         localStorage.setItem('ProdutData' , JSON.stringify(ProdutData))
         var priceGoodsWeightHandler = (element) => {
@@ -112,7 +117,7 @@ export function ProductListingProvider(props) {
  
 
     return (
-        <ProductListingContext.Provider value={[ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct]}>
+        <ProductListingContext.Provider value={[ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin]}>
             {props.children}
         </ProductListingContext.Provider>
     )

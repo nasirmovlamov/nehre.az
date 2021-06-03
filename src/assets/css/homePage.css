@@ -3,6 +3,84 @@ a, button {
   cursor: pointer;
 }
 
+a:focus, button:focus {
+  outline: none;
+}
+
+.videoModalCont {
+  width: 80%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 100;
+}
+
+@media screen and (max-width: 900px) {
+  .videoModalCont {
+    width: 100%;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+}
+
+.videoModalCont .videoModal {
+  width: 100%;
+  -webkit-transform: translateY(-100px);
+          transform: translateY(-100px);
+  -webkit-transform: translateY(0px);
+          transform: translateY(0px);
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+@media screen and (max-width: 900px) {
+  .videoModalCont .videoModal {
+    height: 600px;
+    width: 100%;
+  }
+}
+
+.videoModalCont .videoModal .btnCont {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.videoModalCont .videoModal .btnCont button {
+  border: none;
+  background-color: transparent;
+  font-size: 25px;
+}
+
+@media screen and (max-width: 1100px) {
+  .videoModalCont .videoModal iframe {
+    background-size: cover;
+    background-position: center;
+    width: 900px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .videoModalCont .videoModal iframe {
+    width: 100%;
+  }
+}
+
 .homePage {
   width: 1220px;
   display: -webkit-box;
@@ -91,6 +169,8 @@ a, button {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
 .homePage .aboutCards .aboutCard p {
@@ -103,6 +183,13 @@ a, button {
   height: auto;
   -ms-flex-item-align: end;
       align-self: flex-end;
+}
+
+.homePage .aboutCards .aboutCard:hover {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  -webkit-transform: translateY(-10px);
+          transform: translateY(-10px);
 }
 
 .homePage .perectSetCont {
@@ -125,6 +212,39 @@ a, button {
       -ms-flex-pack: start;
           justify-content: flex-start;
   overflow: hidden;
+}
+
+.homePage .perfectSet .videoModalBtn {
+  margin-left: 0px;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.homePage .perfectSet .videoModalBtn button {
+  border: none;
+  background-color: transparent;
+}
+
+.homePage .perfectSet .videoModalBtn button svg {
+  width: 250px;
+  height: 250px;
+  color: white;
+  -webkit-filter: drop-shadow(10px 10px 4px rgba(19, 19, 19, 0.5));
+          filter: drop-shadow(10px 10px 4px rgba(19, 19, 19, 0.5));
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.homePage .perfectSet .videoModalBtn button svg:hover {
+  color: rgba(19, 19, 19, 0.9);
 }
 
 .homePage .perfectSet .textCont2 {

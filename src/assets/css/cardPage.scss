@@ -18,6 +18,20 @@
         flex-direction: column;
         justify-content: center;
     }
+    .noproduct
+    {
+        align-self: center;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        svg 
+        {
+            width: 100px;
+            height: 100px;
+            color: lightgray;
+        }
+    }
     aside 
     {
         border-radius:0px 10px 10px 0px;

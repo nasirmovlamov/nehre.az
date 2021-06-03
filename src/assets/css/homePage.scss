@@ -2,8 +2,63 @@ a, button
 {
     text-decoration: none !important;
     cursor: pointer;
-
+    &:focus 
+    {
+        outline: none;
+    }
 }
+.videoModalCont
+{
+    width: 80% ;
+    height: 100% ;
+    display: flex ;
+    justify-content: center ; 
+    align-items: center ;
+    z-index: 100;
+    @media screen and (max-width:900px) {
+        width: 100%;
+        align-items: flex-start;
+    }
+    .videoModal
+    {
+        width: 100%;
+        transform: translateY(-100px);
+        transform: translateY(0px);
+        transition: 0.5s;
+        background-color: white;
+        border-radius: 10px;
+        padding: 15px;
+        @media screen and (max-width:900px) {
+            height: 600px;
+            width: 100%;
+        }
+        .btnCont
+        {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            button
+            {
+                border: none;
+                background-color: transparent;
+                font-size: 25px;
+            }
+        }
+        iframe 
+        {
+            @media screen and (max-width:1100px) {
+                background-size: cover;
+                background-position: center;
+                width: 900px;
+            }
+            @media screen and (max-width:900px) {
+                width: 100%;
+            }
+            
+        }
+    }
+}
+
 .homePage
 {
     width: 1220px;
@@ -41,6 +96,7 @@ a, button
         background-position: top;
         background-size: cover;
     }
+    
     .aboutCards
     {
         display: flex;
@@ -72,6 +128,12 @@ a, button
                 height: auto;
                 align-self: flex-end;
             }
+            transition: 0.5s;
+            &:hover 
+            {
+                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                transform: translateY(-10px);
+            }
         }
     }
     .perectSetCont
@@ -91,6 +153,33 @@ a, button
         display: flex;
         justify-content: flex-start;
         overflow: hidden;
+        .videoModalBtn
+        {
+            margin-left: 0px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            button 
+            {
+                border: none;
+                background-color: transparent;
+                svg 
+                {
+                    width: 250px;
+                    height: 250px;
+                    color: white;
+                    filter: drop-shadow(10px 10px 4px rgba(19, 19, 19, 0.5));
+                    transition: 0.5s;
+                    &:hover 
+                    {
+                        color: rgba(19, 19, 19, 0.9);
+                    }
+                }
+            }
+            
+        }
+
         .textCont2
         {
             text-transform: capitalize;

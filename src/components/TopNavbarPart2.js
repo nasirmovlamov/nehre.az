@@ -168,7 +168,7 @@ function TopNavbarPart2(props) {
                             </Link>}
                             {elements &&
                             <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={() => props.modalOpener()} >  
-                                    <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {FinalPrice + " " + money}</span>} 
+                                    <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {money === "₼" ? FinalPrice :(FinalPrice / 1.7).toFixed(1)} {money}</span>} 
                             </button>}
                         </div>
                     </div>

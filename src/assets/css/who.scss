@@ -6,9 +6,13 @@
     flex-direction: column;
     align-items: center;
     height: auto;
+    .number
+    {
+        font-family: "Arial" !important;
+        font-size: 20px;
+    }
     .topPart
     {
-
         width: 100%;
         height: auto;
         display: flex;
@@ -17,6 +21,7 @@
         background-color: #fff;
         padding-bottom: 10px;
         padding-top: 50px;
+        
         .titleProducts
         {
             width: 100%;

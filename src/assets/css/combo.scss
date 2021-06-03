@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     height: auto;
+
     .topPart
     {
 
@@ -156,9 +157,12 @@
         padding-top: 40px;
         padding-bottom: 40px;
         border-radius: 10px;
-        .overlayImg
+        .itemCard
         {
-            // width: 14%;
+            button
+            {
+                
+            }
         }
     }
     .buyComboCont
@@ -174,8 +178,8 @@
         span 
         {
             margin-left: 10px;
-            font-size: 33px;
-            font-family: 'Courier New', Courier, monospace;
+            font-size: 25px;
+            font-family: 'Arial';
         }
         .buyCombo
         {

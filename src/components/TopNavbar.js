@@ -181,7 +181,7 @@ function TopNavbar(props) {
                 <div className="assortmentDrawer">
                         <button onClick={() => DrawerAssort()} className="title"><WidgetsIcon /> <p>  {lang === "AZ" && `Məhsul Çeşidləri` || lang === "EN" && `Product Assortments` || lang === "RU" && `Ассортимент продукции`}</p> <ArrowDropUpIcon/></button>
                         <div className='assortmentCont' id='assrtDrawId'>
-                            {props.TopCategory.map(element => <a href={`/category/${element.id}`}>{element.name}</a>)}
+                            {props.TopCategory.map(element => <a href={`/category/${element.id}`}>{lang === "AZ" && element.name_az || lang === "EN" && element.name_en || lang === "RU" && element.name_ru}</a>)}
                         </div >
                 </div>
 
@@ -309,7 +309,7 @@ function TopNavbar(props) {
                                     <StarIcon/> 
                                 </Link>}
                                 {elements && <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={() => props.modalOpener()} >  
-                                    <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {FinalPrice + " " + money}</span>} 
+                                    <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {money === "₼" ?  FinalPrice : ( FinalPrice / 1.7).toFixed(1)} {money}</span>} 
                                 </button>}
                                 { 
                                     !elements && 

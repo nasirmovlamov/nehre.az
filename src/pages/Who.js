@@ -23,12 +23,15 @@ function Who() {
             <div className="imgVideoText">
                 <h1 className="title">{lang === "AZ" && `Biz kimik?` || lang === "EN" && `About us` || lang === "RU" && `О нас`}</h1>
                 <hr/>
+                <p className="text">Satıcı barədə məlumatlar:<br/><br/>Vergi ödəyicisinin adı: Nehrə MMC<br/><br/>Dövlət qeydiyyatı № (VÖEN) : <span className='number'>7100566271</span>, <br/><br/>   Vergi ödəyicisinin ünvanı: AZ <span className='number'>5315</span>, Siyəzən Rayonu, Zarat kəndi<br/></p>
                 <p className="text">{lang === "AZ" && `Biz Azərbaycanda kəndlilərlə birgə inkişaf etmək qərarına gəldik və eyni zamanda əhalininin sağlam qida və təbii məhsul ilə təmin etmək vəzifəsini öz üzərimizə götürdük. Dadını unutmadığınız o ləziz kənd məhsullarını tədarükçüdən birbaşa sizə çatdırırıq. Bir sözlə biz “sağlam qida körpüsü”nü yaradırıq.` || lang === "EN" && `We decided to develop together with farmers in Azerbaijan, thereby undertaking the obligation to provide residents with natural and healthy food. We deliver you agricultural products with an unforgettable taste directly from the manufacturer. In short, "paving the way for healthy nutrition."` || lang === "RU" && `Мы решили развиваться вместе с фермерами в Азербайджане, тем самым взяв на себя обязанность обеспечить жителей натуральными и полезными продуктами питания. Мы доставляем вам сельские продукты с незабываемым вкусом непосредственно от производителя. Словом, “прокладывая путь к полезному питанию”.`}</p>
                 <iframe width="520" height="315" src="https://www.youtube.com/embed/tgbNymZ7vqY"> </iframe>
                 <p className="text">
                 {
                 lang === "EN" && 
                         <> 
+                        
+
                         Cooperating with small and medium-sized farms, we provide products of various quantities and assortments. The provided products are manufactured within a few days after the order is accepted and dispatched to customers. The production of goods for sale immediately after ordering is a testament to their freshness as well as the preservation of delicious taste.
                         <br/>
                         <br/>
@@ -82,6 +85,7 @@ function Who() {
                         </>}</p>
                 <p className="text">{lang === "AZ" && 
                         <>
+                        
                             Kəndlilər, kiçik və orta fermerlərlə əməkdaşlıq edərək müxtəlif say və çeşiddə məhsul təqdim edirik. Təqdim edilən bu məhsullar yalnız sifariş qəbul edildikdən sonra bir neçə gün ərzində hazırlanır və müştəriyə çatdırılır. Məhsulların sifariş edildikdən sonra satışa hazırlanması bu məhsulun yeni olmasına əsas verir. Həmçinin ləziz dadını da özündə saxlayır. 
                             <br/><br/> 
                             Siz məhsulu hazırlayacaqsınız, bizsə, o məhsulların tanıdılması, sifariş edilən məhsulun müştəriyə çatdırılması proseslərini həyata keçirəcəyik. 

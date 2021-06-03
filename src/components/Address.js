@@ -16,6 +16,7 @@ function Address() {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
 
     const [address, setaddress] = useState([])
+    
     useEffect(() => {
         axios.get(`https://nehra.az/public/api/getaddress?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
             .then(res => setaddress(res.data))
@@ -30,7 +31,7 @@ function Address() {
             <p className="title"> {(lang === "AZ" && `Mənim Ünvanlarım`) || (lang === "EN" && `My Addresses`) || (lang === "RU" && `Мои Адреса`)}</p>
             <p className="myAdress">{(lang === "AZ" && `Hesabınızdakı ünvanların siyahısı boşdur.`) || (lang === "EN" && `The list of addresses in your account is empty. `) || (lang === "RU" && `Список адресов в вашем аккаунте пуст.`)}</p>
             <div className='allAddress'>
-                {address?.map((address , index) => <div key={address.id} className='addressElement'><p className='addressText'>{(index+1) + ". "}{address.adres}</p>  <Link to={`/memberarea/reviews/${address.id}`}><button className='editAddress'><EditIcon/></button></Link> <button className='removeAddress' onClick={() => deleteAddress(address.id)}><DeleteIcon/></button></div>)}
+                {address?.map((address , index) => <div key={address.user_id} className='addressElement'><p className='addressText'><p className='addressPrag'> <span className='addressBadge'> Ünvan - </span> <p>{address.adres}</p></p>  <p className='addressPrag'><span className='addressBadge'>Şəhər -</span> <p>{address.city.name}</p></p>  <p className='addressPrag'><span className='addressBadge'>Rayon -</span> <p>{address.rayon}</p></p> </p> <div className="buttons"><Link to={`/memberarea/address/edit/${address.id}`}>  <button className='editAddress'><EditIcon/></button></Link> <button className='removeAddress' onClick={() => deleteAddress(address.id)}><DeleteIcon/></button></div> </div>)}
             </div>
             <Link to="/memberarea/address/add"><Button1 value={(lang === "AZ" && `Yeni Ünvan`) || (lang === "EN" && `New Address`) || (lang === "RU" && `Новый адрес`)} color="#285999"/></Link>
         </div>

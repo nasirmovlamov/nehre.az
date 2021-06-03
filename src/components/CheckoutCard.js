@@ -110,7 +110,7 @@ function CheckoutCard(props) {
                             <div className="aboutItem">
                             
                                 <p className="title">{Product?.title}</p>
-                                <p className="priceAndWeight">{ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost} {money}  / {Product?.ceki_hecm} {(parseInt(props.unitType) === 1 && `kq` || parseInt(props.unitType) === 4 && `gr` || parseInt(props.unitType) === 2 && `l`)}</p>
+                                <p className="priceAndWeight">{ money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost  : (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost  / 1.7).toFixed(1)} {money}  / {Product?.ceki_hecm} {(parseInt(props.unitType) === 1 && `kq` || parseInt(props.unitType) === 4 && `gr` || parseInt(props.unitType) === 2 && `l`)}</p>
                                 <div className="dates">
                                 {props.delivery?.map(delivery =>
                                     <>
@@ -169,7 +169,7 @@ function CheckoutCard(props) {
                                         <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title)} value={<AddIcon/>}  color="#085096"/>
                                     </div>
 
-                                    <p className="price">{Product?.id !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count * ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost) : 0}  {money}</p>
+                                    <p className="price">{ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)] !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count *  (money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost : (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost / 1.7))).toFixed(1) : 0}  {money}</p>
                                     <button onClick={() => props.deleteCard(Product?.id , Product?.price , Product?.delivery)} className="delete"><DeleteIcon/></button>
                                 </>    
                             }
@@ -183,8 +183,7 @@ function CheckoutCard(props) {
                                         <p className="priceValue">{ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count}</p>
                                         <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit , Product?.delivery , Product?.title)} value={<AddIcon/>}  color="#085096"/>
                                     </div>
-
-                                    <p className="price">{Product?.id !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count * ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost) : 0}  ₼</p>
+                                    <p className="price">{Product?.id !== undefined  ? (money === "₼" ? (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count *  ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost) : (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count * ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost / 1.7).toFixed(1) ) : 0}   {money}</p>
                                     <button onClick={() => props.deleteCard(Product?.id , Product?.price)} className="delete"><DeleteIcon/></button>
                                 </div>    
                             }

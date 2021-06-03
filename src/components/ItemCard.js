@@ -31,7 +31,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookies'
 
 function ItemCard(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin] = useContext(ProductListingContext)
     const [UserData, setUserData] = useState(0)
     useEffect(() => {
         if (UserData?.id === undefined) {
@@ -216,6 +216,7 @@ function ItemCard(props) {
         else 
         {
             notifyLogin()
+            OpenLoginF()
         }
     }
     return (
@@ -288,11 +289,11 @@ function ItemCard(props) {
             <p className="subTitleItem">  {(sessionStorage.getItem('lang') === "EN" && `from`) || (sessionStorage.getItem('lang') === "RU" && `из`)} {props.desc} {sessionStorage.getItem('lang') === "AZ" && `tərəfindən` }</p>
             <div className="textCont">
                 <div className="starAndAbout">
-                    <p className="dscPrc">{(props.discount !== 0 && props.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{Math.floor(props.price)} {money}</span></span>)}</p>
-                    <p className="priceAndWeightItem"><span className="element1"  style={props.discount && colorChang}>{discountHandler(props.discount)}  {money}</span> / <span className="element2">{props.weight + " " + (parseInt(props.unitType) === 1 && `kq` || parseInt(props.unitType) === 4 && `qr` || parseInt(props.unitType) === 2 && `l`)}</span> </p>
+                    <p className="dscPrc">{(props.discount !== 0 && props.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{money === "₼" ? (props.price) : (props.price / 1.7).toFixed(1)} {money}</span></span>)}</p>
+                    <p className="priceAndWeightItem"><span className="element1"  style={props.discount && colorChang}>{money === "₼" ? discountHandler(props.discount) : (discountHandler(props.discount) / 1.7).toFixed(1)}  {money}</span> / <span className="element2">{props.weight + " " + (parseInt(props.unitType) === 1 && `kq` || parseInt(props.unitType) === 4 && `qr` || parseInt(props.unitType) === 2 && `l`)}</span> </p>
                     <StarSystem numberStar={props.star}/>
                 </div>   
-                <BuyButton functionAdd={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title)}  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>
+                {!props.btnDisable && <BuyButton functionAdd={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title)}  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>}
             </div>
             {/* {
                 ProdutData[ProdutData.findIndex(x=> x.id === props.id)]?.count >= 1 && 

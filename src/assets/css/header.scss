@@ -63,8 +63,8 @@
 .AllCont
 {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
     min-height: 100vh;
     .checkMBtnC
     {

@@ -14,6 +14,11 @@
   height: auto;
 }
 
+.whoPage .number {
+  font-family: "Arial" !important;
+  font-size: 20px;
+}
+
 .whoPage .topPart {
   width: 100%;
   height: auto;

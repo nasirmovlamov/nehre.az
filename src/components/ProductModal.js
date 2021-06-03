@@ -30,10 +30,11 @@ import Rating from '@material-ui/lab/Rating';
 import Cookies from 'js-cookies'
 
 function ProductModal(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin] = useContext(ProductListingContext)
     const notify = (rate) => toast.success(`${rate === null ? 5 : rate}   Ulduz göndərildi` , {draggable: true,});
     const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
     const [Product, setProduct] = useState()
+
     useEffect(() => {
         axios.get(`https://nehra.az/public/api/product/${props.id}`)
             .then(res => setProduct(res.data))
@@ -183,7 +184,7 @@ function ProductModal(props) {
                         {Product?.description}
                     </p>
                     <p className="ingredients"><span className="ingredientsText">  {lang === "AZ" && `Tərkibi:` || lang === "EN" && `Ingredients:` || lang === "RU" && `Ингредиенты:`}</span> <span className="ingredientsFront"> {lang === "AZ" && Product?.terkibi_az || lang === "EN" && Product?.terkibi_en || lang === "RU" && Product?.terkibi_ru}</span>    </p>
-                    <p className="priceCont"> <span className="priceText">  {lang === "AZ" && `Qiyməti:` || lang === "EN" && `Price:` || lang === "RU" && `Цена:`}</span>  <span className="price">{Product?.qiymet} {money} </span> - <span className="weight">{props.weight + " " + (parseInt(Product?.unit?.id) === 1 && `kq` || parseInt(Product?.unit?.id) === 4 && `gr` || parseInt(Product?.unit?.id) === 2 && `l`)}</span></p>
+                    <p className="priceCont"> <span className="priceText">  {lang === "AZ" && `Qiyməti:` || lang === "EN" && `Price:` || lang === "RU" && `Цена:`}</span>  <span className="price">{money === "₼" ? Product?.qiymet : (Product?.qiymet  / 1.7).toFixed(2)} {money} </span> - <span className="weight">{props.weight + " " + (parseInt(Product?.unit?.id) === 1 && `kq` || parseInt(Product?.unit?.id) === 4 && `gr` || parseInt(Product?.unit?.id) === 2 && `l`)}</span></p>
                     <div className="buttonsCont">
                         {
                             ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count && 
