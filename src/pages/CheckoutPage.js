@@ -14,10 +14,12 @@ import { set } from 'js-cookie'
 import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { AddToHomeScreenRounded } from '@material-ui/icons'
+import EventBusyIcon from '@material-ui/icons/EventBusy';
 import 'moment/locale/az';
 import 'moment/locale/ru';
 
 function CheckoutPage(props) {
+
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
     
     const notify = () => toast.info("Nuş olsun!");
@@ -44,7 +46,8 @@ function CheckoutPage(props) {
     const [deliveryProducts, setdeliveryProducts] = useState([])
     const [deliveryy, setdeliveryy] = useState([])
     const [paymentType, setpaymentType] = useState(1)
-    
+    const [cities, setcities] = useState()
+    const [newaddresscheck, setnewaddresscheck] = useState(false)
 
     const notifyAddress = (rate) => toast.success(`Ünvan əlavə edildi!` , {draggable: true,});
     const notifyDelete = (rate) => toast.success(`Ünvan silindi!` , {draggable: true,});
@@ -54,19 +57,20 @@ function CheckoutPage(props) {
         setaddressC(e.target.value)
     }
     
+    const onChangeNewAddressC = (e) => {
+        if(newaddresscheck)
+        {
+            setnewaddresscheck(false)
+            console.log(newaddresscheck)
+            return 0 
+        }
+        setnewaddresscheck(true)
+    }
+    
     const [addressR, setaddressR] = useState([])
     const onChangeAddressR = (e) => {
         setaddressR(e.target.value)
         setaddressC("")
-    }
-
-    const addnewAddress = () => {
-        axios.post('https://nehra.az/public/api/postaddress' , {user_id:JSON.parse(localStorage.getItem('LoginUserData')).id, address:addressC})
-            .then(res => ( console.log(res.data) , res.status === 200 && (notifyAddress() , setaddress(res.data))))
-    }
-    const deleteAddress = (id) => {
-        axios.post(`https://nehra.az/public/api/removeaddress` , {id:id , user_id:JSON.parse(localStorage.getItem('LoginUserData')).id })
-             .then(res =>( setaddress(res.data)  , notifyDelete()))
     }
 
 
@@ -121,9 +125,6 @@ function CheckoutPage(props) {
         "X-CSRF-TOKEN":token
     }
     const [Error, setError] = useState(false)
-
-
-
 
 
     const onSubmit =  (values) => {
@@ -224,8 +225,11 @@ function CheckoutPage(props) {
     
     useEffect(() => {
         axios.get(`https://nehra.az/public/api/getaddress?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
-            .then(res => (console.log(res.data) , setaddressR(res?.data[0]?.adres)))
+            .then(res => (setaddress(res.data) , setaddressR(res?.data[0]?.adres)))
         clickHandler2(DateGoods[0])
+        axios.get('https://nehra.az/public/api/getcities')
+            .then(resp => setcities(resp.data))
+            
     }, [])
 
 
@@ -233,8 +237,8 @@ function CheckoutPage(props) {
 
 
 
-    moment.locale(sessionStorage.getItem('lang'))
-    //Date Problems
+moment.locale(sessionStorage.getItem('lang'))
+//Date Problems
     const today = new Date()
     const tomorrow = new Date()
     tomorrow.setDate(today.getDate() + 1)
@@ -261,7 +265,7 @@ function CheckoutPage(props) {
     var newfriday = moment(friday).format( 'dddd, D MMMM');
     var newsaturday = moment(saturday).format( 'dddd, D MMMM');
     var newsunday = moment(sunday).format( 'dddd, D MMMM');
-   //Date Problems
+//Date Problems
    
     
     const vrt = (id , element) => {
@@ -272,9 +276,24 @@ function CheckoutPage(props) {
             }
         }
     }
+
     var newarr = ProdutData.map((element, index ) =>  vrt(element.id , element))
     newarr = newarr.filter(element => element !== undefined)
 
+    console.log(address)
+
+    const [selectCity, setselectCity] = useState()
+    const [rayon, setrayon] = useState()
+    const onChange = (e) => {
+        setaddress(e.target.value)
+    }
+    const onChangeCity = (e) => {
+        setselectCity(e.target.value)
+    }
+    const onChangeRayon = (e) => {
+        setrayon(e.target.value)
+    }
+    
     return (
         
         <div className="checkoutPage">
@@ -285,8 +304,13 @@ function CheckoutPage(props) {
                     <div className="deliveryAddress">
                         <p className="title titleBB">{lang === "AZ" && `Çatdırılma ünvanı seçin` || lang === "EN" && `Select delivery Address` || lang === "RU" && `Выберите адрес доставки`}</p>
                         <div className="errors">
-                            {address?.length > 0 && <select className='addressElement' name="" id="">{address?.map((address , index) => <option value="" >Ünvan {address.adres} Şəhər </option> )}</select>}
-                            <div className='addAddress'> <input value={addressC} onChange={onChangeAddress} type="text" placeHolder={lang === "AZ" && `Address Əlavə edin` || lang === "EN" && `Add Address` || lang === "RU" && `Добавить адрес`}  className='addAdressinput'/>  </div>
+                            {address?.length > 0 && <select className='addressElement' name="" id="">{address?.map((address , index) => <option value="" > Ünvan - {address.adres} |  Şəhər - {address.city.name} | Rayon - {address.rayon}</option> )}</select>}
+                            <div className='addAddress'> 
+                                {address?.length !== 0 && <input type="checkbox" value={true} onChange={(e) => onChangeNewAddressC(e)}/> }
+                                <input value={addressC} onChange={onChangeAddress} type="text" placeHolder={lang === "AZ" && `Yeni Address` || lang === "EN" && `New Address` || lang === "RU" && `Новый адрес`}  className='addAdressinput'/> 
+                                <select type="text"  > {(cities?.length > 0 && cities!==undefined) && cities?.map(element => <option value={element.id}>{element.name}</option>)}</select> 
+                                <input  type="text"  value={rayon}  onChange={onChangeRayon}  placeholder={(lang === "AZ" && `Rayon qeyd edin`) || (lang === "EN" && `Enter the district`) || (lang === "RU" && `Введите район`)}  className="inputRayon"/>
+                            </div>
                         </div>
                     </div>
 
@@ -311,7 +335,7 @@ function CheckoutPage(props) {
                         <p className="title1"> {deliveryDay} </p>
                         <p className="title2"> {lang === "AZ" && `Çatdırılma olunmayacaq məhsullar  ` || lang === "EN" && `Products that will not be delivered` || lang === "RU" && `Товары, которые не будут доставлены`}</p>
                         <div>
-                            {newarr.map((element , index)=> <p className='nondeliveryItem'>{index+1}. {element?.name}</p>)}
+                            {newarr.map((element , index)=> <p className='nondeliveryItem'><EventBusyIcon/>   {element?.name}</p>)}
                         </div>
                         </>
                     }

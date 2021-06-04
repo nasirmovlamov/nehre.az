@@ -32,6 +32,7 @@
         padding-bottom: 20px;
         padding: 30px;
         border-radius: 10px;
+        overflow: hidden;
     }
     .datesCont
     {
@@ -83,28 +84,31 @@
     .addAddress
     {
         display: flex;
+        flex-wrap: wrap;
+        column-gap: 5px;
+        row-gap: 10px;
+        justify-content: flex-start;
         align-items: center;
         margin-top: 5px;
-        button 
-        {
-            background-color: transparent;
-            border: none;
-            margin-left: -40px;
-            svg 
-            {
-                color: #085096;
-                width: 30px;
-                height: 30px;
-            }
-        }
         input
         { 
-            width: 100% !important;
             border-radius: 10px;
-            font-size: 18px !important;
+            font-size: 12px !important;
             background: transparent !important;
             border: none !important;
-            width: 100% !important;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            padding: 10px;
+            &:focus 
+            {
+                outline: none;
+            }
+        }
+        select 
+        {
+            border-radius: 10px;
+            font-size: 12px !important;
+            background: transparent !important;
+            border: none !important;
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
             padding: 10px;
             &:focus 
