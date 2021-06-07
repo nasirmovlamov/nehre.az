@@ -22,7 +22,7 @@ function Suppliers() {
         <div className="suppliersCont" >
             
             <div className="suppliers">
-                <p className="category"> <span>{lang === "AZ" && `Əsas Səhifə` || lang === "EN" && `Homepage` || lang === "RU" && `Домашняя страница`}  •</span>  {lang === "AZ" && `İstehsalçı` || lang === "EN" && `Manufacturer` || lang === "RU" && `Производитель`} </p>
+                <p className="category"> <span>{lang === "AZ" && `Əsas Səhifə` || lang === "EN" && `Homepage` || lang === "RU" && `Домашняя страница`}  •</span>  {lang === "AZ" && `Tədarükçülər` || lang === "EN" && `Manufacturer` || lang === "RU" && `Производитель`} </p>
                 <div className="supplier">
                     {supplierArr.map(element => element)}
                 </div>

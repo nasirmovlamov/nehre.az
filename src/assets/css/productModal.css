@@ -39,6 +39,20 @@
 .productModal .sliderAndAbout .sliderCont {
   width: 50%;
   margin-left: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.productModal .sliderAndAbout .sliderCont img {
+  width: 350px !important;
+  border-radius: 10px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin-bottom: 10px;
 }
 
 .productModal .sliderAndAbout .sliderCont .slick-next {

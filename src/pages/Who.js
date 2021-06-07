@@ -10,7 +10,6 @@ function Who() {
             <div className="topPart">
                 <div className="titleProducts">
                         <p className="category"> <span> {lang === "AZ" && `Əsas Səhifə` || lang === "EN" && `Homepage` || lang === "RU" && `Домашняя страница`} • {lang === "AZ" && `Biz kimik?` || lang === "EN" && `About us` || lang === "RU" && `О нас`}</span>  </p>
-                        {/* <h2 className="categoryName">Biz kimik?</h2> */}
                 </div>
             </div>
 

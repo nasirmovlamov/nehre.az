@@ -48,6 +48,7 @@ import Contacts from './Contacts'
 import Cookies from 'js-cookie';
 import Combo from '../pages/Combo'
 import ForgetPassword from '../pages/ForgetPassword'
+import PrivacyPolicy from '../pages/PrivacyPolicy'
 
 function Header() {
   const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin] = useContext(ProductListingContext)
@@ -121,7 +122,7 @@ function Header() {
     position: "fixed",
     width: "60px",
     height: "60px",
-    backgroundColor: "#aebaa3",
+    backgroundColor: "#7dbf2a",
     bottom:"50px",
     right:"50px",
     border:'none',
@@ -133,7 +134,7 @@ function Header() {
     position: "fixed",
     width: "60px",
     height: "60px",
-    backgroundColor: "#aebaa3",
+    backgroundColor: "#7dbf2a",
     bottom:"50px",
     left:"50px",
     border:'none',
@@ -321,6 +322,7 @@ function Header() {
                     <Route   path="/contact" >                  <Contacts/>                                                                                                   </Route>
                     <Route   path="/public/forgetpassword" >    <ForgetPassword/>                                                                                             </Route>
                     <Route   path="/who" >                      <Who/>                                                                                                        </Route>
+                    <Route   path="/privacy-policy" >           <PrivacyPolicy/>                                                      </Route>
                     <Route   path="/quality" >                  <Quality/>                                                                                                    </Route>
                     <Route   path="/reviews" >                  <ReviewPage/>                                                                                                 </Route>
                     <Route   path="/search" >                   <SearchResult/>                                                                                               </Route>

@@ -161,7 +161,7 @@
   height: 36px;
   margin-top: 1px;
   border: none;
-  background-color: #aebaa3;
+  background-color: #7dbf2a;
   color: white;
   border-radius: 5px;
   overflow: hidden;
@@ -526,7 +526,7 @@
 }
 
 .downPart .downCont .selection a:nth-child(5) {
-  background-color: #aebaa3;
+  background-color: #7dbf2a;
   background-size: cover;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -547,11 +547,11 @@
 
 .downPart .downCont .selection a:nth-child(5):hover {
   background-color: white;
-  border: 1px solid #aebaa3;
+  border: 1px solid #7dbf2a;
 }
 
 .downPart .downCont .selection a:nth-child(5):hover svg, .downPart .downCont .selection a:nth-child(5):hover span {
-  color: #aebaa3;
+  color: #7dbf2a;
 }
 
 @media screen and (max-width: 1350px) {

@@ -1,4 +1,4 @@
-import React , {useContext} from 'react'
+import React , {useContext, useEffect, useState} from 'react'
 import "../assets/css/description.css"
 import Button1 from './Button1';
 import avatar from "../assets/images/avatar.jpg"
@@ -6,9 +6,11 @@ import xalisBal from "../assets/images/xalisBal.jpg"
 import ItemCard from './ItemCard';
 import SimilarCard from './SimilarCard';
 import {ProductListingContext} from '../components/ProductListingProvider'
+import axios from 'axios';
 
 function Description(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
+
 
     const imgHandler = {
         backgroundImage: `url(https://nehra.az/storage/app/public/${props?.Product?.seller_data?.avatar})`,
@@ -17,12 +19,15 @@ function Description(props) {
         backgroundSize: "cover",
     }
 
+    
+
+
     return (
         <div className="description">
             <div className="descAbout">
                 <div className="part1">
-                    <p className="textCont"><p className="label">{lang === "AZ" && `Qiymət` || lang === "EN" && `Price` || lang === "RU" && `Цена`}:</p> <p className="value">{props?.Product?.qiymet} {money}</p></p>
-                    <p className="textCont"><p className="label">{lang === "AZ" && `Çəki` || lang === "EN" && `Weight` || lang === "RU" && `Масса`}:</p> <p className="value">{props?.Product?.ceki_hecm} </p></p>
+                    {props?.Product?.qiymet !== undefined && <p className="textCont"><p className="label">{lang === "AZ" && `Qiymət` || lang === "EN" && `Price` || lang === "RU" && `Цена`}:</p> <p className="value">{props?.Product?.qiymet} {money}</p></p>}
+                    {props?.Product?.ceki_hecm !== undefined && <p className="textCont"><p className="label">{lang === "AZ" && `Çəki` || lang === "EN" && `Weight` || lang === "RU" && `Масса`}:</p> <p className="value">{props?.Product?.ceki_hecm} </p></p>}
                     <p className="textCont"><p className="label">{lang === "AZ" && `Tərkibi` || lang === "EN" && `Ingredients` || lang === "RU" && `Ингредиенты`}:</p> <p className="value"> {lang === "AZ" && props?.Product?.terkibi_az || lang === "EN" && props?.Product?.terkibi_en || lang === "RU" && props?.Product?.terkibi_ru}</p></p>
                     <p className="textCont"><p className="label">{lang === "AZ" && `Enerji dəyəri:` || lang === "EN" && `Energy` || lang === "RU" && `Энергия`}</p> <p className="value">{lang === "AZ" && props?.Product?.enerji_deyeri_az || lang === "EN" && props?.Product?.enerji_deyeri_en || lang === "RU" && props?.Product?.enerji_deyeri_ru}</p></p>
                     <p className="textCont"><p className="label">{lang === "AZ" && `Saxlanma müddəti:` || lang === "EN" && `Shelf life:` || lang === "RU" && `Срок годности:`}</p> <p className="value">{lang === "AZ" && props?.Product?.srok_az || lang === "EN" && props?.Product?.srok_en || lang === "RU" && props?.Product?.srok_ru} </p></p>
@@ -43,7 +48,7 @@ function Description(props) {
                             </p>
                             
                             <p className="moreDetails">
-                                <Button1  value={lang === "AZ" && `Daha ətraflı` || lang === "EN" && `Read more` || lang === "RU" && `Читать далее`} color="white"/>
+                                <a href='#'><Button1  value={lang === "AZ" && `Daha ətraflı` || lang === "EN" && `Read more` || lang === "RU" && `Читать далее`} color="white"/></a>
                             </p>
 
                         </div>
@@ -55,6 +60,7 @@ function Description(props) {
             <div className="similarProductsCont">
                     <p className="title"> {lang === "AZ" && `Oxşar məhsullar` || lang === "EN" && `Similar products` || lang === "RU" && `Похожие продукты`} </p>
                     <div className="similarProducts">
+                        {props.ProductSimilar.map(product =>  <ItemCard delivery={product?.delivery}  NumberOfGoods={props?.NumberOfGoods}  modalOpener3={props.modalOpener3} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={product?.seller_data?.name}  unitType={product?.unit.id} price={Math.floor(product?.qiymet)}  weight={product?.ceki_hecm}  discount={product?.discount} productModal={props?.productModal}   star={product?.starsall}/>)}
                     </div>
             </div>
         </div>

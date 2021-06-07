@@ -9,6 +9,8 @@ import Button1 from './Button1';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import avatar from "../assets/images/avatar.jpg"
+import defP from '../assets/images/defP.png'
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -28,17 +30,21 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Rating from '@material-ui/lab/Rating';
 import Cookies from 'js-cookies'
+import { image } from '@tensorflow/tfjs';
 
 function ProductModal(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin] = useContext(ProductListingContext)
     const notify = (rate) => toast.success(`${rate === null ? 5 : rate}   Ulduz göndərildi` , {draggable: true,});
     const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
-    const [Product, setProduct] = useState()
-
+    const [Product, setProduct] = useState([])
+    const [imagescard, setimagesCard] = useState([])
+    const [checker, setchecker] = useState(1)
+    const [value, setvalue] = useState(1)
+    const token = Cookies.getItem('XSRF-TOKEN')
+    const [ProductSimilar, setProductSimilar] = useState([])
+    
     useEffect(() => {
-        axios.get(`https://nehra.az/public/api/product/${props.id}`)
-            .then(res => setProduct(res.data))
-            .catch(err=> console.log(err))
+        getProducts()
     } , [])
     
     const styleChanger = {
@@ -47,13 +53,23 @@ function ProductModal(props) {
         color: "#3b3b3b",
         backgroundColor: " #fff",
     }
-    const [checker, setchecker] = useState(1)
+    
+   
     const clickHandler = (num) => {
         setchecker(num)
     }
-
-    const [value, setvalue] = useState(1)
-
+    
+    
+    const getProducts = async() => {
+        const resp =  await axios.get(`https://nehra.az/public/api/product/${props.id}`)
+        setProduct(resp.data)
+        var images = []
+        resp.data.shekil.map(element => images.push(<img width='350px' height='auto' src={`https://nehra.az/storage/app/public/${element}`}/>))
+        setimagesCard(images)
+        const resp1 = await axios.get(`https://nehra.az/public/api/getsimillars/${resp?.data?.category_data?.id}`)
+        setProductSimilar(resp1.data) 
+        
+    }
     const clickValueHandler = (num) => {
         if(num===1)
         {
@@ -65,8 +81,7 @@ function ProductModal(props) {
         }
     }
 
-    const imagescard = []
-    Product?.shekil.map(element => imagescard.push( <img width='300px' height='auto' src={`https://nehra.az/storage/app/public/${element}`}/>))
+    
     
     const discountHandler = (discount) => {
         if (discount !== 0 && discount !== null  && discount !== undefined) {
@@ -79,7 +94,6 @@ function ProductModal(props) {
         }
     }
 
-    const token = Cookies.getItem('XSRF-TOKEN')
     const headers = {
         "X-CSRF-TOKEN":token
     }
@@ -106,7 +120,6 @@ function ProductModal(props) {
             }
 
             var index = selecteds.findIndex(x=> x.id === num)
-            console.log(index);
             if (index === -1) {
                 selecteds = [...selecteds , {id:num , ParcelWeight:props.ParcelWeight , setParcelWeight:props.setParcelWeight, NumberOfGoods:props.NumberOfGoods, setNumberOfGoods:props.setNumberOfGoods, setPaymentPrice:props.setPaymentPrice, PaymentPrice:props.PaymentPrice,  modalOpener3:props.modalOpener3, cardId:props.cardId, image:props.image,    title:props.title, desc:props.desc, price:props.qiymet, weight:props.price, discount:props.discount,  star:props.star}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
@@ -132,6 +145,7 @@ function ProductModal(props) {
     const [valueR, setvalueR] = useState(props.numberStar)
     const [sendStar, setsendStar] = useState(3)
     const [reviewAbout, setreviewAbout] = useState()
+
     const ratingHandler = (value) => {
         if (JSON.parse(localStorage.getItem('LoginUserData'))?.id === undefined || JSON.parse(localStorage.getItem('LoginUserData'))?.id === null) {
             notifyLogin()
@@ -148,10 +162,12 @@ function ProductModal(props) {
         }
     }
 
-    const sendReview = () => {
-        axios.post('https://nehra.az/api/poststar', {id: props.id, star:reviewAbout} )
-                .then(res => (res.status === 200 && (notify(sendStar))))
-                .catch(err => console.log(err))
+    const sendReview = async () => {
+        const resp = axios.post('https://nehra.az/api/poststar', {id: props.id, star:reviewAbout} )
+        if(resp.status === 200 )
+        {
+            notify(sendStar)
+        }
         document.querySelector('.reviewSendCont').style.pointerEvents = 'none'
         document.querySelector('.reviewSendCont').style.opacity = '0'
         
@@ -170,11 +186,12 @@ function ProductModal(props) {
             <div className="buttonCont"><button onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
             <div className="sliderAndAbout">
                 <div className="sliderCont">
-                    {<OurSlider itemShow1={1} itemShow2={1} itemShow3={1} itemShow4={1} elements={imagescard} numOfSld={1}/>}
+                    {imagescard.length > 0 && <OurSlider itemShow1={1} itemShow2={1} itemShow3={1} itemShow4={1} elements={imagescard} numOfSld={1}/>}
+                    {imagescard.length === 0 && <img src={defP} width='350' height='auto' alt="" />}
                 </div>
                 <div className="aboutCont">
                     <p className="titleItem">{Product?.title}</p>
-                    <p className="supllierName">{Product?.seller_data.name}</p>
+                    <p className="supllierName">{Product?.seller_data?.name}</p>
                     <div className="reviewCont">
                         <div className="starsAndReviews"><Rating value={valueR} onChange={(event , newValue) => ratingHandler(newValue)}/>  <div className="reviews">  {lang === "AZ" && `Şərh sayı - ` || lang === "EN" && `Reviews - ` || lang === "RU" && `Отзывы - `} {Product?.reviews?.length}</div>
                         <div className='reviewSendCont'><textarea value={reviewAbout} onChange={(e) => setreviewAbout(e.target.value)} type="text" placeholder='Fikrinizi bildirin'/>  <div className="buttonContReviewSend"><div className="rateCont"><Rating value={sendStar} onChange={(e , newvalue) => setsendStar(newvalue)} name="read-only"/> {sendStar} ulduz göndərilir </div>  <div className="Buttons"> <button onClick={()=>sendReview()} className='submit'>Göndər</button><button onClick={() => cancelReviewSend()} className='cancel'>Ləğv et</button></div></div> </div></div>
@@ -204,14 +221,14 @@ function ProductModal(props) {
                 
                     <div className="topLinks">
                         <div className="btnContForLinks">
-                            <button className="button" style={checker ===1 ? styleChanger : null } id="btnLink1" onClick={() => clickHandler(1)}>{lang === "AZ" && `Haqqında` || lang === "EN" && `About` || lang === "RU" && `О`}</button>
-                            <button className="button" style={checker ===2 ? styleChanger : null } id="btnLink2" onClick={() => clickHandler(2)}> {lang === "AZ" && `Şərh` || lang === "EN" && `Reviews` || lang === "RU" && `Отзывы`} </button>
-                            <button className="button" style={checker ===3 ? styleChanger: null}  id="btnLink3" onClick={() => clickHandler(3)}> {lang === "AZ" && `Sertifikatlar` || lang === "EN" && `Certificates` || lang === "RU" && `Сертификаты`}</button>
+                            <button className="button" style={checker ===1 ? styleChanger : null } id="btnLink1" onClick={() => clickHandler(1)}> {lang === "AZ" && `Haqqında` || lang === "EN" && `About` || lang === "RU" && `О`}                       </button>
+                            <button className="button" style={checker ===2 ? styleChanger : null } id="btnLink2" onClick={() => clickHandler(2)}> {lang === "AZ" && `Şərh` || lang === "EN" && `Reviews` || lang === "RU" && `Отзывы`}                    </button>
+                            <button className="button" style={checker ===3 ? styleChanger: null}   id="btnLink3" onClick={() => clickHandler(3)}> {lang === "AZ" && `Sertifikatlar` || lang === "EN" && `Certificates` || lang === "RU" && `Сертификаты`} </button>
                             <hr/>
                             <div className="linkComponent">
-                                {checker === 1 ? <Description Product={Product} /> : "" }
-                                {checker === 2 ? <Reviews Product={Product}/> : ""}
-                                {checker === 3 ? <Certificates Product={Product}/> : ""}
+                                {checker === 1 ? <Description ProductSimilar={ProductSimilar} /> : "" }
+                                {checker === 2 ? <Reviews  Product={Product !== [] && Product}/> : ""}
+                                {checker === 3 ? <Certificates Product={Product !== [] && Product}/> : ""}
                             </div>
                         </div>
                     </div>

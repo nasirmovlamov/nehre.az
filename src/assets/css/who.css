@@ -1,5 +1,5 @@
 .whoPage {
-  width: 70%;
+  width: 1200px;
   min-height: 700px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -101,19 +101,19 @@
 }
 
 .whoPage .imgVideoText iframe {
-  width: 65%;
+  width: 100%;
   border: none;
 }
 
 .whoPage .imgVideoText hr {
-  width: 65%;
+  width: 100%;
   border: none;
   height: 2px;
   background-color: #1f62bb;
 }
 
 .whoPage .imgVideoText .text {
-  width: 65%;
+  width: 100%;
   font-size: 18px;
   font-family: "DaxlineR";
   color: #616060;

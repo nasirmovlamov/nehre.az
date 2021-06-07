@@ -106,7 +106,7 @@
                 height: 36px;
                 margin-top: 1px;
                 border: none;
-                background-color: #aebaa3;
+                background-color: #7dbf2a;
                 color: white;
                 border-radius: 5px;
                 overflow: hidden;
@@ -404,7 +404,7 @@
                 }
                 &:nth-child(5)
                 {
-                    background-color: #aebaa3;
+                    background-color: #7dbf2a;
                     background-size:cover;
                     display: flex;
                     align-items: center;
@@ -419,11 +419,11 @@
                     }
                     &:hover 
                     {
-                        background-color: white;
-                        border: 1px solid #aebaa3;
+                        background-color: white !important;
+                        border: 1px solid #7dbf2a !important;
                         svg , span
                         {
-                            color: #aebaa3;
+                            color: #7dbf2a;
                         }
                     }
                 }

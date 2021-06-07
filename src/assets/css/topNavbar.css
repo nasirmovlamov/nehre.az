@@ -161,7 +161,7 @@
   height: 36px;
   margin-top: 1px;
   border: none;
-  background-color: #aebaa3;
+  background-color: #7dbf2a;
   color: white;
   border-radius: 5px;
   overflow: hidden;
@@ -515,7 +515,7 @@
 }
 
 .topNavbar .searchAndIcons .selection a:nth-child(5) {
-  background-color: #aebaa3;
+  background-color: #7dbf2a;
   background-size: cover;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -535,12 +535,12 @@
 }
 
 .topNavbar .searchAndIcons .selection a:nth-child(5):hover {
-  background-color: white;
-  border: 1px solid #aebaa3;
+  background-color: white !important;
+  border: 1px solid #7dbf2a !important;
 }
 
 .topNavbar .searchAndIcons .selection a:nth-child(5):hover svg, .topNavbar .searchAndIcons .selection a:nth-child(5):hover span {
-  color: #aebaa3;
+  color: #7dbf2a;
 }
 
 @media screen and (max-width: 1100px) {
