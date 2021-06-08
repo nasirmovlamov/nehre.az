@@ -15,7 +15,7 @@
   margin-top: 20px;
 }
 
-.suppliersCont .category span:nth-child(1) {
+.suppliersCont .category span {
   opacity: 0.33;
   font-weight: 700;
 }
@@ -26,8 +26,7 @@
 }
 
 .suppliersCont .suppliers {
-  padding-left: 50px;
-  width: 1300px;
+  width: 1200px;
 }
 
 .suppliersCont .suppliers .supplier {

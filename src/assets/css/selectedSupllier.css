@@ -13,6 +13,10 @@
   text-align: start;
 }
 
+.selectedSupllierCont .review {
+  background-color: white;
+}
+
 .selectedSupllierCont .category {
   margin-top: 0px;
   text-align: start;
@@ -26,8 +30,7 @@
 
 .selectedSupllierCont .selectedSupplier {
   margin-top: 20px;
-  padding-left: 50px;
-  width: 1300px;
+  width: 1200px;
 }
 
 .selectedSupllierCont .videoAndAbout {
@@ -38,6 +41,8 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin-top: 30px;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
 }
 
 .selectedSupllierCont .videoAndAbout .supplierVideo {

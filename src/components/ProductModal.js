@@ -10,6 +10,11 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import avatar from "../assets/images/avatar.jpg"
 import defP from '../assets/images/defP.png'
+import Tooltip from '@material-ui/core/Tooltip';
+import moment from 'moment';
+import 'moment/locale/az';
+import 'moment/locale/ru';
+import { withStyles } from '@material-ui/core/styles';
 
 import {
     BrowserRouter as Router,
@@ -31,6 +36,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import Rating from '@material-ui/lab/Rating';
 import Cookies from 'js-cookies'
 import { image } from '@tensorflow/tfjs';
+import StarIcon from '@material-ui/icons/Star';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import CircularProgress from '@material-ui/core/CircularProgress'
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 
 function ProductModal(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin] = useContext(ProductListingContext)
@@ -43,9 +53,7 @@ function ProductModal(props) {
     const token = Cookies.getItem('XSRF-TOKEN')
     const [ProductSimilar, setProductSimilar] = useState([])
     
-    useEffect(() => {
-        getProducts()
-    } , [])
+    
     
     const styleChanger = {
         border:"1px solid lightgray",
@@ -59,16 +67,19 @@ function ProductModal(props) {
         setchecker(num)
     }
     
+    const [valueReq, setvalueReq] = useState(0)
     
     const getProducts = async() => {
         const resp =  await axios.get(`https://nehra.az/public/api/product/${props.id}`)
         setProduct(resp.data)
+        setvalueReq(25)
         var images = []
         resp.data.shekil.map(element => images.push(<img width='350px' height='auto' src={`https://nehra.az/storage/app/public/${element}`}/>))
         setimagesCard(images)
+        setvalueReq(65)
         const resp1 = await axios.get(`https://nehra.az/public/api/getsimillars/${resp?.data?.category_data?.id}`)
         setProductSimilar(resp1.data) 
-        
+        setvalueReq(100)
     }
     const clickValueHandler = (num) => {
         if(num===1)
@@ -98,57 +109,18 @@ function ProductModal(props) {
         "X-CSRF-TOKEN":token
     }
 
-    const selectItem = (num) => {
-        const notify2 = (rate) => toast.success(`Seçilmişlərdən çıxarıldı` , {draggable: true,});
-        const notify1 = (rate) => toast.success(`Seçilmişlərə Əlavə olundu` , {draggable: true,});
-        if(JSON.parse(JSON.parse(localStorage.getItem('LoginUserData'))).id !== undefined)
-        {  
-            if(sessionStorage.getItem('SecilmishProduct') === null)
-            {
-                sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
-                var selecteds = []
-                selecteds = [...selecteds , {id:num , ParcelWeight:props.ParcelWeight , setParcelWeight:props.setParcelWeight, NumberOfGoods:props.NumberOfGoods, setNumberOfGoods:props.setNumberOfGoods, setPaymentPrice:props.setPaymentPrice, PaymentPrice:props.PaymentPrice,  modalOpener3:props.modalOpener3, cardId:props.cardId, image:props.image,    title:props.title, desc:props.desc, price:props.qiymet, weight:props.price, discount:props.discount,  star:props.star}]
-                sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
-                axios.post(`https://nehra.az/public/api/addstring/${props.userId}` , {string:JSON.stringify(selecteds)}).then(res => console.log(res))
-                setSelectedsProduct(selecteds)
-                notify1()
-                return 0 
-            }        
-            else 
-            {
-                var selecteds = JSON.parse(sessionStorage.getItem('SecilmishProduct'))
-            }
+    
 
-            var index = selecteds.findIndex(x=> x.id === num)
-            if (index === -1) {
-                selecteds = [...selecteds , {id:num , ParcelWeight:props.ParcelWeight , setParcelWeight:props.setParcelWeight, NumberOfGoods:props.NumberOfGoods, setNumberOfGoods:props.setNumberOfGoods, setPaymentPrice:props.setPaymentPrice, PaymentPrice:props.PaymentPrice,  modalOpener3:props.modalOpener3, cardId:props.cardId, image:props.image,    title:props.title, desc:props.desc, price:props.qiymet, weight:props.price, discount:props.discount,  star:props.star}]
-                sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
-                axios.post(`https://nehra.az/public/api/addstring/` , {user_id: props.userId,  string:JSON.stringify(selecteds)}).then(res => console.log(res))
-                setSelectedsProduct(selecteds)
-                notify1()
-            }
-            else 
-            {
-                var newArr = selecteds.filter((item) => item.id !== num)
-                sessionStorage.setItem('SecilmishProduct' , JSON.stringify(newArr))
-                axios.post(`https://nehra.az/public/api/addstring/` , {user_id: props.userId , string:JSON.stringify(newArr)}).then(res => console.log(res))
-                setSelectedsProduct(selecteds)
-                notify2()
-            }
-        }
-        else 
-        {
-            window.location.href = "/login"
-        }
-    }
-
+    
+    
+    //#region  Rating
     const [valueR, setvalueR] = useState(props.numberStar)
     const [sendStar, setsendStar] = useState(3)
     const [reviewAbout, setreviewAbout] = useState()
-
     const ratingHandler = (value) => {
         if (JSON.parse(localStorage.getItem('LoginUserData'))?.id === undefined || JSON.parse(localStorage.getItem('LoginUserData'))?.id === null) {
             notifyLogin()
+            OpenLoginF()
         }
         else 
         {
@@ -179,23 +151,127 @@ function ProductModal(props) {
         console.log(document.querySelector('.reviewSendCont').style.pointerEvents );
         console.log(document.querySelector('.reviewSendCont').style.opacity);
     }
+    //#endregion
+
+    //#region ToolTip
+    const DarkTT = withStyles((theme) => ({
+        arrow: {
+            color: theme.palette.common.black,
+          },
+        tooltip: {
+          backgroundColor: "black",
+          color: 'white',
+          boxShadow: theme.shadows[1],
+          fontSize: 11,
+        },
+      }))(Tooltip);
+
+    moment.locale(sessionStorage.getItem('lang'))
+
+    //Date //Date //Date
+    const today = new Date()
+    
+    const tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    
+    const monday = new Date(tomorrow)
+    monday.setDate(tomorrow.getDate() + ((1 + 7 - tomorrow.getDay()) % 7));
+
+    const tuesday = new Date(tomorrow)
+    tuesday.setDate(tomorrow.getDate() + ((2 + 7 - tomorrow.getDay()) % 7));
+
+    const wednesday = new Date(tomorrow)
+    wednesday.setDate(tomorrow.getDate() + ((3 + 7 - tomorrow.getDay()) % 7));
+
+    const thursday = new Date(tomorrow)
+    thursday.setDate(tomorrow.getDate() + ((4 + 7 - tomorrow.getDay()) % 7));
+
+    const friday = new Date(tomorrow)
+    friday.setDate(tomorrow.getDate() + ((5 + 7 - tomorrow.getDay()) % 7));
+
+    const saturday = new Date(tomorrow)
+    saturday.setDate(tomorrow.getDate() + ((6 + 7 - tomorrow.getDay()) % 7));
+
+    const sunday = new Date(tomorrow)
+    sunday.setDate(tomorrow.getDate() + ((7 + 7 - tomorrow.getDay()) % 7));
+    
+    var newmonday = moment(monday).format( 'dddd, D MMMM');
+    var newtuesday = moment(tuesday).format( 'dddd, D MMMM');
+    var newwednesday = moment(wednesday).format( 'dddd, D MMMM');
+    var newthursday = moment(thursday).format( 'dddd, D MMMM');
+    var newfriday = moment(friday).format( 'dddd, D MMMM');
+    var newsaturday = moment(saturday).format( 'dddd, D MMMM');
+    var newsunday = moment(sunday).format( 'dddd, D MMMM');
+    //#endregion
+    
+    useEffect(() => {
+        getProducts()
+    } , [])
 
     return (
 
         <div className="productModal">
+            {valueReq < 100 && <div className="progress"><CircularProgress variant="determinate" value={valueReq} /></div>}
             <div className="buttonCont"><button onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
             <div className="sliderAndAbout">
                 <div className="sliderCont">
                     {imagescard.length > 0 && <OurSlider itemShow1={1} itemShow2={1} itemShow3={1} itemShow4={1} elements={imagescard} numOfSld={1}/>}
                     {imagescard.length === 0 && <img src={defP} width='350' height='auto' alt="" />}
+                    <div className="dates">
+                        {props.delivery?.map(delivery =>
+                                <>
+                                    {
+                                        delivery === "1" &&
+                                        <DarkTT title={`${newmonday}   `} placement="top" arrow>
+                                            <div className="date">Be</div>
+                                        </DarkTT>
+                                    }
+                                    {
+                                        delivery === "2" &&
+                                        <DarkTT title={`${newtuesday}   `}  placement="top" arrow>
+                                            <div className="date">Ça</div>
+                                        </DarkTT>
+                                    }
+                                    {
+                                        delivery === "3" &&
+                                        <DarkTT title={`${newwednesday}   `} placement="top" arrow>
+                                            <div className="date">Ç</div>
+                                        </DarkTT>
+                                    }
+                                    {
+                                        delivery === "4" &&
+                                        <DarkTT title={`${newthursday}   `} placement="top" arrow>
+                                            <div className="date">Ca</div>
+                                        </DarkTT>
+                                    }
+                                    {
+                                        delivery === "5" &&
+                                        <DarkTT title={`${newfriday}   `} placement="top" arrow>
+                                            <div className="date">C</div>
+                                        </DarkTT>
+                                    }
+                                    {
+                                        delivery === "6" &&
+                                        <DarkTT title={`${newsaturday}   `} placement="top" arrow>
+                                            <div className="date">Ş</div>
+                                        </DarkTT>
+                                    }
+                                    {
+                                        delivery === "7" &&
+                                        <DarkTT title={`${newsunday}   `} placement="top" arrow>
+                                            <div className="date">B</div>
+                                        </DarkTT>
+                                    }
+                                </>
+                            )}
+                    </div>
                 </div>
                 <div className="aboutCont">
                     <p className="titleItem">{Product?.title}</p>
-                    <p className="supllierName">{Product?.seller_data?.name}</p>
                     <div className="reviewCont">
                         <div className="starsAndReviews"><Rating value={valueR} onChange={(event , newValue) => ratingHandler(newValue)}/>  <div className="reviews">  {lang === "AZ" && `Şərh sayı - ` || lang === "EN" && `Reviews - ` || lang === "RU" && `Отзывы - `} {Product?.reviews?.length}</div>
                         <div className='reviewSendCont'><textarea value={reviewAbout} onChange={(e) => setreviewAbout(e.target.value)} type="text" placeholder='Fikrinizi bildirin'/>  <div className="buttonContReviewSend"><div className="rateCont"><Rating value={sendStar} onChange={(e , newvalue) => setsendStar(newvalue)} name="read-only"/> {sendStar} ulduz göndərilir </div>  <div className="Buttons"> <button onClick={()=>sendReview()} className='submit'>Göndər</button><button onClick={() => cancelReviewSend()} className='cancel'>Ləğv et</button></div></div> </div></div>
-                        <button onClick={() => props.selectItem(props.id)} className="favorites">{props.indexSelected !== -1 ? <FavoriteIcon style={{fontSize:"25px",color:"red",}}/> : <FavoriteBorderIcon/>} </button> 
+                        <button onClick={() => props.selectItem(props.id)} className="favorites">{SelectedsProduct.findIndex(x=> x.id === props.id) === -1 ? <StarBorderIcon/> :  <StarIcon/>}</button> 
                     </div>
                     <p className="desc">
                         {Product?.description}
@@ -226,9 +302,9 @@ function ProductModal(props) {
                             <button className="button" style={checker ===3 ? styleChanger: null}   id="btnLink3" onClick={() => clickHandler(3)}> {lang === "AZ" && `Sertifikatlar` || lang === "EN" && `Certificates` || lang === "RU" && `Сертификаты`} </button>
                             <hr/>
                             <div className="linkComponent">
-                                {checker === 1 ? <Description ProductSimilar={ProductSimilar} /> : "" }
-                                {checker === 2 ? <Reviews  Product={Product !== [] && Product}/> : ""}
-                                {checker === 3 ? <Certificates Product={Product !== [] && Product}/> : ""}
+                                {checker === 1 ? <Description ProductSimilar={ProductSimilar}  Product={Product !== [] && Product}/> : "" }
+                                {checker === 2 ? <Reviews  id={props.id}/> : ""}
+                                {checker === 3 ? <Certificates Product={Product}/> : ""}
                             </div>
                         </div>
                     </div>

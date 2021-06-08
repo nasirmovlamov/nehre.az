@@ -18,7 +18,7 @@ function SupplierCard2(props) {
                 <div className="imgCont" style={imgHandler}></div>
                 <p className="name">{props.name}</p>
                 <StarSystem numberStar={props.star_count}/>
-                <p className="desc">{props.type} </p>
+                <p className="desc">{props.desc} </p>
             </div>
         </Link>
     )

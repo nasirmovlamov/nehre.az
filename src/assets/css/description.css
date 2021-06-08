@@ -14,9 +14,9 @@
 }
 
 .description .descAbout {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
 }
 
 .description .part1 p {
@@ -72,6 +72,10 @@
 .description .part2 .textCont .about {
   font-size: 16px;
   opacity: 0.8;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .description .part2 .textCont .moreAbout {

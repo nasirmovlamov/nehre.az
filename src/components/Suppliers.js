@@ -14,15 +14,15 @@ function Suppliers() {
         axios.get('https://nehra.az/public/api/manufacturers')
         .then(res => setSuppliers(res.data.data))
         .catch(err=> console.log(err))
-    })
+    } , [])
     const supplierArr = []
-    Suppliers.map(supplier => supplierArr.push(<SupplierCard2 name={supplier.name} image={supplier.avatar} id={supplier.id} star_count={supplier.star_count} />))
+    Suppliers.map(supplier => supplierArr.push(<SupplierCard2 name={supplier.name} /*desc={lang === "AZ" && supplier.description || lang === "EN" && supplier.description_en || lang === "RU" && supplier.description_ru}*/ image={supplier.avatar} id={supplier.id} star_count={supplier.star_count} />))
     
     return (
         <div className="suppliersCont" >
             
             <div className="suppliers">
-                <p className="category"> <span>{lang === "AZ" && `Əsas Səhifə` || lang === "EN" && `Homepage` || lang === "RU" && `Домашняя страница`}  •</span>  {lang === "AZ" && `Tədarükçülər` || lang === "EN" && `Manufacturer` || lang === "RU" && `Производитель`} </p>
+                <p className="category"> <span>{lang === "AZ" && `Əsas Səhifə` || lang === "EN" && `Homepage` || lang === "RU" && `Домашняя страница`}  •</span> <span> {lang === "AZ" && `Tədarükçülər` || lang === "EN" && `Manufacturer` || lang === "RU" && `Производитель`} </span></p>
                 <div className="supplier">
                     {supplierArr.map(element => element)}
                 </div>

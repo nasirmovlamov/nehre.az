@@ -9,13 +9,14 @@ import StarSystem from './StarSystem'
 function Reviews(props) {
     const [reviews, setreviews] = useState([])
     useEffect(() => {
-        axios.get(`https://nehra.az/api/reviews?post_id=${props.Product.id}`)
-            .then(res => setreviews(res.data))
+            axios.get(`https://nehra.az/api/reviews?post_id=${props?.id}`)
+                .then(res => setreviews(res.data))
     }, [])
     return (
         <div className="reviews">
             <div className="reviewsCont">
-                {reviews.map(element => <Review user_name={element.user_name} review={element.review} star_count={element.star_count}/>)}
+                {props.SSReviews !== undefined && ( props.SSReviews.length > 0 ?  props.SSReviews.map(element => <Review user_name={element.user_name} date={element.created_at.slice(0, 10).replaceAll('-' , '.')} review={element.review} star_count={element.star_count}/>) : "Bu Tədarükçüyə şərh yazılmayıb")}
+                {reviews.map(element => ( reviews.length > 0 ?  <Review user_name={element.user_name} date={element.created_at.slice(0, 10).replaceAll('-' , '.')} review={element.review} star_count={element.star_count}/>: "Bu Tədarükçüyə şərh yazılmayıb"))}
             </div>
         </div>
     )

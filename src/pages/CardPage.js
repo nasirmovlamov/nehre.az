@@ -202,9 +202,9 @@ function CardPage(props) {
                     <div className="downPart">
                         <div className="goods"><p className="key">{lang === "AZ" && `Ümumi paketin çəkisi` || lang === "EN" && `Weight Parcel` || lang === "RU" && `Вес посылки`}</p> <p className="value ">{Math.abs(FinalWeight.toFixed(2))} kq</p> </div> 
                         <div className="goods"><p className="key">{lang === "AZ" && `Ümumi məhsulların sayı` || lang === "EN" && `Total number of products` || lang === "RU" && `Общее количество продуктов`} </p> <p className="value ">{FinalGoods}</p> </div> 
-                        <div className="cost"><p className="key"> {lang === "AZ" && `Yükun Qiymət` || lang === "EN" && `Final Price` || lang === "RU" && `Окончательная цена`}</p> <p className="value value2"> {money === '₼' ? FinalPrice : Math.floor((money === "₼" ? FinalPrice : Math.floor(FinalPrice / 1.7)) )} {money} </p> </div> 
+                        <div className="cost"><p className="key"> {lang === "AZ" && `Yükun Qiymət` || lang === "EN" && `Final Price` || lang === "RU" && `Окончательная цена`}</p> <p className="value value2"> {money === '₼' ? FinalPrice : ((money === "₼" ? FinalPrice : (FinalPrice / 1.7)).toFixed(1) )} {money} </p> </div> 
                         <Button1 disabled={FinalPrice < MinOrder ? true : false} value={lang === "AZ" && `Ödəniş səhifəsinə keçid edin` || lang === "EN" && `Go to payment` || lang === "RU" && `Перейти к оплате`} color="#085096" function={props.functionOpenCheckoutPage} /> 
-                        <p className="cashback">{lang === "AZ" && `Alacağınız ümumi bonus` || lang === "EN" && `Bonus` || lang === "RU" && `Бонус`}  {money === '₼' ? FinalPrice : Math.floor(FinalPrice   / 10) }  {money} </p>
+                        <p className="cashback">{lang === "AZ" && `Alacağınız ümumi bonus` || lang === "EN" && `Bonus` || lang === "RU" && `Бонус`}  {money === '₼' ? FinalPrice :( FinalPrice   / 10).toFixed(2)}  {money} </p>
                     </div>
                 </div>
                 <button   className="clearBucket" onClick={clearBucket}><DeleteIcon/>{lang === "AZ" && ` Səbəti təmizlə` || lang === "EN" && `Clear the basket` || lang === "RU" && `Очистить корзину`} </button>

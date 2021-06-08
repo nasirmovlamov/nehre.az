@@ -6,12 +6,71 @@
     background-color: #f0f4f5;
     border-radius: 20px;
     z-index: 1;
+    .progress
+    {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     .buttonCont
     {
         width: 100%;
         height: 50px;
     }
-
+    .date 
+    {
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+        font-family: "DaxlineR";
+        background-color: red;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        z-index: 3;
+        margin-bottom: 5px;
+    }
+    .dates
+    {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        column-gap: 5px;
+        div {
+        &:nth-child(1)
+        {
+            background-color: rgba(255, 142, 240, 0.8);
+        }
+        &:nth-child(2)
+        {
+            background-color: rgba(162, 88, 255, 0.8);
+        }
+        &:nth-child(3)
+        {
+            background-color: rgba(76, 195, 229, 0.8);
+        }
+        &:nth-child(4)
+        {
+            background-color:rgba(237, 182, 0, 0.8);
+        }
+        &:nth-child(5)
+        {
+            background-color:rgba(237, 182, 0, 0.8);
+        }
+        &:nth-child(6)
+        {
+            background-color:rgba(255, 122, 44, 0.8);
+        }
+        &:nth-child(7)
+        {
+            background-color:rgba(125, 191, 41, 0.8);
+        }}
+    }
     .removeModalBtn 
     {
         float: right;
@@ -32,12 +91,15 @@
     .sliderAndAbout
     {
         display: flex;
+
         .sliderCont
         {
             width: 50%;
             margin-left: 30px;
             display: flex;
             justify-content: center;
+            align-items: center;
+            flex-direction: column;
             img 
             {
                 width: 350px !important;
@@ -189,6 +251,7 @@
                     .moreAbout 
                     {
                         width: 200px;
+                        background-color: #7DBF29 !important;
                     }
                 }
             }
@@ -196,12 +259,17 @@
             {
                 display: flex;
                 justify-content: space-between;
-                align-items: center;
                 height: 50px;
                 width: 400px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                align-items: flex-start;
+
                 .starsAndReviews
                 {
                     display: flex;
+                    flex-direction: column;
+                    row-gap: 5px;
                 }
                 .reviewSendCont
                 {
@@ -299,11 +367,13 @@
                     svg 
                     {
                         margin-right: 5px;
+                        color: red;
                     }
                 }
                 .reviews
                 {
                     color: #847a76;
+                    margin-left: 5px;
                 }
                 
             }

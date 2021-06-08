@@ -7,9 +7,85 @@
   z-index: 1;
 }
 
+.productModal .progress {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .productModal .buttonCont {
   width: 100%;
   height: 50px;
+}
+
+.productModal .date {
+  width: 25px;
+  height: 25px;
+  font-size: 12px;
+  font-family: "DaxlineR";
+  background-color: red;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 50%;
+  z-index: 3;
+  margin-bottom: 5px;
+}
+
+.productModal .dates {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-column-gap: 5px;
+          column-gap: 5px;
+}
+
+.productModal .dates div:nth-child(1) {
+  background-color: rgba(255, 142, 240, 0.8);
+}
+
+.productModal .dates div:nth-child(2) {
+  background-color: rgba(162, 88, 255, 0.8);
+}
+
+.productModal .dates div:nth-child(3) {
+  background-color: rgba(76, 195, 229, 0.8);
+}
+
+.productModal .dates div:nth-child(4) {
+  background-color: rgba(237, 182, 0, 0.8);
+}
+
+.productModal .dates div:nth-child(5) {
+  background-color: rgba(237, 182, 0, 0.8);
+}
+
+.productModal .dates div:nth-child(6) {
+  background-color: rgba(255, 122, 44, 0.8);
+}
+
+.productModal .dates div:nth-child(7) {
+  background-color: rgba(125, 191, 41, 0.8);
 }
 
 .productModal .removeModalBtn {
@@ -45,6 +121,13 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .productModal .sliderAndAbout .sliderCont img {
@@ -219,6 +302,7 @@
 
 .productModal .sliderAndAbout .aboutCont .buttonsCont .part2 .moreAbout {
   width: 200px;
+  background-color: #7DBF29 !important;
 }
 
 .productModal .sliderAndAbout .aboutCont .reviewCont {
@@ -228,17 +312,24 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   height: 50px;
   width: 400px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
 .productModal .sliderAndAbout .aboutCont .reviewCont .starsAndReviews {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 5px;
 }
 
 .productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont {
@@ -361,10 +452,12 @@
 
 .productModal .sliderAndAbout .aboutCont .reviewCont .favorites svg {
   margin-right: 5px;
+  color: red;
 }
 
 .productModal .sliderAndAbout .aboutCont .reviewCont .reviews {
   color: #847a76;
+  margin-left: 5px;
 }
 
 .productModal .btnContForLinks {

@@ -153,7 +153,8 @@ function Combo(props) {
       }
 
     const comboImage =  {
-        backgroundImage: `url(https://nehra.az/storage/app/public/${CategoryData?.overvew.images})`
+        backgroundImage: `url(https://nehra.az/storage/app/public/${CategoryData?.overvew.images})`,
+        backgroundPosition: 'center center',
     }
     
     return (
@@ -181,8 +182,8 @@ function Combo(props) {
             </div>
 
             <p className="buyComboCont">
-                <p className="price">Combonun qiyməti: <span className='number'> {money === "₼" ?  CategoryData?.overvew?.price :  (CategoryData?.overvew?.price / 1.7).toFixed(1)} {money} </span> </p>
-                <button onClick={() => buyCombo()} className="buyCombo"> {(lang === "AZ" && `Kombonu Səbətə əlavə edin`) || (lang === "EN" && `Add  comb to the basket`) || (lang === "RU" && `Добавьте расческу в корзину`)}</button>
+                <p className="price"> {(lang === "AZ" && `Dəstin qiyməti: `) || (lang === "EN" && `Price of combo`) || (lang === "RU" && `Цена комбо`)}<span className='number'> {money === "₼" ?  CategoryData?.overvew?.price :  (CategoryData?.overvew?.price / 1.7).toFixed(1)} {money} </span> </p>
+                <button onClick={() => buyCombo()} className="buyCombo"> {(lang === "AZ" && `Dəsti Səbətə əlavə edin`) || (lang === "EN" && `Add  comb to the basket`) || (lang === "RU" && `Добавьте в корзину`)}</button>
             </p>
 
         </div>

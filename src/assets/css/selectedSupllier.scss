@@ -5,6 +5,8 @@
     flex-direction: column;
     align-items: center;
     text-align: start;
+    .review
+    {background-color: white;}
     .category
     {
         margin-top: 0px;
@@ -23,8 +25,8 @@
     .selectedSupplier
     {
         margin-top: 20px;
-        padding-left: 50px;
-        width: 1300px;
+        // padding-left: 50px;
+        width: 1200px;
     }
     .linkComponent
     {
@@ -35,7 +37,7 @@
         display: flex;
         justify-content: space-between;
         margin-top: 30px;
-
+        column-gap: 20px;
         .supplierVideo
         {
             width: 676px;

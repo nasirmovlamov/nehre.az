@@ -85,7 +85,7 @@ function ProductListingPage(props) {
         <div className="productPage"> 
             <div className="topPart">
                 <div className="titleProducts">
-                        <p className="category"> <span> {lang === "AZ" && `Əsas Səhifə` || lang === "EN" && `Homepage` || lang === "RU" && `Домашняя страница`}  • {lang === "AZ" && CategoryData?.category_data?.name || lang === "EN" && CategoryData?.category_data?.name_en || lang === "RU" && CategoryData?.category_data?.name_ru}\</span>  </p>
+                        <p className="category"> <span> {lang === "AZ" && `Əsas Səhifə` || lang === "EN" && `Homepage` || lang === "RU" && `Домашняя страница`}  • {lang === "AZ" && CategoryData?.category_data?.name || lang === "EN" && CategoryData?.category_data?.name_en || lang === "RU" && CategoryData?.category_data?.name_ru}</span>  </p>
                         <h2 className="categoryName">{lang === "AZ" && CategoryData?.category_data?.name || lang === "EN" && CategoryData?.category_data?.name_en || lang === "RU" && CategoryData?.category_data?.name_ru}</h2>
                         <div className="tags">
                           <button  id={`tagone${id}`} onClick={() => filterHandler(id)} className="tag" >{lang === "AZ" && "Hamısı" || lang === "EN" && "All" || lang === "RU" && "Все"}</button>

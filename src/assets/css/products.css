@@ -8,9 +8,6 @@
   grid-gap: 30px;
   padding-bottom: 50px;
   padding-top: 50px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
 }
 
 .products .overlayImg {

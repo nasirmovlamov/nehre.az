@@ -32,6 +32,7 @@ import Cookies from 'js-cookies'
 
 function ItemCard(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin] = useContext(ProductListingContext)
+    
     const [UserData, setUserData] = useState(0)
     useEffect(() => {
         if (UserData?.id === undefined) {
@@ -303,7 +304,7 @@ function ItemCard(props) {
                     open={open}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description">
-                    {<ProductModal userId={UserData?.id} indexSelected={indexSelected} selectItem={selectItem} id={props.cardId} functionClose={handleClose}  title={props.title} desc={props.desc} price={props.price} weight={props.weight} numberStar={props.star}/>}
+                    {<ProductModal delivery={props.delivery} userId={UserData?.id}  indexSelected={indexSelected} selectItem={selectItem} id={props.cardId} functionClose={handleClose}  title={props.title} desc={props.desc} price={props.price} weight={props.weight} numberStar={props.star}/>}
                 </Modal>
             </div>
         </div>

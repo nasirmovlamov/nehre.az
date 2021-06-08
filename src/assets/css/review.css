@@ -8,6 +8,19 @@
   padding-right: 2.5%;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  background-color: white;
+}
+
+.review .review_date {
+  margin: 0px;
 }
 
 .review .name {
@@ -22,7 +35,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 40px;
+  height: 30px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -34,7 +47,6 @@
 
 .review .text {
   margin: 0px;
-  margin-bottom: 5px;
 }
 
 .notification {

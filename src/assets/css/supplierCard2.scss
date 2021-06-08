@@ -43,10 +43,14 @@
     .desc 
     {
         font-size: 12px;
-        margin-top: 20px;
+        width: 200px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
         color: #585858;
         font-weight: 700;
         opacity: 0.6;
+        margin-top: 10px;
     }
     .stars
     {
