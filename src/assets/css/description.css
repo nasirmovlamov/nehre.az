@@ -49,6 +49,12 @@
   display: flex;
 }
 
+.description .part2 .reviews {
+  font-size: 16px !important;
+  color: gray !important;
+  font-weight: 500;
+}
+
 .description .part2 .imgCont {
   width: 252px;
   height: 252px;
@@ -116,7 +122,6 @@
   background-color: #fff;
   -webkit-transform: scale(0.85);
           transform: scale(0.85);
-  margin-left: -35px;
 }
 
 .description .similarProductsCont .title {

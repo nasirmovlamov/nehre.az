@@ -2,6 +2,8 @@ import React, {useState , createContext, useEffect} from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
+import ProductModal from './ProductModal';
+import Modal from '@material-ui/core/Modal';
 
 
 export const ProductListingContext = createContext()
@@ -116,9 +118,32 @@ export function ProductListingProvider(props) {
     }
  
 
+    //#region PRDUCTMODAL
+    const [open, setOpen] = React.useState(false);
+    const handleOpenPM = () => {
+        setOpen(true);
+    }
+    const handleClosePM = () => {
+        setOpen(false);
+    };
+    const [modalId, setmodalId] = useState()
+    const modalIdsetter = (id) => {
+        setOpen(true);
+        setmodalId(id)
+    } 
+    //#endregion
     return (
-        <ProductListingContext.Provider value={[ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin]}>
+        <ProductListingContext.Provider value={[ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId]}>
             {props.children}
+            <div className="modalCont">
+                <Modal  
+                    style={{display:"flex", justifyContent:"center",overflow:"auto"}}
+                    open={open}
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description">
+                    {<ProductModal  functionClose={handleClosePM}  id={modalId}/>}
+                </Modal>
+            </div>
         </ProductListingContext.Provider>
     )
 }

@@ -1,13 +1,65 @@
-.productModal {
-  width: 1100px;
-  margin-top: 50px;
-  margin-bottom: 20px;
-  background-color: #f0f4f5;
-  border-radius: 20px;
-  z-index: 1;
+.modalCont {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.productModal .progress {
+.modalCont .productModal {
+  width: 1100px;
+  background-color: #f0f4f5;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  border-radius: 20px;
+  min-height: 100vh;
+  margin-top: 50px;
+  z-index: 1;
+  -webkit-animation-name: example;
+          animation-name: example;
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
+}
+
+.modalCont .productModal .css-dqr9h-MuiRating-label {
+  font-size: 1.7rem;
+}
+
+@-webkit-keyframes example {
+  0% {
+    opacity: 0.7;
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+}
+
+@keyframes example {
+  0% {
+    opacity: 0.7;
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+}
+
+.modalCont .productModal .progress {
   width: 100%;
   height: 100%;
   background-color: transparent;
@@ -22,12 +74,12 @@
           align-items: center;
 }
 
-.productModal .buttonCont {
+.modalCont .productModal .buttonCont {
   width: 100%;
   height: 50px;
 }
 
-.productModal .date {
+.modalCont .productModal .date {
   width: 25px;
   height: 25px;
   font-size: 12px;
@@ -48,7 +100,7 @@
   margin-bottom: 5px;
 }
 
-.productModal .dates {
+.modalCont .productModal .dates {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -60,35 +112,45 @@
           column-gap: 5px;
 }
 
-.productModal .dates div:nth-child(1) {
+.modalCont .productModal .dates div {
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.modalCont .productModal .dates div:hover {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.modalCont .productModal .dates div:nth-child(1) {
   background-color: rgba(255, 142, 240, 0.8);
 }
 
-.productModal .dates div:nth-child(2) {
+.modalCont .productModal .dates div:nth-child(2) {
   background-color: rgba(162, 88, 255, 0.8);
 }
 
-.productModal .dates div:nth-child(3) {
+.modalCont .productModal .dates div:nth-child(3) {
   background-color: rgba(76, 195, 229, 0.8);
 }
 
-.productModal .dates div:nth-child(4) {
+.modalCont .productModal .dates div:nth-child(4) {
   background-color: rgba(237, 182, 0, 0.8);
 }
 
-.productModal .dates div:nth-child(5) {
+.modalCont .productModal .dates div:nth-child(5) {
   background-color: rgba(237, 182, 0, 0.8);
 }
 
-.productModal .dates div:nth-child(6) {
+.modalCont .productModal .dates div:nth-child(6) {
   background-color: rgba(255, 122, 44, 0.8);
 }
 
-.productModal .dates div:nth-child(7) {
+.modalCont .productModal .dates div:nth-child(7) {
   background-color: rgba(125, 191, 41, 0.8);
 }
 
-.productModal .removeModalBtn {
+.modalCont .productModal .removeModalBtn {
   float: right;
   margin-right: 10px;
   margin-top: 10px;
@@ -100,19 +162,19 @@
   background-color: transparent;
 }
 
-.productModal .removeModalBtn:hover {
+.modalCont .productModal .removeModalBtn:hover {
   color: rgba(0, 0, 0, 0.8);
   -webkit-transition: 0.2s color;
   transition: 0.2s color;
 }
 
-.productModal .sliderAndAbout {
+.modalCont .productModal .sliderAndAbout {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.productModal .sliderAndAbout .sliderCont {
+.modalCont .productModal .sliderAndAbout .sliderCont {
   width: 50%;
   margin-left: 30px;
   display: -webkit-box;
@@ -130,7 +192,7 @@
           flex-direction: column;
 }
 
-.productModal .sliderAndAbout .sliderCont img {
+.modalCont .productModal .sliderAndAbout .sliderCont img {
   width: 350px !important;
   border-radius: 10px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -138,20 +200,20 @@
   margin-bottom: 10px;
 }
 
-.productModal .sliderAndAbout .sliderCont .slick-next {
+.modalCont .productModal .sliderAndAbout .sliderCont .slick-next {
   margin-right: 50px;
 }
 
-.productModal .sliderAndAbout .sliderCont .slick-prev {
+.modalCont .productModal .sliderAndAbout .sliderCont .slick-prev {
   margin-left: 50px;
   z-index: 10000000;
 }
 
-.productModal .sliderAndAbout .sliderCont .slick-track {
+.modalCont .productModal .sliderAndAbout .sliderCont .slick-track {
   padding-bottom: 0px;
 }
 
-.productModal .sliderAndAbout .aboutCont {
+.modalCont .productModal .sliderAndAbout .aboutCont {
   width: 50%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -160,73 +222,66 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  row-gap: 25px;
+  margin-top: 30px;
 }
 
-.productModal .sliderAndAbout .aboutCont p {
+.modalCont .productModal .sliderAndAbout .aboutCont p {
   margin: 0px;
 }
 
-.productModal .sliderAndAbout .aboutCont .titleItem {
+.modalCont .productModal .sliderAndAbout .aboutCont .titleItem {
   font-size: 27px;
   color: #7dbf29;
   font-weight: bold;
   font-family: "DaxlineR";
 }
 
-.productModal .sliderAndAbout .aboutCont .supllierName {
+.modalCont .productModal .sliderAndAbout .aboutCont .supllierName {
   font-size: 16px;
   color: #3b3b3b;
   font-weight: 700;
   opacity: 0.8;
 }
 
-.productModal .sliderAndAbout .aboutCont .desc {
+.modalCont .productModal .sliderAndAbout .aboutCont .desc {
   color: #585858;
   width: 400px;
   max-width: 400px;
 }
 
-.productModal .sliderAndAbout .aboutCont .ingredients {
-  margin-top: 20px;
-}
-
-.productModal .sliderAndAbout .aboutCont .ingredients .ingredientsText {
+.modalCont .productModal .sliderAndAbout .aboutCont .ingredients .ingredientsText {
   font-size: 16px;
   color: #3b3b3b;
   font-weight: 700;
   font-family: "DaxlineR";
 }
 
-.productModal .sliderAndAbout .aboutCont .ingredients .ingredientsFront {
+.modalCont .productModal .sliderAndAbout .aboutCont .ingredients .ingredientsFront {
   opacity: 0.7;
 }
 
-.productModal .sliderAndAbout .aboutCont .priceCont {
-  max-height: 40px;
-  margin-top: 20px;
-}
-
-.productModal .sliderAndAbout .aboutCont .priceCont .priceText {
+.modalCont .productModal .sliderAndAbout .aboutCont .priceCont .priceText {
   font-size: 16px;
   color: #3b3b3b;
   font-weight: 700;
   font-family: "DaxlineR";
 }
 
-.productModal .sliderAndAbout .aboutCont .priceCont .price {
+.modalCont .productModal .sliderAndAbout .aboutCont .priceCont .price {
   font-size: 20px;
   font-weight: 700;
   margin-left: 20px;
   color: #525252;
 }
 
-.productModal .sliderAndAbout .aboutCont .priceCont .weight {
+.modalCont .productModal .sliderAndAbout .aboutCont .priceCont .weight {
   font-size: 20px;
   font-weight: 700;
   color: #525252;
 }
 
-.productModal .sliderAndAbout .aboutCont .buttonsCont {
+.modalCont .productModal .sliderAndAbout .aboutCont .buttonsCont {
   max-width: 400px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -237,16 +292,15 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: 20px;
 }
 
-.productModal .sliderAndAbout .aboutCont .buttonsCont .part1 {
+.modalCont .productModal .sliderAndAbout .aboutCont .buttonsCont .part1 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.productModal .sliderAndAbout .aboutCont .buttonsCont .decBtn {
+.modalCont .productModal .sliderAndAbout .aboutCont .buttonsCont .decBtn {
   border-radius: 10px 0px 0px 10px;
   border: none;
   background-color: #7dbf29;
@@ -268,7 +322,7 @@
           align-items: center;
 }
 
-.productModal .sliderAndAbout .aboutCont .buttonsCont .valueBtn {
+.modalCont .productModal .sliderAndAbout .aboutCont .buttonsCont .valueBtn {
   width: 50px;
   height: 40px;
   border: none;
@@ -278,7 +332,7 @@
   font-weight: 700;
 }
 
-.productModal .sliderAndAbout .aboutCont .buttonsCont .incBtn {
+.modalCont .productModal .sliderAndAbout .aboutCont .buttonsCont .incBtn {
   border-radius: 0px 10px 10px 0px;
   border: none;
   background-color: #7dbf29;
@@ -300,12 +354,13 @@
           align-items: center;
 }
 
-.productModal .sliderAndAbout .aboutCont .buttonsCont .part2 .moreAbout {
+.modalCont .productModal .sliderAndAbout .aboutCont .buttonsCont .part2 .moreAbout {
   width: 200px;
+  border-radius: 10px;
   background-color: #7DBF29 !important;
 }
 
-.productModal .sliderAndAbout .aboutCont .reviewCont {
+.modalCont .productModal .sliderAndAbout .aboutCont .reviewCont {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -314,14 +369,12 @@
           justify-content: space-between;
   height: 50px;
   width: 400px;
-  margin-top: 20px;
-  margin-bottom: 20px;
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
 }
 
-.productModal .sliderAndAbout .aboutCont .reviewCont .starsAndReviews {
+.modalCont .productModal .sliderAndAbout .aboutCont .reviewCont .starsAndReviews {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -332,7 +385,7 @@
   row-gap: 5px;
 }
 
-.productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont {
+.modalCont .productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont {
   opacity: 0;
   pointer-events: none;
   -webkit-transition: 0.3s all;
@@ -360,7 +413,7 @@
   overflow: hidden;
 }
 
-.productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont .buttonContReviewSend {
+.modalCont .productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont .buttonContReviewSend {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -372,7 +425,7 @@
   z-index: 2;
 }
 
-.productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont .buttonContReviewSend .rateCont {
+.modalCont .productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont .buttonContReviewSend .rateCont {
   width: auto;
   margin-left: 10px;
   display: -webkit-box;
@@ -386,11 +439,11 @@
   font-size: 10px;
 }
 
-.productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont .buttonContReviewSend .Buttons {
+.modalCont .productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont .buttonContReviewSend .Buttons {
   margin-left: 10px;
 }
 
-.productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont textarea {
+.modalCont .productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont textarea {
   width: 95%;
   border-radius: 0px;
   border: 0px solid gray;
@@ -401,11 +454,11 @@
   border-bottom: 1px dashed gray;
 }
 
-.productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont textarea:focus {
+.modalCont .productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont textarea:focus {
   outline: none;
 }
 
-.productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont .submit {
+.modalCont .productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont .submit {
   height: 33px;
   border-radius: 0px;
   border: none;
@@ -413,7 +466,7 @@
   color: white;
 }
 
-.productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont button {
+.modalCont .productModal .sliderAndAbout .aboutCont .reviewCont .reviewSendCont button {
   width: 70px;
   height: 33px;
   border-radius: 0px;
@@ -422,18 +475,18 @@
   color: white;
 }
 
-.productModal .sliderAndAbout .aboutCont .reviewCont .stars {
+.modalCont .productModal .sliderAndAbout .aboutCont .reviewCont .stars {
   width: 150px;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
 }
 
-.productModal .sliderAndAbout .aboutCont .reviewCont .stars img {
+.modalCont .productModal .sliderAndAbout .aboutCont .reviewCont .stars img {
   width: 24px;
 }
 
-.productModal .sliderAndAbout .aboutCont .reviewCont .favorites {
+.modalCont .productModal .sliderAndAbout .aboutCont .reviewCont .favorites {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -450,24 +503,26 @@
   background-color: transparent;
 }
 
-.productModal .sliderAndAbout .aboutCont .reviewCont .favorites svg {
+.modalCont .productModal .sliderAndAbout .aboutCont .reviewCont .favorites svg {
+  width: 30px;
+  height: 30px;
   margin-right: 5px;
   color: red;
 }
 
-.productModal .sliderAndAbout .aboutCont .reviewCont .reviews {
+.modalCont .productModal .sliderAndAbout .aboutCont .reviewCont .reviews {
   color: #847a76;
   margin-left: 5px;
 }
 
-.productModal .btnContForLinks {
+.modalCont .productModal .btnContForLinks {
   padding-left: 2.5%;
   padding-right: 2.5%;
   margin-top: 20px;
   background-color: #f0f4f5;
 }
 
-.productModal .btnContForLinks .button {
+.modalCont .productModal .btnContForLinks .button {
   border: none;
   color: #aebaa3;
   padding: 15px;
@@ -483,21 +538,21 @@
   border-radius: 10px 10px 0px 0px;
 }
 
-.productModal .btnContForLinks .button:focus {
+.modalCont .productModal .btnContForLinks .button:focus {
   outline: none;
 }
 
-.productModal .btnContForLinks .button:hover {
+.modalCont .productModal .btnContForLinks .button:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.productModal .btnContForLinks hr {
+.modalCont .productModal .btnContForLinks hr {
   margin: 0px;
   opacity: 0.3;
 }
 
 @media screen and (max-width: 1100px) {
-  .productModal {
+  .modalCont .productModal {
     width: 100%;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -505,11 +560,11 @@
     border-radius: 0px;
     z-index: 1;
   }
-  .productModal .buttonCont {
+  .modalCont .productModal .buttonCont {
     width: 100%;
     height: 50px;
   }
-  .productModal .removeModalBtn {
+  .modalCont .productModal .removeModalBtn {
     float: right;
     margin-right: 10px;
     margin-top: 10px;
@@ -520,12 +575,12 @@
     transition: 0.2s color;
     background-color: transparent;
   }
-  .productModal .removeModalBtn:hover {
+  .modalCont .productModal .removeModalBtn:hover {
     color: rgba(0, 0, 0, 0.8);
     -webkit-transition: 0.2s color;
     transition: 0.2s color;
   }
-  .productModal .sliderAndAbout {
+  .modalCont .productModal .sliderAndAbout {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -538,18 +593,18 @@
     margin-right: 0px;
     width: 100%;
   }
-  .productModal .sliderAndAbout .sliderCont {
+  .modalCont .productModal .sliderAndAbout .sliderCont {
     width: 100%;
     margin-left: 0px;
   }
-  .productModal .sliderAndAbout .aboutCont {
+  .modalCont .productModal .sliderAndAbout .aboutCont {
     width: 95%;
-    padding-top: 30px;
+    padding-top: 50px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
   }
-  .productModal .sliderAndAbout .aboutCont .buttonsCont {
+  .modalCont .productModal .sliderAndAbout .aboutCont .buttonsCont {
     max-width: 100%;
     -webkit-column-gap: 20px;
             column-gap: 20px;
@@ -557,7 +612,7 @@
         flex-wrap: wrap;
     row-gap: 20px;
   }
-  .productModal .sliderAndAbout .aboutCont .reviewCont {
+  .modalCont .productModal .sliderAndAbout .aboutCont .reviewCont {
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     height: 50px;
@@ -566,7 +621,7 @@
     margin-top: 20px;
     margin-bottom: 20px;
   }
-  .productModal .sliderAndAbout .aboutCont .desc {
+  .modalCont .productModal .sliderAndAbout .aboutCont .desc {
     width: 100%;
   }
 }

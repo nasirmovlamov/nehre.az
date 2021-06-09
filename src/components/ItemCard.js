@@ -26,12 +26,13 @@ import moment from 'moment';
 import 'moment/locale/az';
 import 'moment/locale/ru';
 import defP from '../assets/images/defP.png'
-import { ToastContainer, toast } from 'react-toastify';
+import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookies'
+import DateCropLang from './DateCropLang';
 
 function ItemCard(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId] = useContext(ProductListingContext)
     
     const [UserData, setUserData] = useState(0)
     useEffect(() => {
@@ -99,29 +100,16 @@ function ItemCard(props) {
     },}));
     const classes = useStyles();
     // getModalStyle is not a pure function, we roll the style only on the first render
-    const [open, setOpen] = React.useState(false);
-    
     
 
-    const handleOpen = () => {
-        setOpen(true);
-        setchecker(true)
-    }
-      
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handler = () => {
-        handleOpen()
-    }
+   
 
 
 
 
 
     moment.locale(sessionStorage.getItem('lang'))
-
+    //#region date
     //Date //Date //Date
     const today = new Date()
     
@@ -156,8 +144,7 @@ function ItemCard(props) {
     var newfriday = moment(friday).format( 'dddd, D MMMM');
     var newsaturday = moment(saturday).format( 'dddd, D MMMM');
     var newsunday = moment(sunday).format( 'dddd, D MMMM');
-    
-    
+//#endregion
     
     //Select ITEM  //Select ITEM
     const [indexSelected, setindexSelected] = useState(JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.cardId) !== undefined ? JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.cardId) : -1)
@@ -220,6 +207,9 @@ function ItemCard(props) {
             OpenLoginF()
         }
     }
+
+    
+
     return (
         <div key={props.cardId} className="itemCard">
             <button  type="button"  className="imgCont" style={imgHandler}>
@@ -231,64 +221,34 @@ function ItemCard(props) {
                 <div className="overlayImg">
                     <div className='overlayBtn'>
                         {ProdutData[ProdutData.findIndex(x=> x.id === props.cardId)]?.count > 0 && <button onClick={() => removeItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title)}>-</button> }
-                        <button  type="button" onClick={handleOpen}>{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</button>
+                        <button  type="button" onClick={() => modalIdsetter(props.cardId)}>{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</button>
                         {ProdutData[ProdutData.findIndex(x=> x.id === props.cardId)]?.count > 0 && <button onClick={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title)}>+</button>}
                     </div>
                 </div>
 
                 <div className="dates">
-                    {props.delivery?.map(delivery =>
-                        <>
-                            {
-                                delivery === "1" &&
-                                <DarkTT title={`${newmonday}   `} placement="top" arrow>
-                                    <div className="date">Be</div>
-                                </DarkTT>
-                            }
-                            {
-                                delivery === "2" &&
-                                <DarkTT title={`${newtuesday}   `}  placement="top" arrow>
-                                    <div className="date">Ça</div>
-                                </DarkTT>
-                            }
-                            {
-                                delivery === "3" &&
-                                <DarkTT title={`${newwednesday}   `} placement="top" arrow>
-                                    <div className="date">Ç</div>
-                                </DarkTT>
-                            }
-                            {
-                                delivery === "4" &&
-                                <DarkTT title={`${newthursday}   `} placement="top" arrow>
-                                    <div className="date">Ca</div>
-                                </DarkTT>
-                            }
-                            {
-                                delivery === "5" &&
-                                <DarkTT title={`${newfriday}   `} placement="top" arrow>
-                                    <div className="date">C</div>
-                                </DarkTT>
-                            }
-                            {
-                                delivery === "6" &&
-                                <DarkTT title={`${newsaturday}   `} placement="top" arrow>
-                                    <div className="date">Ş</div>
-                                </DarkTT>
-                            }
-                            {
-                                delivery === "7" &&
-                                <DarkTT title={`${newsunday}   `} placement="top" arrow>
-                                    <div className="date">B</div>
-                                </DarkTT>
-                            }
-                        </>
-                    )}
+                        {props.delivery?.map(delivery =>
+                                <>
+                                    {
+                                        <DarkTT title={`${
+                                                        (delivery === "1" && newmonday) ||  
+                                                        (delivery === "2" && newtuesday) ||  
+                                                        (delivery === "3" && newwednesday) || 
+                                                        (delivery === "4" && newthursday) || 
+                                                        (delivery === "5" && newfriday) || 
+                                                        (delivery === "6" && newsaturday) ||
+                                                        (delivery === "7" && newsunday)}`} placement="top" arrow>
+                                            <div className="date"><DateCropLang day={delivery} /></div>
+                                        </DarkTT>
+                                    }
+                                </>
+                            )}  
+                   
                 </div>
             </button>
 
             <p className="titleItem">{props.title}</p>
             <p className="subTitleItem">  {(sessionStorage.getItem('lang') === "EN" && `from`) || (sessionStorage.getItem('lang') === "RU" && `из`)} {props.desc} {sessionStorage.getItem('lang') === "AZ" && `tərəfindən` }</p>
-            
             <div className="textCont">
                 <div className="starAndAbout">
                     <p className="dscPrc">{(props.discount !== 0 && props.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{money === "₼" ? (props.price) : (props.price / 1.7).toFixed(1)} {money}</span></span>)}</p>
@@ -298,15 +258,7 @@ function ItemCard(props) {
                 {!props.btnDisable && <BuyButton functionAdd={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title)}  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>}
             </div>
 
-            <div className="modalCont">
-                <Modal  
-                    style={{display:"flex", justifyContent:"center",overflow:"auto"}}
-                    open={open}
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description">
-                    {<ProductModal delivery={props.delivery} userId={UserData?.id}  indexSelected={indexSelected} selectItem={selectItem} id={props.cardId} functionClose={handleClose}  title={props.title} desc={props.desc} price={props.price} weight={props.weight} numberStar={props.star}/>}
-                </Modal>
-            </div>
+           
         </div>
     )
 }

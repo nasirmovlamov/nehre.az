@@ -26,4 +26,11 @@
   font-size: 17px;
   margin-top: 15px;
 }
+
+.reviews .noReview {
+  width: 100%;
+  text-align: center;
+  font-family: "DaxlineR";
+  font-size: 20px;
+}
 /*# sourceMappingURL=reviews.css.map */
