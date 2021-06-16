@@ -59,7 +59,7 @@ function SelectedSupplier() {
                     <iframe  className="supplierVideo" src={`https://www.youtube.com/embed/${Supplier.video_link}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     <div className="about">
                         <p className="name">{Supplier.name}</p>
-                        <div className="starAndReview"><StarSystem numberStar={Supplier.star_count}/>  <p>{Supplier.review_count}  {(sessionStorage.getItem('lang') === "AZ" && `şərh`) || (sessionStorage.getItem('lang') === "EN" && `reviews`) || (sessionStorage.getItem('lang') === "RU" && `отзывы`)} </p> </div>
+                        <div className="starAndReview"><StarSystem numberStar={Supplier.star_count}/>  <p>{Supplier.review_count}  {(lang === "AZ" && `şərh`) || (lang === "EN" && `reviews`) || (lang === "RU" && `отзывы`)} </p> </div>
                         <p className="text">
                             {Supplier.description}
                         </p>
