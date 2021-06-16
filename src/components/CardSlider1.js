@@ -1,9 +1,12 @@
-import React, { useRef } from 'react'
+import React, { useRef, useContext } from 'react'
 import "../assets/css/cardSlider1.css"
 import Button1 from './Button1'
 import Skeleton from '@material-ui/lab/Skeleton';
+import {ProductListingContext} from '../components/ProductListingProvider'
 
 function CardSlider1(props) {
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
+
     const inputTitle = useRef(null);
     const inputDesc = useRef(null);
     const imgHandler = {
@@ -24,7 +27,7 @@ function CardSlider1(props) {
                         <div className="textCont" ref={inputTitle}>
                             {parseInt(props?.turntitle) !== 0 ? <h4  className="title">{props.name}</h4> : ""}
                             {parseInt(props?.turndesc) !== 0 ? <p className="desc">{props.desc}</p> : ""}
-                            {parseInt(props?.turnetrafli) !== 0 ?  <Button1 value="Ətraflı" /> : "" }
+                            {parseInt(props?.turnetrafli) !== 0 ?  <Button1 value={(lang === "AZ" && `Ətraflı`) || (lang === "EN" && `More`) || (lang === "RU" && `Eще`)} /> : "" }
                         </div>
                     </div>
                 </div>

@@ -34,6 +34,7 @@ function DownNavbar(props) {
     {
         props.TopCategory.map(element  => TopCatArr.push(<a className='linkDrp' href={`/category/${element.id}`}><button  id={`btnNav${element.id}`} onClick={() => clickHandler(element.id)} className="buttonNav" > <div id="downNavImgCont" className="imgCont"> <img id="downNavImg" src={`https://nehra.az/storage/app/public/${element.image}`} alt="" width="70px" height="auto"/></div>  <span>{lang === "AZ" && element.name_az || lang === "EN" && element.name_en || lang === "RU" && element.name_ru}</span>  </button></a>))
     }
+    
     var settings = {
         arrows:true,
         dots: false,

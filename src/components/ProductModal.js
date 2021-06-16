@@ -150,7 +150,7 @@ function ProductModal(props) {
     }
 
     const sendReview = async () => {
-        const resp = axios.post('https://nehra.az/api/poststar', {id: props.id, star:reviewAbout} )
+        const resp = await axios.post('https://nehra.az/api/postreview', {post_id: parseInt(props.id), star_count:parseInt(sendStar), user_id: parseInt(JSON.parse(localStorage.getItem('LoginUserData')).id) , review:reviewAbout} )
         if(resp.status === 200 )
         {
             notify(sendStar)
@@ -278,7 +278,6 @@ function ProductModal(props) {
         }
     }
     
-
     return (
 
         <div className='modalCont'>
@@ -311,15 +310,15 @@ function ProductModal(props) {
                     <div className="aboutCont">
                         <p className="titleItem">{lang === "AZ" && Product?.title_az || lang === "EN" && Product?.title_en || lang === "RU" && Product?.title_ru}</p>
                         <div className="reviewCont">
-                            <div className="starsAndReviews"><Rating value={valueR} onChange={(event , newValue) => ratingHandler(newValue)}/>  <div className="reviews">  {lang === "AZ" && `Şərh sayı - ` || lang === "EN" && `Reviews - ` || lang === "RU" && `Отзывы - `} {Product?.reviews?.length}</div>
-                            <div className='reviewSendCont'><textarea value={reviewAbout} onChange={(e) => setreviewAbout(e.target.value)} type="text" placeholder='Fikrinizi bildirin'/>  <div className="buttonContReviewSend"><div className="rateCont"><Rating value={sendStar} onChange={(e , newvalue) => setsendStar(newvalue)} name="read-only"/> {sendStar} ulduz göndərilir </div>  <div className="Buttons"> <button onClick={()=>sendReview()} className='submit'>Göndər</button><button onClick={() => cancelReviewSend()} className='cancel'>Ləğv et</button></div></div> </div></div>
+                            <div className="starsAndReviews"><Rating value={valueR} onChange={(event , newValue) => ratingHandler(newValue)}/>  <div className="reviews">  {(lang === "AZ" && `Şərh sayı - `) || (lang === "EN" && `Reviews - `) || (lang === "RU" && `Отзывы - `)} {Product?.reviews?.length}</div>
+                            <div className='reviewSendCont'><textarea value={reviewAbout} onChange={(e) => setreviewAbout(e.target.value)} type="text" placeholder={(lang === "AZ" && `Fikrinizi bildirin`) || (lang === "EN" && `Let us know what you think`) || (lang === "RU" && `Поделитесь с нами вашими мыслями`)}/>  <div className="buttonContReviewSend"><div className="rateCont"><Rating value={sendStar} onChange={(e , newvalue) => setsendStar(newvalue)} name="read-only"/> {sendStar} {(lang === "AZ" && `Ulduz göndərilir`) || (lang === "EN" && `Star is sending`) || (lang === "RU" && `Звезда отправляет`)} </div>  <div className="Buttons"> <button onClick={()=>sendReview()} className='submit'>{(lang === "AZ" && `Göndər`) || (lang === "EN" && `Send`) || (lang === "RU" && `Отправить`)}</button><button onClick={() => cancelReviewSend()} className='cancel'>{(lang === "AZ" && `Ləğv et `) || (lang === "EN" && `Cancel`) || (lang === "RU" && `Отмена`)}</button></div></div> </div></div>
                             <button onClick={() => selectItem(props.id)} className="favorites">{SelectedsProduct.findIndex(x=> x.id === props.id) === -1 ? <FavoriteBorderIcon/> :  <FavoriteIcon/>}</button> 
                         </div>
                         <p className="desc">
-                            {lang === "AZ" && Product?.description_az || lang === "EN" && Product?.description_en || lang === "RU" && Product?.description_ru}
+                            {(lang === "AZ" && Product?.description_az) || (lang === "EN" && Product?.description_en) || (lang === "RU" && Product?.description_ru)}
                         </p>
-                        <p className="ingredients"><span className="ingredientsText">  {lang === "AZ" && `Tərkibi:` || lang === "EN" && `Ingredients:` || lang === "RU" && `Ингредиенты:`}</span> <span className="ingredientsFront"> {lang === "AZ" && Product?.terkibi || lang === "EN" && Product?.terkibi_en || lang === "RU" && Product?.terkibi_ru}</span>    </p>
-                        <p className="priceCont"> <span className="priceText">  {lang === "AZ" && `Qiyməti:` || lang === "EN" && `Price:` || lang === "RU" && `Цена:`}</span>  <span className="price">{money === "₼" ? Product?.qiymet : (Product?.qiymet  / 1.7).toFixed(2)} {money} </span> - <span className="weight">{Product?.ceki_hecm + " " + (parseInt(Product?.unit?.id) === 1 && `kq` || parseInt(Product?.unit?.id) === 4 && `gr` || parseInt(Product?.unit?.id) === 2 && `l`)}</span></p>
+                        <p className="ingredients"><span className="ingredientsText">  {(lang === "AZ" && `Tərkibi:`) || (lang === "EN" && `Ingredients:`) || (lang === "RU" && `Ингредиенты:`)}</span> <span className="ingredientsFront"> {(lang === "AZ" && Product?.terkibi) || (lang === "EN" && Product?.terkibi_en) || (lang === "RU" && Product?.terkibi_ru)}</span>    </p>
+                        <p className="priceCont"> <span className="priceText">  {(lang === "AZ" && `Qiyməti:`) || (lang === "EN" && `Price:`) || (lang === "RU" && `Цена:`)}</span>  <span className="price">{money === "₼" ? Product?.qiymet : (Product?.qiymet  / 1.7).toFixed(2)} {money} </span> - <span className="weight">{Product?.ceki_hecm + " " + ((parseInt(Product?.unit?.id) === 1 && `kq`) || (parseInt(Product?.unit?.id) === 4 && `gr`) || (parseInt(Product?.unit?.id) === 2 && `l`))} </span></p>
                         <div className="buttonsCont">
                             {
                                 ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count && 
@@ -329,7 +328,7 @@ function ProductModal(props) {
                                     <button  value="1" onClick={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title)}  className="incBtn">+</button>
                                 </div>
                             }
-                            <div className="part2"><Button1 value={lang === "AZ" && `Səbətə əlavə et` || lang === "EN" && `Add Basket` || lang === "RU" && `Добавить корзину`} color="#285999" function={ () => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title)}/></div>
+                            <div className="part2"><Button1 value={(lang === "AZ" && `Səbətə əlavə et`) || (lang === "EN" && `Add Basket`) || (lang === "RU" && `Добавить корзину`)} color="#285999" function={ () => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title)}/></div>
                         </div>
                     </div> 
                 </div>
@@ -339,9 +338,9 @@ function ProductModal(props) {
                     
                         <div className="topLinks">
                             <div className="btnContForLinks">
-                                <button className="button" style={checker ===1 ? styleChanger : null } id="btnLink1" onClick={() => clickHandler(1)}> {lang === "AZ" && `Haqqında` || lang === "EN" && `About` || lang === "RU" && `О`}                       </button>
-                                <button className="button" style={checker ===2 ? styleChanger : null } id="btnLink2" onClick={() => clickHandler(2)}> {lang === "AZ" && `Şərh` || lang === "EN" && `Reviews` || lang === "RU" && `Отзывы`}                    </button>
-                                <button className="button" style={checker ===3 ? styleChanger: null}   id="btnLink3" onClick={() => clickHandler(3)}> {lang === "AZ" && `Sertifikatlar` || lang === "EN" && `Certificates` || lang === "RU" && `Сертификаты`} </button>
+                                <button className="button" style={checker ===1 ? styleChanger : null } id="btnLink1" onClick={() => clickHandler(1)}> {(lang === "AZ" && `Haqqında`) || (lang === "EN" && `About`) || (lang === "RU" && `О продукте`)}                       </button>
+                                <button className="button" style={checker ===2 ? styleChanger : null } id="btnLink2" onClick={() => clickHandler(2)}> {(lang === "AZ" && `Şərh`) || (lang === "EN" && `Reviews`) || (lang === "RU" && `Отзывы`)}                    </button>
+                                <button className="button" style={checker ===3 ? styleChanger: null}   id="btnLink3" onClick={() => clickHandler(3)}> {(lang === "AZ" && `Sertifikatlar`) || (lang === "EN" && `Certificates`) || (lang === "RU" && `Сертификаты`)} </button>
                                 <hr/>
                                 <div className="linkComponent">
                                     {checker === 1 ? <Description ProductSimilar={ProductSimilar}  Product={Product !== [] && Product}/> : "" }

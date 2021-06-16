@@ -79,30 +79,30 @@ function DateCropLang(props) {
         }
         else if (lang === 'RU')
         {
-            if (day === 1) {
+            if (day === "1") {
                 setgetday('По')
             }
-            else if(day === 2)
+            else if(day === "2")
             {
                 setgetday('Вт')
             }
-            else if(day === 3)
+            else if(day === "3")
             {
                 setgetday('Ср')
             }
-            else if(day === 4)
+            else if(day === "4")
             {
                 setgetday('Чт')
             }
-            else if(day === 5)
+            else if(day === "5")
             {
                 setgetday('Пт')
             }
-            else if(day === 6)
+            else if(day === "6")
             {
                 setgetday('Су')
             }
-            else if(day === 7)
+            else if(day === "7")
             {
                 setgetday('Во')
             }

@@ -129,7 +129,7 @@ function TopNavbarPart2(props) {
                             </div>}
                             {searchBottomMQ &&
                             <>
-                            <input  onChange={(e) => searchChange(e)} type="text" placeholder={lang === "AZ" && `Axtarış` || lang === "EN" && `Search` || lang === "RU" && `Поиск`}/>
+                            <input  onChange={(e) => searchChange(e)} type="text" placeholder={(lang === "AZ" && `Axtarış`) || (lang === "EN" && `Search`) || (lang === "RU" && `Поиск`)}/>
                             <button type='submit' className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
                             </>}
                         </form>

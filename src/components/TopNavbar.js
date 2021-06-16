@@ -62,7 +62,7 @@ function TopNavbar(props) {
     const enableMobile = useMediaQuery('(min-width:650px)') 
     const elements = useMediaQuery('(min-width:650px)') 
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
-    const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
+    const notifyLogin = () => toast.warning( ((lang === "AZ" && `Hesabınıza daxil olun!`) || (lang === "EN" && `Enter your account!`) || (lang === "RU" && `Войдите в свой аккаунт!`)) , {draggable: true,});
     
     const [UserData, setUserData] = useState(0)
     useEffect(() => {
@@ -176,20 +176,20 @@ function TopNavbar(props) {
         >
         <div className="swiperCont">
             <div>
-                <div className='menu'> <p> {lang === "AZ" && `Menyu` || lang === "EN" && `Menu` || lang === "RU" && `Меню`}</p>  <button onClick={toggleDrawer(anchor, false)}> &#10006;</button></div>  
+                <div className='menu'> <p> {(lang === "AZ" && `Menyu`) || (lang === "EN" && `Menu`) || (lang === "RU" && `Меню`)}</p>  <button onClick={toggleDrawer(anchor, false)}> &#10006;</button></div>  
 
                 <div className="assortmentDrawer">
-                        <button onClick={() => DrawerAssort()} className="title"><WidgetsIcon /> <p>  {lang === "AZ" && `Məhsul Çeşidləri` || lang === "EN" && `Product Assortments` || lang === "RU" && `Ассортимент продукции`}</p> <ArrowDropUpIcon/></button>
+                        <button onClick={() => DrawerAssort()} className="title"><WidgetsIcon /> <p>  {(lang === "AZ" && `Məhsul Çeşidləri`) || (lang === "EN" && `Product Assortments`) || (lang === "RU" && `Ассортимент продукции`)}</p> <ArrowDropUpIcon/></button>
                         <div className='assortmentCont' id='assrtDrawId'>
-                            {props.TopCategory.map(element => <a href={`/category/${element.id}`}>{lang === "AZ" && element.name_az || lang === "EN" && element.name_en || lang === "RU" && element.name_ru}</a>)}
+                            {props.TopCategory.map(element => <a href={`/category/${element.id}`}>{(lang === "AZ" && element.name_az) || (lang === "EN" && element.name_en) || (lang === "RU" && element.name_ru)}</a>)}
                         </div >
                 </div>
 
                 <div className="links">
-                        <Link to="/" id="homepage"> {lang === "AZ" && `Əsas səhifə` || lang === "EN" && `Main page` || lang === "RU" && `Главная страница`}</Link>
-                        <Link to="/promotions"  id="promotions"> {lang === "AZ" && `Endirimlər` || lang === "EN" && `Discounts` || lang === "RU" && `Скидки`}</Link>
-                        <Link to="/about" id="about"> {lang === "AZ" && `Haqqımızda` || lang === "EN" && `About us` || lang === "RU" && `О нас`}</Link>
-                        <Link to="/contact" id="contact"> {lang === "AZ" && `Əlaqə` || lang === "EN" && `Contact` || lang === "RU" && `Контакт`}</Link>
+                        <Link to="/" id="homepage"> {(lang === "AZ" && `Əsas səhifə`) || (lang === "EN" && `Main page`) || (lang === "RU" && `Главная страница`)}</Link>
+                        <Link to="/promotions"  id="promotions"> {(lang === "AZ" && `Endirimlər`) || (lang === "EN" && `Discounts`) || (lang === "RU" && `Скидки`)}</Link>
+                        <Link to="/about" id="about"> {(lang === "AZ" && `Haqqımızda`) || (lang === "EN" && `About us`) || (lang === "RU" && `О нас`)}</Link>
+                        <Link to="/contact" id="contact"> {(lang === "AZ" && `Əlaqə`) || (lang === "EN" && `Contact`) || (lang === "RU" && `Контакт`)}</Link>
                 </div>
                 <div className="lang"> 
                         <button>AZ</button>
@@ -203,7 +203,7 @@ function TopNavbar(props) {
                     <p className="phone">{props.number1}</p>
                     <p className="phone">{props.number2}</p>
                 </div>
-                <p className="location"> {lang === "AZ" && `Bakı , Azerbaijan ` || lang === "EN" && `Baku, Azerbaijan` || lang === "RU" && `Баку, Азербайджан`}</p>
+                <p className="location"> {(lang === "AZ" && `Bakı , Azerbaijan `) || (lang === "EN" && `Baku, Azerbaijan`) || (lang === "RU" && `Баку, Азербайджан`)}</p>
                 <p className="email">nehra@info.az</p>
                 <div className="social"> <FacebookIcon/> <InstagramIcon/> <TwitterIcon/>  </div>
             </div>
@@ -248,13 +248,11 @@ function TopNavbar(props) {
                     {!leftImgMQ && <Link to="/" ><img src={logoNehre3} alt="" width="100" height="auto"/></Link>}
                     <div className="phoneAndSearch">
 
-                        
-
                         <div className="searchAndIcons">
                             {
                                 searchTopMQ && 
                                 <form action='search' onSubmit={() => searchHandler()}  className="inputAndIcon">
-                                    <input onChange={(e) => searchChange(e)} type="text" placeholder={lang === "AZ" && `Axtarış` || lang === "EN" && `Search` || lang === "RU" && `Поиск`}/>
+                                    <input onChange={(e) => searchChange(e)} type="text" placeholder={(lang === "AZ" && `Axtarış`) || (lang === "EN" && `Search`) || (lang === "RU" && `Поиск`)}/>
                                     <button type='button'  className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
                                 </form>
                             }

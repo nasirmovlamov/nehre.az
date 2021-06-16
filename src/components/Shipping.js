@@ -6,7 +6,7 @@ function Shipping() {
 
     return (
         <div className="reviewCont aboutShipping">
-            <p className="title">{lang === "AZ" && `Çatdırılma haqqında` || lang === "EN" && `About delivery` || lang === "RU" && `О доставке`} </p>
+            <p className="title">{(lang === "AZ" && `Çatdırılma haqqında`) || (lang === "EN" && `About delivery`) || (lang === "RU" && `О доставке`)} </p>
             <p className="subTitle"></p>
             <div className="aboutShippingText">
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci libero possimus totam incidunt? Aut provident, quidem totam nesciunt qui repudiandae odio, officia, expedita veniam enim quisquam? Obcaecati magni blanditiis vel!</p>

@@ -26,8 +26,8 @@ function ForgotPass(props) {
 
     const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
     const validationSchema = yup.object({
-        password: yup.string().matches(passRegex ,(lang === "AZ" && `Şifrəniz ən az 8 simvol 1 böyük hərf 1 kiçik hərf və 1 rəqəm təşkil etməlidir` || lang === "EN" && `Your password must be at least 8 characters, 1 uppercase letter, 1 lowercase letter, and 1 digit` || lang === "RU" && `Ваш пароль должен состоять не менее чем из 8 символов, 1 заглавной буквы, 1 строчной буквы и 1 цифры.`)).required(lang === "AZ" && `Şifrənizi daxil edin` || lang === "EN" && `Enter password` || lang === "RU" && `Введите пароль`),
-        confirmPassword: yup.string().oneOf([yup.ref('password'), null], (lang === "AZ" && `Şifrələr uyğun deyil` || lang === "EN" && `Passwords do not match` || lang === "RU" && `Пароли не соответствуют`)).required(lang === "AZ" && `Şifrənizi daxil edin` || lang === "EN" && `Enter password` || lang === "RU" && `Введите пароль`)
+        password: yup.string().matches(passRegex ,((lang === "AZ" && `Şifrəniz ən az 8 simvol 1 böyük hərf 1 kiçik hərf və 1 rəqəm təşkil etməlidir`) || (lang === "EN" && `Your password must be at least 8 characters, 1 uppercase letter, 1 lowercase letter, and 1 digit`) || (lang === "RU" && `Ваш пароль должен состоять не менее чем из 8 символов, 1 заглавной буквы, 1 строчной буквы и 1 цифры.`))).required((lang === "AZ" && `Şifrənizi daxil edin`) || (lang === "EN" && `Enter password`) || (lang === "RU" && `Введите пароль`)),
+        confirmPassword: yup.string().oneOf([yup.ref('password'), null], ((lang === "AZ" && `Şifrələr uyğun deyil`) || (lang === "EN" && `Passwords do not match`) || (lang === "RU" && `Пароли не соответствуют`))).required((lang === "AZ" && `Şifrənizi daxil edin`) || (lang === "EN" && `Enter password`) || (lang === "RU" && `Введите пароль`))
     })
     
 
@@ -35,17 +35,17 @@ function ForgotPass(props) {
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} validateOnChange={true} validateOnBlur={false}>
             <Form className="authSms forgotPass"  method="POST">
                 <div className='closeBtn'><button onClick={props.functionClose}>&#10006;</button></div>
-                <p className="title">{lang === "AZ" && `Şifrəni daxil edin` || lang === "EN" && `Enter the password` || lang === "RU" && `Введите пароль`}</p>
+                <p className="title">{(lang === "AZ" && `Şifrəni daxil edin`) || (lang === "EN" && `Enter the password`) || (lang === "RU" && `Введите пароль`)}</p>
                 <div className="errorsNew">
-                    <Field type="password" className="value" name="password" placeholder={lang === "AZ" && `Şifrəni daxil edin` || lang === "EN" && `Enter the password` || lang === "RU" && `Введите пароль`} type="password"/>
+                    <Field type="password" className="value" name="password" placeholder={(lang === "AZ" && `Şifrəni daxil edin`) || (lang === "EN" && `Enter the password`) || (lang === "RU" && `Введите пароль`)} type="password"/>
                     <ErrorMessage name="password"/>
                 </div>
 
                 <div className="errorsNew">
-                    <Field type="password" className="value" name="confirmPassword" placeholder={lang === "AZ" && `Şifrəni təsdiqləyin` || lang === "EN" && `Confirm password` || lang === "RU" && `Подтвердить Пароль`} type="password"/>
+                    <Field type="password" className="value" name="confirmPassword" placeholder={(lang === "AZ" && `Şifrəni təsdiqləyin`) || (lang === "EN" && `Confirm password`) || (lang === "RU" && `Подтвердить Пароль`)} type="password"/>
                     <ErrorMessage name="confirmPassword"/>
                 </div>
-                <button type='submit' className='submitBtn'>{lang === "AZ" && `Daxil edin` || lang === "EN" && `Submit` || lang === "RU" && `Bходить`}</button>
+                <button type='submit' className='submitBtn'>{(lang === "AZ" && `Daxil edin`) || (lang === "EN" && `Submit`) || (lang === "RU" && `Bходить`)}</button>
                 {loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={"30px"} width={"30px"} />}
             </Form>
         </Formik>

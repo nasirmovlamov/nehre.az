@@ -23,10 +23,10 @@ function Reminders() {
     }, [])
     return (
         <div className="cabinetCont orders bookmarks reminders">
-        <p className="title">{lang === "AZ" && `Bildirişlərim` || lang === "EN" && `Search` || lang === "RU" && `Мои уведомления`}</p>
+        <p className="title">{(lang === "AZ" && `Bildirişlərim`) || (lang === "EN" && `Search`) || (lang === "RU" && `Мои уведомления`)}</p>
         {/* <p className="subTitle">{lang === "AZ" && `E-poçt və ya SMS ilə bir xəbərdarlıq əlavə edin və sifariş verməyinizi xatırlatacağıq.` || lang === "EN" && `Add an alert by e-mail or SMS, and we will remind you to place an order. ` || lang === "RU" && `Добавьте оповещение по электронной почте или SMS, и мы напомним вам о размещении заказа.`}</p> */}
         <div className="gridCont1">
-            <p className="alerts">{Notfs.length > 0 ? Notfs.map(notf =><Notification notf={notf}/>)  :     (lang === "AZ" && `Bildirişiniz yoxdur!` || lang === "EN" && `You have no notfications! ` || lang === "RU" && `У вас нет уведомлений!`)} </p>
+            <p className="alerts">{Notfs.length > 0 ? Notfs.map(notf =><Notification notf={notf}/>)  :     ((lang === "AZ" && `Bildirişiniz yoxdur!`) || (lang === "EN" && `You have no notfications! `) || (lang === "RU" && `У вас нет уведомлений!`))} </p>
         </div>
     </div>
     )

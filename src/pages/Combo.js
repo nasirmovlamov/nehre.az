@@ -161,7 +161,7 @@ function Combo(props) {
         <div className="comboPage"> 
             <div className="topPart">
                 <div className="titleProducts">
-                        <p className="category"> <span> {lang === "AZ" && `əsas səhifə` || lang === "EN" && `home` || lang === "RU" && `домашняя страница`}  • {lang === "AZ" && CategoryData?.overvew.name_az || lang === "EN" && CategoryData?.overvew.name_en || lang === "RU" && CategoryData?.overvew.name_ru }</span>  </p>
+                        <p className="category"> <span> {(lang === "AZ" && `Əsas Səhifə`) || (lang === "EN" && `Homepage`) || (lang === "RU" && `Домашняя страница`)} • {lang === "AZ" && CategoryData?.overvew.name_az || lang === "EN" && CategoryData?.overvew.name_en || lang === "RU" && CategoryData?.overvew.name_ru }</span>  </p>
                         <h2 className="categoryName">{lang === "AZ" && CategoryData?.overvew.name_az || lang === "EN" && CategoryData?.overvew.name_en || lang === "RU" && CategoryData?.overvew.name_ru }</h2>
                 </div>
             </div>

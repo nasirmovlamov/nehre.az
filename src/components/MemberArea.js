@@ -116,7 +116,7 @@ function MemberArea(props) {
               className="btnmemberarea"
               id="btn1"
             >
-              <AccountCircleIcon /> Şəxsi Kabinet
+              <AccountCircleIcon />  {(lang === "AZ" && `Şəxsi Kabinet`) || (lang === "EN" && `Cabinet`) || (lang === "RU" && `Личный кабинет`)}
             </button>
           </Link>
           <Link to="/memberarea/password" className="password">
@@ -124,7 +124,7 @@ function MemberArea(props) {
               className="btnpassword"
               id="btn2"
             >
-              <LockIcon /> Şifrə
+              <LockIcon /> {(lang === "AZ" && `Şifrə`) || (lang === "EN" && `Password`) || (lang === "RU" && `Пароль`)}
             </button>
           </Link>
           <Link to="/memberarea/address" className="address">
@@ -133,7 +133,7 @@ function MemberArea(props) {
               id="btn3"
             >
               <LocationOnIcon />
-              Ünvan
+              {(lang === "AZ" && `Ünvan`) || (lang === "EN" && `Address`) || (lang === "RU" && `Адрес`)}
             </button>
           </Link>
           <Link to="/memberarea/bookmarks" className="bookmarks">
@@ -141,7 +141,7 @@ function MemberArea(props) {
               className="btnbookmarks"
               id="btn4"
             >
-              <FavoriteIcon /> Seçilmişlər
+              <FavoriteIcon /> {(lang === "AZ" && `Seçilmişlər`) || (lang === "EN" && `Selected`) || (lang === "RU" && `Выбрано`)}
             </button>
           </Link>
           <Link to="/memberarea/orders" className="orders">
@@ -149,7 +149,7 @@ function MemberArea(props) {
               className="btnorders"
               id="btn5"
             >
-              <DescriptionIcon /> Sifarişlər
+              <DescriptionIcon />  {(lang === "AZ" && `Sifarişlər`) || (lang === "EN" && `Orders`) || (lang === "RU" && `Заказы`)}
             </button>
           </Link>
           <Link to="/memberarea/reminders" className="reminders">
@@ -157,7 +157,7 @@ function MemberArea(props) {
               className="btnreminders"
               id="btn6"
             >
-              <NotificationsIcon /> Bildirişlər
+              <NotificationsIcon /> {(lang === "AZ" && `Bildirişlər`) || (lang === "EN" && `Notifications`) || (lang === "RU" && `Уведомления`)}
             </button>
           </Link>
           <Link to="/memberarea/bonuses" className="bonuses">
@@ -165,7 +165,7 @@ function MemberArea(props) {
               className="btnbonuses"
               id="btn7"
             >
-              <MonetizationOnIcon /> Bonuslar
+              <MonetizationOnIcon /> {(lang === "AZ" && `Bonuslar`) || (lang === "EN" && `Bonuses`) || (lang === "RU" && `Бонусы`)}
             </button>
           </Link>
           <Link to="/memberarea/deposite" className="deposites">
@@ -174,7 +174,7 @@ function MemberArea(props) {
               id="btn8"
             >
               <AccountBalanceWalletIcon />
-              Depozitlər
+              {(lang === "AZ" && `Depozitlər`) || (lang === "EN" && `Deposits`) || (lang === "RU" && `Депозиты`)}
             </button>
           </Link>
           <Link to="/memberarea/free-shipping" className="freeShipping">
@@ -182,18 +182,18 @@ function MemberArea(props) {
               className="btnfree-shipping"
               id="btn9"
             >
-              <LocalShippingIcon /> Çatdırılma
+              <LocalShippingIcon />  {(lang === "AZ" && `Çatdırılma`) || (lang === "EN" && `Delivery`) || (lang === "RU" && `Доставка`)}
             </button>
           </Link>
           <Link to="/memberarea/reviews" className="reviews">
             <button id="btnreviews" id="btn10" >
-              <ChatBubbleIcon /> Şərhlər
+              <ChatBubbleIcon /> {(lang === "AZ" && `Şərhlər`) || (lang === "EN" && `Comments`) || (lang === "RU" && `Комментарии`)}
             </button>
           </Link>
           <hr />
           <a href="/">
             <button onClick={logOut}>
-              <ExitToAppIcon /> Log out
+              <ExitToAppIcon />{(lang === "AZ" && ` Çıxış`) || (lang === "EN" && `Log out`) || (lang === "RU" && `Выйти`)}
             </button>
           </a>
         </aside>
@@ -235,7 +235,7 @@ function MemberArea(props) {
               className="memberAreaSwiper"
               onClick={toggleDrawer("left", true)}
             >
-              <ListIcon /> <span>Kabinet</span>{" "}
+              <ListIcon /> <span>{(lang === "AZ" && `Şəxsi Kabinet`) || (lang === "EN" && `Cabinet`) || (lang === "RU" && `Личный кабинет`)}</span>{" "}
             </button>
             <Drawer
               anchor={"left"}
@@ -251,75 +251,75 @@ function MemberArea(props) {
           <aside className="aside">
             <Link to="/memberarea" className="contact">
               <button style={styler('/memberarea')} >
-                <AccountCircleIcon />  {lang === "AZ" && `Şəxsi Kabinet ` || lang === "EN" && `Personal Cabinet` || lang === "RU" && `Личный кабинет`}
+                <AccountCircleIcon />  {(lang === "AZ" && `Şəxsi Kabinet `) || (lang === "EN" && `Personal Cabinet`) || (lang === "RU" && `Личный кабинет`)}
               </button>
             </Link>
 
             <Link to="/memberarea/password" className="password">
               <button  style={styler('/memberarea/password')} >
-                <LockIcon />   {lang === "AZ" && `Şifrə` || lang === "EN" && `Password` || lang === "RU" && `Пароль`}
+                <LockIcon />   {(lang === "AZ" && `Şifrə`) || (lang === "EN" && `Password`) || (lang === "RU" && `Пароль`)}
               </button>
             </Link>
 
             <Link to="/memberarea/address" className="address">
               <button style={styler('/memberarea/address')}  >
                 <LocationOnIcon />
-                {lang === "AZ" && `Ünvan` || lang === "EN" && `Address` || lang === "RU" && `Адрес`}
+                {(lang === "AZ" && `Ünvan`) || (lang === "EN" && `Address`) || (lang === "RU" && `Адрес`)}
               </button>
             </Link>
 
             <Link to="/memberarea/bookmarks" className="bookmarks">
               <button style={styler('/memberarea/bookmarks')}>
                 <FavoriteIcon /> 
-                {lang === "AZ" && `Seçilmişlər` || lang === "EN" && `Selected` || lang === "RU" && `Выбрано`}
+                {(lang === "AZ" && `Seçilmişlər`) || (lang === "EN" && `Selected`) || (lang === "RU" && `Выбрано`)}
               </button>
             </Link>
 
             <Link to="/memberarea/orders" className="orders">
               <button  style={styler('/memberarea/orders')}>
                 <DescriptionIcon /> 
-                {lang === "AZ" && `Sifarişlər` || lang === "EN" && `Orders` || lang === "RU" && `Заказы`}
+                {(lang === "AZ" && `Sifarişlər`) || (lang === "EN" && `Orders`) || (lang === "RU" && `Заказы`)}
               </button>
             </Link>
 
             <Link to="/memberarea/reminders" className="reminders">
               <button style={styler('/memberarea/reminders')} >
                 <NotificationsIcon /> 
-                {lang === "AZ" && `Bildirişlər` || lang === "EN" && `Notifications` || lang === "RU" && `Уведомления`}
+                {(lang === "AZ" && `Bildirişlər`) || (lang === "EN" && `Notifications`) || (lang === "RU" && `Уведомления`)}
               </button>
             </Link>
 
             <Link to="/memberarea/bonuses" className="bonuses">
               <button style={styler('/memberarea/bonuses')}>
                 <MonetizationOnIcon /> 
-                {lang === "AZ" && `Bonuslar` || lang === "EN" && `Bonuses` || lang === "RU" && `Бонусы`}
+                {(lang === "AZ" && `Bonuslar`) || (lang === "EN" && `Bonuses`) || (lang === "RU" && `Бонусы`)}
               </button>
             </Link>
 
             <Link to="/memberarea/deposite" className="deposites">
               <button style={styler('/memberarea/deposite')}>
                 <AccountBalanceWalletIcon />
-                {lang === "AZ" && `Depozitlər` || lang === "EN" && `Deposits` || lang === "RU" && `Депозиты`}
+                {(lang === "AZ" && `Depozitlər`) || (lang === "EN" && `Deposits`) || (lang === "RU" && `Депозиты`)}
               </button>
             </Link>
 
             <Link to="/memberarea/free-shipping" className="freeShipping">
               <button style={styler('/memberarea/free-shipping')}>
                 <LocalShippingIcon /> 
-                {lang === "AZ" && `Çatdırılma` || lang === "EN" && `Delivery` || lang === "RU" && `Доставка`}
+                {(lang === "AZ" && `Çatdırılma`) || (lang === "EN" && `Delivery`) || (lang === "RU" && `Доставка`)}
               </button>
             </Link>
             <Link to="/memberarea/reviews" className="reviews">
               <button  style={styler('/memberarea/reviews')}>
                 <ChatBubbleIcon /> 
-                {lang === "AZ" && `Şərhlər` || lang === "EN" && `Comments` || lang === "RU" && `Комментарии`}
+                {(lang === "AZ" && `Şərhlər`) || (lang === "EN" && `Comments`) || (lang === "RU" && `Комментарии`)}
               </button>
             </Link>
             <hr />
             <a href="/">
               <button onClick={logOut}>
                 <ExitToAppIcon /> 
-                {lang === "AZ" && `Çıxış` || lang === "EN" && `Exit` || lang === "RU" && `Exit`}
+                {(lang === "AZ" && `Çıxış`) || (lang === "EN" && `Exit`) || (lang === "RU" && `Exit`)}
               </button>
             </a>
           </aside>

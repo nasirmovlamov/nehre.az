@@ -59,7 +59,7 @@ function AuthSms(props) {
         <div method='POST' onSubmit={onSubmit} className='authSms'>
             <div className='closeBtn'><button onClick={props.functionClose}>&#10006;</button></div>
             
-            <p className="tit">{lang === "AZ" &&  `Hesab Təsdiqləmə`    || lang === "EN" && `Account Verification` || lang === "RU" && `Верификация учетной записи`}</p>
+            <p className="tit">{(lang === "AZ" &&  `Hesab Təsdiqləmə`)    || (lang === "EN" && `Account Verification`) || (lang === "RU" && `Верификация учетной записи`)}</p>
            
             +{Phone} <br/> {lang === "AZ" && `Nömrəsinə göndərilən kod` || lang === "EN" && `the code sent to the number` || lang === "RU" && `код, отправленный на номер`} 
             

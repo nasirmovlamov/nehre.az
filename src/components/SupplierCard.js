@@ -30,7 +30,7 @@ function SupplierCard(props) {
                 <div className="imgAvatar" style={imgHandler}></div>
                 <div>
                     <p className="title">{props.title}</p>
-                    <p className="subTitle">{props.supplier} <span style={{color:"rgba(0,0,0,0.5)"}}>  {lang === "AZ" && `Kəndli` || lang === "EN" && `Supplier` || lang === "RU" && `Поставщик`}</span> </p>    
+                    <p className="subTitle">{props.supplier} <span style={{color:"rgba(0,0,0,0.5)"}}>  {(lang === "AZ" && `Kəndli`) || (lang === "EN" && `Supplier`) || (lang === "RU" && `Поставщик`)}</span> </p>    
                 </div>    
             </div>
 

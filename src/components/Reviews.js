@@ -21,7 +21,7 @@ function Reviews(props) {
         <div className="reviews">
             <div className="reviewsCont">
                 {props.SSReviews !== undefined && ( props.SSReviews.length > 0 ?  props.SSReviews.map(element => <Review user_name={element.user_name} date={element.created_at.slice(0, 10).replaceAll('-' , '.')} review={element.review} star_count={element.star_count}/>) : "Bu Tədarükçüyə şərh yazılmayıb")}
-                {loader && (props.product && (reviews.length > 0 ? reviews.map(element => <Review user_name={element.user_name} date={element.created_at.slice(0, 10).replaceAll('-' , '.')} review={element.review} star_count={element.star_count}/>) : (<p className='noReview'>{lang === "AZ" && "Bu məhsula şərh yazılmayıb" || lang === "EN" && `There are no comments for this product` || lang === "RU" && `К этому продукту нет комментариев`}</p>)))}
+                {loader && (props.product && (reviews.length > 0 ? reviews.map(element => <Review user_name={element.user_name} date={element.created_at.slice(0, 10).replaceAll('-' , '.')} review={element.review} star_count={element.star_count}/>) : (<p className='noReview'>{(lang === "AZ" && "Bu məhsula şərh yazılmayıb") || (lang === "EN" && `There are no comments for this product`) || (lang === "RU" && `К этому продукту нет комментариев`)}</p>)))}
             </div>
         </div>
     )

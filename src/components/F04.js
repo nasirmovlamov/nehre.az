@@ -9,7 +9,7 @@ function F04() {
     return (
         <div className="F04Page">
             <img src={F04img} alt="404" width="501"/>
-            {lang === "AZ" && `Axtarışınıza uyğun nəticə tapılmadı` || lang === "EN" && `No results found for your search` || lang === "RU" && `По вашему запросу ничего не найдено`}</div>
+            {(lang === "AZ" && `Axtarışınıza uyğun nəticə tapılmadı`) || (lang === "EN" && `No results found for your search`) || (lang === "RU" && `По вашему запросу ничего не найдено`)}</div>
     )
 }
 

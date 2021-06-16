@@ -16,10 +16,10 @@ function PasswordChanger(props) {
     return (
         <div className='authSms'>
             <div><button onClick={props.functionClose}>x</button></div>
-            <p className="tit">{lang === "AZ" && `Şifrə yeniləmə` || lang === "EN" && `Password Update` || lang === "RU" && `Обновление пароля`} </p>
+            <p className="tit">{(lang === "AZ" && `Şifrə yeniləmə`) || (lang === "EN" && `Password Update`) || (lang === "RU" && `Обновление пароля`)} </p>
             <input onChange={(e) => changeEmail(e)} type="text" name="" id=""/>
             <input type="number" name="" id=""/>
-            <button>{lang === "AZ" && `Daxil edin` || lang === "EN" && `Submit` || lang === "RU" && `Bходить`}</button>
+            <button>{(lang === "AZ" && `Daxil edin`) || (lang === "EN" && `Submit`) || (lang === "RU" && `Bходить`)}</button>
         </div>
     )
 }
