@@ -140,7 +140,7 @@ function HomePage(props) {
                 <div className="textCont2">
                     <h4 className="title2">{Banners1[0]?.title}</h4>
                     <p className="desc">{Banners1[0]?.description}</p>
-                    <a href={`${Banners1[0]?.link}`} className='perectSetCont'><Button1 value="Ətraflı" color="#285999"/></a>
+                    <a href={`${Banners1[0]?.link}`} className='perectSetCont'><Button1 value={(lang === "AZ" && `Ətraflı`) || (lang === "EN" && `More`) || (lang === "RU" && `Eще`)} color="#285999"/></a>
                 </div>
                 {
                     Banners1[0]?.video_switcher === 1 && 
@@ -178,7 +178,7 @@ function HomePage(props) {
                 <div className="textCont2">
                     <h4 className="title2">{Banners2[0]?.title}</h4>
                     <p className="desc">{Banners2[0]?.description}</p>
-                    <a href={`${Banners2[0]?.link}`} className='perectSetCont'><Button1 value="Ətraflı" color="#285999"/></a>
+                    <a href={`${Banners2[0]?.link}`} className='perectSetCont'><Button1 value={(lang === "AZ" && `Ətraflı`) || (lang === "EN" && `More`) || (lang === "RU" && `Eще`)} color="#285999"/></a>
                 </div>
                 {
                     Banners2[0]?.video_switcher === 1 && 

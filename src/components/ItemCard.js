@@ -252,7 +252,7 @@ function ItemCard(props) {
             <div className="textCont">
                 <div className="starAndAbout">
                     <p className="dscPrc">{(props.discount !== 0 && props.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{money === "₼" ? (props.price) : (props.price / 1.7).toFixed(1)} {money}</span></span>)}</p>
-                    <p className="priceAndWeightItem"><span className="element1"  style={props.discount && colorChang}>{money === "₼" ? discountHandler(props.discount) : (discountHandler(props.discount) / 1.7).toFixed(1)}  {money}</span> / <span className="element2">{props.weight + " " + (parseInt(props.unitType) === 1 && `kq` || parseInt(props.unitType) === 4 && `qr` || parseInt(props.unitType) === 2 && `l`)}</span> </p>
+                    <p className="priceAndWeightItem"><span className="element1"  style={props.discount && colorChang}>{money === "₼" ? discountHandler(props.discount) : (discountHandler(props.discount) / 1.7).toFixed(1)}  {money}</span> / <span className="element2">{props.weight + " " + (parseInt(props.unitType) === 1 && `kq` || parseInt(props.unitType) === 4 && `gr` || parseInt(props.unitType) === 2 && `l`)}</span> </p>
                     <StarSystem numberStar={props.star}/>
                 </div>   
                 {!props.btnDisable && <BuyButton functionAdd={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title)}  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>}

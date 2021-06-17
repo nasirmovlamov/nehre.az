@@ -7,7 +7,7 @@ function Certificate(props) {
     props.Certificates.map(element => certificate.push(<ForCertificate image={element.cert_thumb} pdf={element.cert_pdf} /> ))
     return (
         <div className="certificates">
-            {certificate}
+            {props.Certificates.length > 0 && certificate}
         </div>
     )
 }

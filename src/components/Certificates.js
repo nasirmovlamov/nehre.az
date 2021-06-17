@@ -29,7 +29,7 @@ function Certificates(props) {
 
     return (
         <div className="certificates">
-            { props.Product?.cert_pdf?.length > 0 ? <button style={bgImage} onClick={handleOpen} className="certificate"><div className="overlay"><WallpaperIcon/></div></button> : <p className='certNo'>{(lang === "AZ" && "Sertifikat mövcud deyil.") || (lang === "EN" && `There are no comments for this product`) || (lang === "RU" && `К этому продукту нет комментариев`)}</p>}
+            { props.Product?.cert_pdf?.length > 0 ? <button style={bgImage} onClick={handleOpen} className="certificate"><div className="overlay"><WallpaperIcon/></div></button> : <p className='certNo'>{(lang === "AZ" && "Sertifikat mövcud deyil.") || (lang === "EN" && `Certificate not available.`) || (lang === "RU" && `Сертификат недоступен.`)}</p>}
             <Modal open={open} onClose={handleClose} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
                 {
                     <div className="imageCert">

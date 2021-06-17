@@ -59,12 +59,13 @@ function SelectedSupplier() {
                     <iframe  className="supplierVideo" src={`https://www.youtube.com/embed/${Supplier.video_link}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     <div className="about">
                         <p className="name">{Supplier.name}</p>
-                        <div className="starAndReview"><StarSystem numberStar={Supplier.star_count}/>  <p>{Supplier.review_count}  {(lang === "AZ" && `şərh`) || (lang === "EN" && `reviews`) || (lang === "RU" && `отзывы`)} </p> </div>
+                        <div className="starAndReview"><StarSystem numberStar={Supplier.star_count}/>  <p>{SSReviews?.length}  {(lang === "AZ" && `şərh`) || (lang === "EN" && `reviews`) || (lang === "RU" && `отзывы`)} </p> </div>
                         <p className="text">
-                            {Supplier.description}
+                            {(lang === "AZ" && Supplier.description) || (lang === "EN" && Supplier.description_en) || (lang === "RU" && Supplier.description_ru)}
+                            {}
                         </p>
                     </div>
-                 </div>  {/* Video and About */}
+                 </div>  
 
                  <div className="topLinks">
                     <div className="btnContForLinks">
@@ -75,10 +76,10 @@ function SelectedSupplier() {
                         <hr/>
 
                         <div className="linkComponent">
-                            {checker === 1 ? <Products SupplierProduct={SupplierProduct }/> : "" }
-                            {checker === 2 ? <About description={Supplier.description}/> : ""}
-                            {checker === 3 ? <Certificate Certificates={Certificates}/> : ""}
-                            {checker === 4 ? <Reviews SSReviews={SSReviews}  /> : ""}
+                            {checker === 1 ? <Products      SupplierProduct={SupplierProduct }             /> : "" }
+                            {checker === 2 ? <About         description={(lang === "AZ" && Supplier.description) || (lang === "EN" && Supplier.description_en) || (lang === "RU" && Supplier.description_ru)}/> : ""}
+                            {checker === 3 ? <Certificate   Certificates={Certificates}                    /> : ""}
+                            {checker === 4 ? <Reviews       SSReviews={SSReviews}                          /> : ""}
                         </div>
                     </div>
                 </div>

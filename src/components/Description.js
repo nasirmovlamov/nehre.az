@@ -48,6 +48,15 @@ function Description(props) {
                     {(lang === "RU" && props?.Product?.enerji_deyeri_ru !== null && props?.Product?.enerji_deyeri_ru !== undefined) &&  <p className="textCont"><p className="label">{(`Энергия`)}</p> <p className="value">{(lang === "RU" && props?.Product?.enerji_deyeri_ru)}</p></p>}
                     
                     
+                    {(lang === "AZ" && props?.Product?.istifade_qaydasi !== null  && props?.Product?.istifade_qaydasi !== undefined) &&  <p className="textCont"><p className="label">{(`İstifadə Qaydası:`)}</p> <p className="value">{(lang === "AZ" && props?.Product?.istifade_qaydasi)}</p></p>}
+                    {(lang === "EN" && props?.Product?.istifade_qaydasi_en !== null && props?.Product?.istifade_qaydasi_en !== undefined) &&  <p className="textCont"><p className="label">{(`Instructions for use`)}</p> <p className="value">{(lang === "EN" && props?.Product?.istifade_qaydasi_en)}</p></p>}
+                    {(lang === "RU" && props?.Product?.istifade_qaydasi_ru !== null && props?.Product?.istifade_qaydasi_ru !== undefined) &&  <p className="textCont"><p className="label">{(`Инструкции по использованию`)}</p> <p className="value">{(lang === "RU" && props?.Product?.istifade_qaydasi_ru)}</p></p>}
+                    
+                    {(lang === "AZ" && props?.Product?.vacib_qeyd !== null  && props?.Product?.vacib_qeyd !== undefined) &&  <p className="textCont"><p className="label">{(`Vacib qeyd:`)}</p> <p className="value">{(lang === "AZ" && props?.Product?.vacib_qeyd)}</p></p>}
+                    {(lang === "EN" && props?.Product?.vacib_qeyd_en !== null && props?.Product?.vacib_qeyd_en !== undefined) &&  <p className="textCont"><p className="label">{(`Important note`)}</p> <p className="value">{(lang === "EN" && props?.Product?.vacib_qeyd_en)}</p></p>}
+                    {(lang === "RU" && props?.Product?.vacib_qeyd_ru !== null && props?.Product?.vacib_qeyd_ru !== undefined) &&  <p className="textCont"><p className="label">{(`Важная заметка`)}</p> <p className="value">{(lang === "RU" && props?.Product?.vacib_qeyd_ru)}</p></p>}
+                    
+                    
                     
                     { (lang === "AZ" && props?.Product?.srok  !== null && props?.Product?.srok  !== undefined) && <p className="textCont"><p className="label">{(`Saxlanma müddəti:`)}</p> <p className="value">{(lang === "AZ" && props?.Product?.srok)} </p></p>}
                     { (lang === "EN" && props?.Product?.srok_en  !== null && props?.Product?.srok_en  !== undefined) && <p className="textCont"><p className="label">{(`Shelf life:`)}</p> <p className="value">{(lang === "EN" && props?.Product?.srok_en)} </p></p>}
@@ -76,7 +85,7 @@ function Description(props) {
                             
                             <p className="name">
                                 {props?.Product?.seller_data?.name}
-                                <div className="starsAndReviews"><Rating value={props?.Product?.seller_data?.star_count !== undefined ? props?.Product?.seller_data?.star_count : 1 } readOnly />  <div className="reviews">  {(lang === "AZ" && `Şərh sayı - `) || (lang === "EN" && `Reviews - `) || (lang === "RU" && `Отзывы - `)} {props?.Product?.seller_data?.star_count}</div> </div>
+                                <div className="starsAndReviews"><Rating value={props?.Product?.seller_data?.star_count !== undefined ? props?.Product?.seller_data?.star_count : 0 } readOnly />  <div className="reviews">  {(lang === "AZ" && `Şərh sayı - `) || (lang === "EN" && `Reviews - `) || (lang === "RU" && `Отзывы - `)} {props?.Product?.seller_data?.star_count}</div> </div>
                             </p>
 
                             <p className="about">
