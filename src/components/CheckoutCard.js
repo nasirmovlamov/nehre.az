@@ -18,9 +18,10 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import moment from 'moment';
 import 'moment/locale/az';
 import 'moment/locale/ru';
+import DateCropLang from './DateCropLang';
 
 function CheckoutCard(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus] = useContext(ProductListingContext)
     const checkoutMobile = useMediaQuery('(max-width:600px)');
 
     const [Product, setProduct] = useState()
@@ -109,68 +110,38 @@ function CheckoutCard(props) {
                             }
                             <div className="aboutItem">
                             
-                                <p className="title">{Product?.title}</p>
-                                <p className="priceAndWeight">{ money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost  : (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost  / 1.7).toFixed(1)} {money}  / {Product?.ceki_hecm} {(parseInt(props.unitType) === 1 && `kq` || parseInt(props.unitType) === 4 && `gr` || parseInt(props.unitType) === 2 && `l`)}</p>
+                                <p className="title">{(lang === "AZ" && Product?.title_az) || (lang === "EN" && Product?.title_en) || (lang === "RU" && Product?.title_ru)}</p>
+                                <p className="priceAndWeight">{ money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost  : (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost  / 1.7).toFixed(1)} {money}  / {Product?.ceki_hecm} {(parseInt(props.unitType) === 1 && ((lang === "AZ" && `kq`) || (lang === "EN" && 'kq') || (lang === "RU" && 'кг')) || parseInt(props.unitType) === 4 &&  ((lang === "AZ" && `gr`) || (lang === "EN" && 'gr') || (lang === "RU" && 'гр')) || parseInt(props.unitType) === 2 && ((lang === "AZ" && `l`) || (lang === "EN" && 'l') || (lang === "RU" && 'л')) )}</p>
                                 <div className="dates">
                                 {props.delivery?.map(delivery =>
-                                    <>
-                                        {
-                                            delivery === "1" &&
-                                            <DarkTT title={`${newmonday}  çatdırılma `} placement="top" arrow>
-                                                <div className="date">Be</div>
-                                            </DarkTT>
-                                        }
-                                        {
-                                            delivery === "2" &&
-                                            <DarkTT title={`${newtuesday}  çatdırılma `}  placement="top" arrow>
-                                                <div className="date">Ça</div>
-                                            </DarkTT>
-                                        }
-                                        {
-                                            delivery === "3" &&
-                                            <DarkTT title={`${newwednesday}  çatdırılma `} placement="top" arrow>
-                                                <div className="date">Ç</div>
-                                            </DarkTT>
-                                        }
-                                        {
-                                            delivery === "4" &&
-                                            <DarkTT title={`${newthursday}  çatdırılma `} placement="top" arrow>
-                                                <div className="date">Ca</div>
-                                            </DarkTT>
-                                        }
-                                        {
-                                            delivery === "5" &&
-                                            <DarkTT title={`${newfriday}  çatdırılma `} placement="top" arrow>
-                                                <div className="date">C</div>
-                                            </DarkTT>
-                                        }
-                                        {
-                                            delivery === "6" &&
-                                            <DarkTT title={`${newsaturday}  çatdırılma `} placement="top" arrow>
-                                                <div className="date">Ş</div>
-                                            </DarkTT>
-                                        }
-                                        {
-                                            delivery === "7" &&
-                                            <DarkTT title={`${newsunday}  çatdırılma `} placement="top" arrow>
-                                                <div className="date">B</div>
-                                            </DarkTT>
-                                        }
-                                    </>
-                                )}
+                                <>
+                                    {
+                                        <DarkTT title={`${
+                                                        (delivery === "1" && newmonday) ||  
+                                                        (delivery === "2" && newtuesday) ||  
+                                                        (delivery === "3" && newwednesday) || 
+                                                        (delivery === "4" && newthursday) || 
+                                                        (delivery === "5" && newfriday) || 
+                                                        (delivery === "6" && newsaturday) ||
+                                                        (delivery === "7" && newsunday)}`} placement="top" arrow>
+                                            <div className="date"><DateCropLang day={delivery} /></div>
+                                        </DarkTT>
+                                    }
+                                </>
+                            )}  
                                 </div>
                             </div>
                             {
                                 !checkoutMobile &&
                                 <>
                                     <div className="btnCont">
-                                        {ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count && <Button1 function={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title)} value={<RemoveIcon/>} color="#085096"/>}
+                                        {ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count && <Button1 function={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title , props.bonus)} value={<RemoveIcon/>} color="#085096"/>}
                                         <p className="priceValue">{Product?.id !== undefined ? (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count) : 0}</p>
-                                        <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title)} value={<AddIcon/>}  color="#085096"/>
+                                        <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title , props.bonus)} value={<AddIcon/>}  color="#085096"/>
                                     </div>
 
                                     <p className="price">{ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)] !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count *  (money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost : (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost / 1.7))).toFixed(1) : 0}  {money}</p>
-                                    <button onClick={() => props.deleteCard(Product?.id , Product?.price , Product?.delivery)} className="delete"><DeleteIcon/></button>
+                                    <button onClick={() => props.deleteCard(Product?.id , Product?.price , Product?.delivery ,  props.bonus)} className="delete"><DeleteIcon/></button>
                                 </>    
                             }
 
@@ -179,9 +150,9 @@ function CheckoutCard(props) {
                                 checkoutMobile &&
                                 <div className='mobileCheckout'>
                                     <div className="btnCont">
-                                        <Button1 function={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit , Product?.delivery , Product?.title)} value={<RemoveIcon/>} color="#085096"/>
+                                        <Button1 function={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit , Product?.delivery , Product?.title, props.bonus)} value={<RemoveIcon/>} color="#085096"/>
                                         <p className="priceValue">{ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count}</p>
-                                        <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit , Product?.delivery , Product?.title)} value={<AddIcon/>}  color="#085096"/>
+                                        <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit , Product?.delivery , Product?.title , props.bonus)} value={<AddIcon/>}  color="#085096"/>
                                     </div>
                                     <p className="price">{Product?.id !== undefined  ? (money === "₼" ? (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count *  ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost) : (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count * ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost / 1.7).toFixed(1) ) : 0}   {money}</p>
                                     <button onClick={() => props.deleteCard(Product?.id , Product?.price)} className="delete"><DeleteIcon/></button>

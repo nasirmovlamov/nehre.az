@@ -42,6 +42,39 @@
   overflow: hidden;
 }
 
+.checkoutPage .addAddressBtn {
+  width: 100%;
+  margin-top: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.checkoutPage .addAddressBtn .btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: auto;
+  padding: 5px;
+  background-color: #7dbf2a;
+  border: none;
+  border-radius: 5px;
+  font-family: 'DaxlineR';
+  font-size: 15px;
+  color: white;
+  -webkit-column-gap: 5px;
+          column-gap: 5px;
+}
+
 .checkoutPage .datesCont {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -112,8 +145,6 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
   -webkit-column-gap: 5px;
           column-gap: 5px;
   row-gap: 10px;
@@ -124,9 +155,28 @@
       -ms-flex-align: center;
           align-items: center;
   margin-top: 5px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.checkoutPage .addAddress .addAddressInputs {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
+  row-gap: 10px;
 }
 
 .checkoutPage .addAddress input {
+  width: 100px;
   border-radius: 10px;
   font-size: 12px !important;
   background: transparent !important;
@@ -138,6 +188,47 @@
 
 .checkoutPage .addAddress input:focus {
   outline: none;
+}
+
+.checkoutPage .addAddress .inputLittle {
+  width: 100px;
+}
+
+.checkoutPage .addAddress .inputRayon {
+  width: 250px;
+}
+
+.checkoutPage .addAddress .inputNote {
+  width: 100%;
+}
+
+.checkoutPage .addAddress .submitCont {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.checkoutPage .addAddress .submitCont .submitBtn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: auto;
+  padding: 5px;
+  background-color: #7dbf2a;
+  border: none;
+  border-radius: 5px;
+  font-family: 'DaxlineR';
+  font-size: 15px;
+  color: white;
+  -webkit-column-gap: 5px;
+          column-gap: 5px;
 }
 
 .checkoutPage .addAddress select {

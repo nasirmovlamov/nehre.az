@@ -1,0 +1,158 @@
+.contactCont123 .gridCont1 {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-column-gap: 15px;
+          column-gap: 15px;
+  row-gap: 25px;
+  width: auto;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  margin-top: 25px;
+  justify-items: end;
+  width: 100%;
+}
+
+.contactCont123 .flexCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+}
+
+.contactCont123 .flexCont .error {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding-top: 3px;
+}
+
+.contactCont123 .flexCont .error p {
+  width: 67%;
+  text-align: center;
+  color: red;
+  font-family: 'DaxlineR';
+}
+
+.contactCont123 .inputCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-column-gap: 3%;
+          column-gap: 3%;
+}
+
+.contactCont123 .inputCont .text {
+  width: 30%;
+  font-size: 14px;
+  font-family: 'DaxlineR';
+  color: #525252;
+  font-weight: 700;
+  opacity: 0.8;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.contactCont123 .inputCont .input {
+  width: 67%;
+  color: black;
+  -ms-grid-column-align: start;
+      justify-self: start;
+  padding: 4px;
+  padding-left: 10px;
+  height: 30px;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  font-size: 15px;
+  font-family: inherit;
+  -ms-flex-item-align: start;
+      -ms-grid-row-align: start;
+      align-self: start;
+  justify-self: start;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  font-family: 'DaxlineR';
+}
+
+.contactCont123 .inputCont .input:focus {
+  outline: none;
+}
+
+.contactCont123 .inputCont .phoneinput {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.contactCont123 .inputCont .balanceUpbtn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
+  font-size: 14px;
+  font-family: 'DaxlineR';
+  color: #000000;
+  font-weight: 700;
+  opacity: 0.8;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.contactCont123 .inputCont .balanceUpbtn span {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #548d0f;
+}
+
+.contactCont123 .inputCont .balanceUpbtn .balanceBtn {
+  width: auto;
+  padding: 3px;
+  padding-left: 5px;
+  padding-right: 10px;
+  background-color: #7dbf2a;
+  -webkit-column-gap: 5px;
+          column-gap: 5px;
+  border: none;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+  font-size: 18px;
+  font-family: 'DaxlineR';
+}
+
+.contactCont123 .moreAbout {
+  width: auto !important;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+/*# sourceMappingURL=contact.css.map */

@@ -78,7 +78,6 @@ function Combo(props) {
       console.log("YES" + id);
     }
     const buyElement = (discount , id , weight , unitType , price , title, dates) => {
-        
         greater(id)
         console.log(discount + " " +  id + " " +  weight + " " +  unitType + " " +  price + " " +  title+ " " + " " +  dates);
     }
@@ -177,7 +176,7 @@ function Combo(props) {
                 {
                   loader === true ? <div className="loader"><ReactLoading type={"bubbles"} color={"#2d5d9b"} height={27} width={125} /></div> 
                   :
-                  ( ProductData.length >= 1 ? ProductData.map(product =>  <ItemCard btnDisable={true}  delivery={product?.delivery} image={product?.thumb}  title={product?.title}  desc={product?.seller_data?.name}  unitType={product?.unit?.id} id={product?.id} price={money === "₼" ? product?.qiymet : Math.floor(product?.qiymet / 1.7)}  weight={product?.ceki_hecm}  discount={product?.discount} productModal={props?.productModal}  id={product?.id}  star={product?.starsall}/>) :  ((lang === "AZ" && `Məhsul stokda mövcud deyil `) || (lang === "EN" && `The product is not available in stock`) || (lang === "RU" && `Товара нет в наличии`)))
+                  ( ProductData.length >= 1 ? ProductData.map(product =>  <ItemCard btnDisable={true}  delivery={product?.delivery} image={product?.thumb}  title={(lang === "AZ" && product?.title ) || (lang === "EN" && product?.title_en) || (lang === "RU" && product?.title_ru)}  desc={ (lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)}  unitType={product?.unit?.id} id={product?.id} price={money === "₼" ? product?.qiymet : Math.floor(product?.qiymet / 1.7)}  weight={product?.ceki_hecm}  discount={product?.discount} productModal={props?.productModal}  id={product?.id}  star={product?.starsall}/>) :  ((lang === "AZ" && `Məhsul stokda mövcud deyil `) || (lang === "EN" && `The product is not available in stock`) || (lang === "RU" && `Товара нет в наличии`)))
                 }
             </div>
 

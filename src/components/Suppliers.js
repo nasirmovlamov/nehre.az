@@ -16,7 +16,7 @@ function Suppliers() {
         .catch(err=> console.log(err))
     } , [])
     const supplierArr = []
-    Suppliers.map(supplier => supplierArr.push(<SupplierCard2 name={supplier.name} desc={lang === "AZ" && supplier.description || lang === "EN" && supplier.description_en || lang === "RU" && supplier.description_ru} image={supplier.avatar} id={supplier.id} star_count={supplier.star_count} />))
+    Suppliers.map(supplier => supplierArr.push(<SupplierCard2 name={lang === "AZ" && supplier.name || lang === "EN" && supplier.name_en || lang === "RU" && supplier.name_ru} desc={lang === "AZ" && supplier.description || lang === "EN" && supplier.description_en || lang === "RU" && supplier.description_ru} image={supplier.avatar} id={supplier.id} star_count={supplier.star_count} />))
     
     return (
         <div className="suppliersCont" >

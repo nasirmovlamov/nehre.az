@@ -34,7 +34,7 @@ function Description(props) {
                     { (lang === "EN" && props?.Product?.qiymet !== null && props?.Product?.qiymet !== undefined) && <p className="textCont"><p className="label">Price</p> <p className="value">{props?.Product?.qiymet} {money}</p></p>}
                     { (lang === "RU" && props?.Product?.qiymet !== null && props?.Product?.qiymet !== undefined) && <p className="textCont"><p className="label">Цена</p> <p className="value">{props?.Product?.qiymet} {money}</p></p>}
                     
-                    { (props?.Product?.ceki_hecm !== null) && <p className="textCont"><p className="label">{(lang === "AZ" && `Çəki`) || (lang === "EN" && `Weight`) || (lang === "RU" && `Масса`)}:</p> <p className="value">{props?.Product?.ceki_hecm + " " + ((parseInt(props.Product?.unit?.id) === 1 && `kq`) || (parseInt(props.Product?.unit?.id) === 4 && `gr`) || (parseInt(props.Product?.unit?.id) === 2 && `l`))}</p></p>}
+                    { (props?.Product?.ceki_hecm !== null) && <p className="textCont"><p className="label">{(lang === "AZ" && `Çəki`) || (lang === "EN" && `Weight`) || (lang === "RU" && `Масса`)}:</p> <p className="value">{props?.Product?.ceki_hecm + " " + (parseInt(props?.Product?.unit?.id) === 1 &&  ((lang === "AZ" && `kq`) || (lang === "EN" && 'kq') || (lang === "RU" && 'кг')) || parseInt(props?.Product?.unit?.id) === 4 &&  ((lang === "AZ" && `gr`) || (lang === "EN" && 'gr') || (lang === "RU" && 'гр'))|| parseInt(props?.Product?.unit?.id) === 2 && ((lang === "AZ" && `l`) || (lang === "EN" && 'l') || (lang === "RU" && 'л')) )}</p></p>}
                     
                     
                     { (lang === "AZ" && props?.Product?.terkibi  !== null && props?.Product?.terkibi  !== undefined) && <p className="textCont"><p className="label">{( `Tərkibi`)}:</p> <p className="value"> {(lang === "AZ" && props?.Product?.terkibi )}</p></p>}
@@ -74,9 +74,9 @@ function Description(props) {
                     { (lang === "RU" && props?.Product?.hazirlanma_yeri_ru !== null && props?.Product?.hazirlanma_yeri_ru !== undefined) && <p className="textCont"><p className="label">{(`Место производства:`)}</p> <p className="value">   {(lang === "RU" && props?.Product?.hazirlanma_yeri_ru)} </p></p> }
                     
                     
-                    { (lang === "AZ" && props?.Product?.istehsal_tarixi?.replaceAll('-' , '.') !== undefined) &&  <p className="textCont"><p className="label">{(`İstehsal tarixi:`)}</p> <p className="value">{lang === "AZ" && props?.Product?.istehsal_tarixi?.replaceAll('-' , '.')} </p></p> }
-                    { (lang === "EN" && props?.Product?.istehsal_tarixi?.replaceAll('-' , '.') !== undefined)  &&  <p className="textCont"><p className="label">{ (`Date of production:`)}</p> <p className="value">{lang === "AZ" && props?.Product?.istehsal_tarixi?.replaceAll('-' , '.')} </p></p> }
-                    { (lang === "RU" && props?.Product?.istehsal_tarixi?.replaceAll('-' , '.') !== undefined)   &&  <p className="textCont"><p className="label">{(`Дата производства:`)}</p> <p className="value">{lang === "AZ" && props?.Product?.istehsal_tarixi?.replaceAll('-' , '.')} </p></p> }
+                    { (lang === "AZ" && (props?.Product?.istehsal_tarixi !== undefined && props?.Product?.istehsal_tarixi !== null && props?.Product?.istehsal_tarixi !== "")) &&  <p className="textCont"><p className="label">{(`İstehsal tarixi:`)}</p> <p className="value">{props?.Product?.istehsal_tarixi?.replaceAll('-' , '.')} </p></p> }
+                    { (lang === "EN" && (props?.Product?.istehsal_tarixi !== undefined && props?.Product?.istehsal_tarixi !== null && props?.Product?.istehsal_tarixi !== ""))  &&  <p className="textCont"><p className="label">{ (`Date of production:`)}</p> <p className="value">{ props?.Product?.istehsal_tarixi?.replaceAll('-' , '.')} </p></p> }
+                    { (lang === "RU" && (props?.Product?.istehsal_tarixi !== undefined && props?.Product?.istehsal_tarixi !== null && props?.Product?.istehsal_tarixi !== ""))   &&  <p className="textCont"><p className="label">{(`Дата производства:`)}</p> <p className="value">{props?.Product?.istehsal_tarixi?.replaceAll('-' , '.')} </p></p> }
                 </div>
                 <div className="part2">
                         <div className="imgCont" style={imgHandler}> </div>
@@ -84,7 +84,7 @@ function Description(props) {
                         <div className="textCont"> 
                             
                             <p className="name">
-                                {props?.Product?.seller_data?.name}
+                                {lang === "AZ" && props?.Product?.seller_data?.name  || lang === "EN" && props?.Product?.seller_data?.name_en || lang === "RU" && props?.Product?.seller_data?.name_ru }
                                 <div className="starsAndReviews"><Rating value={props?.Product?.seller_data?.star_count !== undefined ? props?.Product?.seller_data?.star_count : 0 } readOnly />  <div className="reviews">  {(lang === "AZ" && `Şərh sayı - `) || (lang === "EN" && `Reviews - `) || (lang === "RU" && `Отзывы - `)} {props?.Product?.seller_data?.star_count}</div> </div>
                             </p>
 
@@ -107,7 +107,7 @@ function Description(props) {
                 <div className="similarProductsCont">
                         <p className="title"> {(lang === "AZ" && `Oxşar məhsullar`) || (lang === "EN" && `Similar products`) || (lang === "RU" && `Похожие продукты`)} </p>
                         <div className="similarProducts">
-                            {props.ProductSimilar.map(product =>  <ItemCard delivery={product?.delivery}  NumberOfGoods={props?.NumberOfGoods}  modalOpener3={props.modalOpener3} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={product?.seller_data?.name}  unitType={product?.unit.id} price={Math.floor(product?.qiymet)}  weight={product?.ceki_hecm}  discount={product?.discount}   star={product?.starsall}/>)}
+                            {props.ProductSimilar.map(product =>  <ItemCard delivery={product?.delivery}  NumberOfGoods={props?.NumberOfGoods}  modalOpener3={props.modalOpener3} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={ (lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)}  unitType={product?.unit.id} price={Math.floor(product?.qiymet)}  weight={product?.ceki_hecm}  discount={product?.discount}   star={product?.starsall}/>)}
                         </div>
                 </div>}
         </div>

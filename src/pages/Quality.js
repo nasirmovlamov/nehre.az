@@ -1,12 +1,17 @@
-import React from 'react'
+import React , {useContext} from 'react'
+
 import '../assets/css/quality.scss'
+import {ProductListingContext} from '../components/ProductListingProvider'
+
 function Quality() {
+
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId] = useContext(ProductListingContext)
+
     return (
         <div className="qualityPage"> 
             <div className="topPart">
                 <div className="titleProducts">
-                        <p className="category"> <span>home • Keyfiyyət</span>  </p>
-                        {/* <h2 className="categoryName">Biz kimik?</h2> */}
+                        <p className="category"> <span> {lang === "AZ" && `Əsas Səhifə` || lang === "EN" && `Homepage` || lang === "RU" && `Домашняя страница`} • {lang === "AZ" && `Keyfiyyət` || lang === "EN" && `Quality` || lang === "RU" && `Качество`}</span>  </p>
                 </div>
             </div>
 

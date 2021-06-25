@@ -11,7 +11,7 @@ function Products(props) {
     const ProductArr = []
     if(props.SupplierProduct !== undefined)
     {
-        props.SupplierProduct.map(product => ProductArr.push(<ItemCard delivery={product?.delivery}  cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={product?.seller_data?.name}  unitType={product?.unit?.id} price={Math.floor(product?.qiymet)}  weight={product?.ceki_hecm}  discount={product?.discount} productModal={props?.productModal}   star={product?.starsall}/>)) 
+        props.SupplierProduct.map(product => ProductArr.push(<ItemCard delivery={product?.delivery}  cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={ (lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)}  unitType={product?.unit?.id} price={Math.floor(product?.qiymet)}  weight={product?.ceki_hecm}  discount={product?.discount} productModal={props?.productModal}   star={product?.starsall} bonus={product?.cashback}/>)) 
     }
     console.log(props.id)
     return (

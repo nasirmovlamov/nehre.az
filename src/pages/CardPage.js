@@ -24,7 +24,7 @@ import 'moment/locale/ru';
 import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 
 function CardPage(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus] = useContext(ProductListingContext)
     
     const functionHandler = () => {
         if(props.UserId)
@@ -52,18 +52,21 @@ function CardPage(props) {
         setFinalPrice(0)
         setFinalGoods(0)
         setFinalWeight(0)
+        setFinalBonus(0)
         setProdutData([])
         setItems([])
         localStorage.setItem('ProdutData' , JSON.stringify([]))
         localStorage.setItem('FinalGoods' , (0))
         localStorage.setItem('FinalPrice' , (0))
         localStorage.setItem('FinalWeight' , (0))
+        localStorage.setItem('FinalBonus' , (0))
         localStorage.setItem('DateGoods' , JSON.stringify([]))
     }
     
     const deleteCard = (num , price, dates) => {
         var index = ProdutData.findIndex(x=> x.id === num);
         setFinalPrice(parseInt(FinalPrice) - parseInt(ProdutData[index]?.cost * ProdutData[index]?.count))
+        setFinalBonus(parseInt(FinalBonus) - parseInt(ProdutData[index]?.bonus * ProdutData[index]?.count))
         setFinalGoods(parseInt(FinalGoods) - parseInt(ProdutData[index]?.count) )
         if (parseInt(ProdutData[index]?.unitType) === 4) {
             setFinalWeight(parseFloat(FinalWeight) - ((parseFloat(ProdutData[index]?.weight) / 1000) * parseInt(ProdutData[index]?.count)) )
@@ -108,7 +111,7 @@ function CardPage(props) {
 
 
 
-    moment.locale(sessionStorage.getItem('lang'))
+    moment.locale(lang)
 
     //Date Problems
     const today = new Date()
@@ -153,7 +156,7 @@ function CardPage(props) {
         }
         sortedArr = sortedArr.sort((a, b) => b - a)
         console.log(sortedArr)
-        var nextday = moment(sortedArr[sortedArr.length - 1]).locale('az').format( 'dddd, D MMMM');
+        var nextday = moment(sortedArr[sortedArr.length - 1]).format( 'dddd, D MMMM');
         setnextDelivery(nextday)
     }
 
@@ -183,7 +186,7 @@ function CardPage(props) {
                             !loader 
                             &&
                             <>
-                                {ProdutData.map( element => <CheckoutCard key={element.id} deleteCard={deleteCard}  id={element.id}  delivery={element.date} unitType={element.unitType}/>)}
+                                {ProdutData.map( element => <CheckoutCard key={element.id} deleteCard={deleteCard}  id={element.id}  delivery={element.date} unitType={element.unitType} bonus={element.bonus}/>)}
                             </>
                         }
                         {loader &&  <div className="loader"><CircularProgress color="secondary" /></div>}
@@ -200,15 +203,14 @@ function CardPage(props) {
                     </div>
                     
                     <div className="downPart">
-                        <div className="goods"><p className="key">{lang === "AZ" && `Ümumi paketin çəkisi` || lang === "EN" && `Weight Parcel` || lang === "RU" && `Вес посылки`}</p> <p className="value ">{Math.abs(FinalWeight.toFixed(2))} kq</p> </div> 
+                        <div className="goods"><p className="key">{lang === "AZ" && `Ümumi paketin çəkisi` || lang === "EN" && `Weight Parcel` || lang === "RU" && `Вес посылки`}</p> <p className="value ">{Math.abs(FinalWeight.toFixed(2))} {(lang === "AZ" && `kq`) || (lang === "EN" && 'kq') || (lang === "RU" && 'кг')}</p> </div> 
                         <div className="goods"><p className="key">{lang === "AZ" && `Ümumi məhsulların sayı` || lang === "EN" && `Total number of products` || lang === "RU" && `Общее количество продуктов`} </p> <p className="value ">{FinalGoods}</p> </div> 
                         <div className="cost"><p className="key"> {lang === "AZ" && `Yükun Qiymət` || lang === "EN" && `Final Price` || lang === "RU" && `Окончательная цена`}</p> <p className="value value2"> {money === '₼' ? FinalPrice : ((money === "₼" ? FinalPrice : (FinalPrice / 1.7)).toFixed(1) )} {money} </p> </div> 
                         <Button1 disabled={FinalPrice < MinOrder ? true : false} value={lang === "AZ" && `Ödəniş səhifəsinə keçid edin` || lang === "EN" && `Go to payment` || lang === "RU" && `Перейти к оплате`} color="#085096" function={props.functionOpenCheckoutPage} /> 
-                        <p className="cashback">{lang === "AZ" && `Alacağınız ümumi bonus` || lang === "EN" && `Bonus` || lang === "RU" && `Бонус`}  {money === '₼' ? FinalPrice :( FinalPrice   / 10).toFixed(2)}  {money} </p>
+                        <p className="cashback">{lang === "AZ" && `Alacağınız ümumi bonus` || lang === "EN" && `Bonus` || lang === "RU" && `Бонус`}  {money === '₼' ? FinalBonus : (FinalBonus/1.7).toFixed(2)}  {money} </p>
                     </div>
                 </div>
                 <button   className="clearBucket" onClick={clearBucket}><DeleteIcon/>{lang === "AZ" && ` Səbəti təmizlə` || lang === "EN" && `Clear the basket` || lang === "RU" && `Очистить корзину`} </button>
-                
             </aside>
         </div>
     )

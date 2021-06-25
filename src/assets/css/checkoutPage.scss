@@ -34,6 +34,28 @@
         border-radius: 10px;
         overflow: hidden;
     }
+    .addAddressBtn
+    {
+        width: 100%;
+        margin-top: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .btn 
+        {
+            display: flex;
+            align-items: center;
+            width: auto;
+            padding: 5px;
+            background-color: #7dbf2a;
+            border: none;
+            border-radius: 5px;
+            font-family: 'DaxlineR';
+            font-size: 15px;
+            color: white;
+            column-gap: 5px;
+        }
+    }
     .datesCont
     {
         display: flex;
@@ -84,14 +106,23 @@
     .addAddress
     {
         display: flex;
-        flex-wrap: wrap;
         column-gap: 5px;
         row-gap: 10px;
         justify-content: flex-start;
         align-items: center;
         margin-top: 5px;
+        flex-direction: column;
+        .addAddressInputs
+        {
+            justify-content: space-between;
+            display: flex;
+            flex-wrap: wrap;
+            column-gap: 10px;
+            row-gap: 10px;
+        }
         input
         { 
+            width: 100px;
             border-radius: 10px;
             font-size: 12px !important;
             background: transparent !important;
@@ -103,6 +134,39 @@
                 outline: none;
             }
         }
+        .inputLittle
+        {
+            width: 100px;
+        }
+        .inputRayon
+        {
+            width: 250px;
+        }
+        .inputNote
+        {
+            width: 100%;
+        }
+        .submitCont
+        {
+            width:100%;
+            display:flex;
+            justify-content:flex-end;
+            .submitBtn
+            {
+                display: flex;
+                align-items: center;
+                width: auto;
+                padding: 5px;
+                background-color: #7dbf2a;
+                border: none;
+                border-radius: 5px;
+                font-family: 'DaxlineR';
+                font-size: 15px;
+                color: white;
+                column-gap: 5px;
+            }
+        }
+        
         select 
         {
             border-radius: 10px;

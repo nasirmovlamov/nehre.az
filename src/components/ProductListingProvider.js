@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
 import ProductModal from './ProductModal';
 import Modal from '@material-ui/core/Modal';
+import { parse } from 'date-fns';
 
 
 export const ProductListingContext = createContext()
@@ -13,6 +14,8 @@ export function ProductListingProvider(props) {
     const [FinalPrice, setFinalPrice] = useState(localStorage.getItem('FinalPrice') !== null ? parseInt(localStorage.getItem('FinalPrice')) : 0)
     const [FinalWeight, setFinalWeight] = useState(localStorage.getItem('FinalWeight') !== null ?  parseFloat(localStorage.getItem('FinalWeight')) : 0)
     const [FinalGoods, setFinalGoods] = useState(localStorage.getItem('FinalGoods') !== null ?  parseInt(localStorage.getItem('FinalGoods')) : 0)
+    const [FinalBonus, setFinalBonus] = useState(localStorage.getItem('FinalBonus') !== null ?  parseInt(localStorage.getItem('FinalBonus')) : 0)
+    
     const [DateGoods, setDateGoods] = useState(localStorage.getItem('DateGoods') !== null ? JSON.parse(localStorage.getItem('DateGoods')) : [])
     const [SelectedsProduct, setSelectedsProduct] = useState(sessionStorage.getItem('SecilmishProduct') !== null ? JSON.parse(sessionStorage.getItem('SecilmishProduct')) : [])
     const langArr = ["AZ" , "EN" , "RU"]
@@ -39,7 +42,8 @@ export function ProductListingProvider(props) {
         ProdutData.map(element => priceGoodsWeightHandler(element))
     }, [ProdutData])
 
-    const addItem = (num,price , weight , unitType , dates , name) => {
+    const addItem = (num,price , weight , unitType , dates , name, bonus) => {
+        console.log(bonus)
         if (parseInt(unitType) === 4) {
             setFinalWeight(FinalWeight + (parseFloat(weight) / 1000))
         }
@@ -49,6 +53,7 @@ export function ProductListingProvider(props) {
         }
         setFinalPrice(FinalPrice + parseInt(price))
         setFinalGoods(FinalGoods + 1)
+        setFinalBonus(FinalBonus + parseInt(bonus))
         var arrayA = DateGoods;
         var arrayB = dates;
         var newArray = arrayA.concat(arrayB.filter(x => !arrayA.some(y => y === x)))
@@ -56,7 +61,7 @@ export function ProductListingProvider(props) {
         setDateGoods(uniqueDates)
         var index = ProdutData.findIndex(x=> x.id === num);
         if (index === -1) {
-            setProdutData([...ProdutData , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType}])
+            setProdutData([...ProdutData , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType, bonus:bonus}])
         }
         else 
         {
@@ -66,6 +71,7 @@ export function ProductListingProvider(props) {
         }
         notifyAddBasket()
         localStorage.setItem('FinalGoods' , (parseInt(FinalGoods) + 1))
+        localStorage.setItem('FinalBonus' , (parseInt(FinalBonus) + parseInt(bonus)))
         localStorage.setItem('FinalPrice' , (parseInt(FinalPrice) + parseInt(price)))
         if (parseInt(unitType) === 4) {
             localStorage.setItem('FinalWeight' , (parseFloat(FinalWeight) + (parseFloat(weight) / 1000)).toFixed(2))
@@ -78,10 +84,11 @@ export function ProductListingProvider(props) {
         localStorage.setItem('DateGoods' , (JSON.stringify(uniqueDates)))
     }
 
-    const removeItem = (num, price , weight , unitType , dates , name) => {
+    const removeItem = (num, price , weight , unitType , dates , name, bonus) => {
         var index = ProdutData.findIndex(x=> x.id === num);
         if (ProdutData[index].count > 0) {
             setFinalPrice(FinalPrice - parseInt(price))
+            setFinalBonus(FinalBonus - parseInt(bonus))
             setFinalGoods(FinalGoods - 1)
             var newArr = [...ProdutData]
             newArr[index].count--
@@ -112,6 +119,7 @@ export function ProductListingProvider(props) {
             }
             localStorage.setItem('FinalGoods' , (parseInt(FinalGoods) - 1))
             localStorage.setItem('FinalPrice' , (parseInt(FinalPrice) - parseInt(price)))
+            localStorage.setItem('FinalBonus' , (parseInt(FinalBonus) - parseInt(bonus)))
             localStorage.setItem('DateGoods' , (JSON.stringify(newArray)))
             localStorage.setItem('ProdutData' , (JSON.stringify(newArr)))
         }
@@ -132,8 +140,10 @@ export function ProductListingProvider(props) {
         setmodalId(id)
     } 
     //#endregion
+
+    
     return (
-        <ProductListingContext.Provider value={[ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId]}>
+        <ProductListingContext.Provider value={[ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus]}>
             {props.children}
             <div className="modalCont">
                 <Modal  

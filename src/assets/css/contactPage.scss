@@ -1,0 +1,134 @@
+.ContactPage
+{
+    width: 1200px;
+    min-height: 700px;
+    iframe 
+    {
+        border: none;
+    }
+    .categoryName 
+    {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    .contactPart
+    {
+        width: 100%;
+    }
+    h2 , p 
+    {
+        margin: 0px;
+    }
+    a , p 
+    {
+        color: gray ;
+        font-size: 18px;
+    }
+    h2 
+    {
+        color: rgba(26, 25, 25, 0.719);
+        font-size: 24px;
+    }
+    .topPart 
+    {
+        padding-bottom: 10px !important;
+    }
+    .flex
+    {
+        margin-top: 35px;
+        width: 100%;
+        padding-left: 10px;
+        display: flex;
+        column-gap: 100px;
+        row-gap: 50px;
+        flex-wrap: wrap;
+        .element 
+        {
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+            width: 360px;
+            .social
+            {
+                display: flex;
+                column-gap: 10px;
+                align-items: center;
+                a 
+                {
+                    width: 35px;
+                    height: 35px;
+                    background-color: #7dbf2a;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                }
+            }
+        }
+    }
+    .flexC
+    {
+        margin-top: 35px;
+        padding-left: 10px;
+        row-gap: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+
+@media screen and (max-width:1250px) {
+    .ContactPage
+    {
+        width: 90%;
+        min-height: 700px;
+       
+        .topPart 
+        {
+            padding-bottom: 10px !important;
+        }
+        .flex
+        {
+            margin-top: 30px;
+            width: 100%;
+            padding-left: 10px;
+            display: flex;
+            column-gap: 100px;
+            row-gap: 50px;
+            flex-wrap: wrap;
+            .element 
+            {
+                display: flex;
+                flex-direction: column;
+                row-gap: 10px;
+                width: 360px;
+                .social
+                {
+                    display: flex;
+                    column-gap: 10px;
+                    align-items: center;
+                    a 
+                    {
+                        width: 35px;
+                        height: 35px;
+                        background-color: #7dbf2a;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+                    }
+                }
+            }
+        }
+        .flexC
+        {
+            margin-top: 20px;
+            padding-left: 10px;
+            row-gap: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}

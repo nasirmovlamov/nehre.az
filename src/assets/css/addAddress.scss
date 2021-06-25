@@ -1,0 +1,82 @@
+.addAddress
+{
+    form
+    {
+        label 
+        {
+            width: 45px;
+            text-align:end;
+        }
+        input 
+        {
+            width: 121px;
+        }
+        .inputCity 
+        {
+            width: 263px;
+        }
+    }
+    .againDiv
+    {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 10px;
+        column-gap: 40px;
+        margin-top: 20px;
+        justify-content: space-between;
+        input , select
+        {
+            border: 1px solid lightgray;
+            border-radius: 5px;
+            // height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            font-family: 'DaxlineR';
+            color: #555;
+            background-color: #fff;
+        }
+        label 
+        {
+            display: flex;
+            align-items: center;
+            font-family: 'DaxlineR';
+
+            justify-content: flex-end;
+        }
+        
+    }
+    .btnsCont
+    {
+        display: flex;
+        column-gap: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        row-gap: 30px;
+        .backTo
+        {
+            border: none;
+            width: auto;
+            height: 40px;
+            border-radius: 25px;
+            background-color: rgb(40, 89, 153);
+            color: white;
+            font-size: 18px;
+            display: flex;
+            padding-left: 15px;
+            padding-right: 15px;
+            justify-content: center;
+            font-family: 'DaxlineR';
+            align-items: center;
+        }
+    }
+    @media screen and (max-width:850px ) and (min-width:900px) , (max-width:1200px) {
+        input , label , select 
+        {
+            width: 100% !important;
+            display: flex !important;
+            justify-content: flex-start !important;
+        }
+    }      
+}

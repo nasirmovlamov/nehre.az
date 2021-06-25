@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext, useRef } from 'react'
 import "../assets/css/header.css"
 import HomePage from '../pages/HomePage'
 import DownNavbar from './DownNavbar'
@@ -49,11 +49,12 @@ import Cookies from 'js-cookie';
 import Combo from '../pages/Combo'
 import ForgetPassword from '../pages/ForgetPassword'
 import PrivacyPolicy from '../pages/PrivacyPolicy'
+import Contact from '../pages/Contact'
 
 function Header() {
-  const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin] = useContext(ProductListingContext)
+  const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus] = useContext(ProductListingContext)
 
-
+  const styleScrollBtn = useRef(null);
   // const TopNavbar = useMediaQuery('(min-width:600px)');
   const MidNavbar = useMediaQuery('(min-width:622px)');
 
@@ -230,54 +231,56 @@ function Header() {
     sendGetRequest6()
     axios.get(`https://nehra.az/public/api/checkstatus?user_id=${JSON.parse(localStorage.getItem('LoginUserData'))?.id}` )
          .then(res =>  ( setstatusOK(res.data[0]) , setSelectedsProduct(JSON.parse(res.data[1].text)) , sessionStorage.setItem('SecilmishProduct' , res.data[1].text)) )
+         window.addEventListener("scroll", function(){
+          if (window.scrollY > 121)
+          {
+              document?.getElementById('header').setAttribute('style' , 'height:0px;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);overflow:inherit;')
+              document?.getElementById('downPart').setAttribute('style' , 'background:#f0f4f5;height:85.17px;overflow:inherit;')
+              document?.getElementById('logoNehre').setAttribute('style' , 'opacity:1;pointer-events:all;')
+              document?.getElementById('downCont').setAttribute('style' , 'padding-top: 30px;padding-bottom: 30px;')
+              var downNavImgCont = document.querySelectorAll('#downNavImgCont')
+              for (var i=0; i < downNavImgCont.length; i++) {
+                downNavImgCont[i]?.setAttribute('style' , 'height:0px;')
+              }
+              var downImg = document.querySelectorAll('#downNavImg')
+              for (var i=0; i < downImg.length; i++) {
+                downImg[i]?.setAttribute('style' , 'height:0px;')
+              }
+              var buttonNav = document.querySelectorAll('.buttonNav')
+              for (var i=0; i < buttonNav.length; i++) {
+                buttonNav[i]?.setAttribute('style' , 'height:30px;padding-bottom:0px;')
+              }
+              styleScrollBtn?.current?.setAttribute('style' , 'display:flex;')
+            }
+          else if (window.scrollY < 201)
+          {
+            document?.getElementById('downPart')?.setAttribute('style' , 'background:transparent;height:0px;padding-top: 0px;padding-bottom: 0px;overflow:hidden;')
+            document?.getElementById('logoNehre')?.setAttribute('style' , 'opacity:0;pointer-events:none;')  
+            document?.getElementById('downCont')?.setAttribute('style' , 'padding-top: 0px;padding-bottom: 0px;')
+            document?.getElementById('header')?.setAttribute('style' , 'height:110px;background:transparent; box-shadow: transparent;overflow:hidden;')
+            styleScrollBtn?.current?.setAttribute('style' , 'display:none;')
+            var downNavImgCont = document.querySelectorAll('#downNavImgCont')
+            for (var i=0; i < downNavImgCont.length; i++) {
+              downNavImgCont[i].setAttribute('style' , 'height:120px;')
+            }
+            var downImg = document.querySelectorAll('#downNavImg')
+            for (var i=0; i < downImg.length; i++) {
+              downImg[i].setAttribute('style' , 'height:70px;')
+            }
+            var buttonNav = document.querySelectorAll('.buttonNav')
+            for (var i=0; i < buttonNav.length; i++) {
+              buttonNav[i].setAttribute('style' , 'height:110px;')
+            }
+          } 
+          
+        });
+      
   } , [] )
 
   const handleClose4 = () => {
       setOpen4(false);
   };
 
-  window.addEventListener("scroll", function(){
-      if (window.scrollY > 121)
-      {
-          document?.getElementById('header').setAttribute('style' , 'height:0px;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);overflow:inherit;')
-          document?.getElementById('downPart').setAttribute('style' , 'background:#f0f4f5;height:85.17px;overflow:inherit;')
-          document?.getElementById('logoNehre').setAttribute('style' , 'opacity:1;pointer-events:all;')
-          document?.getElementById('downCont').setAttribute('style' , 'padding-top: 30px;padding-bottom: 30px;')
-          var downNavImgCont = document.querySelectorAll('#downNavImgCont')
-          for (var i=0; i < downNavImgCont.length; i++) {
-            downNavImgCont[i]?.setAttribute('style' , 'height:0px;')
-          }
-          var downImg = document.querySelectorAll('#downNavImg')
-          for (var i=0; i < downImg.length; i++) {
-            downImg[i]?.setAttribute('style' , 'height:0px;')
-          }
-          var buttonNav = document.querySelectorAll('.buttonNav')
-          for (var i=0; i < buttonNav.length; i++) {
-            buttonNav[i]?.setAttribute('style' , 'height:30px;padding-bottom:0px;')
-          }
-          
-      }
-      else if (window.scrollY < 201)
-      {
-        document?.getElementById('downPart')?.setAttribute('style' , 'background:transparent;height:0px;padding-top: 0px;padding-bottom: 0px;overflow:hidden;')
-        document?.getElementById('logoNehre')?.setAttribute('style' , 'opacity:0;pointer-events:none;')  
-        document?.getElementById('downCont')?.setAttribute('style' , 'padding-top: 0px;padding-bottom: 0px;')
-        document?.getElementById('header')?.setAttribute('style' , 'height:110px;background:transparent; box-shadow: transparent;overflow:hidden;')
-        var downNavImgCont = document.querySelectorAll('#downNavImgCont')
-        for (var i=0; i < downNavImgCont.length; i++) {
-          downNavImgCont[i].setAttribute('style' , 'height:120px;')
-        }
-        var downImg = document.querySelectorAll('#downNavImg')
-        for (var i=0; i < downImg.length; i++) {
-          downImg[i].setAttribute('style' , 'height:70px;')
-        }
-        var buttonNav = document.querySelectorAll('.buttonNav')
-        for (var i=0; i < buttonNav.length; i++) {
-          buttonNav[i].setAttribute('style' , 'height:110px;')
-        }
-      } 
-      
-    });
   
   
 
@@ -306,7 +309,7 @@ function Header() {
         <Router>
             <ScrolltoTop/>
             <div className="AllCont">
-                <button type="button" style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button>
+                <button type="button" ref={styleScrollBtn} style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button>
                { !MidNavbar &&  <button type="button" className='checkMBtnC' style={checkMBtn} onClick={() => handleOpen()}><ShoppingBasketIcon width='60px' height='60px'/> {FinalPrice > 0 && (FinalPrice + " ₼")}</button> }
 
                 <TopNavbar TopCategory={TopCategory} assortmentArr={Assortment} PaymentPrice={PaymentPrice} number2={number2} number1={number1} UserData={UserData}  modalOpener={handleOpen} modalOpener3={handleOpen3}/>
@@ -317,9 +320,10 @@ function Header() {
                 </header>
                 <Switch>
                     <Route  path="/combos/:slug" >              <Combo/>                                                                                                      </Route>
+                    <Route   path="/category/999" >             <ProductListingPage/>                                              </Route>
                     <Route   path={`/category/:id`}>            <ProductListingPage />                                                           </Route>
                     <Route   path="/about" >                    <About/>                                                                                                      </Route>
-                    <Route   path="/contact" >                  <Contacts/>                                                                                                   </Route>
+                    <Route   path="/elaqe" >                    <Contact/>                                                                                                   </Route>
                     <Route   path="/public/forgetpassword" >    <ForgetPassword/>                                                                                             </Route>
                     <Route   path="/who" >                      <Who/>                                                                                                        </Route>
                     <Route   path="/privacy-policy" >           <PrivacyPolicy/>                                                      </Route>
@@ -327,7 +331,6 @@ function Header() {
                     <Route   path="/reviews" >                  <ReviewPage/>                                                                                                 </Route>
                     <Route   path="/search" >                   <SearchResult/>                                                                                               </Route>
                     <Route   path="/memberarea">                {(UserData?.id !== undefined  && parseInt(statusOK) === 1) &&  <MemberArea  UserData={UserData}/>  }          </Route>
-                    <Route   path="/promotions" >               <ProductListingPage category="Promotional products" notags={1}/>                                              </Route>
                     <Route   path="/suppliers/:id" >            <SelectedSupplier/>                                                                                           </Route>
                     <Route   path="/suppliers" >                <Suppliers/>                                                                                                  </Route>
                     <Route   exact path="/" >                   <HomePage assortmentArr={assortmentArr} modalOpener3={handleOpen3} productModal={handleOpen}/>                </Route>

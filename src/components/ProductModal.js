@@ -89,7 +89,7 @@ function ProductModal(props) {
             setvalueReq(65)
             setvalueR(resp.data.starsall)
             setvalueReq(75)
-            const resp1 = await axios.get(`https://nehra.az/public/api/getsimillars/${resp?.data?.category_data?.id}`)
+            const resp1 = await axios.get(`https://nehra.az/public/api/getsimillars/${id}/${resp?.data?.category_data?.id}`)
             setvalueReq(99)
             setProductSimilar(resp1.data) 
             setvalueReq(100)
@@ -239,7 +239,7 @@ function ProductModal(props) {
             {
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
                 var selecteds = []  
-                selecteds = [...selecteds , {id:Product.id , delivery: Product.delivery,    thumb:Product.thumb,  title:Product.title, desc:Product.seller_data.name,  unitType:Product?.unit.id,  qiymet:Product?.qiymet , ceki_hecm:Product?.ceki_hecm , discount:Product?.discount,  starsall:Product.starsall}]
+                selecteds = [...selecteds , {id:Product.id , delivery: Product.delivery,    thumb:Product.thumb,  title:Product.title, desc:Product.seller_data.name,  unitType:Product?.unit.id,  qiymet:Product?.qiymet , ceki_hecm:Product?.ceki_hecm , discount:Product?.discount,  starsall:Product.starsall , bonus:Product.cashback}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
                 setSelectedsProduct(selecteds)
                 axios.post('https://nehra.az/public/api/addstring' , {user_id:UserData?.id , string:JSON.stringify(selecteds)} , headers)
@@ -252,14 +252,13 @@ function ProductModal(props) {
             }
             var index = selecteds.findIndex(x=> x.id === num)
             if (index === -1) {
-                selecteds = [...selecteds , {id:Product.id , delivery: Product.delivery,    thumb:Product.thumb,  title:Product.title, desc:Product.seller_data.name,  unitType:Product?.unit.id,  qiymet:Product?.qiymet , ceki_hecm:Product?.ceki_hecm , discount:Product?.discount,  starsall:Product.starsall}]
+                selecteds = [...selecteds , {id:Product.id , delivery: Product.delivery,    thumb:Product.thumb,  title:Product.title, desc:Product.seller_data.name,  unitType:Product?.unit.id,  qiymet:Product?.qiymet , ceki_hecm:Product?.ceki_hecm , discount:Product?.discount,  starsall:Product.starsall, bonus:Product.cashback}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
                 setSelectedsProduct(selecteds)
                 console.log(selecteds)
                 axios.post('https://nehra.az/public/api/addstring' , {user_id:UserData?.id , string:JSON.stringify(selecteds)} , headers)
                 setindexSelected(1)
                 notify1()
-
             }
             else 
             {
@@ -318,7 +317,7 @@ function ProductModal(props) {
                             {(lang === "AZ" && Product?.description_az) || (lang === "EN" && Product?.description_en) || (lang === "RU" && Product?.description_ru)}
                         </p>
                         <p className="ingredients"><span className="ingredientsText">  {(lang === "AZ" && `Tərkibi:`) || (lang === "EN" && `Ingredients:`) || (lang === "RU" && `Ингредиенты:`)}</span> <span className="ingredientsFront"> {(lang === "AZ" && Product?.terkibi) || (lang === "EN" && Product?.terkibi_en) || (lang === "RU" && Product?.terkibi_ru)}</span>    </p>
-                        <p className="priceCont"> <span className="priceText">  {(lang === "AZ" && `Qiyməti:`) || (lang === "EN" && `Price:`) || (lang === "RU" && `Цена:`)}</span>  <span className="price">{money === "₼" ? Product?.qiymet : (Product?.qiymet  / 1.7).toFixed(2)} {money} </span> - <span className="weight">{Product?.ceki_hecm + " " + ((parseInt(Product?.unit?.id) === 1 && `kq`) || (parseInt(Product?.unit?.id) === 4 && `gr`) || (parseInt(Product?.unit?.id) === 2 && `l`))} </span></p>
+                        <p className="priceCont"> <span className="priceText">  {(lang === "AZ" && `Qiyməti:`) || (lang === "EN" && `Price:`) || (lang === "RU" && `Цена:`)}</span>  <span className="price">{money === "₼" ? Product?.qiymet : (Product?.qiymet  / 1.7).toFixed(2)} {money} </span> - <span className="weight">{Product?.ceki_hecm + " " + (parseInt(Product.unit.id) === 1 && ((lang === "AZ" && `kq`) || (lang === "EN" && 'kq') || (lang === "RU" && 'кг')) || parseInt(Product.unit.id) === 4 &&  ((lang === "AZ" && `gr`) || (lang === "EN" && 'gr') || (lang === "RU" && 'гр')) || parseInt(Product.unit.id) === 2 && ((lang === "AZ" && `l`) || (lang === "EN" && 'l') || (lang === "RU" && 'л')) )} </span></p>
                         <div className="buttonsCont">
                             {
                                 ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count && 
@@ -344,7 +343,7 @@ function ProductModal(props) {
                                 <hr/>
                                 <div className="linkComponent">
                                     {checker === 1 ? <Description ProductSimilar={ProductSimilar}  Product={Product !== [] && Product}/> : "" }
-                                    {checker === 2 ? <Reviews  id={props.id} product={true}/> : ""}
+                                    {checker === 2 ? <Reviews  post_id={props.id} product={true}/> : ""}
                                     {checker === 3 ? <Certificates Product={Product}/> : ""}
                                 </div>
                             </div>

@@ -11,19 +11,21 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {ProductListingContext} from '../components/ProductListingProvider'
 import axios from 'axios';
+import Data from '../assets/language/address.json'
 
 function Address() {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
-
+    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus] = useContext(ProductListingContext)
     const [address, setaddress] = useState([])
+    const staticData = Data[`address-${lang}`]
     
-    useEffect(() => {
-        axios.get(`https://nehra.az/public/api/getaddress?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
-            .then(res => setaddress(res.data))
+    useEffect(async () => {
+        const res = await axios.get(`https://nehra.az/public/api/getaddress?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
+        setaddress(res.data)
     }, [])
-    const deleteAddress = (id) => {
-        axios.post(`https://nehra.az/public/api/removeaddress` , {id:id})
-             .then(res => res.status === 200 && window.location.reload())
+
+    const deleteAddress = async (id) => {
+        const res = await axios.post(`https://nehra.az/public/api/removeaddress` , {id:id , user_id:JSON.parse(localStorage.getItem('LoginUserData')).id})
+        window.location.reload()
     }
     
     return (
@@ -31,7 +33,7 @@ function Address() {
             <p className="title"> {(lang === "AZ" && `Mənim Ünvanlarım`) || (lang === "EN" && `My Addresses`) || (lang === "RU" && `Мои Адреса`)}</p>
             <p className="myAdress">{(lang === "AZ" && `Hesabınızdakı ünvanların siyahısı boşdur.`) || (lang === "EN" && `The list of addresses in your account is empty. `) || (lang === "RU" && `Список адресов в вашем аккаунте пуст.`)}</p>
             <div className='allAddress'>
-                {address?.map((address , index) => <div key={address.user_id} className='addressElement'><p className='addressText'><p className='addressPrag'> <span className='addressBadge'> Ünvan - </span> <p>{address.adres}</p></p>  <p className='addressPrag'><span className='addressBadge'>Şəhər -</span> <p>{address.city.name}</p></p>  <p className='addressPrag'><span className='addressBadge'>Rayon -</span> <p>{address.rayon}</p></p> </p> <div className="buttons"><Link to={`/memberarea/address/edit/${address.id}`}>  <button className='editAddress'><EditIcon/></button></Link> <button className='removeAddress' onClick={() => deleteAddress(address.id)}><DeleteIcon/></button></div> </div>)}
+                {address?.map((address , index) => <div key={address.user_id} className='addressElement'><p className='addressText'>{address.city.name}  {address.rayon !== null && (` , ${ staticData.street}`)} {address.rayon} {address.ev !== null && ` , ${staticData.home}`} {address.ev} </p>     <div className="buttons"><Link to={`/memberarea/address/edit/${address.id}`}>  <button className='editAddress'><EditIcon/></button></Link> <button className='removeAddress' onClick={() => deleteAddress(address.id)}><DeleteIcon/></button></div> </div>)}
             </div>
             <Link to="/memberarea/address/add"><Button1 value={(lang === "AZ" && `Yeni Ünvan`) || (lang === "EN" && `New Address`) || (lang === "RU" && `Новый адрес`)} color="#285999"/></Link>
         </div>

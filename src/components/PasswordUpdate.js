@@ -24,10 +24,13 @@ function PasswordUpdate(props){
         "X-CSRF-TOKEN": token
     }
     const [Error, setError] = useState(false)
-    const onSubmit =  (values) => {
-        axios.post('https://nehra.az/public/api/updateuserpass', {user_id: JSON.parse(localStorage.getItem('LoginUserData')) ,  password:values.password} , headers )
-        .then(res => res.status === 200 && console.log(res.data))
-        .catch(err => setError(true))
+    const onSubmit = async (values) => {
+        try {
+            const resp =  axios.post('https://nehra.az/public/api/updateuserpass', {user_id: JSON.parse(localStorage.getItem('LoginUserData')) ,  password:values.password} , headers )
+            notifyPass()
+        } catch (error) {
+           setError(true)
+       }
     }
     
     const initialValues = {

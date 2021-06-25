@@ -270,39 +270,24 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  display: flex;
+  height: auto;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  font-family: 'DaxlinePro';
+  color: gray;
+  border-radius: 5px;
 }
 
 .memberAreaCont main .address .allAddress .addressElement .buttons {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  row-gap: 10px;
-}
-
-.memberAreaCont main .address .allAddress .addressElement .addressText {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  row-gap: 10px;
-  height: auto;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-          box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 5px;
-  font-family: 'DaxlinePro';
-  color: gray;
-  border-radius: 5px;
+  -webkit-column-gap: 1px;
+          column-gap: 1px;
 }
 
 .memberAreaCont main .address .allAddress .addressElement .addressText .addressBadge {
@@ -423,15 +408,6 @@
   display: grid;
   -ms-grid-columns: (120px 1fr)[1];
       grid-template-columns: repeat(1, 120px 1fr);
-  -webkit-column-gap: 15px;
-          column-gap: 15px;
-  row-gap: 25px;
-  width: auto;
-  -ms-flex-line-pack: center;
-      align-content: center;
-  margin-top: 25px;
-  justify-items: end;
-  width: 100%;
 }
 
 .memberAreaCont main .cabinetCont .gridCont .key {
@@ -746,146 +722,6 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   row-gap: 20px;
-}
-
-.memberAreaCont main .addAddress form .btnsCont {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-column-gap: 20px;
-          column-gap: 20px;
-  width: 100%;
-  display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  row-gap: 30px;
-}
-
-.memberAreaCont main .addAddress form .btnsCont .backTo {
-  border: none;
-  width: auto;
-  height: 40px;
-  border-radius: 25px;
-  background-color: #285999;
-  color: white;
-  font-size: 18px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 15px;
-  padding-right: 15px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  font-family: 'DaxlineR';
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.memberAreaCont main .addAddress .flexContAddress, .memberAreaCont main .addAddress .flexContAddress2, .memberAreaCont main .addAddress .flexContAddress3 {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin-top: 20px;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  row-gap: 20px;
-}
-
-.memberAreaCont main .addAddress .flexContAddress .againDiv, .memberAreaCont main .addAddress .flexContAddress2 .againDiv, .memberAreaCont main .addAddress .flexContAddress3 .againDiv {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  row-gap: 20px;
-  -webkit-column-gap: 30px;
-          column-gap: 30px;
-}
-
-.memberAreaCont main .addAddress .flexContAddress .againDiv select, .memberAreaCont main .addAddress .flexContAddress2 .againDiv select, .memberAreaCont main .addAddress .flexContAddress3 .againDiv select {
-  border: 1px solid lightgray;
-  border-radius: 5px;
-}
-
-.memberAreaCont main .addAddress .flexContAddress .label, .memberAreaCont main .addAddress .flexContAddress2 .label, .memberAreaCont main .addAddress .flexContAddress3 .label {
-  font-size: 20px;
-  font-weight: 500;
-  color: #525252;
-  width: 80px;
-}
-
-.memberAreaCont main .addAddress .flexContAddress input, .memberAreaCont main .addAddress .flexContAddress2 input, .memberAreaCont main .addAddress .flexContAddress3 input {
-  padding: 7px;
-  font-size: 12px;
-  color: #525252;
-  border: 1px solid lightgray;
-  background-color: #fff;
-  border-radius: 5px;
-  height: 20px;
-}
-
-.memberAreaCont main .addAddress .flexContAddress .input1, .memberAreaCont main .addAddress .flexContAddress2 .input1, .memberAreaCont main .addAddress .flexContAddress3 .input1 {
-  width: 263px;
-  height: 20px;
-}
-
-.memberAreaCont main .addAddress .flexContAddress {
-  -webkit-column-gap: 40px;
-          column-gap: 40px;
-  margin-top: 0px;
-}
-
-.memberAreaCont main .addAddress .flexContAddress .inputCity {
-  width: 150px;
-  height: 35px;
-  border: 1px solid ligthgray;
-}
-
-.memberAreaCont main .addAddress .flexContAddress2 {
-  -webkit-column-gap: 53px !important;
-          column-gap: 53px !important;
-}
-
-.memberAreaCont main .addAddress .flexContAddress2 input {
-  width: 121px;
-}
-
-.memberAreaCont main .addAddress .flexContAddress3 .inputComment {
-  width: 660px;
-}
-
-.memberAreaCont main .addAddress .buttonCont {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  width: 800px;
-  margin-top: 20px;
-}
-
-.memberAreaCont main .addAddress .buttonCont a {
-  width: 90px;
-  height: 40px;
-  color: white;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background-color: gray;
-  border-radius: 20px;
 }
 
 .memberAreaCont main .aboutShipping .subTitle {

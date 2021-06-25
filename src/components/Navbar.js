@@ -7,7 +7,7 @@ function Navbar() {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId] = useContext(ProductListingContext)
     return (
         <nav className="navbar">
-                <Link to="/promotions">{(lang === "AZ" && `Endirimlər`) || (lang === "EN" && `Discounts`) || (lang === "RU" && `Скидки`)}</Link>
+                <Link to="/category/999">{(lang === "AZ" && `Endirimlər`) || (lang === "EN" && `Discounts`) || (lang === "RU" && `Скидки`)}</Link>
                 <Link to="/suppliers">{(lang === "AZ" && `Tədarükçülər`) || (lang === "EN" && `Suppliers`) || (lang === "RU" && `Поставщики`)}</Link>
                 <div className='dropCont'> 
                     <p className='dropTitle'>{(lang === "AZ" && `Haqqımızda`) || (lang === "EN" && `About us`) || (lang === "RU" && `О нас`)}</p>

@@ -1,0 +1,121 @@
+.contactCont123
+{
+    .gridCont1
+    {
+        display: flex !important; 
+        flex-direction: column;
+        column-gap: 15px;
+        row-gap: 25px;
+        width: auto;
+        align-content: center;
+        margin-top: 25px;
+        justify-items: end;
+        width: 100%;
+    }
+
+    .flexCont 
+    {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        .error
+        {
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+            padding-top: 3px;
+            p
+            {
+                width: 67%;
+                text-align: center;
+                color: red;
+                font-family: 'DaxlineR';
+            }
+        }
+    }
+    .inputCont
+    {
+        display: flex;
+        width: 100%;
+        column-gap: 3%;
+        .text 
+        {
+            width: 30%;
+            font-size: 14px;
+            font-family: 'DaxlineR';
+            color: #525252;
+            font-weight: 700;
+            opacity: 0.8;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        .input
+        {
+            width: 67%;
+            color: black;
+            justify-self: start;
+            padding: 4px;
+            padding-left: 10px;
+            height: 30px;
+            border: 1px solid lightgray;
+            border-radius: 4px;
+            font-size: 15px;
+            font-family: inherit;
+            align-self: start;
+            justify-self: start;
+            align-self: center;
+            font-family: 'DaxlineR';
+            &:focus 
+            {
+                outline: none;
+            }
+        }
+        
+        .phoneinput
+        {
+            font-family: Arial, Helvetica, sans-serif !important;
+        }
+        .balanceUpbtn
+        {
+            display: flex;
+            column-gap: 10px;
+            font-size: 14px;
+            font-family: 'DaxlineR';
+            color: #000000;
+            font-weight: 700;
+            opacity: 0.8;
+            align-items: center;
+            span 
+            {
+                font-size: 20px;
+                font-family: Arial, Helvetica, sans-serif;
+                color: #548d0f;
+            }
+            .balanceBtn
+            {
+                width: auto;
+                padding: 3px;
+                padding-left: 5px;
+                padding-right: 10px;
+                background-color: #7dbf2a;
+                column-gap: 5px;
+                border: none;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                color: white;
+                font-size: 18px;
+                font-family: 'DaxlineR';
+            }
+        }
+    }
+    .moreAbout
+    {
+        width: auto !important;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+}

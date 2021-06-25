@@ -14,7 +14,9 @@ import { set } from 'js-cookie'
 import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { AddToHomeScreenRounded } from '@material-ui/icons'
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import EventBusyIcon from '@material-ui/icons/EventBusy';
+import DoneIcon from '@material-ui/icons/Done';
 import 'moment/locale/az';
 import 'moment/locale/ru';
 
@@ -23,10 +25,20 @@ function CheckoutPage(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
     
     const notify = () => toast.info("Nuş olsun!");
+
     const [loader, setloader] = useState(false)
     const [selectedValue, setselectedValue] = useState(1)
     const [selectedDateTime, setSelectedDateTime] = useState(1)
+    const [addressAdd, setaddressAdd] = useState(false)
+    const [city, setcity] = useState()
+    const [ev, setev] = useState()
+    const [square, setsquare] = useState()
+    const [floor, setfloor] = useState()
+    const [menzil, setmenzil] = useState()
+    const [intercome, setintercome] = useState()
+    const [note, setnote] = useState()
 
+    
     const imgHandler = {
         background: `url(${props.image}) no-repeat`,
         backgroundPosition: "center",
@@ -228,7 +240,7 @@ function CheckoutPage(props) {
             .then(res => (setaddress(res.data) , setaddressR(res?.data[0]?.adres)))
         clickHandler2(DateGoods[0])
         axios.get('https://nehra.az/public/api/getcities')
-            .then(resp => setcities(resp.data))
+            .then(resp => (setcities(resp.data) , setcity(resp.data[0].id) ))
             
     }, [])
 
@@ -280,7 +292,6 @@ moment.locale(sessionStorage.getItem('lang'))
     var newarr = ProdutData.map((element, index ) =>  vrt(element.id , element))
     newarr = newarr.filter(element => element !== undefined)
 
-    console.log(address)
 
     const [selectCity, setselectCity] = useState()
     const [rayon, setrayon] = useState()
@@ -294,6 +305,29 @@ moment.locale(sessionStorage.getItem('lang'))
         setrayon(e.target.value)
     }
     
+    const createAddress = async () => {
+        try {
+            const resp = await axios.post('https://nehra.az/public/api/postaddress' , {
+                user_id:JSON.parse(localStorage.getItem('LoginUserData')).id, 
+                city_id:city, 
+                rayon:rayon, 
+                ev:ev, 
+                blok:square, 
+                mertebe:floor,
+                menzil:menzil, 
+                interkom:intercome, 
+                qeyd:note
+            })
+            notifyAddress() 
+            console.log(resp)
+            setaddress(resp.data)
+        } catch (error) {
+            
+        }
+    }
+
+
+
     return (
         
         <div className="checkoutPage">
@@ -304,13 +338,25 @@ moment.locale(sessionStorage.getItem('lang'))
                     <div className="deliveryAddress">
                         <p className="title titleBB">{lang === "AZ" && `Çatdırılma ünvanı seçin` || lang === "EN" && `Select delivery Address` || lang === "RU" && `Выберите адрес доставки`}</p>
                         <div className="errors">
-                            {address?.length > 0 && <select className='addressElement' name="" id="">{address?.map((address , index) => <option value="" > Ünvan - {address.adres} |  Şəhər - {address.city.name} | Rayon - {address.rayon}</option> )}</select>}
-                            <div className='addAddress'> 
-                                {address?.length !== 0 && <input type="checkbox" value={true} onChange={(e) => onChangeNewAddressC(e)}/> }
-                                <input value={addressC} onChange={onChangeAddress} type="text" placeHolder={lang === "AZ" && `Yeni Address` || lang === "EN" && `New Address` || lang === "RU" && `Новый адрес`}  className='addAdressinput'/> 
-                                <select type="text"  > {(cities?.length > 0 && cities!==undefined) && cities?.map(element => <option value={element.id}>{element.name}</option>)}</select> 
-                                <input  type="text"  value={rayon}  onChange={onChangeRayon}  placeholder={(lang === "AZ" && `Rayon qeyd edin`) || (lang === "EN" && `Enter the district`) || (lang === "RU" && `Введите район`)}  className="inputRayon"/>
-                            </div>
+                            {address?.length > 0 && <select className='addressElement' name="" id="">{address?.map((address , index) => <option value="" > Ünvan - {address?.adres} |  Şəhər - {address?.city?.name} | Rayon - {address?.rayon}</option> )}</select>}
+                            <div className='addAddressBtn'>
+                                <button type='button' className='btn' onClick={() => setaddressAdd(true)}> <AddCircleIcon/> Yeni ünvan əlavə edin</button> {addressAdd &&<button type='button' onClick={() => setaddressAdd(false)} className='btn'>x</button>}</div>
+                                {
+                                    addressAdd &&
+                                    <div className='addAddress'> 
+                                        <div className='addAddressInputs'> 
+                                            <select type="text"  value={city}       onChange={(e) => setcity(e.target.value)}> {(cities?.length > 0 && cities!==undefined) && cities?.map(element => <option value={element.id}>{element.name}</option>)}</select> 
+                                            <input  type="text"  value={rayon}      onChange={onChangeRayon}  placeholder={(lang === "AZ" && `Rayon qeyd edin`) || (lang === "EN" && `Enter the district`) || (lang === "RU" && `Введите район`)}  className="inputRayon"/>
+                                            <input  type="text"  value={ev}         onChange={(e) => setev(e.target.value)}  placeholder={(lang === "AZ" && `Ev`) || (lang === "EN" && `Enter the district`) || (lang === "RU" && `Введите район`)}  className="inputLittle"/>
+                                            <input  type="text"  value={square}     onChange={(e) => setsquare(e.target.value)}  placeholder={(lang === "AZ" && `Block`) || (lang === "EN" && `Enter the district`) || (lang === "RU" && `Введите район`)}  className="inputLittle"/>
+                                            <input  type="text"  value={floor}      onChange={(e) => setfloor(e.target.value)}  placeholder={(lang === "AZ" && `Mərtəbə`) || (lang === "EN" && `Enter the district`) || (lang === "RU" && `Введите район`)}  className="inputLittle"/>
+                                            <input  type="text"  value={menzil}     onChange={(e) => setmenzil(e.target.value)}  placeholder={(lang === "AZ" && `Mənzil`) || (lang === "EN" && `Enter the district`) || (lang === "RU" && `Введите район`)}  className="inputLittle"/>
+                                            <input  type="text"  value={intercome}  onChange={(e) => setintercome(e.target.value)}  placeholder={(lang === "AZ" && `intercome`) || (lang === "EN" && `Enter the district`) || (lang === "RU" && `Введите район`)}  className="inputLittle"/>
+                                            <input  type="text"  value={note}       onChange={(e) => setnote(e.target.value)}  placeholder={(lang === "AZ" && `note`) || (lang === "EN" && `Enter the district`) || (lang === "RU" && `Введите район`)}  className="inputNote"/>
+                                        </div>
+                                        <div className="submitCont"><button onClick={createAddress} type="checkbox" className='submitBtn' type='button'>Əlavə et</button></div>
+                                    </div>
+                                }
                         </div>
                     </div>
 

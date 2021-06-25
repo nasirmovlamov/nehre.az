@@ -1,0 +1,50 @@
+{
+    "profile-AZ":{
+        "validation":{
+            "name":"Adınızı daxil edin",
+            "emailCorrect":"Elektron poçtunuzu düzgün daxil edin",
+            "emailEnter":"Elektron poçtunuzu daxil edin",
+            "phoneCorrect":"Telefon nömrəsini düzgün daxil edin",
+            "phoneEnter":"Telefon nömrəsini düzgün daxil edin"
+        },
+        "formText":{
+            "name":"Adınız  Soyadınız",
+            "email":"Elektron poçt ünvanı",
+            "phone":"Telefon",
+            "date":"Doğum tarixi",
+            "balance":"Balans"
+        }
+    },
+    "profile-EN":{
+        "validation":{
+            "name":"Include your name",
+            "emailCorrect":"Enter your email correctly",
+            "emailEnter":"Enter your email",
+            "phoneCorrect":"Enter the phone number correctly",
+            "phoneEnter":"Enter the phone number correctly"
+        },
+        "formText":{
+            "name":"Name Surname",
+            "email":"Email address",
+            "phone":"Phone",
+            "date":"Date of birth",
+            "balance":"Balance"
+        }
+    },
+    "profile-RU":{
+        "validation":{
+            "name":"Включите свое имя",
+            "emailCorrect":"Введите свой адрес электронной почты правильно",
+            "emailEnter":"Введите адрес электронной почты",
+            "phoneCorrect":"Введите номер телефона правильно",
+            "phoneEnter":"Введите номер телефона правильно"
+        },
+        "formText":{
+            "name":"Имя Фамилия",
+            "email":"Адрес электронной почты",
+            "phone":"Телефон",
+            "date":"Дата рождения",
+            "balance":"Баланс"
+        }
+    }
+}

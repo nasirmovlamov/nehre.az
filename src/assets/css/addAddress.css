@@ -1,0 +1,100 @@
+.addAddress form label {
+  width: 45px;
+  text-align: end;
+}
+
+.addAddress form input {
+  width: 121px;
+}
+
+.addAddress form .inputCity {
+  width: 263px;
+}
+
+.addAddress .againDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  row-gap: 10px;
+  -webkit-column-gap: 40px;
+          column-gap: 40px;
+  margin-top: 20px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.addAddress .againDiv input, .addAddress .againDiv select {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  font-family: 'DaxlineR';
+  color: #555;
+  background-color: #fff;
+}
+
+.addAddress .againDiv label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-family: 'DaxlineR';
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.addAddress .btnsCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  width: 100%;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  row-gap: 30px;
+}
+
+.addAddress .btnsCont .backTo {
+  border: none;
+  width: auto;
+  height: 40px;
+  border-radius: 25px;
+  background-color: #285999;
+  color: white;
+  font-size: 18px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 15px;
+  padding-right: 15px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-family: 'DaxlineR';
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media screen and (max-width: 850px) and (min-width: 900px), (max-width: 1200px) {
+  .addAddress input, .addAddress label, .addAddress select {
+    width: 100% !important;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-pack: start !important;
+        -ms-flex-pack: start !important;
+            justify-content: flex-start !important;
+  }
+}
+/*# sourceMappingURL=addAddress.css.map */

@@ -1,0 +1,17 @@
+{
+    "validation-AZ":{
+        "noManfReview":"Bu tədarükçüyə şərh yazılmayıb",
+        "noProdReview":"Bu məhsula şərh yazılmayıb"
+    },
+    "validation-EN":{
+        "noManfReview":"No comments have been posted for this supplier",
+        "noProdReview":"There are no comments for this product"
+
+
+    },
+    "validation-RU":{
+        "noManfReview":"Для этого поставщика нет комментариев.",
+        "noProdReview":"К этому продукту нет комментариев"
+    }
+
+}

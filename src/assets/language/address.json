@@ -1,0 +1,15 @@
+{
+    "address-AZ":{
+        "street":"küç.",
+        "home":"ev"
+    },
+    "address-EN":{
+        "street":"st.",
+        "home":"home"
+    },
+    "address-RU":{
+        "street":"ул.",
+        "home":"д."
+    }
+
+}
