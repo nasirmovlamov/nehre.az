@@ -4,8 +4,9 @@ import {ProductListingContext} from '../components/ProductListingProvider'
 import Review from './Review'
 
 function MemberAreaReviews(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
-
+    const context = useContext(ProductListingContext)
+    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+  
     const [reviews, setreviews] = useState([])
     useEffect(() => {
         axios.get(`https://nehra.az/api/reviews?user_id=${props.UserId}`)

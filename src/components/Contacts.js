@@ -23,8 +23,10 @@ toast.configure()
 
 function Contacts(props) {
     const notify = () => toast.info(lang === "AZ" && `Məlumatlar yeniləndi!` || lang === "EN" && `Information updated!` || lang === "RU" && `Информация обновлена!`);
-
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
+    const context = useContext(ProductListingContext)
+    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+  
+    
     const pageData = Data[`profile-${lang}`]
     const validate = pageData.validation
     const formText = pageData.formText

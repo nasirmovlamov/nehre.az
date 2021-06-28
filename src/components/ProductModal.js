@@ -45,7 +45,9 @@ import DateCropLang from './DateCropLang';
 function ProductModal(props) {
 
     //#region VALUES 
-        const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId] = useContext(ProductListingContext)
+        const context = useContext(ProductListingContext)
+        const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+      
         const notify = (rate) => toast.success(`${rate === null ? 5 : rate}   Ulduz göndərildi` , {draggable: true,});
         const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
         const [Product, setProduct] = useState([])
@@ -230,52 +232,6 @@ function ProductModal(props) {
     }, [SelectedsProduct])
     // #endregion SelectITEM
 
-    const selectItem = (num) => {
-        const notify2 = (rate) => toast.success(`Seçilmişlərdən çıxarıldı` , {draggable: true,autoClose: 1000});
-        const notify1 = (rate) => toast.success(`Seçilmişlərə Əlavə olundu` , {draggable: true,autoClose: 1000});
-        if(UserData?.id !== undefined)
-        {  
-            if(sessionStorage.getItem('SecilmishProduct') === null)
-            {
-                sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
-                var selecteds = []  
-                selecteds = [...selecteds , {id:Product.id , delivery: Product.delivery,    thumb:Product.thumb,  title:Product.title, desc:Product.seller_data.name,  unitType:Product?.unit.unit_id,  qiymet:Product?.qiymet , ceki_hecm:Product?.ceki_hecm , discount:Product?.discount,  starsall:Product.starsall , bonus:Product.cashback}]
-                sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
-                setSelectedsProduct(selecteds)
-                axios.post('https://nehra.az/public/api/addstring' , {user_id:UserData?.id , string:JSON.stringify(selecteds)} , headers)
-                notify1()
-                return 0 
-            }        
-            else 
-            {
-                var selecteds = JSON.parse(sessionStorage.getItem('SecilmishProduct'))
-            }
-            var index = selecteds.findIndex(x=> x.id === num)
-            if (index === -1) {
-                selecteds = [...selecteds , {id:Product.id , delivery: Product.delivery,    thumb:Product.thumb,  title:Product.title, desc:Product.seller_data.name,  unitType:Product?.unit.unit_id,  qiymet:Product?.qiymet , ceki_hecm:Product?.ceki_hecm , discount:Product?.discount,  starsall:Product.starsall, bonus:Product.cashback}]
-                sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
-                setSelectedsProduct(selecteds)
-                console.log(selecteds)
-                axios.post('https://nehra.az/public/api/addstring' , {user_id:UserData?.id , string:JSON.stringify(selecteds)} , headers)
-                setindexSelected(1)
-                notify1()
-            }
-            else 
-            {
-                var newArr = selecteds.filter((item) => item.id !== num)
-                sessionStorage.setItem('SecilmishProduct' , JSON.stringify(newArr))
-                setSelectedsProduct(newArr)
-                axios.post('https://nehra.az/public/api/addstring' , {user_id:UserData?.id , string:JSON.stringify(newArr)}  , headers)
-                setindexSelected(-1)
-                notify2()
-            }
-        }
-        else 
-        {
-            notifyLogin()
-            OpenLoginF()
-        }
-    }
     
     return (
 

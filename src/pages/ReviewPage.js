@@ -4,8 +4,9 @@ import Review from "../components/Review"
 import {ProductListingContext} from '../components/ProductListingProvider'
 
 function ReviewPage() {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
-
+    const context = useContext(ProductListingContext)
+    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+  
     return (
         <div className="reviewPage">
             <p className="title">{lang === "AZ" && `Müştərilərimizin rəyləri` || lang === "EN" && `Feedback from our clients` || lang === "RU" && `Feedback from our clients`}</p>

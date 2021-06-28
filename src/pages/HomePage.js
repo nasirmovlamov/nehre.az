@@ -46,8 +46,9 @@ import Modal from '@material-ui/core/Modal';
 
 function HomePage(props) {
     
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus] = useContext(ProductListingContext)
-
+    const context = useContext(ProductListingContext)
+    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+  
     const topCards = []
     const newItems = []
     const specialOffers = []
@@ -95,8 +96,8 @@ function HomePage(props) {
     TopCards.map(bucket => ( topCards.push(             <CardSlider1 link={bucket.link} id={bucket.id} turndesc={bucket.turndesc} turnetrafli={bucket.turnetrafli}  turnoverlay={bucket.turnoverlay}  turntitle={bucket.turntitle}   name={bucket.name} image={bucket.image} desc={bucket.description}/>)))
     SuppliersCard.map(supply => ( suppliersCard.push(   <SupplierCard id={supply.id} image={supply.avatar} title={supply.name} supplier={supply.type_id} image2={testImg6} image3={testImg7}/>   )))
     AnswerCard.map(question => ( answerCard.push(       <AnswersCard  answer={question.description} question={question.name} />)))
-    NewProducts.map(product =>  ( newItems.push(        <ItemCard product={product}  delivery={product?.delivery} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={ (lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)}  unitType={product?.unit.unit_id} unitId={product?.unit.id}  unitAd={ (lang === "AZ" && product?.unit.ad) || (lang === "EN" && product?.unit.ad_en) || (lang === "RU" && product?.unit.ad_ru)} price={Math.floor(product?.qiymet)} weight={product?.ceki_hecm}   discount={product?.discount} productModal={props?.productModal} bonus={product.cashback} star={product?.starsall}/>)))
-    SpecialOffers.map(product =>( specialOffers.push(   <ItemCard delivery={product?.delivery} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={ (lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)}  unitType={product?.unit.unit_id} unitId={product?.unit.id}  unitAd={ (lang === "AZ" && product?.unit.ad) || (lang === "EN" && product?.unit.ad_en) || (lang === "RU" && product?.unit.ad_ru)} price={Math.floor(product?.qiymet)} weight={product?.ceki_hecm}   discount={product?.discount} productModal={props?.productModal} bonus={product.cashback} star={product?.starsall}/>)))
+    NewProducts.map(product =>  ( newItems.push(        <ItemCard product={product}       desc={ (lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)}   unitAd={ (lang === "AZ" && product?.unit.ad) || (lang === "EN" && product?.unit.ad_en) || (lang === "RU" && product?.unit.ad_ru)}  price={Math.floor(product?.qiymet)}   />)))
+    SpecialOffers.map(product =>( specialOffers.push(   <ItemCard product={product}       desc={ (lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)}    unitAd={ (lang === "AZ" && product?.unit.ad) || (lang === "EN" && product?.unit.ad_en) || (lang === "RU" && product?.unit.ad_ru)} price={Math.floor(product?.qiymet)}   />)))
     
     const bannerImg1 = {
         backgroundImage:`url(https://nehra.az/storage/app/public/${Banners1[0]?.image})`,

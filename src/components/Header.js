@@ -52,7 +52,8 @@ import PrivacyPolicy from '../pages/PrivacyPolicy'
 import Contact from '../pages/Contact'
 
 function Header() {
-  const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus] = useContext(ProductListingContext)
+  const context = useContext(ProductListingContext)
+  const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
 
   const styleScrollBtn = useRef(null);
   // const TopNavbar = useMediaQuery('(min-width:600px)');
@@ -115,7 +116,7 @@ function Header() {
     if (UserData?.id === undefined) {
       setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
     }
-  })
+  },[])
   
   Assortment.map(assortment => ( assortmentArr.push( <AssortmentCard id={assortment.id} title={assortment.name} desc={assortment.count} image={assortment.thumb}/>)))
 
@@ -365,6 +366,7 @@ function Header() {
                 aria-describedby="simple-modal-description">
                 {<LoginPage functionClose={() => handleClose3()}  registerFunc={() => handleOpen4()}/>}
             </Modal>
+
             <Modal  
                 style={{display:"flex", justifyContent:"center",overflow:"auto"}}
                 open={open4}
@@ -373,6 +375,7 @@ function Header() {
                 aria-describedby="simple-modal-description">
                 {<Registration functionCloseReg={() => handleClose4()}  />}
             </Modal>
+            
             <Modal  
                 style={{display:"flex", justifyContent:"center",overflow:"auto"}}
                 open={openSMS}

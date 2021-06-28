@@ -25,8 +25,10 @@ const useStyles = makeStyles((theme) => ({
     },
   }));  
 function ProductListingPage(props) {
-    const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct] = useContext(ProductListingContext)
-    const [loader, setloader] = useState(false)
+    const context = useContext(ProductListingContext)
+    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+  
+   const [loader, setloader] = useState(false)
     let { id } = useParams()
     const classes = useStyles();
     const [age, setAge] = React.useState('');
@@ -81,6 +83,9 @@ function ProductListingPage(props) {
       sendGetRequestCategoryFilter(CategoryNum , e.target.value)
     }
 
+
+
+    
     return (
         <div className="productPage"> 
             <div className="topPart">
