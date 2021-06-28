@@ -239,7 +239,7 @@ function ProductModal(props) {
             {
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
                 var selecteds = []  
-                selecteds = [...selecteds , {id:Product.id , delivery: Product.delivery,    thumb:Product.thumb,  title:Product.title, desc:Product.seller_data.name,  unitType:Product?.unit.id,  qiymet:Product?.qiymet , ceki_hecm:Product?.ceki_hecm , discount:Product?.discount,  starsall:Product.starsall , bonus:Product.cashback}]
+                selecteds = [...selecteds , {id:Product.id , delivery: Product.delivery,    thumb:Product.thumb,  title:Product.title, desc:Product.seller_data.name,  unitType:Product?.unit.unit_id,  qiymet:Product?.qiymet , ceki_hecm:Product?.ceki_hecm , discount:Product?.discount,  starsall:Product.starsall , bonus:Product.cashback}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
                 setSelectedsProduct(selecteds)
                 axios.post('https://nehra.az/public/api/addstring' , {user_id:UserData?.id , string:JSON.stringify(selecteds)} , headers)
@@ -252,7 +252,7 @@ function ProductModal(props) {
             }
             var index = selecteds.findIndex(x=> x.id === num)
             if (index === -1) {
-                selecteds = [...selecteds , {id:Product.id , delivery: Product.delivery,    thumb:Product.thumb,  title:Product.title, desc:Product.seller_data.name,  unitType:Product?.unit.id,  qiymet:Product?.qiymet , ceki_hecm:Product?.ceki_hecm , discount:Product?.discount,  starsall:Product.starsall, bonus:Product.cashback}]
+                selecteds = [...selecteds , {id:Product.id , delivery: Product.delivery,    thumb:Product.thumb,  title:Product.title, desc:Product.seller_data.name,  unitType:Product?.unit.unit_id,  qiymet:Product?.qiymet , ceki_hecm:Product?.ceki_hecm , discount:Product?.discount,  starsall:Product.starsall, bonus:Product.cashback}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
                 setSelectedsProduct(selecteds)
                 console.log(selecteds)
@@ -316,18 +316,22 @@ function ProductModal(props) {
                         <p className="desc">
                             {(lang === "AZ" && Product?.description_az) || (lang === "EN" && Product?.description_en) || (lang === "RU" && Product?.description_ru)}
                         </p>
-                        <p className="ingredients"><span className="ingredientsText">  {(lang === "AZ" && `Tərkibi:`) || (lang === "EN" && `Ingredients:`) || (lang === "RU" && `Ингредиенты:`)}</span> <span className="ingredientsFront"> {(lang === "AZ" && Product?.terkibi) || (lang === "EN" && Product?.terkibi_en) || (lang === "RU" && Product?.terkibi_ru)}</span>    </p>
-                        <p className="priceCont"> <span className="priceText">  {(lang === "AZ" && `Qiyməti:`) || (lang === "EN" && `Price:`) || (lang === "RU" && `Цена:`)}</span>  <span className="price">{money === "₼" ? Product?.qiymet : (Product?.qiymet  / 1.7).toFixed(2)} {money} </span> - <span className="weight">{Product?.ceki_hecm + " " + (parseInt(Product.unit.id) === 1 && ((lang === "AZ" && `kq`) || (lang === "EN" && 'kq') || (lang === "RU" && 'кг')) || parseInt(Product.unit.id) === 4 &&  ((lang === "AZ" && `gr`) || (lang === "EN" && 'gr') || (lang === "RU" && 'гр')) || parseInt(Product.unit.id) === 2 && ((lang === "AZ" && `l`) || (lang === "EN" && 'l') || (lang === "RU" && 'л')) )} </span></p>
+                        <p className="ingredients">
+                            { (lang === "AZ" && Product?.terkibi     !== null && Product?.terkibi  !== undefined)    && <> <span className="ingredientsText">{( `Tərkibi`)}   :</span> <span className="ingredientsFront">  {(lang === "AZ" && Product?.terkibi )}    </span></>}
+                            { (lang === "EN" && Product?.terkibi_en  !== null && Product?.terkibi_en  !== undefined) && <> <span className="ingredientsText">{(`Ingredients`)}:</span> <span className="ingredientsFront">  {(lang === "EN" && Product?.terkibi_en)}  </span></>}
+                            { (lang === "RU" && Product?.terkibi_ru  !== null && Product?.terkibi_ru  !== undefined) && <> <span className="ingredientsText">{(`Ингредиенты`)}:</span> <span className="ingredientsFront">  {(lang === "RU" && Product?.terkibi_ru)}  </span></>}
+                        </p>
+                        <p className="priceCont"> <span className="priceText">  {(lang === "AZ" && `Qiyməti:`) || (lang === "EN" && `Price:`) || (lang === "RU" && `Цена:`)}</span>  <span className="price">{money === "₼" ? Product?.qiymet : (Product?.qiymet  / 1.7).toFixed(2)} {money} </span> - <span className="weight">{((Product.unit.id === 2 || Product.unit.id === 4 || Product.unit.id === 1) ? Product?.ceki_hecm : 1 ) + " " + ((lang === "AZ" && Product?.unit.ad) || (lang === "EN" && Product?.unit.ad_en) || (lang === "RU" && Product?.unit.ad_ru))}  </span></p>
                         <div className="buttonsCont">
                             {
                                 ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count && 
                                 <div className="part1">
-                                    <button  value="1" onClick={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title)} className="decBtn"  >{<RemoveIcon style={{fontSize:"20px"}}/>}</button>
+                                    <button  value="1" onClick={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.unit_id , Product?.delivery , Product?.title)} className="decBtn"  >{<RemoveIcon style={{fontSize:"20px"}}/>}</button>
                                     <button   className="valueBtn">{Product?.id !== undefined ? (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count) : 0}</button>
-                                    <button  value="1" onClick={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title)}  className="incBtn">+</button>
+                                    <button  value="1" onClick={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.unit_id , Product?.delivery , Product?.title)}  className="incBtn">+</button>
                                 </div>
                             }
-                            <div className="part2"><Button1 value={(lang === "AZ" && `Səbətə əlavə et`) || (lang === "EN" && `Add Basket`) || (lang === "RU" && `Добавить корзину`)} color="#285999" function={ () => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title)}/></div>
+                            <div className="part2"><Button1 value={(lang === "AZ" && `Səbətə əlavə et`) || (lang === "EN" && `Add Basket`) || (lang === "RU" && `Добавить корзину`)} color="#285999" function={ () => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.unit_id , Product?.delivery , Product?.title)}/></div>
                         </div>
                     </div> 
                 </div>

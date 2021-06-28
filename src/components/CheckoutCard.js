@@ -111,7 +111,7 @@ function CheckoutCard(props) {
                             <div className="aboutItem">
                             
                                 <p className="title">{(lang === "AZ" && Product?.title_az) || (lang === "EN" && Product?.title_en) || (lang === "RU" && Product?.title_ru)}</p>
-                                <p className="priceAndWeight">{ money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost  : (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost  / 1.7).toFixed(1)} {money}  / {Product?.ceki_hecm} {(parseInt(props.unitType) === 1 && ((lang === "AZ" && `kq`) || (lang === "EN" && 'kq') || (lang === "RU" && 'кг')) || parseInt(props.unitType) === 4 &&  ((lang === "AZ" && `gr`) || (lang === "EN" && 'gr') || (lang === "RU" && 'гр')) || parseInt(props.unitType) === 2 && ((lang === "AZ" && `l`) || (lang === "EN" && 'l') || (lang === "RU" && 'л')) )}</p>
+                                <p className="priceAndWeight">{ money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost  : (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost  / 1.7).toFixed(1)} {money}  / {((Product?.unit?.id === 2 || Product?.unit?.id === 4 || Product?.unit?.id === 1) ? Product?.ceki_hecm : 1 ) + " " + (lang === "AZ" && Product?.unit?.ad  ) || (lang === "EN" && Product?.unit?.ad_en) || (lang === "RU" && Product?.unit?.ad_ru)}</p>
                                 <div className="dates">
                                 {props.delivery?.map(delivery =>
                                 <>
@@ -135,9 +135,9 @@ function CheckoutCard(props) {
                                 !checkoutMobile &&
                                 <>
                                     <div className="btnCont">
-                                        {ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count && <Button1 function={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title , props.bonus)} value={<RemoveIcon/>} color="#085096"/>}
+                                        {ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count && <Button1 function={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.unit_id , Product?.delivery , Product?.title , props.bonus)} value={<RemoveIcon/>} color="#085096"/>}
                                         <p className="priceValue">{Product?.id !== undefined ? (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count) : 0}</p>
-                                        <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.id , Product?.delivery , Product?.title , props.bonus)} value={<AddIcon/>}  color="#085096"/>
+                                        <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.unit_id , Product?.delivery , Product?.title , props.bonus)} value={<AddIcon/>}  color="#085096"/>
                                     </div>
 
                                     <p className="price">{ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)] !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count *  (money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost : (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost / 1.7))).toFixed(1) : 0}  {money}</p>
@@ -150,9 +150,9 @@ function CheckoutCard(props) {
                                 checkoutMobile &&
                                 <div className='mobileCheckout'>
                                     <div className="btnCont">
-                                        <Button1 function={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit , Product?.delivery , Product?.title, props.bonus)} value={<RemoveIcon/>} color="#085096"/>
+                                        <Button1 function={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.unit_id , Product?.delivery , Product?.title, props.bonus)} value={<RemoveIcon/>} color="#085096"/>
                                         <p className="priceValue">{ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count}</p>
-                                        <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit , Product?.delivery , Product?.title , props.bonus)} value={<AddIcon/>}  color="#085096"/>
+                                        <Button1 function={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.unit_id , Product?.delivery , Product?.title , props.bonus)} value={<AddIcon/>}  color="#085096"/>
                                     </div>
                                     <p className="price">{Product?.id !== undefined  ? (money === "₼" ? (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count *  ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost) : (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count * ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.cost / 1.7).toFixed(1) ) : 0}   {money}</p>
                                     <button onClick={() => props.deleteCard(Product?.id , Product?.price)} className="delete"><DeleteIcon/></button>

@@ -35,6 +35,7 @@ function ItemCard(props) {
     const [ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus] = useContext(ProductListingContext)
     
     const [UserData, setUserData] = useState(0)
+    const {product}  = props
     useEffect(() => {
         if (UserData?.id === undefined) {
             setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
@@ -171,7 +172,7 @@ function ItemCard(props) {
             {
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
                 var selecteds = []  
-                selecteds = [...selecteds , {id:props.cardId , delivery: props.delivery,    thumb:props.image,  title:props.title, desc:props?.desc,  unitType:props.unitType,  qiymet:props.price , ceki_hecm:props.weight , discount:props.discount, productModal:props?.productModal, starsall:props.star, bonus:props.bonus}]
+                selecteds = [...selecteds , {id:props.cardId , delivery: product.delivery,    thumb:props.image,  title:props.title, desc:props?.desc,  unitType:props.unitType,  qiymet:props.price , ceki_hecm:props.weight , discount:props.discount, productModal:props?.productModal, starsall:props.star, bonus:props.bonus}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
                 setSelectedsProduct(selecteds)
                 axios.post('https://nehra.az/public/api/addstring' , {user_id:UserData?.id , string:JSON.stringify(selecteds)} , headers)
@@ -184,7 +185,7 @@ function ItemCard(props) {
             }
             var index = selecteds.findIndex(x=> x.id === num)
             if (index === -1) {
-                selecteds = [...selecteds , {id:props.cardId , delivery: props.delivery,    thumb:props.image,  title:props.title, desc:props?.desc,  unitType:props.unitType,  qiymet:props.price , ceki_hecm:props.weight , discount:props.discount, productModal:props?.productModal, starsall:props.star, bonus:props.bonus}]
+                selecteds = [...selecteds , {id:props.cardId , delivery: product.delivery,    thumb:props.image,  title:props.title, desc:props?.desc,  unitType:props.unitType,  qiymet:props.price , ceki_hecm:props.weight , discount:props.discount, productModal:props?.productModal, starsall:props.star, bonus:props.bonus}]
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
                 setSelectedsProduct(selecteds)
                 axios.post('https://nehra.az/public/api/addstring' , {user_id:UserData?.id , string:JSON.stringify(selecteds)} , headers)
@@ -219,7 +220,7 @@ function ItemCard(props) {
 
                 <div className="overlayImg">
                     <div className='overlayBtn'>
-                        {ProdutData[ProdutData.findIndex(x=> x.id === props.cardId)]?.count > 0 && <button onClick={() => removeItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title , props.bonus)}>-</button> }
+                        {ProdutData[ProdutData.findIndex(x=> x.id === props.cardId)]?.count > 0 && <button onClick={() => removeItem(props.product)}>-</button> }
                         <button  type="button" onClick={() => modalIdsetter(props.cardId)}>{<ZoomInIcon style={{ color: "white", fontSize:"55px" }}/>}</button>
                         {ProdutData[ProdutData.findIndex(x=> x.id === props.cardId)]?.count > 0 && <button onClick={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title , props.bonus)}>+</button>}
                     </div>
@@ -251,10 +252,10 @@ function ItemCard(props) {
             <div className="textCont">
                 <div className="starAndAbout">
                     <p className="dscPrc">{(props.discount !== 0 && props.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{money === "₼" ? (props.price) : (props.price / 1.7).toFixed(1)} {money}</span></span>)}</p>
-                    <p className="priceAndWeightItem"><span className="element1"  style={props.discount && colorChang}>{money === "₼" ? discountHandler(props.discount) : (discountHandler(props.discount) / 1.7).toFixed(1)}  {money}</span> / <span className="element2">{props.weight + " " + (parseInt(props.unitType) === 1 && ((lang === "AZ" && `kq`) || (lang === "EN" && 'kq') || (lang === "RU" && 'кг')) || parseInt(props.unitType) === 4 &&  ((lang === "AZ" && `gr`) || (lang === "EN" && 'gr') || (lang === "RU" && 'гр')) || parseInt(props.unitType) === 2 && ((lang === "AZ" && `l`) || (lang === "EN" && 'l') || (lang === "RU" && 'л')) )}</span> </p>
+                    <p className="priceAndWeightItem"><span className="element1"  style={props.discount && colorChang}>{money === "₼" ? discountHandler(props.discount) : (discountHandler(props.discount) / 1.7).toFixed(1)}  {money}</span> / <span className="element2">{((props.unitId === 2 || props.unitId === 4 || props.unitId === 1) ? props.weight : 1 ) + " " + (props.unitAd)}</span> </p>
                     <StarSystem numberStar={props.star}/>
                 </div>   
-                {!props.btnDisable && <BuyButton functionAdd={() => addItem(props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title, props.bonus)}  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>}
+                {!props.btnDisable && <BuyButton functionAdd={() => addItem(props.product)}  orders={props.orders} cardPrice={discountHandler(props.discount)} modalOpener3={props.modalOpener3} cardId={props.cardId}/>}
             </div>
 
            

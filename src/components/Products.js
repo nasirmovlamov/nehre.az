@@ -11,7 +11,7 @@ function Products(props) {
     const ProductArr = []
     if(props.SupplierProduct !== undefined)
     {
-        props.SupplierProduct.map(product => ProductArr.push(<ItemCard delivery={product?.delivery}  cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={ (lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)}  unitType={product?.unit?.id} price={Math.floor(product?.qiymet)}  weight={product?.ceki_hecm}  discount={product?.discount} productModal={props?.productModal}   star={product?.starsall} bonus={product?.cashback}/>)) 
+        props.SupplierProduct.map(product => ProductArr.push(<ItemCard delivery={product?.delivery} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={ (lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)}  unitType={product?.unit?.unit_id} unitId={product?.unit?.id}  unitAd={ (lang === "AZ" && product?.unit?.ad) || (lang === "EN" && product?.unit?.ad_en) || (lang === "RU" && product?.unit?.ad_ru)} price={Math.floor(product?.qiymet)} weight={product?.ceki_hecm}   discount={product?.discount} productModal={props?.productModal} bonus={product.cashback} star={product?.starsall}/>)) 
     }
     console.log(props.id)
     return (

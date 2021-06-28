@@ -30,16 +30,9 @@ function Description(props) {
         <div className="description">
             <div className="descAbout">
                 <div className="part1">
-                    { (lang === "AZ" && props?.Product?.qiymet !== null && props?.Product?.qiymet !== undefined) && <p className="textCont"><p className="label">Qiymət</p> <p className="value">{props?.Product?.qiymet} {money}</p></p>}
-                    { (lang === "EN" && props?.Product?.qiymet !== null && props?.Product?.qiymet !== undefined) && <p className="textCont"><p className="label">Price</p> <p className="value">{props?.Product?.qiymet} {money}</p></p>}
-                    { (lang === "RU" && props?.Product?.qiymet !== null && props?.Product?.qiymet !== undefined) && <p className="textCont"><p className="label">Цена</p> <p className="value">{props?.Product?.qiymet} {money}</p></p>}
                     
                     { (props?.Product?.ceki_hecm !== null) && <p className="textCont"><p className="label">{(lang === "AZ" && `Çəki`) || (lang === "EN" && `Weight`) || (lang === "RU" && `Масса`)}:</p> <p className="value">{props?.Product?.ceki_hecm + " " + (parseInt(props?.Product?.unit?.id) === 1 &&  ((lang === "AZ" && `kq`) || (lang === "EN" && 'kq') || (lang === "RU" && 'кг')) || parseInt(props?.Product?.unit?.id) === 4 &&  ((lang === "AZ" && `gr`) || (lang === "EN" && 'gr') || (lang === "RU" && 'гр'))|| parseInt(props?.Product?.unit?.id) === 2 && ((lang === "AZ" && `l`) || (lang === "EN" && 'l') || (lang === "RU" && 'л')) )}</p></p>}
                     
-                    
-                    { (lang === "AZ" && props?.Product?.terkibi  !== null && props?.Product?.terkibi  !== undefined) && <p className="textCont"><p className="label">{( `Tərkibi`)}:</p> <p className="value"> {(lang === "AZ" && props?.Product?.terkibi )}</p></p>}
-                    { (lang === "EN" && props?.Product?.terkibi  !== null && props?.Product?.terkibi  !== undefined) &&<p className="textCont"><p className="label">{(`Ingredients`)}:</p> <p className="value"> {(lang === "EN" && props?.Product?.terkibi_en)}</p></p>}
-                    { (lang === "RU" && props?.Product?.terkibi  !== null && props?.Product?.terkibi  !== undefined) && <p className="textCont"><p className="label">{(`Ингредиенты`)}:</p> <p className="value"> {(lang === "RU" && props?.Product?.terkibi_ru)}</p></p>}
                     
                     
                     
@@ -107,7 +100,7 @@ function Description(props) {
                 <div className="similarProductsCont">
                         <p className="title"> {(lang === "AZ" && `Oxşar məhsullar`) || (lang === "EN" && `Similar products`) || (lang === "RU" && `Похожие продукты`)} </p>
                         <div className="similarProducts">
-                            {props.ProductSimilar.map(product =>  <ItemCard delivery={product?.delivery}  NumberOfGoods={props?.NumberOfGoods}  modalOpener3={props.modalOpener3} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={ (lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)}  unitType={product?.unit.id} price={Math.floor(product?.qiymet)}  weight={product?.ceki_hecm}  discount={product?.discount}   star={product?.starsall}/>)}
+                            {props.ProductSimilar.map(product =>  <ItemCard delivery={product?.delivery} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={ (lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)}  unitType={product?.unit.unit_id} unitId={product?.unit.id}  unitAd={ (lang === "AZ" && product?.unit.ad) || (lang === "EN" && product?.unit.ad_en) || (lang === "RU" && product?.unit.ad_ru)} price={Math.floor(product?.qiymet)} weight={product?.ceki_hecm}   discount={product?.discount} productModal={props?.productModal} bonus={product.cashback} star={product?.starsall}/>)}
                         </div>
                 </div>}
         </div>
