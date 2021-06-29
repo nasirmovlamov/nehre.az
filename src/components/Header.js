@@ -53,7 +53,7 @@ import Contact from '../pages/Contact'
 
 function Header() {
   const context = useContext(ProductListingContext)
-  const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+  const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney} = context
 
   const styleScrollBtn = useRef(null);
   // const TopNavbar = useMediaQuery('(min-width:600px)');
@@ -113,9 +113,7 @@ function Header() {
   
   
   useEffect(() => {
-    if (UserData?.id === undefined) {
-      setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
-    }
+      setUserData(JSON.parse(localStorage.getItem('LoginUserData')) !== null ? JSON.parse(localStorage.getItem('LoginUserData')) : null)
   },[])
   
   Assortment.map(assortment => ( assortmentArr.push( <AssortmentCard id={assortment.id} title={assortment.name} desc={assortment.count} image={assortment.thumb}/>)))
@@ -214,14 +212,19 @@ function Header() {
   
   const sendGetRequest10 = async () => {
     try {
-      const resp = await axios.get('https://nehra.az/public/api/settings')
+      const resp = await axios.get(`https://nehra.az/public/api/settings/`)
       setNumber1(resp.data.phone1) 
       setNumber2(resp.data.phone2)
-      if (resp.data.lang === null || resp.data.lang === undefined || resp.data.lang === "" ) {
-          sessionStorage.setItem('lang' , 'AZ')
-      }
       setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
-    } catch (err) {
+      setFinalPrice(localStorage.getItem('FinalPrice') !== null ? parseInt(localStorage.getItem('FinalPrice')) : 0)
+      setFinalWeight(localStorage.getItem('FinalWeight') !== null ?  parseFloat(localStorage.getItem('FinalWeight')) : 0)
+      setFinalGoods(localStorage.getItem('FinalGoods') !== null ?  parseInt(localStorage.getItem('FinalGoods')) : 0)
+      setFinalBonus(localStorage.getItem('FinalBonus') !== null ?  parseInt(localStorage.getItem('FinalBonus')) : 0)
+      setDateGoods(localStorage.getItem('DateGoods') !== null ? JSON.parse(localStorage.getItem('DateGoods')) : [])
+      setSelectedsProduct(sessionStorage.getItem('SecilmishProduct') !== null ? JSON.parse(sessionStorage.getItem('SecilmishProduct')) : [])
+      setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
+    } 
+    catch (err) {
       // Handle Error Here
       console.error(err);
     }

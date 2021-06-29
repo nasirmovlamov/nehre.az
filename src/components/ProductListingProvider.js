@@ -5,22 +5,25 @@ import Cookies from 'js-cookie';
 import ProductModal from './ProductModal';
 import Modal from '@material-ui/core/Modal';
 import { parse } from 'date-fns';
+import axios from 'axios';
 
 
 export const ProductListingContext = createContext()
 export function ProductListingProvider(props) {
     const notifyAddBasket = () => toast.success(`Səbətə Əlavə olundu` , {draggable: true, autoClose: 1000,});
+
+
     //#region Default Values
-    const [ProdutData, setProdutData] = useState(JSON.parse(localStorage.getItem('ProdutData')) !== null ? JSON.parse(localStorage.getItem('ProdutData')) : [])
-    const [FinalPrice, setFinalPrice] = useState(localStorage.getItem('FinalPrice') !== null ? parseInt(localStorage.getItem('FinalPrice')) : 0)
-    const [FinalWeight, setFinalWeight] = useState(localStorage.getItem('FinalWeight') !== null ?  parseFloat(localStorage.getItem('FinalWeight')) : 0)
-    const [FinalGoods, setFinalGoods] = useState(localStorage.getItem('FinalGoods') !== null ?  parseInt(localStorage.getItem('FinalGoods')) : 0)
-    const [FinalBonus, setFinalBonus] = useState(localStorage.getItem('FinalBonus') !== null ?  parseInt(localStorage.getItem('FinalBonus')) : 0)
-    const [DateGoods, setDateGoods] = useState(localStorage.getItem('DateGoods') !== null ? JSON.parse(localStorage.getItem('DateGoods')) : [])
-    const [SelectedsProduct, setSelectedsProduct] = useState(sessionStorage.getItem('SecilmishProduct') !== null ? JSON.parse(sessionStorage.getItem('SecilmishProduct')) : [])
+    const [ProdutData, setProdutData] = useState([])
+    const [FinalPrice, setFinalPrice] = useState(0)
+    const [FinalWeight, setFinalWeight] = useState(0)
+    const [FinalGoods, setFinalGoods] = useState(0)
+    const [FinalBonus, setFinalBonus] = useState(0)
+    const [DateGoods, setDateGoods] = useState([])
+    const [SelectedsProduct, setSelectedsProduct] = useState([])
     const langArr = ["AZ" , "EN" , "RU"]
-    const [lang, setlang] = useState(sessionStorage.getItem('lang') === null ? 'AZ' : sessionStorage.getItem('lang'))
-    const [money, setmoney] = useState(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
+    const [lang, setlang] = useState()
+    const [money, setmoney] = useState()
     const [OpenLogin, setOpenLogin] = useState(false)
     //#endregion Default Values
 
@@ -31,18 +34,7 @@ export function ProductListingProvider(props) {
         setOpenLogin(false)
     }
     
-    useEffect(() => {
-        localStorage.setItem('ProdutData' , JSON.stringify(ProdutData))
-        var priceGoodsWeightHandler = (element) => {
-            for (let i = 0; i < element.count; i++) {
-                var arrayA = DateGoods;
-                var arrayB = element.date;
-                var newArray = arrayA.concat(arrayB.filter(x => !arrayA.some(y => y === x)))
-                setDateGoods(newArray)
-            }
-        }   
-        ProdutData.map(element => priceGoodsWeightHandler(element))
-    }, [ProdutData])
+   
 
     const discountHandler = (product) => {
         if (product.discount !== 0 && product.discount !== null) {
@@ -55,9 +47,36 @@ export function ProductListingProvider(props) {
         }
     }
 
+    const addCart = async (product , FinalPrice, FinalWeight, FinalGoods, FinalBonus, DateGoods) => {
+        const string = { 
+            product: product,
+            FinalPrice:FinalPrice,
+            FinalWeight:FinalWeight,
+            FinalGoods:FinalGoods,
+            FinalBonus:FinalBonus,
+            DateGoods:DateGoods
+        }
+        const resp = await axios.post('https://nehra.az/api/addcart' ,{user_id:JSON.parse(localStorage.getItem('LoginUserData')),  string:JSON.stringify(string)})
+    } 
+
+    const weightChecker = (weight , unitType) => {
+        let return_weight = 0
+        if (parseInt(unitType) === 4) {
+            setFinalWeight(FinalWeight + (parseFloat(weight) / 1000))
+            return_weight = FinalWeight + (parseFloat(weight) / 1000)
+            return return_weight
+        }
+        else 
+        {
+            setFinalWeight(parseFloat(FinalWeight) + parseFloat(weight))
+            return_weight = parseFloat(FinalWeight) + parseFloat(weight)
+            return return_weight
+        }
+    }
+
     const addItem = (product) => {
-        // num,price , weight , unitType , dates , name, bonus
-        // props.cardId , discountHandler(props.discount) , props.weight , props.unitType , props.delivery , props.title, props.bonus
+        notifyAddBasket()
+        //#region Add Cart Values
         const num = product.id
         const price = discountHandler(product)
         const weight = product.ceki_hecm
@@ -66,44 +85,50 @@ export function ProductListingProvider(props) {
         const name = product.title
         const bonus = product.bonus
 
-        if (parseInt(unitType) === 4) {
-            setFinalWeight(FinalWeight + (parseFloat(weight) / 1000))
-        }
-        else 
-        {
-            setFinalWeight(parseFloat(FinalWeight) + parseFloat(weight))
-        }
-        setFinalPrice(FinalPrice + parseInt(price))
-        setFinalGoods(FinalGoods + 1)
-        setFinalBonus(FinalBonus + parseInt(bonus))
+        let productCartAdd = {} 
+        let FinalPriceCartAdd = 0
+        let FinalWeightCartAdd = 0
+        let FinalGoodsCartAdd = 0
+        let FinalBonusCartAdd = 0
+        let DateGoodsCartAdd = []
+        FinalPriceCartAdd = FinalPrice + parseInt(price)
+        FinalGoodsCartAdd = FinalGoods + 1
+        FinalBonusCartAdd = FinalBonus + parseInt(bonus)
+        //#endregion Add Cart Values
+        
+        // #region setterfunctions 
         var arrayA = DateGoods;
         var arrayB = dates;
         var newArray = arrayA.concat(arrayB.filter(x => !arrayA.some(y => y === x)))
         let uniqueDates = [...new Set(newArray)];
+        // #endregion setterfunctions 
+        setFinalPrice(FinalPriceCartAdd)
+        setFinalGoods(FinalGoodsCartAdd)
+        setFinalBonus(FinalBonusCartAdd)
         setDateGoods(uniqueDates)
+        
         var index = ProdutData.findIndex(x=> x.id === num);
         if (index === -1) {
-            setProdutData([...ProdutData , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType, bonus:bonus}])
+            weightChecker(weight , unitType)
+            // product , FinalPrice, FinalWeight, FinalGoods, FinalBonus, DateGoods
+            FinalWeightCartAdd = weightChecker(weight , unitType)
+            let productAddcartdata = [...ProdutData , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType, bonus:bonus, product:product}]
+            setProdutData(productAddcartdata)
+            addCart(productAddcartdata , FinalPriceCartAdd, FinalWeightCartAdd, FinalGoodsCartAdd, FinalBonusCartAdd, uniqueDates)
         }
         else 
         {
+            
             var newArr = [...ProdutData]
             newArr[index].count++
             setProdutData(newArr)
-        }
-        notifyAddBasket()
-        localStorage.setItem('FinalGoods' , (parseInt(FinalGoods) + 1))
-        localStorage.setItem('FinalBonus' , (parseInt(FinalBonus) + parseInt(bonus)))
-        localStorage.setItem('FinalPrice' , (parseInt(FinalPrice) + parseInt(price)))
-        if (parseInt(unitType) === 4) {
-            localStorage.setItem('FinalWeight' , (parseFloat(FinalWeight) + (parseFloat(weight) / 1000)).toFixed(2))
-        }
-        else 
-        {
-            localStorage.setItem('FinalWeight' , (parseFloat(FinalWeight) + parseFloat(weight) ))
+            weightChecker(weight , unitType)
+            FinalWeightCartAdd = weightChecker(weight , unitType)
+            let productAddcartdata = newArr
+            addCart(productAddcartdata , FinalPriceCartAdd, FinalWeightCartAdd, FinalGoodsCartAdd, FinalBonusCartAdd, uniqueDates)
         }
 
-        localStorage.setItem('DateGoods' , (JSON.stringify(uniqueDates)))
+
     }
 
     const removeItem = (product) => {
@@ -217,7 +242,7 @@ export function ProductListingProvider(props) {
 
     
     return (
-        <ProductListingContext.Provider value={{ProdutData:ProdutData, setProdutData:setProdutData, FinalPrice:FinalPrice, setFinalPrice:setFinalPrice, FinalWeight:FinalWeight, setFinalWeight:setFinalWeight,FinalGoods:FinalGoods, setFinalGoods:setFinalGoods, addItem:addItem, removeItem:removeItem, lang:lang , setlang:setlang,  money:money , langArr:langArr, DateGoods:DateGoods,setDateGoods:setDateGoods , SelectedsProduct:SelectedsProduct, setSelectedsProduct:setSelectedsProduct, OpenLoginF:OpenLoginF,CloseLoginF:CloseLoginF, setOpenLogin:setOpenLogin , OpenLogin:OpenLogin, handleOpenPM:handleOpenPM, handleClosePM:handleClosePM, modalIdsetter:modalIdsetter, modalId:modalId, FinalBonus:FinalBonus, setFinalBonus:setFinalBonus,selectItem:selectItem,discountHandler:discountHandler}}>
+        <ProductListingContext.Provider value={{ProdutData:ProdutData, setProdutData:setProdutData, FinalPrice:FinalPrice, setFinalPrice:setFinalPrice, FinalWeight:FinalWeight, setFinalWeight:setFinalWeight,FinalGoods:FinalGoods, setFinalGoods:setFinalGoods, addItem:addItem, removeItem:removeItem, lang:lang , setlang:setlang,  money:money , langArr:langArr, DateGoods:DateGoods,setDateGoods:setDateGoods , SelectedsProduct:SelectedsProduct, setSelectedsProduct:setSelectedsProduct, OpenLoginF:OpenLoginF,CloseLoginF:CloseLoginF, setOpenLogin:setOpenLogin , OpenLogin:OpenLogin, handleOpenPM:handleOpenPM, handleClosePM:handleClosePM, modalIdsetter:modalIdsetter, modalId:modalId, FinalBonus:FinalBonus, setFinalBonus:setFinalBonus,selectItem:selectItem,discountHandler:discountHandler , setmoney:setmoney}}>
             {props.children}
             <div className="modalCont">
                 <Modal  

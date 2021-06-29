@@ -42,7 +42,6 @@ function ItemCard(props) {
 
     const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
 
-    
     const [state, setState] = React.useState({
         checkedA: true,
         checkedB: true,
@@ -102,7 +101,7 @@ function ItemCard(props) {
 //#endregion
     
     //Select ITEM  //Select ITEM
-    const [indexSelected, setindexSelected] = useState(JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === product.id) !== undefined ? JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === product.id) : -1)
+    const [indexSelected, setindexSelected] = useState(SelectedsProduct?.findIndex(x=> x.id === product.id) !== undefined ? SelectedsProduct?.findIndex(x=> x.id === product.id) : -1)
     
     useEffect(() => {
         if (sessionStorage.getItem('SecilmishProduct') !== null) {
