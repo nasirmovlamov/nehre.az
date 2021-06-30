@@ -31,29 +31,27 @@ import DateSelect from './DateMoment'
 
 function ItemCard(props) {
     const context = useContext(ProductListingContext)
-    const {SelectedsProduct, ProdutData, selectItem,addItem,modalIdsetter,removeItem,lang,money, discountHandler} = context
+    const  {product}  = props
+    const {SelectedsProduct, ProdutData, selectItem,addItem,modalIdsetter,removeItem,lang,money, discountHandler, UserData} = context
+
     
-    const [UserData, setUserData] = useState(0)
-    const {product}  = props
-    
-    useEffect(() => {
-        setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
-    } , [])
 
     const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
 
-    const [state, setState] = React.useState({
-        checkedA: true,
-        checkedB: true,
-        checkedF: true,
-        checkedG: true,
-      });
+    //#region trash 
+    // const [state, setState] = React.useState({
+    //     checkedA: true,
+    //     checkedB: true,
+    //     checkedF: true,
+    //     checkedG: true,
+    //   });
+    // const [checker, setchecker] = useState(false)
+    // const handleChange = (event) => {
+    //     setState({ ...state, [event.target.name]: event.target.checked });
+    // };
+    //#endregion trash 
     
-    const handleChange = (event) => {
-        setState({ ...state, [event.target.name]: event.target.checked });
-    };
-    const [checker, setchecker] = useState(false)
-
+    //#region style
     const imgHandler = {
         backgroundImage: product?.thumb !== undefined  && product?.thumb !== null ? `url('https://nehra.az/storage/app/public/${product?.thumb}')` : defP,
         backgroundRepeat:"no-repeat",
@@ -75,9 +73,6 @@ function ItemCard(props) {
     const colorChang = {
         color: 'red'
     }
-    
-    
-
     const useStyles = makeStyles((theme) => ({
     paper: {
         position: 'absolute',
@@ -89,35 +84,16 @@ function ItemCard(props) {
     },}));
     const classes = useStyles();
     // getModalStyle is not a pure function, we roll the style only on the first render
+    //#endregion
     
-
-   
-
-
-
-
-
+    //#region Select ITEM  //Select ITEM
+    // const [indexSelected, setindexSelected] = useState(SelectedsProduct?.findIndex(x=> x.id === product.id) !== undefined ? SelectedsProduct?.findIndex(x=> x.id === product.id) : -1)
+    // useEffect(() => {
+    //     var selecteds = SelectedsProduct
+    //     setindexSelected(selecteds?.findIndex(x=> x.id === props.cardItem))
+    // }, [SelectedsProduct])
+    //#endregion  Select ITEM  //Select ITEM
     
-//#endregion
-    
-    //Select ITEM  //Select ITEM
-    const [indexSelected, setindexSelected] = useState(SelectedsProduct?.findIndex(x=> x.id === product.id) !== undefined ? SelectedsProduct?.findIndex(x=> x.id === product.id) : -1)
-    
-    useEffect(() => {
-        if (sessionStorage.getItem('SecilmishProduct') !== null) {
-            var selecteds = SelectedsProduct
-            setindexSelected(selecteds?.findIndex(x=> x.id === props.cardItem))
-        }
-    }, [SelectedsProduct])
-
-    //Select ITEM  //Select ITEM
-    const token = Cookies.getItem('XSRF-TOKEN')
-    const headers = {
-        "X-CSRF-TOKEN":token
-    }
-
-    
-
     return (
         <div key={product.id} className="itemCard">
             <button  type="button"  className="imgCont" style={imgHandler}>
@@ -144,7 +120,6 @@ function ItemCard(props) {
                                     }
                                 </>
                             )}  
-                   
                 </div>
             </button>
 

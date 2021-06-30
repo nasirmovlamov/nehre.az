@@ -47,7 +47,7 @@ import Modal from '@material-ui/core/Modal';
 function HomePage(props) {
     
     const context = useContext(ProductListingContext)
-    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,loader, setloader} = context
   
     const topCards = []
     const newItems = []
@@ -64,6 +64,7 @@ function HomePage(props) {
     
     
     const sendGetRequests = async () => {
+        // setloader(true)
         try {
             const resp1 = await axios.get('https://nehra.az/public/api/banner/first_banner')
             setBanners1(resp1.data)
@@ -79,13 +80,18 @@ function HomePage(props) {
             setSpecialOffers(resp6.data)
             const resp7 = await axios.get('https://nehra.az/public/api/newproducts')
             setProduct(resp7.data)
+            // setloader(false)
         } catch (err) {
             // Handle Error Here
             console.error(err);
+            // setloader(false)
+
         }
     };
     
     useEffect(() => {
+            console.log("YESS")
+
             sendGetRequests()
             if (JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.id) === undefined) {
                 sessionStorage.setItem('SecilmishProduct' , JSON.stringify([]))

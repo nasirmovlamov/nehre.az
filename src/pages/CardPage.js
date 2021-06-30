@@ -25,77 +25,21 @@ import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 
 function CardPage(props) {
     const context = useContext(ProductListingContext)
-    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,clearBucket ,setItems, setMinOrder, Items, MinOrder} = context
   
     const functionHandler = () => {
         if(props.UserId)
         props.functionOpenCheckoutPage()
         props.functionClose()
     }
-    const [Items, setItems] = useState(ProdutData)
-    const [MinOrder, setMinOrder] = useState()
-    const [Product, setProduct] = useState()
     const [loader, setloader] = useState(false)
-    useEffect(() => {
-        setloader(true)
-        axios.get(`https://nehra.az/public/api/product/${props.id}`)
-        .then(res => (setProduct(res.data) , setloader(false)) )
-        .catch(err=> (console.log(err) , setloader(false)))
-
-        axios.get('https://nehra.az/public/api/settings/')
-             .then(res => setMinOrder(res.data.min_order_amount))
-             .then(err => console.log(err))
-    } , [])
+    
     
 
     
-    const clearBucket = () => {
-        setFinalPrice(0)
-        setFinalGoods(0)
-        setFinalWeight(0)
-        setFinalBonus(0)
-        setProdutData([])
-        setItems([])
-        localStorage.setItem('ProdutData' , JSON.stringify([]))
-        localStorage.setItem('FinalGoods' , (0))
-        localStorage.setItem('FinalPrice' , (0))
-        localStorage.setItem('FinalWeight' , (0))
-        localStorage.setItem('FinalBonus' , (0))
-        localStorage.setItem('DateGoods' , JSON.stringify([]))
-    }
     
-    const deleteCard = (num , price, dates) => {
-        var index = ProdutData.findIndex(x=> x.id === num);
-        setFinalPrice(parseInt(FinalPrice) - parseInt(ProdutData[index]?.cost * ProdutData[index]?.count))
-        setFinalBonus(parseInt(FinalBonus) - parseInt(ProdutData[index]?.bonus * ProdutData[index]?.count))
-        setFinalGoods(parseInt(FinalGoods) - parseInt(ProdutData[index]?.count) )
-        if (parseInt(ProdutData[index]?.unitType) === 4) {
-            setFinalWeight(parseFloat(FinalWeight) - ((parseFloat(ProdutData[index]?.weight) / 1000) * parseInt(ProdutData[index]?.count)) )
-            localStorage.setItem('FinalWeight' , (FinalWeight - ((parseFloat(ProdutData[index]?.weight) / 1000) * ProdutData[index]?.count ) ))
-        }
-        else 
-        {
-            setFinalWeight(parseFloat(FinalWeight) - (parseFloat(ProdutData[index]?.weight) * parseInt(ProdutData[index]?.count) ) )
-            localStorage.setItem('FinalWeight' , (FinalWeight - (parseFloat(ProdutData[index]?.weight) * ProdutData[index]?.count ) ))
-        }
-        setProdutData(ProdutData.filter((item) => item.id !== num))
-        setItems(Items.filter((item) => item.id !== num))
-        var testarr = ProdutData.filter((item) => item.id !== num)
-        const datesss = []
-        const nonDeletedP = Items.filter((item) => item.id !== num)
-        for (let i = 0; i < nonDeletedP.length; i++) {
-            for (let j = 0; j < nonDeletedP[i]?.date?.length; j++) {
-                datesss.push(nonDeletedP[i]?.date[j])
-            }
-        }
-        let uniqueDates = [...new Set(datesss)];
-
-        setDateGoods(uniqueDates)
-        localStorage.setItem('FinalPrice' , (FinalPrice - (ProdutData[index]?.cost * ProdutData[index]?.count)))
-        localStorage.setItem('FinalGoods' , (FinalGoods - ProdutData[index]?.count ))
-        localStorage.setItem('ProdutData' , (JSON.stringify(ProdutData.filter((item) => item.id !== num))))   
-        localStorage.setItem('DateGoods' , (JSON.stringify(uniqueDates)))
-    }
+    
+    
 
     const discountHandler = (discount , count , cost) => {
         if (discount !== 0 && discount !== null  && discount !== undefined) {
@@ -116,31 +60,6 @@ function CardPage(props) {
 
     //Date Problems
     const today = new Date()
-    const tomorrow = new Date(today)
-    tomorrow.setDate(tomorrow.getDate() + 1)
-    const monday = new Date()
-    monday.setDate(tomorrow.getDate() + (1 + 7 - tomorrow.getDay()) % 7);
-    const tuesday = new Date()
-    tuesday.setDate(tomorrow.getDate() + (2 + 7 - tomorrow.getDay()) % 7);
-    const wednesday = new Date()
-    wednesday.setDate(tomorrow.getDate() + (3 + 7 - tomorrow.getDay()) % 7);
-    const thursday = new Date()
-    thursday.setDate(tomorrow.getDate() + (4 + 7 - tomorrow.getDay()) % 7);
-    const friday = new Date()
-    friday.setDate(tomorrow.getDate() + (5 + 7 - tomorrow.getDay()) % 7);
-    const saturday = new Date()
-    saturday.setDate(tomorrow.getDate() + (6 + 7 - tomorrow.getDay()) % 7);
-    const sunday = new Date()
-    sunday.setDate(tomorrow.getDate() + (7 + 7 - tomorrow.getDay()) % 7);
-
-    var newmonday = moment(monday).locale('az').format( 'dddd, D MMMM');
-    var newtuesday = moment(tuesday).locale('az').format( 'dddd, D MMMM');
-    var newwednesday = moment(wednesday).locale('az').format( 'dddd, D MMMM');
-    var newthursday = moment(thursday).locale('az').format( 'dddd, D MMMM');
-    var newfriday = moment(friday).locale('az').format( 'dddd, D MMMM');
-    var newsaturday = moment(saturday).locale('az').format( 'dddd, D MMMM');
-    var newsunday = moment(sunday).locale('az').format( 'dddd, D MMMM');
-
     const [nextDelivery, setnextDelivery] = useState()
 
     const dateSorter = () => {
@@ -160,9 +79,6 @@ function CardPage(props) {
         var nextday = moment(sortedArr[sortedArr.length - 1]).format( 'dddd, D MMMM');
         setnextDelivery(nextday)
     }
-
-
-
 
     useEffect(() => {
         dateSorter()
@@ -187,7 +103,7 @@ function CardPage(props) {
                             !loader 
                             &&
                             <>
-                                {ProdutData.map( element => <CheckoutCard key={element.id} deleteCard={deleteCard}  id={element.id}  delivery={element.date} unitType={element.unitType} bonus={element.bonus}/>)}
+                                {ProdutData.map( product => <CheckoutCard product={product.product}       desc={ (lang === "AZ" && product.product?.seller_data?.name) || (lang === "EN" && product.product?.seller_data?.name_en) || (lang === "RU" && product.product?.seller_data?.name_ru)}   unitAd={ (lang === "AZ" && product.product?.unit.ad) || (lang === "EN" && product.product?.unit.ad_en) || (lang === "RU" && product.product?.unit.ad_ru)}  price={Math.floor(product.product?.qiymet)} />)}
                             </>
                         }
                         {loader &&  <div className="loader"><CircularProgress color="secondary" /></div>}

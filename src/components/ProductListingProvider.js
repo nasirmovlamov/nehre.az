@@ -10,10 +10,16 @@ import axios from 'axios';
 
 export const ProductListingContext = createContext()
 export function ProductListingProvider(props) {
-    const notifyAddBasket = () => toast.success(`Səbətə Əlavə olundu` , {draggable: true, autoClose: 1000,});
+    const notifyAddBasket = () => toast.info((lang === "AZ" && `Məhsul səbətə əlavə edildi` || lang === "EN" && `The product has added to the cart` || lang === "RU" && `Товар добавлен в корзину`) , {draggable: true, autoClose: 1000,});
+    const notifyRemoveBasket = () => toast.info((lang === "AZ" && `Məhsul səbətdən çıxarıldı` || lang === "EN" && `The product was removed from the basket` || lang === "RU" && `Товар удален из корзины`)  , {draggable: true, autoClose: 1000,});
+    const [UserData, setUserData] = useState(null)
+
 
 
     //#region Default Values
+    const [loader, setloader] = useState(false)
+
+
     const [ProdutData, setProdutData] = useState([])
     const [FinalPrice, setFinalPrice] = useState(0)
     const [FinalWeight, setFinalWeight] = useState(0)
@@ -25,6 +31,9 @@ export function ProductListingProvider(props) {
     const [lang, setlang] = useState()
     const [money, setmoney] = useState()
     const [OpenLogin, setOpenLogin] = useState(false)
+    const [MinOrder, setMinOrder] = useState()
+    const [Items, setItems] = useState()
+
     //#endregion Default Values
 
     const OpenLoginF = () =>{
@@ -48,28 +57,63 @@ export function ProductListingProvider(props) {
     }
 
     const addCart = async (product , FinalPrice, FinalWeight, FinalGoods, FinalBonus, DateGoods) => {
-        const string = { 
-            product: product,
-            FinalPrice:FinalPrice,
-            FinalWeight:FinalWeight,
-            FinalGoods:FinalGoods,
-            FinalBonus:FinalBonus,
-            DateGoods:DateGoods
+        if(UserData !== null)
+        {
+            const string = { 
+                product: product,
+                FinalPrice:FinalPrice,
+                FinalWeight:FinalWeight,
+                FinalGoods:FinalGoods,
+                FinalBonus:FinalBonus,
+                DateGoods:DateGoods
+            }
+            const resp = await axios.post('https://nehra.az/public/api/addcart' ,{user_id: UserData.id,  string:JSON.stringify(string)})
         }
-        const resp = await axios.post('https://nehra.az/api/addcart' ,{user_id:JSON.parse(localStorage.getItem('LoginUserData')),  string:JSON.stringify(string)})
     } 
 
-    const weightChecker = (weight , unitType) => {
+    const weightChecker = (weight , unitType, plus , index) => {
         let return_weight = 0
         if (parseInt(unitType) === 4) {
-            setFinalWeight(FinalWeight + (parseFloat(weight) / 1000))
-            return_weight = FinalWeight + (parseFloat(weight) / 1000)
+            if(plus ==='add')
+            {
+                return_weight = FinalWeight + (parseFloat(weight) / 1000)
+                setFinalWeight(return_weight)
+                localStorage.setItem('FinalWeight' , return_weight)
+            }
+            else if(plus ==='remove')
+            {
+                return_weight = FinalWeight - (parseFloat(weight) / 1000)
+                setFinalWeight(return_weight)
+                localStorage.setItem('FinalWeight' , (return_weight))
+            }
+            else 
+            {
+                return_weight = parseFloat(FinalWeight) - ((parseFloat(weight) / 1000) * parseInt(ProdutData[index]?.count)) 
+                setFinalWeight(return_weight)
+                localStorage.setItem('FinalWeight' , return_weight)
+            }
             return return_weight
         }
         else 
         {
-            setFinalWeight(parseFloat(FinalWeight) + parseFloat(weight))
-            return_weight = parseFloat(FinalWeight) + parseFloat(weight)
+            if(plus === 'add')
+            {
+                return_weight = parseFloat(FinalWeight) + parseFloat(weight)
+                setFinalWeight(return_weight)
+                localStorage.setItem('FinalWeight' , return_weight)
+            }
+            else if(plus ==='remove')
+            {
+                return_weight = parseFloat(FinalWeight) - parseFloat(weight)
+                setFinalWeight(return_weight)
+                localStorage.setItem('FinalWeight' , (return_weight))
+            }
+            else 
+            {
+                return_weight = parseFloat(FinalWeight) - ((parseFloat(weight)) * parseInt(ProdutData[index]?.count)) 
+                setFinalWeight(return_weight)
+                localStorage.setItem('FinalWeight' , return_weight)
+            }
             return return_weight
         }
     }
@@ -77,14 +121,13 @@ export function ProductListingProvider(props) {
     const addItem = (product) => {
         notifyAddBasket()
         //#region Add Cart Values
-        const num = product.id
-        const price = discountHandler(product)
-        const weight = product.ceki_hecm
-        const unitType = product.unit.unit_id
+        const num = parseInt(product.id)
+        const price = parseFloat(discountHandler(product))
+        const weight = parseFloat(product.ceki_hecm)
+        const unitType = parseInt(product.unit.unit_id)
         const dates = product.delivery
         const name = product.title
-        const bonus = product.bonus
-
+        const bonus = parseInt(product.bonus)
         let productCartAdd = {} 
         let FinalPriceCartAdd = 0
         let FinalWeightCartAdd = 0
@@ -109,12 +152,23 @@ export function ProductListingProvider(props) {
         
         var index = ProdutData.findIndex(x=> x.id === num);
         if (index === -1) {
-            weightChecker(weight , unitType)
+            weightChecker(weight , unitType, 'add' , 0)
             // product , FinalPrice, FinalWeight, FinalGoods, FinalBonus, DateGoods
-            FinalWeightCartAdd = weightChecker(weight , unitType)
+            FinalWeightCartAdd = weightChecker(weight , unitType, 'add' , 0)
             let productAddcartdata = [...ProdutData , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType, bonus:bonus, product:product}]
             setProdutData(productAddcartdata)
-            addCart(productAddcartdata , FinalPriceCartAdd, FinalWeightCartAdd, FinalGoodsCartAdd, FinalBonusCartAdd, uniqueDates)
+            console.log(UserData)
+            if (UserData !== null) {
+                addCart(productAddcartdata , FinalPriceCartAdd, FinalWeightCartAdd, FinalGoodsCartAdd, FinalBonusCartAdd, uniqueDates)
+            }
+            else 
+            {
+                localStorage.setItem('FinalGoods' , FinalGoodsCartAdd)
+                localStorage.setItem('FinalPrice' , FinalPriceCartAdd)
+                localStorage.setItem('FinalBonus' , FinalBonusCartAdd)
+                localStorage.setItem('DateGoods' ,  JSON.stringify(uniqueDates))
+                localStorage.setItem('ProdutData' , JSON.stringify(productAddcartdata))
+            }
         }
         else 
         {
@@ -122,16 +176,26 @@ export function ProductListingProvider(props) {
             var newArr = [...ProdutData]
             newArr[index].count++
             setProdutData(newArr)
-            weightChecker(weight , unitType)
-            FinalWeightCartAdd = weightChecker(weight , unitType)
+            weightChecker(weight , unitType , 'add' , 0)
+            FinalWeightCartAdd = weightChecker(weight , unitType , 'add' , 0)
             let productAddcartdata = newArr
-            addCart(productAddcartdata , FinalPriceCartAdd, FinalWeightCartAdd, FinalGoodsCartAdd, FinalBonusCartAdd, uniqueDates)
+            if (UserData !== null) {
+                addCart(productAddcartdata , FinalPriceCartAdd, FinalWeightCartAdd, FinalGoodsCartAdd, FinalBonusCartAdd, uniqueDates)
+            }
+            else 
+            {
+                localStorage.setItem('FinalGoods' , FinalGoodsCartAdd)
+                localStorage.setItem('FinalPrice' , FinalPriceCartAdd)
+                localStorage.setItem('FinalBonus' , FinalBonusCartAdd)
+                localStorage.setItem('DateGoods' ,  JSON.stringify(uniqueDates))
+                localStorage.setItem('ProdutData' , JSON.stringify(productAddcartdata))
+            }
         }
-
-
     }
 
     const removeItem = (product) => {
+        notifyRemoveBasket()
+        //#region Add Cart Values
         const num = product.id
         const price = discountHandler(product)
         const weight = product.ceki_hecm
@@ -139,44 +203,54 @@ export function ProductListingProvider(props) {
         const dates = product.delivery
         const name = product.title
         const bonus = product.bonus
+        let productCartAdd = {} 
+        let FinalPriceCartAdd = 0
+        let FinalWeightCartAdd = 0
+        let FinalGoodsCartAdd = 0
+        let FinalBonusCartAdd = 0
+        let DateGoodsCartAdd = []
+       
+        //#endregion Add Cart Values
         
         var index = ProdutData.findIndex(x=> x.id === num);
         if (ProdutData[index].count > 0) {
-            setFinalPrice(FinalPrice - parseInt(price))
-            setFinalBonus(FinalBonus - parseInt(bonus))
-            setFinalGoods(FinalGoods - 1)
+            FinalPriceCartAdd = FinalPrice - parseInt(price)
+            FinalGoodsCartAdd = FinalGoods - 1
+            FinalBonusCartAdd = FinalBonus - parseInt(bonus)
             var newArr = [...ProdutData]
             newArr[index].count--
             newArr = newArr.filter(element => element.count !== 0)
-            console.log(newArr);
-            setProdutData(newArr)
-
-            var arrayA = DateGoods;
-            var arrayB = dates;
-            var newArray = arrayA.concat(arrayB.filter(x => !arrayA.some(y => y !== x)))
+            let productAddcartdata = newArr
+            setProdutData(productAddcartdata)
+            let arrayA = DateGoods;
+            let arrayB = dates;
+            let uniqueDates = arrayA.concat(arrayB.filter(x => !arrayA.some(y => y !== x)))
 
             // for (let i = 0; i < newArr.length; i++) {
             //     for (let i = 0; i < newArr[i]?.date?.length; i++) {
             //         dates.push(newArr[i]?.date[i])
             //     }
             // }
-            
-            setDateGoods(newArray)
+            setDateGoods(uniqueDates)
+            setFinalPrice(FinalPriceCartAdd)
+            setFinalGoods(FinalGoodsCartAdd)
+            setFinalBonus(FinalBonusCartAdd)
+            setDateGoods(uniqueDates)
+            weightChecker(weight , unitType , 'remove' , 0)
+            FinalWeightCartAdd = weightChecker(weight , unitType , 'remove' , 0)
 
-            if (parseInt(ProdutData[index]?.unitType) === 4) {
-                setFinalWeight(parseFloat(FinalWeight) - ((parseFloat(ProdutData[index]?.weight) / 1000)) )
-                localStorage.setItem('FinalWeight' , (parseFloat(FinalWeight) - (parseFloat(ProdutData[index]?.weight) / 1000)))
+            if (UserData !== null) {
+                addCart(productAddcartdata , FinalPriceCartAdd, FinalWeightCartAdd, FinalGoodsCartAdd, FinalBonusCartAdd, uniqueDates)
             }
             else 
             {
-                localStorage.setItem('FinalWeight' , (parseFloat(FinalWeight) - parseFloat(ProdutData[index]?.weight) ))
-                setFinalWeight(parseFloat(FinalWeight) - (parseFloat(ProdutData[index]?.weight)) )
+                localStorage.setItem('FinalGoods' , FinalGoodsCartAdd)
+                localStorage.setItem('FinalPrice' , FinalPriceCartAdd)
+                localStorage.setItem('FinalBonus' , FinalBonusCartAdd)
+                localStorage.setItem('DateGoods' ,  JSON.stringify(uniqueDates))
+                localStorage.setItem('ProdutData' , JSON.stringify(productAddcartdata))
             }
-            localStorage.setItem('FinalGoods' , (parseInt(FinalGoods) - 1))
-            localStorage.setItem('FinalPrice' , (parseInt(FinalPrice) - parseInt(price)))
-            localStorage.setItem('FinalBonus' , (parseInt(FinalBonus) - parseInt(bonus)))
-            localStorage.setItem('DateGoods' , (JSON.stringify(newArray)))
-            localStorage.setItem('ProdutData' , (JSON.stringify(newArr)))
+            
         }
     }
     const selectItem = (num , product) => {
@@ -240,9 +314,90 @@ export function ProductListingProvider(props) {
     } 
     //#endregion
 
-    
+    const clearBucket = async () => {
+        setFinalPrice(0)
+        setFinalGoods(0)
+        setFinalWeight(0)
+        setFinalBonus(0)
+        setProdutData([])
+        setItems([])
+        localStorage.setItem('ProdutData' , JSON.stringify([]))
+        localStorage.setItem('FinalGoods' , (0))
+        localStorage.setItem('FinalPrice' , (0))
+        localStorage.setItem('FinalWeight' , (0))
+        localStorage.setItem('FinalBonus' , (0))
+        localStorage.setItem('DateGoods' , JSON.stringify([]))
+        if(UserData !== null)
+        {
+            const resp = await axios.post('https://nehra.az/public/api/addcart' ,{user_id: UserData.id,  string:""})
+        }
+    }
+
+    const deleteCard = (product) => {
+        notifyAddBasket()
+        //#region Add Cart Values
+        const num = parseInt(product.id)
+        const price = parseFloat(discountHandler(product))
+        const weight = parseFloat(product.ceki_hecm)
+        const unitType = parseInt(product.unit.unit_id)
+        const dates = product.delivery
+        const name = product.title
+        const bonus = parseInt(product.bonus)
+        let productCartAdd = {} 
+        let FinalPriceCartAdd = 0
+        let FinalWeightCartAdd = 0
+        let FinalGoodsCartAdd = 0
+        let FinalBonusCartAdd = 0
+        let DateGoodsCartAdd = []
+        var index = ProdutData.findIndex(x=> x.id === num);
+        
+        //#endregion Add Cart Values
+
+
+
+        FinalPriceCartAdd = parseFloat(FinalPrice) - parseFloat(ProdutData[index]?.cost * ProdutData[index]?.count)
+        FinalGoodsCartAdd = parseInt(FinalGoods) - parseInt(ProdutData[index]?.count)
+        FinalBonusCartAdd = parseFloat(FinalBonus) - parseFloat(ProdutData[index]?.bonus * ProdutData[index]?.count)
+
+        weightChecker(weight , unitType , 'delete' , index)
+        FinalWeightCartAdd = weightChecker(weight , unitType , 'delete', index)
+        
+        let productAddcartdata = ProdutData.filter((item) => item.id !== num)
+        const filteredItems = Items.filter((item) => item.id !== num)
+        setProdutData(productAddcartdata)
+        setItems(filteredItems)
+        var testarr = ProdutData.filter((item) => item.id !== num)
+        const datesss = []
+        const nonDeletedP = Items.filter((item) => item.id !== num)
+        for (let i = 0; i < nonDeletedP.length; i++) {
+            for (let j = 0; j < nonDeletedP[i]?.date?.length; j++) {
+                datesss.push(nonDeletedP[i]?.date[j])
+            }
+        }
+        let uniqueDates = [...new Set(datesss)];
+        
+        setFinalBonus(FinalBonusCartAdd)
+        setFinalPrice(FinalPriceCartAdd)
+        setFinalGoods(FinalGoodsCartAdd)
+        setDateGoods(uniqueDates)
+
+        if (UserData !== null) {
+            addCart(productAddcartdata , FinalPriceCartAdd, FinalWeightCartAdd, FinalGoodsCartAdd, FinalBonusCartAdd, uniqueDates)
+        }
+        else 
+        {
+            localStorage.setItem('FinalGoods' , FinalGoodsCartAdd)
+            localStorage.setItem('FinalPrice' , FinalPriceCartAdd)
+            localStorage.setItem('FinalBonus' , FinalBonusCartAdd)
+            localStorage.setItem('DateGoods' ,  JSON.stringify(uniqueDates))
+            localStorage.setItem('ProdutData' , JSON.stringify(productAddcartdata))
+        }
+        
+    }
+
+
     return (
-        <ProductListingContext.Provider value={{ProdutData:ProdutData, setProdutData:setProdutData, FinalPrice:FinalPrice, setFinalPrice:setFinalPrice, FinalWeight:FinalWeight, setFinalWeight:setFinalWeight,FinalGoods:FinalGoods, setFinalGoods:setFinalGoods, addItem:addItem, removeItem:removeItem, lang:lang , setlang:setlang,  money:money , langArr:langArr, DateGoods:DateGoods,setDateGoods:setDateGoods , SelectedsProduct:SelectedsProduct, setSelectedsProduct:setSelectedsProduct, OpenLoginF:OpenLoginF,CloseLoginF:CloseLoginF, setOpenLogin:setOpenLogin , OpenLogin:OpenLogin, handleOpenPM:handleOpenPM, handleClosePM:handleClosePM, modalIdsetter:modalIdsetter, modalId:modalId, FinalBonus:FinalBonus, setFinalBonus:setFinalBonus,selectItem:selectItem,discountHandler:discountHandler , setmoney:setmoney}}>
+        <ProductListingContext.Provider value={{ProdutData:ProdutData, setProdutData:setProdutData, FinalPrice:FinalPrice, setFinalPrice:setFinalPrice, FinalWeight:FinalWeight, setFinalWeight:setFinalWeight,FinalGoods:FinalGoods, setFinalGoods:setFinalGoods, addItem:addItem, removeItem:removeItem, lang:lang , setlang:setlang,  money:money , langArr:langArr, DateGoods:DateGoods,setDateGoods:setDateGoods , SelectedsProduct:SelectedsProduct, setSelectedsProduct:setSelectedsProduct, OpenLoginF:OpenLoginF,CloseLoginF:CloseLoginF, setOpenLogin:setOpenLogin , OpenLogin:OpenLogin, handleOpenPM:handleOpenPM, handleClosePM:handleClosePM, modalIdsetter:modalIdsetter, modalId:modalId, FinalBonus:FinalBonus, setFinalBonus:setFinalBonus,selectItem:selectItem,discountHandler:discountHandler , setmoney:setmoney, UserData:UserData, setUserData:setUserData, clearBucket:clearBucket, setMinOrder:setMinOrder, MinOrder:MinOrder, setMinOrder:setMinOrder, setItems:setItems , Items:Items , setloader:setloader , loader:loader, deleteCard:deleteCard}}>
             {props.children}
             <div className="modalCont">
                 <Modal  

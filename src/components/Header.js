@@ -50,11 +50,11 @@ import Combo from '../pages/Combo'
 import ForgetPassword from '../pages/ForgetPassword'
 import PrivacyPolicy from '../pages/PrivacyPolicy'
 import Contact from '../pages/Contact'
+import Loader from './Loader'
 
 function Header() {
   const context = useContext(ProductListingContext)
-  const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney} = context
-
+  const {UserData , setUserData , ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader} = context
   const styleScrollBtn = useRef(null);
   // const TopNavbar = useMediaQuery('(min-width:600px)');
   const MidNavbar = useMediaQuery('(min-width:622px)');
@@ -95,26 +95,11 @@ function Header() {
 
 
 
-  const [UserData, setUserData] = useState(0)
   const [Assortment, setAssortment] = useState([])
   const [TopCategory, setTopCategory] = useState([])
   const assortmentArr = []
-  const sendGetRequest6 = async () => {
-    try {
-        const resp1 = await axios.get('https://nehra.az/public/api/assortment')
-        setAssortment(resp1.data)
-        const resp2 = await axios.get('https://nehra.az/public/api/featuredcats')
-        setTopCategory(resp2.data)
-    } catch (err) {
-        // Handle Error Here
-        console.error(err);
-    }
-  };
   
   
-  useEffect(() => {
-      setUserData(JSON.parse(localStorage.getItem('LoginUserData')) !== null ? JSON.parse(localStorage.getItem('LoginUserData')) : null)
-  },[])
   
   Assortment.map(assortment => ( assortmentArr.push( <AssortmentCard id={assortment.id} title={assortment.name} desc={assortment.count} image={assortment.thumb}/>)))
 
@@ -210,91 +195,149 @@ function Header() {
   
   
   
+  
   const sendGetRequest10 = async () => {
     try {
-      const resp = await axios.get(`https://nehra.az/public/api/settings/`)
-      setNumber1(resp.data.phone1) 
-      setNumber2(resp.data.phone2)
-      setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
-      setFinalPrice(localStorage.getItem('FinalPrice') !== null ? parseInt(localStorage.getItem('FinalPrice')) : 0)
-      setFinalWeight(localStorage.getItem('FinalWeight') !== null ?  parseFloat(localStorage.getItem('FinalWeight')) : 0)
-      setFinalGoods(localStorage.getItem('FinalGoods') !== null ?  parseInt(localStorage.getItem('FinalGoods')) : 0)
-      setFinalBonus(localStorage.getItem('FinalBonus') !== null ?  parseInt(localStorage.getItem('FinalBonus')) : 0)
-      setDateGoods(localStorage.getItem('DateGoods') !== null ? JSON.parse(localStorage.getItem('DateGoods')) : [])
-      setSelectedsProduct(sessionStorage.getItem('SecilmishProduct') !== null ? JSON.parse(sessionStorage.getItem('SecilmishProduct')) : [])
-      setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
+      let resp = ""
+      console.log(JSON.parse(localStorage.getItem('LoginUserData')))
+      if(JSON.parse(localStorage.getItem('LoginUserData')) !== null)
+      {
+        console.log("HELLO22")
+
+        const resp1 = await axios.get('https://nehra.az/public/api/assortment')
+        setAssortment(resp1.data)
+        const resp2 = await axios.get('https://nehra.az/public/api/featuredcats')
+        setTopCategory(resp2.data)
+        resp  = await axios.get(`https://nehra.az/public/api/settings?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
+        setMinOrder(resp.data.min_order_amount)
+        setNumber1(resp.data.phone1) 
+        setNumber2(resp.data.phone2)
+        setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
+        setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
+        if(resp.data.cart.text !== null)
+        {
+          console.log(resp.data.cart.text)
+          const dataparsed = JSON.parse(resp.data.cart.text)
+          setSelectedsProduct(sessionStorage.getItem('SecilmishProduct') !== null ? JSON.parse(sessionStorage.getItem('SecilmishProduct')) : [])
+          setMinOrder()
+          if(dataparsed !== undefined && dataparsed !== null && dataparsed !== "")
+          {
+            setProdutData((dataparsed.product      !== null  && dataparsed.product      !== undefined && dataparsed.product      !== "")   ?  dataparsed.product  : [])
+            setFinalPrice((dataparsed.FinalPrice   !== null  && dataparsed.FinalPrice   !== undefined && dataparsed.FinalPrice   !== "")   ?  parseInt(dataparsed.FinalPrice)  : 0)
+            setFinalWeight((dataparsed.FinalWeight !== null  && dataparsed.FinalWeight  !== undefined && dataparsed.FinalWeight  !== "")   ?  parseInt(dataparsed.FinalWeight)  : 0)
+            setFinalGoods((dataparsed.FinalGoods   !== null  && dataparsed.FinalGoods   !== undefined && dataparsed.FinalGoods   !== "")   ?  parseInt(dataparsed.FinalGoods)  : 0)
+            setFinalBonus((dataparsed.FinalBonus   !== null  && dataparsed.FinalBonus   !== undefined && dataparsed.FinalBonus   !== "")   ?  parseInt(dataparsed.FinalBonus)  : 0)
+            setDateGoods((dataparsed.DateGoods     !== null  && dataparsed.DateGoods    !== undefined && dataparsed.DateGoods    !== "")   ?  dataparsed.DateGoods  : [])
+            setItems((dataparsed.product      !== null  && dataparsed.product      !== undefined && dataparsed.product      !== "")   ?  dataparsed.product  : [])
+          }
+        }
+        else 
+        {
+            setProdutData([])
+            setFinalPrice(0)
+            setFinalWeight(0)
+            setFinalGoods(0)
+            setFinalBonus(0)
+            setDateGoods([])
+            setItems([])
+        }
+      }
+      else 
+      {
+        console.log("HELLO")
+        setProdutData(localStorage.getItem('ProdutData')  !== null   ?  JSON.parse(localStorage.getItem('ProdutData')) : [])
+        setFinalPrice(localStorage.getItem('FinalPrice')!== null   ?  parseFloat(localStorage.getItem('FinalPrice')) : 0 )
+        setFinalWeight(localStorage.getItem('FinalWeight') !== null ? parseFloat(localStorage.getItem('FinalWeight')) : 0)
+        setFinalGoods(localStorage.getItem('FinalGoods')   !== null  ?  parseInt(localStorage.getItem('FinalGoods')) : 0)
+        setFinalBonus(localStorage.getItem('FinalBonus')   !== null  ?  parseInt(localStorage.getItem('FinalBonus')) : 0)
+        setDateGoods(localStorage.getItem('DateGoods')  !== null  ?  JSON.parse(localStorage.getItem('DateGoods')) : [])
+        setItems(localStorage.getItem('ProdutData')  !== null   ?  JSON.parse(localStorage.getItem('ProdutData')) : [])
+
+        const resp1 = await axios.get('https://nehra.az/public/api/assortment')
+        setAssortment(resp1.data)
+        const resp2 = await axios.get('https://nehra.az/public/api/featuredcats')
+        setTopCategory(resp2.data)
+        resp = await axios.get(`https://nehra.az/public/api/settings/`)
+        setMinOrder(resp.data.min_order_amount)
+        setNumber1(resp.data.phone1) 
+        setNumber2(resp.data.phone2)
+        setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
+        setSelectedsProduct(sessionStorage.getItem('SecilmishProduct') !== null ? JSON.parse(sessionStorage.getItem('SecilmishProduct')) : [])
+        setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
+      }
+      setloader(false)
     } 
     catch (err) {
-      // Handle Error Here
       console.error(err);
+      setTimeout(() => {
+        sendGetRequest10()
+      }, 60000);
     }
   };
 
-  useEffect(() => {
+  useEffect(async () => {
+    setloader(true)
+    if(JSON.parse(localStorage.getItem('LoginUserData')) !== null)
+    {
+      setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
+      const resp = await axios.get(`https://nehra.az/public/api/checkstatus?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
+      setstatusOK(resp.data[0])
+      setSelectedsProduct(JSON.parse(resp.data[1].text))
+    }
     sendGetRequest10()
-    sendGetRequest6()
-    axios.get(`https://nehra.az/public/api/checkstatus?user_id=${JSON.parse(localStorage.getItem('LoginUserData'))?.id}` )
-         .then(res =>  ( setstatusOK(res.data[0]) , setSelectedsProduct(JSON.parse(res.data[1].text)) , sessionStorage.setItem('SecilmishProduct' , res.data[1].text)) )
-         window.addEventListener("scroll", function(){
-          if (window.scrollY > 121)
-          {
-              document?.getElementById('header').setAttribute('style' , 'height:0px;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);overflow:inherit;')
-              document?.getElementById('downPart').setAttribute('style' , 'background:#f0f4f5;height:85.17px;overflow:inherit;')
-              document?.getElementById('logoNehre').setAttribute('style' , 'opacity:1;pointer-events:all;')
-              document?.getElementById('downCont').setAttribute('style' , 'padding-top: 30px;padding-bottom: 30px;')
-              var downNavImgCont = document.querySelectorAll('#downNavImgCont')
-              for (var i=0; i < downNavImgCont.length; i++) {
-                downNavImgCont[i]?.setAttribute('style' , 'height:0px;')
-              }
-              var downImg = document.querySelectorAll('#downNavImg')
-              for (var i=0; i < downImg.length; i++) {
-                downImg[i]?.setAttribute('style' , 'height:0px;')
-              }
-              var buttonNav = document.querySelectorAll('.buttonNav')
-              for (var i=0; i < buttonNav.length; i++) {
-                buttonNav[i]?.setAttribute('style' , 'height:30px;padding-bottom:0px;')
-              }
-              styleScrollBtn?.current?.setAttribute('style' , 'display:flex;')
-            }
-          else if (window.scrollY < 201)
-          {
-            document?.getElementById('downPart')?.setAttribute('style' , 'background:transparent;height:0px;padding-top: 0px;padding-bottom: 0px;overflow:hidden;')
-            document?.getElementById('logoNehre')?.setAttribute('style' , 'opacity:0;pointer-events:none;')  
-            document?.getElementById('downCont')?.setAttribute('style' , 'padding-top: 0px;padding-bottom: 0px;')
-            document?.getElementById('header')?.setAttribute('style' , 'height:110px;background:transparent; box-shadow: transparent;overflow:hidden;')
-            styleScrollBtn?.current?.setAttribute('style' , 'display:none;')
-            var downNavImgCont = document.querySelectorAll('#downNavImgCont')
-            for (var i=0; i < downNavImgCont.length; i++) {
-              downNavImgCont[i].setAttribute('style' , 'height:120px;')
-            }
-            var downImg = document.querySelectorAll('#downNavImg')
-            for (var i=0; i < downImg.length; i++) {
-              downImg[i].setAttribute('style' , 'height:70px;')
-            }
-            var buttonNav = document.querySelectorAll('.buttonNav')
-            for (var i=0; i < buttonNav.length; i++) {
-              buttonNav[i].setAttribute('style' , 'height:110px;')
-            }
-          } 
-          
-        });
-      
+    scrollChecker()
   } , [] )
 
+  const scrollChecker = async () => {
+    window.addEventListener("scroll", function(){
+      if (window.scrollY > 121)
+      {
+          document?.getElementById('header').setAttribute('style' , 'height:0px;box-shadow: 0 2px 2px -2px rgba(0,0,0,.4);overflow:inherit;')
+          document?.getElementById('downPart').setAttribute('style' , 'background:#f0f4f5;height:85.17px;overflow:inherit;')
+          document?.getElementById('logoNehre').setAttribute('style' , 'opacity:1;pointer-events:all;')
+          document?.getElementById('downCont').setAttribute('style' , 'padding-top: 30px;padding-bottom: 30px;')
+          var downNavImgCont = document.querySelectorAll('#downNavImgCont')
+          for (var i=0; i < downNavImgCont.length; i++) {
+            downNavImgCont[i]?.setAttribute('style' , 'height:0px;')
+          }
+          var downImg = document.querySelectorAll('#downNavImg')
+          for (var i=0; i < downImg.length; i++) {
+            downImg[i]?.setAttribute('style' , 'height:0px;')
+          }
+          var buttonNav = document.querySelectorAll('.buttonNav')
+          for (var i=0; i < buttonNav.length; i++) {
+            buttonNav[i]?.setAttribute('style' , 'height:30px;padding-bottom:0px;')
+          }
+          styleScrollBtn?.current?.setAttribute('style' , 'display:flex;')
+        }
+      else if (window.scrollY < 201)
+      {
+        document?.getElementById('downPart')?.setAttribute('style' , 'background:transparent;height:0px;padding-top: 0px;padding-bottom: 0px;overflow:hidden;')
+        document?.getElementById('logoNehre')?.setAttribute('style' , 'opacity:0;pointer-events:none;')  
+        document?.getElementById('downCont')?.setAttribute('style' , 'padding-top: 0px;padding-bottom: 0px;')
+        document?.getElementById('header')?.setAttribute('style' , 'height:110px;background:transparent; box-shadow: transparent;overflow:hidden;')
+        styleScrollBtn?.current?.setAttribute('style' , 'display:none;')
+        var downNavImgCont = document.querySelectorAll('#downNavImgCont')
+        for (var i=0; i < downNavImgCont.length; i++) {
+          downNavImgCont[i].setAttribute('style' , 'height:120px;')
+        }
+        var downImg = document.querySelectorAll('#downNavImg')
+        for (var i=0; i < downImg.length; i++) {
+          downImg[i].setAttribute('style' , 'height:70px;')
+        }
+        var buttonNav = document.querySelectorAll('.buttonNav')
+        for (var i=0; i < buttonNav.length; i++) {
+          buttonNav[i].setAttribute('style' , 'height:110px;')
+        }
+      } 
+      
+    });
+  } 
   const handleClose4 = () => {
       setOpen4(false);
   };
 
   
-  
-
-  const  scrolltoTop = () =>  {
-    window.scroll(0,0)
-  }
-  const [PaymentPrice, setPaymentPrice] = useState(0)
-  const [NumberOfGoods, setNumberOfGoods] = useState(0)
-  const [ParcelWeight, setParcelWeight] = useState(0)
-
 
   const [openSMS, setOpenSMS] = React.useState(false);
 
@@ -308,41 +351,48 @@ function Header() {
   
 
 
+  const  scrolltoTop = () =>  {
+    window.scroll(0,0)
+  }
 
     return (
         <Router>
             <ScrolltoTop/>
-            <div className="AllCont">
-                <button type="button" ref={styleScrollBtn} style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button>
-               { !MidNavbar &&  <button type="button" className='checkMBtnC' style={checkMBtn} onClick={() => handleOpen()}><ShoppingBasketIcon width='60px' height='60px'/> {FinalPrice > 0 && (FinalPrice + " ₼")}</button> }
+              <Switch>
+                {loader ?  
+                  <Route  path="/"><Loader/></Route> :
+                  <div className="AllCont">
+                      <button type="button" ref={styleScrollBtn} style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button>
+                      {!MidNavbar &&  <button type="button" className='checkMBtnC' style={checkMBtn} onClick={() => handleOpen()}><ShoppingBasketIcon width='60px' height='60px'/> {FinalPrice > 0 && (FinalPrice + " ₼")}</button> }
 
-                <TopNavbar TopCategory={TopCategory} assortmentArr={Assortment} PaymentPrice={PaymentPrice} number2={number2} number1={number1} UserData={UserData}  modalOpener={handleOpen} modalOpener3={handleOpen3}/>
-                {MidNavbar && <Navbar/>}
-                <header id="header" className="header">
-                    <TopNavbarPart2 PaymentPrice={PaymentPrice} number2={number2} number1={number1} UserData={UserData}   modalOpener={handleOpen} modalOpener3={handleOpen3}/>
-                    {MidNavbar && <DownNavbar  TopCategory={TopCategory}/>}
-                </header>
-                <Switch>
-                    <Route  path="/combos/:slug" >              <Combo/>                                                                                                      </Route>
-                    <Route   path="/category/999" >             <ProductListingPage/>                                              </Route>
-                    <Route   path={`/category/:id`}>            <ProductListingPage />                                                           </Route>
-                    <Route   path="/about" >                    <About/>                                                                                                      </Route>
-                    <Route   path="/elaqe" >                    <Contact/>                                                                                                   </Route>
-                    <Route   path="/public/forgetpassword" >    <ForgetPassword/>                                                                                             </Route>
-                    <Route   path="/who" >                      <Who/>                                                                                                        </Route>
-                    <Route   path="/privacy-policy" >           <PrivacyPolicy/>                                                      </Route>
-                    <Route   path="/quality" >                  <Quality/>                                                                                                    </Route>
-                    <Route   path="/reviews" >                  <ReviewPage/>                                                                                                 </Route>
-                    <Route   path="/search" >                   <SearchResult/>                                                                                               </Route>
-                    <Route   path="/memberarea">                {(UserData?.id !== undefined  && parseInt(statusOK) === 1) &&  <MemberArea  UserData={UserData}/>  }          </Route>
-                    <Route   path="/suppliers/:id" >            <SelectedSupplier/>                                                                                           </Route>
-                    <Route   path="/suppliers" >                <Suppliers/>                                                                                                  </Route>
-                    <Route   exact path="/" >                   <HomePage assortmentArr={assortmentArr} modalOpener3={handleOpen3} productModal={handleOpen}/>                </Route>
-                    <Route   path="*">                          <F04 />                                                                                                       </Route>
+                      <TopNavbar TopCategory={TopCategory} assortmentArr={Assortment}  number2={number2} number1={number1} UserData={UserData}  modalOpener={handleOpen} modalOpener3={handleOpen3}/>
+                      {MidNavbar && <Navbar/>}
+                      <header id="header" className="header">
+                          <TopNavbarPart2  number2={number2} number1={number1} UserData={UserData}   modalOpener={handleOpen} modalOpener3={handleOpen3}/>
+                          {MidNavbar && <DownNavbar  TopCategory={TopCategory}/>}
+                      </header>
+                          <>
+                          <Route  path="/combos/:slug" >              <Combo/>                                                                                                      </Route>
+                          <Route   path="/category/999" >             <ProductListingPage/>                                              </Route>
+                          <Route   path={`/category/:id`}>            <ProductListingPage />                                                           </Route>
+                          <Route   path="/about" >                    <About/>                                                                                                      </Route>
+                          <Route   path="/elaqe" >                    <Contact/>                                                                                                   </Route>
+                          <Route   path="/public/forgetpassword" >    <ForgetPassword/>                                                                                             </Route>
+                          <Route   path="/who" >                      <Who/>                                                                                                        </Route>
+                          <Route   path="/privacy-policy" >           <PrivacyPolicy/>                                                      </Route>
+                          <Route   path="/quality" >                  <Quality/>                                                                                                    </Route>
+                          <Route   path="/reviews" >                  <ReviewPage/>                                                                                                 </Route>
+                          <Route   path="/search" >                   <SearchResult/>                                                                                               </Route>
+                          <Route   path="/memberarea">                {(UserData?.id !== undefined  && parseInt(statusOK) === 1) &&  <MemberArea  UserData={UserData}/>  }          </Route>
+                          <Route   path="/suppliers/:id" >            <SelectedSupplier/>                                                                                           </Route>
+                          <Route   path="/suppliers" >                <Suppliers/>                                                                                                  </Route>
+                          <Route   exact path="/" >                   <HomePage assortmentArr={assortmentArr} modalOpener3={handleOpen3} productModal={handleOpen}/>                </Route>
+                          <Route   path="*">                          <F04 />                                                                                                       </Route>
+                          </>
+                      <Footer/>
+                  </div>
+                }
                 </Switch>
-                
-                <Footer/>
-            </div>
             <Modal  
                 style={{display:"flex", justifyContent:"center",overflow:"auto"}}
                 open={open}
