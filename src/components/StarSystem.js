@@ -27,7 +27,7 @@ function StarSystem(props) {
           }
     }
     // Star system
-
+    
     return (
         <div className="stars">{stars}</div>
     )

@@ -5,6 +5,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    background-color: white;
+    z-index: 9999999999;
     .loaderImgCont
     {
         display: flex;

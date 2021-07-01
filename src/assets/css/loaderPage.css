@@ -10,6 +10,9 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: fixed;
+  background-color: white;
+  z-index: 9999999999;
   /**
     * ==============================================
     * Dot Flashing

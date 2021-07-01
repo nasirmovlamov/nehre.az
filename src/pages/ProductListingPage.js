@@ -64,7 +64,7 @@ function ProductListingPage(props) {
     };
     useEffect(() => {
       sendGetRequestCategory()
-    }, [])
+    }, [id])
 
     const filterHandler = (num) => {
       var tags = document.querySelectorAll('.tag')

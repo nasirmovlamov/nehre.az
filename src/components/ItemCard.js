@@ -27,13 +27,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookies'
 import DateCropLang from './DateCropLang';
 import DateSelect from './DateMoment'
+import Rating from '@material-ui/lab/Rating';
 
 
 function ItemCard(props) {
+    const {product} = props 
     const context = useContext(ProductListingContext)
-    const  {product}  = props
     const {SelectedsProduct, ProdutData, selectItem,addItem,modalIdsetter,removeItem,lang,money, discountHandler, UserData} = context
-
+    const [valueR, setvalueR] = useState()
     
 
     const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
@@ -58,6 +59,7 @@ function ItemCard(props) {
         backgroundPosition: "center",
         backgroundSize: "cover",
     }
+    // getModalStyle is not a pure function, we roll the style only on the first render
     
     const DarkTT = withStyles((theme) => ({
         arrow: {
@@ -83,7 +85,6 @@ function ItemCard(props) {
         padding: theme.spacing(2, 4, 3),
     },}));
     const classes = useStyles();
-    // getModalStyle is not a pure function, we roll the style only on the first render
     //#endregion
     
     //#region Select ITEM  //Select ITEM
@@ -93,7 +94,7 @@ function ItemCard(props) {
     //     setindexSelected(selecteds?.findIndex(x=> x.id === props.cardItem))
     // }, [SelectedsProduct])
     //#endregion  Select ITEM  //Select ITEM
-    
+    console.log(props.product)
     return (
         <div key={product.id} className="itemCard">
             <button  type="button"  className="imgCont" style={imgHandler}>
@@ -111,7 +112,7 @@ function ItemCard(props) {
                 </div>
 
                 <div className="dates">
-                        {product.delivery?.map(delivery =>
+                        {product?.delivery?.map(delivery =>
                                 <>
                                     {
                                         <DarkTT title={`${DateSelect(delivery)}`} placement="top" arrow>
@@ -123,15 +124,15 @@ function ItemCard(props) {
                 </div>
             </button>
 
-            <p className="titleItem">{product.title}</p>
+            <p className="titleItem">{product?.title}</p>
             <p className="subTitleItem">  {(lang === "EN" && `from`) || (lang === "RU" && `из`)} { ((lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru))} {lang === "AZ" && `tərəfindən` }</p>
             <div className="textCont">
                 <div className="starAndAbout">
-                    <p className="dscPrc">{(product.cardIddiscount !== 0 && product.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{money === "₼" ? (props.price) : (props.price / 1.7).toFixed(1)} {money}</span></span>)}</p>
-                    <p className="priceAndWeightItem"><span className="element1"  style={product.discount && colorChang}>{money === "₼" ? discountHandler(product) : (discountHandler(product) / 1.7).toFixed(1)}  {money}</span> / <span className="element2">{((props.unitId === 2 || props.unitId === 4 || props.unitId === 1) ? product.ceki_hecm : 1 ) + " " + (props.unitAd)}</span> </p>
-                    <StarSystem numberStar={product.starsall}/>
+                    <p className="dscPrc">{(product?.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{money === "₼" ? (product.qiymet) : (product.qiymet / 1.7).toFixed(1)} {money}</span></span>)}</p>
+                    <p className="priceAndWeightItem"><span className="element1"  style={product?.discount !== null ? colorChang : {}}>{money === "₼" ? discountHandler(product) : (discountHandler(product) / 1.7).toFixed(1)}  {money}</span> / <span className="element2">{((product.unit.id === 2 || product.unit.id === 4 || product.unit.id === 1) ? product.ceki_hecm : 1 ) + " " + ((lang === "AZ" && product?.unit.ad) || (lang === "EN" && product?.unit.ad_en) || (lang === "RU" && product?.unit.ad_ru)) }</span> </p>
+                    <Rating name="read-only"  readOnly  value={product.starsall} /> 
                 </div>   
-                {!props.btnDisable && <BuyButton functionAdd={() => addItem(product)}  orders={props.orders} cardPrice={discountHandler(product)} modalOpener3={props.modalOpener3} image={product.thumb}/>}
+                {!props.btnDisable && <BuyButton functionAdd={() => addItem(product)}   cardPrice={discountHandler(product)}/>}
             </div>
 
            

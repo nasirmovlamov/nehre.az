@@ -41,27 +41,23 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import DateCropLang from './DateCropLang';
+import DateSelect from './DateMoment';
 
 function ProductModal(props) {
 
     //#region VALUES 
         const context = useContext(ProductListingContext)
-        const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
-      
-        const notify = (rate) => toast.success(`${rate === null ? 5 : rate}   Ulduz göndərildi` , {draggable: true,});
-        const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
         const [Product, setProduct] = useState([])
         const [imagescard, setimagesCard] = useState([])
         const [checker, setchecker] = useState(1)
         const [value, setvalue] = useState(1)
         const token = Cookies.getItem('XSRF-TOKEN')
         const [ProductSimilar, setProductSimilar] = useState([])
-        const [UserData, setUserData] = useState(0)
-        useEffect(() => {
-            if (UserData?.id === undefined) {
-                setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
-            }
-        })
+        const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem, UserData} = context
+      
+        const notify = (rate) => toast.success(`${rate === null ? 5 : rate}   Ulduz göndərildi` , {draggable: true,});
+        const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
+        
     //#endregion VALUES 
     
     // #region CSSSTYLE
@@ -108,17 +104,6 @@ function ProductModal(props) {
             }
         }
 
-        const discountHandler = (discount) => {
-            if (discount !== 0 && discount !== null  && discount !== undefined) {
-                var discountPrice = 0;
-                discountPrice =  Math.round( ((Product?.qiymet - (Product?.qiymet * discount) / 100)) )
-                return discountPrice;         
-            } 
-            else {
-                return Product?.qiymet
-            }
-        }
-
         const headers = {
             "X-CSRF-TOKEN":token
         }
@@ -126,7 +111,6 @@ function ProductModal(props) {
         useEffect(() => {
             setvalueReq(0)
             getProducts(modalId)
-            console.log("YES")
         } , [modalId])
     //#endregion Get DATA
     
@@ -135,7 +119,7 @@ function ProductModal(props) {
     const [sendStar, setsendStar] = useState(3)
     const [reviewAbout, setreviewAbout] = useState()
     const ratingHandler = (value) => {
-        if (JSON.parse(localStorage.getItem('LoginUserData'))?.id === undefined || JSON.parse(localStorage.getItem('LoginUserData'))?.id === null) {
+        if (UserData === undefined || UserData === null) {
             notifyLogin()
             OpenLoginF()
         }
@@ -182,54 +166,19 @@ function ProductModal(props) {
           fontSize: 11,
         },
       }))(Tooltip);
+    //#endregion ToolTip
 
-    moment.locale(sessionStorage.getItem('lang'))
-
-    //Date //Date //Date
-    const today = new Date()
     
-    const tomorrow = new Date(today)
-    tomorrow.setDate(tomorrow.getDate() + 1)
-    
-    const monday = new Date(tomorrow)
-    monday.setDate(tomorrow.getDate() + ((1 + 7 - tomorrow.getDay()) % 7));
-
-    const tuesday = new Date(tomorrow)
-    tuesday.setDate(tomorrow.getDate() + ((2 + 7 - tomorrow.getDay()) % 7));
-
-    const wednesday = new Date(tomorrow)
-    wednesday.setDate(tomorrow.getDate() + ((3 + 7 - tomorrow.getDay()) % 7));
-
-    const thursday = new Date(tomorrow)
-    thursday.setDate(tomorrow.getDate() + ((4 + 7 - tomorrow.getDay()) % 7));
-
-    const friday = new Date(tomorrow)
-    friday.setDate(tomorrow.getDate() + ((5 + 7 - tomorrow.getDay()) % 7));
-
-    const saturday = new Date(tomorrow)
-    saturday.setDate(tomorrow.getDate() + ((6 + 7 - tomorrow.getDay()) % 7));
-
-    const sunday = new Date(tomorrow)
-    sunday.setDate(tomorrow.getDate() + ((7 + 7 - tomorrow.getDay()) % 7));
-    
-    var newmonday = moment(monday).format( 'dddd, D MMMM');
-    var newtuesday = moment(tuesday).format( 'dddd, D MMMM');
-    var newwednesday = moment(wednesday).format( 'dddd, D MMMM');
-    var newthursday = moment(thursday).format( 'dddd, D MMMM');
-    var newfriday = moment(friday).format( 'dddd, D MMMM');
-    var newsaturday = moment(saturday).format( 'dddd, D MMMM');
-    var newsunday = moment(sunday).format( 'dddd, D MMMM');
-    //#endregion
     
     // #region SelectITEM
-    const [indexSelected, setindexSelected] = useState(JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.cardId) !== undefined ? JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.cardId) : -1)
+    // const [indexSelected, setindexSelected] = useState(JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.cardId) !== undefined ? JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.cardId) : -1)
     
-    useEffect(() => {
-        if (sessionStorage.getItem('SecilmishProduct') !== null) {
-            var selecteds = SelectedsProduct
-            setindexSelected(selecteds?.findIndex(x=> x.id === props.cardItem))
-        }
-    }, [SelectedsProduct])
+    // useEffect(() => {
+    //     if (sessionStorage.getItem('SecilmishProduct') !== null) {
+    //         var selecteds = SelectedsProduct
+    //         setindexSelected(selecteds?.findIndex(x=> x.id === props.cardItem))
+    //     }
+    // }, [SelectedsProduct])
     // #endregion SelectITEM
 
     
@@ -244,22 +193,15 @@ function ProductModal(props) {
                     <div className="sliderCont">
                         {imagescard.length > 0 && <OurSlider itemShow1={1} itemShow2={1} itemShow3={1} itemShow4={1} elements={imagescard} numOfSld={1}/>}
                         <div className="dates">
-                            {Product?.delivery?.map(delivery =>
-                                    <>
-                                        {
-                                            <DarkTT title={`${
-                                                            (delivery === "1" && newmonday) ||  
-                                                            (delivery === "2" && newtuesday) ||  
-                                                            (delivery === "3" && newwednesday) || 
-                                                            (delivery === "4" && newthursday) || 
-                                                            (delivery === "5" && newfriday) || 
-                                                            (delivery === "6" && newsaturday) ||
-                                                            (delivery === "7" && newsunday)}`} placement="top" arrow>
-                                                <div className="date"><DateCropLang day={delivery} /></div>
-                                            </DarkTT>
-                                        }
-                                    </>
-                                )}
+                            {Product.delivery?.map(delivery =>
+                                <>
+                                    {
+                                        <DarkTT title={`${DateSelect(delivery)}`} placement="top" arrow>
+                                            <div className="date"><DateCropLang day={delivery} /></div>
+                                        </DarkTT>
+                                    }
+                                </>
+                            )}  
                         </div>
                     </div>
                     <div className="aboutCont">
@@ -282,12 +224,12 @@ function ProductModal(props) {
                             {
                                 ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count && 
                                 <div className="part1">
-                                    <button  value="1" onClick={() => removeItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.unit_id , Product?.delivery , Product?.title)} className="decBtn"  >{<RemoveIcon style={{fontSize:"20px"}}/>}</button>
+                                    <button  value="1" onClick={() => removeItem(Product)} className="decBtn"  >{<RemoveIcon style={{fontSize:"20px"}}/>}</button>
                                     <button   className="valueBtn">{Product?.id !== undefined ? (ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count) : 0}</button>
-                                    <button  value="1" onClick={() => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.unit_id , Product?.delivery , Product?.title)}  className="incBtn">+</button>
+                                    <button  value="1" onClick={() => addItem(Product)}  className="incBtn">+</button>
                                 </div>
                             }
-                            <div className="part2"><Button1 value={(lang === "AZ" && `Səbətə əlavə et`) || (lang === "EN" && `Add Basket`) || (lang === "RU" && `Добавить корзину`)} color="#285999" function={ () => addItem(Product?.id , discountHandler(Product?.discount) , Product?.ceki_hecm , Product?.unit?.unit_id , Product?.delivery , Product?.title)}/></div>
+                            <div className="part2"><Button1 value={(lang === "AZ" && `Səbətə əlavə et`) || (lang === "EN" && `Add Basket`) || (lang === "RU" && `Добавить корзину`)} color="#285999" function={ () => addItem(Product)}/></div>
                         </div>
                     </div> 
                 </div>
@@ -302,9 +244,9 @@ function ProductModal(props) {
                                 <button className="button" style={checker ===3 ? styleChanger: null}   id="btnLink3" onClick={() => clickHandler(3)}> {(lang === "AZ" && `Sertifikatlar`) || (lang === "EN" && `Certificates`) || (lang === "RU" && `Сертификаты`)} </button>
                                 <hr/>
                                 <div className="linkComponent">
-                                    {checker === 1 ? <Description ProductSimilar={ProductSimilar}  Product={Product !== [] && Product}/> : "" }
-                                    {checker === 2 ? <Reviews  post_id={props.id} product={true}/> : ""}
-                                    {checker === 3 ? <Certificates Product={Product}/> : ""}
+                                    {/* {checker === 1 ? <Description ProductSimilar={ProductSimilar}  Product={Product !== [] && Product}/> : "" } */}
+                                    {/* {checker === 2 ? <Reviews  post_id={props.id} product={true}/> : ""}
+                                    {checker === 3 ? <Certificates Product={Product}/> : ""} */}
                                 </div>
                             </div>
                         </div>

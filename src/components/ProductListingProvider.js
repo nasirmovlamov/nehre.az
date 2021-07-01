@@ -19,7 +19,7 @@ export function ProductListingProvider(props) {
     //#region Default Values
     const [loader, setloader] = useState(false)
 
-
+    const [StaticData , setStaticData] = useState({})
     const [ProdutData, setProdutData] = useState([])
     const [FinalPrice, setFinalPrice] = useState(0)
     const [FinalWeight, setFinalWeight] = useState(0)
@@ -46,7 +46,7 @@ export function ProductListingProvider(props) {
    
 
     const discountHandler = (product) => {
-        if (product.discount !== 0 && product.discount !== null) {
+        if (product.discount !== null) {
             var discountPrice = 0;
             discountPrice =  Math.round( ((product.qiymet - (product.qiymet  * product.discount) / 100)) )
             return Math.floor(discountPrice);         
@@ -334,7 +334,7 @@ export function ProductListingProvider(props) {
     }
 
     const deleteCard = (product) => {
-        notifyAddBasket()
+        notifyRemoveBasket()
         //#region Add Cart Values
         const num = parseInt(product.id)
         const price = parseFloat(discountHandler(product))
@@ -397,7 +397,7 @@ export function ProductListingProvider(props) {
 
 
     return (
-        <ProductListingContext.Provider value={{ProdutData:ProdutData, setProdutData:setProdutData, FinalPrice:FinalPrice, setFinalPrice:setFinalPrice, FinalWeight:FinalWeight, setFinalWeight:setFinalWeight,FinalGoods:FinalGoods, setFinalGoods:setFinalGoods, addItem:addItem, removeItem:removeItem, lang:lang , setlang:setlang,  money:money , langArr:langArr, DateGoods:DateGoods,setDateGoods:setDateGoods , SelectedsProduct:SelectedsProduct, setSelectedsProduct:setSelectedsProduct, OpenLoginF:OpenLoginF,CloseLoginF:CloseLoginF, setOpenLogin:setOpenLogin , OpenLogin:OpenLogin, handleOpenPM:handleOpenPM, handleClosePM:handleClosePM, modalIdsetter:modalIdsetter, modalId:modalId, FinalBonus:FinalBonus, setFinalBonus:setFinalBonus,selectItem:selectItem,discountHandler:discountHandler , setmoney:setmoney, UserData:UserData, setUserData:setUserData, clearBucket:clearBucket, setMinOrder:setMinOrder, MinOrder:MinOrder, setMinOrder:setMinOrder, setItems:setItems , Items:Items , setloader:setloader , loader:loader, deleteCard:deleteCard}}>
+        <ProductListingContext.Provider value={{ProdutData:ProdutData, setProdutData:setProdutData, FinalPrice:FinalPrice, setFinalPrice:setFinalPrice, FinalWeight:FinalWeight, setFinalWeight:setFinalWeight,FinalGoods:FinalGoods, setFinalGoods:setFinalGoods, addItem:addItem, removeItem:removeItem, lang:lang , setlang:setlang,  money:money , langArr:langArr, DateGoods:DateGoods,setDateGoods:setDateGoods , SelectedsProduct:SelectedsProduct, setSelectedsProduct:setSelectedsProduct, OpenLoginF:OpenLoginF,CloseLoginF:CloseLoginF, setOpenLogin:setOpenLogin , OpenLogin:OpenLogin, handleOpenPM:handleOpenPM, handleClosePM:handleClosePM, modalIdsetter:modalIdsetter, modalId:modalId, FinalBonus:FinalBonus, setFinalBonus:setFinalBonus,selectItem:selectItem,discountHandler:discountHandler , setmoney:setmoney, UserData:UserData, setUserData:setUserData, clearBucket:clearBucket, setMinOrder:setMinOrder, MinOrder:MinOrder, setMinOrder:setMinOrder, setItems:setItems , Items:Items , setloader:setloader , loader:loader, deleteCard:deleteCard,StaticData:StaticData, setStaticData:setStaticData , modalId:modalId}}>
             {props.children}
             <div className="modalCont">
                 <Modal  

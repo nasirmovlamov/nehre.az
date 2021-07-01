@@ -196,6 +196,7 @@ const Layout = ({ children }) => {
   
   const sendGetRequest10 = async () => {
     try {
+      setloader(true)
       let resp = ""
       if(JSON.parse(localStorage.getItem('LoginUserData')) !== null)
       { 
@@ -244,7 +245,7 @@ const Layout = ({ children }) => {
         setFinalBonus(localStorage.getItem('FinalBonus')   !== null  ?  parseInt(localStorage.getItem('FinalBonus')) : 0)
         setDateGoods(localStorage.getItem('DateGoods')  !== null  ?  JSON.parse(localStorage.getItem('DateGoods')) : [])
         setItems(localStorage.getItem('ProdutData')  !== null   ?  JSON.parse(localStorage.getItem('ProdutData')) : [])
-        resp = await axios.get(`https://nehra.az/public/api/settings/`)
+        resp = await axios.get(`https://nehra.az/public/api/settings`)
         setTopCategory(resp.data.featuredcats)
         setMinOrder(resp.data.min_order_amount)
         setNumber1(resp.data.phone1) 
@@ -263,18 +264,16 @@ const Layout = ({ children }) => {
       }, 60000);
     }
   };
-
-  useEffect(async () => {
-    setloader(true)
+  useEffect(  () => {
+    console.log("Lyout")
     if(JSON.parse(localStorage.getItem('LoginUserData')) !== null)
     {
       setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
-      // const resp = await axios.get(`https://nehra.az/public/api/checkstatus?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
-      // setstatusOK(resp.data[0])
     }
     sendGetRequest10()
     scrollChecker()
-  } , [] )
+  }, [])
+  
 
   const scrollChecker = async () => {
     window.addEventListener("scroll", function(){
@@ -348,18 +347,18 @@ const Layout = ({ children }) => {
 
     return (
     <>
-        {loader ? <Loader/> :
+        <Loader loader={loader}/>
         <div className="AllCont">
-          <button type="button" ref={styleScrollBtn} style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button>
-          {!MidNavbar &&  <button type="button" className='checkMBtnC' style={checkMBtn} onClick={() => handleOpen()}><ShoppingBasketIcon width='60px' height='60px'/> {FinalPrice > 0 && (FinalPrice + " ₼")}</button> }
+          <ScrolltoTop/>
 
+          {/* <button type="button" ref={styleScrollBtn} style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button> */}
+          {!MidNavbar &&  <button type="button" className='checkMBtnC' style={checkMBtn} onClick={() => handleOpen()}><ShoppingBasketIcon width='60px' height='60px'/> {FinalPrice > 0 && (FinalPrice + " ₼")}</button> }
           <TopNavbar TopCategory={TopCategory} number2={number2} number1={number1} UserData={UserData}  modalOpener={handleOpen} modalOpener3={handleOpen3}/>
           {MidNavbar && <Navbar/>}
           <header id="header" className="header">
               <TopNavbarPart2  number2={number2} number1={number1} UserData={UserData}   modalOpener={handleOpen} modalOpener3={handleOpen3}/>
               {MidNavbar && <DownNavbar  TopCategory={TopCategory}/>}
           </header>
-          <ScrolltoTop/>
               {children}
           <Footer/>
 

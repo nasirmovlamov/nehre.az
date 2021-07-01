@@ -47,10 +47,18 @@ import Modal from '@material-ui/core/Modal';
 function HomePage(props) {
     
     const context = useContext(ProductListingContext)
-    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,loader, setloader} = context
-    useEffect( () => {
-        console.log("HEllo")
-        sendGetRequests()
+    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,loader, setloader, StaticData,setStaticData} = context
+    
+    useEffect(  () => {
+        let staticContent = localStorage.getItem('staticContent')
+        if(staticContent !== null)
+        {
+            withoutReq(JSON.parse(staticContent))
+        }
+        else 
+        {
+            sendGetRequests()
+        }
     }, [])
 
     const topCards = []
@@ -67,9 +75,8 @@ function HomePage(props) {
     const [Banners2, setBanners2] = useState([])
     const [Assortment, setAssortment] = useState([])
     
-    const sendGetRequests = async () => {
-        try {
-
+    const dataRenew = async (renew , data) => {
+        if (renew) {
             const respData = await axios.get('https://nehra.az/api/static_data')
             setTopCards(respData.data.slayder)
             setAnswerCard(respData.data.questions)
@@ -78,19 +85,62 @@ function HomePage(props) {
             setAssortment(respData.data.assortment)
             setProduct(respData.data.newproducts)
             respData.data.banners.map(banner => banner.key === "first_banner" ? setBanners1(banner) : setBanners2(banner))
+            localStorage.setItem('staticContent' , JSON.stringify(respData.data))
+        }
+        else 
+        {
+            setTopCards(data.slayder)
+            setAnswerCard(data.questions)
+            setSuppliersCard(data.manufacturer_slider)
+            setSpecialOffers(data.specials)
+            setAssortment(data.assortment)
+            setProduct(data.newproducts)
+            data.banners.map(banner => banner.key === "first_banner" ? setBanners1(banner) : setBanners2(banner))
+        }
+    }
+
+    const sendGetRequests = async () => {
+        try {
+
+            let staticContent = localStorage.getItem('staticContent')
+            if(staticContent !== null)
+            {
+                withoutReq(JSON.parse(staticContent))
+            }
+            else 
+            {
+                const respData = await axios.get('https://nehra.az/api/static_data')
+                setStaticData(respData.data)
+                localStorage.setItem('staticContent' , JSON.stringify(respData.data))
+                dataRenew(false , respData.data)
+            }
+
         } catch (err) {
             console.error(err);
         }
     };
+    const withoutReq = async (staticContent) => {
+        try {
+            setTopCards(staticContent.slayder)
+            setAnswerCard(staticContent.questions)
+            setSuppliersCard(staticContent.manufacturer_slider)
+            setSpecialOffers(staticContent.specials)
+            setAssortment(staticContent.assortment)
+            setProduct(staticContent.newproducts)
+            staticContent.banners.map(banner => banner.key === "first_banner" ? setBanners1(banner) : setBanners2(banner))
+            dataRenew(true, null)
+        } catch (err) {
+            localStorage.removeItem('staicContent')
+            sendGetRequests()
+            console.error(err);
+        }
+    };
     
-    
-
-
     TopCards.map(bucket => ( topCards.push(             <CardSlider1 link={bucket.link} id={bucket.id} turndesc={bucket.turndesc} turnetrafli={bucket.turnetrafli}  turnoverlay={bucket.turnoverlay}  turntitle={bucket.turntitle}   name={bucket.name} image={bucket.image} desc={bucket.description}/>)))
     SuppliersCard.map(supply => ( suppliersCard.push(   <SupplierCard id={supply.id} image={supply.avatar} title={supply.name} supplier={supply.type_id} image2={testImg6} image3={testImg7}/>   )))
     AnswerCard.map(question => ( answerCard.push(       <AnswersCard  answer={question.description} question={question.name} />)))
-    NewProducts.map(product =>  ( newItems.push(        <ItemCard product={product}       desc={ (lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)}   unitAd={ (lang === "AZ" && product?.unit.ad) || (lang === "EN" && product?.unit.ad_en) || (lang === "RU" && product?.unit.ad_ru)}  price={Math.floor(product?.qiymet)}   />)))
-    SpecialOffers.map(product =>( specialOffers.push(   <ItemCard product={product}       desc={ (lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)}    unitAd={ (lang === "AZ" && product?.unit.ad) || (lang === "EN" && product?.unit.ad_en) || (lang === "RU" && product?.unit.ad_ru)} price={Math.floor(product?.qiymet)}   />)))
+    NewProducts.map(product =>  ( newItems.push(        <ItemCard product={product}          price={Math.floor(product?.qiymet)}   />)))
+    SpecialOffers.map(product =>( specialOffers.push(   <ItemCard product={product}           price={Math.floor(product?.qiymet)}   />)))
     
     const bannerImg1 = {
         backgroundImage:`url(https://nehra.az/storage/app/public/${Banners1.image})`,
