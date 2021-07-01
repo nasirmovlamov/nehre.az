@@ -26,13 +26,13 @@ import CardPage from '../pages/CardPage'
 import { withStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import About from './About'
+import About from '../pages/About'
 import ReviewPage from '../pages/ReviewPage'
 import CheckoutPage from '../pages/CheckoutPage'
 import LoginPage from '../pages/LoginPage'
 import Registration from '../pages/Registration'
 import arrowScroll from '../assets/images/scrollArrow.png'
-import F04 from '../components/F04'
+import F04 from '../pages/F04'
 import axios from 'axios'
 import AssortmentCard from './AssortmentCard'
 import {ProductListingProvider} from './ProductListingProvider'
@@ -52,8 +52,10 @@ import PrivacyPolicy from '../pages/PrivacyPolicy'
 import Contact from '../pages/Contact'
 import Loader from './Loader'
 
-function Header() {
-  const context = useContext(ProductListingContext)
+
+
+const Layout = ({ children }) => {
+    const context = useContext(ProductListingContext)
   const {UserData , setUserData , ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader} = context
   const styleScrollBtn = useRef(null);
   // const TopNavbar = useMediaQuery('(min-width:600px)');
@@ -95,13 +97,10 @@ function Header() {
 
 
 
-  const [Assortment, setAssortment] = useState([])
   const [TopCategory, setTopCategory] = useState([])
-  const assortmentArr = []
   
   
   
-  Assortment.map(assortment => ( assortmentArr.push( <AssortmentCard id={assortment.id} title={assortment.name} desc={assortment.count} image={assortment.thumb}/>)))
 
   const styleBtn =  {
     position: "fixed",
@@ -161,7 +160,6 @@ function Header() {
   };
   const  history = useHistory();
 
-  const [statusOK, setstatusOK] = useState()
   const handleOpen3 = () => {
     if (UserData?.id !== undefined ) {
       axios.get(`https://nehra.az/public/api/checkstatus?user_id=${UserData?.id}`)
@@ -199,24 +197,19 @@ function Header() {
   const sendGetRequest10 = async () => {
     try {
       let resp = ""
-      console.log(JSON.parse(localStorage.getItem('LoginUserData')))
       if(JSON.parse(localStorage.getItem('LoginUserData')) !== null)
-      {
-        console.log("HELLO22")
-
-        const resp1 = await axios.get('https://nehra.az/public/api/assortment')
-        setAssortment(resp1.data)
-        const resp2 = await axios.get('https://nehra.az/public/api/featuredcats')
-        setTopCategory(resp2.data)
+      { 
         resp  = await axios.get(`https://nehra.az/public/api/settings?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
         setMinOrder(resp.data.min_order_amount)
         setNumber1(resp.data.phone1) 
         setNumber2(resp.data.phone2)
+        setTopCategory(resp.data.featuredcats)
         setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
         setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
+        setSelectedsProduct(JSON.parse(resp.data.selected.text))
+
         if(resp.data.cart.text !== null)
         {
-          console.log(resp.data.cart.text)
           const dataparsed = JSON.parse(resp.data.cart.text)
           setSelectedsProduct(sessionStorage.getItem('SecilmishProduct') !== null ? JSON.parse(sessionStorage.getItem('SecilmishProduct')) : [])
           setMinOrder()
@@ -244,7 +237,6 @@ function Header() {
       }
       else 
       {
-        console.log("HELLO")
         setProdutData(localStorage.getItem('ProdutData')  !== null   ?  JSON.parse(localStorage.getItem('ProdutData')) : [])
         setFinalPrice(localStorage.getItem('FinalPrice')!== null   ?  parseFloat(localStorage.getItem('FinalPrice')) : 0 )
         setFinalWeight(localStorage.getItem('FinalWeight') !== null ? parseFloat(localStorage.getItem('FinalWeight')) : 0)
@@ -252,17 +244,14 @@ function Header() {
         setFinalBonus(localStorage.getItem('FinalBonus')   !== null  ?  parseInt(localStorage.getItem('FinalBonus')) : 0)
         setDateGoods(localStorage.getItem('DateGoods')  !== null  ?  JSON.parse(localStorage.getItem('DateGoods')) : [])
         setItems(localStorage.getItem('ProdutData')  !== null   ?  JSON.parse(localStorage.getItem('ProdutData')) : [])
-
-        const resp1 = await axios.get('https://nehra.az/public/api/assortment')
-        setAssortment(resp1.data)
-        const resp2 = await axios.get('https://nehra.az/public/api/featuredcats')
-        setTopCategory(resp2.data)
         resp = await axios.get(`https://nehra.az/public/api/settings/`)
+        setTopCategory(resp.data.featuredcats)
         setMinOrder(resp.data.min_order_amount)
         setNumber1(resp.data.phone1) 
         setNumber2(resp.data.phone2)
-        setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
         setSelectedsProduct(sessionStorage.getItem('SecilmishProduct') !== null ? JSON.parse(sessionStorage.getItem('SecilmishProduct')) : [])
+
+        setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
         setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
       }
       setloader(false)
@@ -280,9 +269,8 @@ function Header() {
     if(JSON.parse(localStorage.getItem('LoginUserData')) !== null)
     {
       setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
-      const resp = await axios.get(`https://nehra.az/public/api/checkstatus?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
-      setstatusOK(resp.data[0])
-      setSelectedsProduct(JSON.parse(resp.data[1].text))
+      // const resp = await axios.get(`https://nehra.az/public/api/checkstatus?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
+      // setstatusOK(resp.data[0])
     }
     sendGetRequest10()
     scrollChecker()
@@ -355,90 +343,72 @@ function Header() {
     window.scroll(0,0)
   }
 
+
+
+
     return (
-        <Router>
-            <ScrolltoTop/>
-              <Switch>
-                {loader ?  
-                  <Route  path="/"><Loader/></Route> :
-                  <div className="AllCont">
-                      <button type="button" ref={styleScrollBtn} style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button>
-                      {!MidNavbar &&  <button type="button" className='checkMBtnC' style={checkMBtn} onClick={() => handleOpen()}><ShoppingBasketIcon width='60px' height='60px'/> {FinalPrice > 0 && (FinalPrice + " ₼")}</button> }
+    <>
+        {loader ? <Loader/> :
+        <div className="AllCont">
+          <button type="button" ref={styleScrollBtn} style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button>
+          {!MidNavbar &&  <button type="button" className='checkMBtnC' style={checkMBtn} onClick={() => handleOpen()}><ShoppingBasketIcon width='60px' height='60px'/> {FinalPrice > 0 && (FinalPrice + " ₼")}</button> }
 
-                      <TopNavbar TopCategory={TopCategory} assortmentArr={Assortment}  number2={number2} number1={number1} UserData={UserData}  modalOpener={handleOpen} modalOpener3={handleOpen3}/>
-                      {MidNavbar && <Navbar/>}
-                      <header id="header" className="header">
-                          <TopNavbarPart2  number2={number2} number1={number1} UserData={UserData}   modalOpener={handleOpen} modalOpener3={handleOpen3}/>
-                          {MidNavbar && <DownNavbar  TopCategory={TopCategory}/>}
-                      </header>
-                          <>
-                          <Route  path="/combos/:slug" >              <Combo/>                                                                                                      </Route>
-                          <Route   path="/category/999" >             <ProductListingPage/>                                              </Route>
-                          <Route   path={`/category/:id`}>            <ProductListingPage />                                                           </Route>
-                          <Route   path="/about" >                    <About/>                                                                                                      </Route>
-                          <Route   path="/elaqe" >                    <Contact/>                                                                                                   </Route>
-                          <Route   path="/public/forgetpassword" >    <ForgetPassword/>                                                                                             </Route>
-                          <Route   path="/who" >                      <Who/>                                                                                                        </Route>
-                          <Route   path="/privacy-policy" >           <PrivacyPolicy/>                                                      </Route>
-                          <Route   path="/quality" >                  <Quality/>                                                                                                    </Route>
-                          <Route   path="/reviews" >                  <ReviewPage/>                                                                                                 </Route>
-                          <Route   path="/search" >                   <SearchResult/>                                                                                               </Route>
-                          <Route   path="/memberarea">                {(UserData?.id !== undefined  && parseInt(statusOK) === 1) &&  <MemberArea  UserData={UserData}/>  }          </Route>
-                          <Route   path="/suppliers/:id" >            <SelectedSupplier/>                                                                                           </Route>
-                          <Route   path="/suppliers" >                <Suppliers/>                                                                                                  </Route>
-                          <Route   exact path="/" >                   <HomePage assortmentArr={assortmentArr} modalOpener3={handleOpen3} productModal={handleOpen}/>                </Route>
-                          <Route   path="*">                          <F04 />                                                                                                       </Route>
-                          </>
-                      <Footer/>
-                  </div>
-                }
-                </Switch>
-            <Modal  
-                style={{display:"flex", justifyContent:"center",overflow:"auto"}}
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description">
-                {<CardPage   functionOpenCheckoutPage={handleOpen2} functionClose={() => handleClose()}  />}
-            </Modal>
+          <TopNavbar TopCategory={TopCategory} number2={number2} number1={number1} UserData={UserData}  modalOpener={handleOpen} modalOpener3={handleOpen3}/>
+          {MidNavbar && <Navbar/>}
+          <header id="header" className="header">
+              <TopNavbarPart2  number2={number2} number1={number1} UserData={UserData}   modalOpener={handleOpen} modalOpener3={handleOpen3}/>
+              {MidNavbar && <DownNavbar  TopCategory={TopCategory}/>}
+          </header>
+          <ScrolltoTop/>
+              {children}
+          <Footer/>
 
-            <Modal  
-                style={{display:"flex", justifyContent:"center",overflow:"auto"}}
-                open={open2}
-                onClose={handleClose2}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description">
-                {<CheckoutPage UserId={UserData?.id} functionClose={() => handleClose2()}  numberStar="3.5"/>}
-            </Modal>
+        <Modal  
+            style={{display:"flex", justifyContent:"center",overflow:"auto"}}
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description">
+            {<CardPage   functionOpenCheckoutPage={handleOpen2} functionClose={() => handleClose()}  />}
+        </Modal>
 
-            <Modal  
-                style={{display:"flex", justifyContent:"center",overflow:"auto"}}
-                open={OpenLogin}
-                // onClose={handleClose3}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description">
-                {<LoginPage functionClose={() => handleClose3()}  registerFunc={() => handleOpen4()}/>}
-            </Modal>
+        <Modal  
+            style={{display:"flex", justifyContent:"center",overflow:"auto"}}
+            open={open2}
+            onClose={handleClose2}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description">
+            {<CheckoutPage UserId={UserData?.id} functionClose={() => handleClose2()}  numberStar="3.5"/>}
+        </Modal>
 
-            <Modal  
-                style={{display:"flex", justifyContent:"center",overflow:"auto"}}
-                open={open4}
-                // onClose={handleClose4}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description">
-                {<Registration functionCloseReg={() => handleClose4()}  />}
-            </Modal>
-            
-            <Modal  
-                style={{display:"flex", justifyContent:"center",overflow:"auto"}}
-                open={openSMS}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description">
-                {<AuthSmsL functionClose={() => handleCloseSMS() }  tillCount={tillCount}/>}
-            </Modal>
+        <Modal  
+            style={{display:"flex", justifyContent:"center",overflow:"auto"}}
+            open={OpenLogin}
+            // onClose={handleClose3}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description">
+            {<LoginPage functionClose={() => handleClose3()}  registerFunc={() => handleOpen4()}/>}
+        </Modal>
 
-        </Router>
-    )
-}
-
-export default Header
+        <Modal  
+            style={{display:"flex", justifyContent:"center",overflow:"auto"}}
+            open={open4}
+            // onClose={handleClose4}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description">
+            {<Registration functionCloseReg={() => handleClose4()}  />}
+        </Modal>
+        
+        <Modal  
+            style={{display:"flex", justifyContent:"center",overflow:"auto"}}
+            open={openSMS}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description">
+            {<AuthSmsL functionClose={() => handleCloseSMS() }  tillCount={tillCount}/>}
+        </Modal>
+        </div>
+        }
+        </>
+    );
+};
+export default Layout;

@@ -48,7 +48,11 @@ function HomePage(props) {
     
     const context = useContext(ProductListingContext)
     const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,loader, setloader} = context
-  
+    useEffect( () => {
+        console.log("HEllo")
+        sendGetRequests()
+    }, [])
+
     const topCards = []
     const newItems = []
     const specialOffers = []
@@ -61,42 +65,25 @@ function HomePage(props) {
     const [AnswerCard, setAnswerCard] = useState([])
     const [Banners1, setBanners1] = useState([])
     const [Banners2, setBanners2] = useState([])
-    
+    const [Assortment, setAssortment] = useState([])
     
     const sendGetRequests = async () => {
-        // setloader(true)
         try {
-            const resp1 = await axios.get('https://nehra.az/public/api/banner/first_banner')
-            setBanners1(resp1.data)
-            const resp2 = await axios.get('https://nehra.az/public/api/banner/bonus_banner')
-            setBanners2(resp2.data)
-            const resp3 = await axios.get('https://nehra.az/public/api/questions')
-            setAnswerCard(resp3.data)
-            const resp4 = await axios.get('https://nehra.az/public/api/slayder')
-            setTopCards(resp4.data)
-            const resp5 = await axios.get('https://nehra.az/public/api/manufacturerslider')
-            setSuppliersCard(resp5.data)
-            const resp6 = await axios.get('https://nehra.az/public/api/specials')
-            setSpecialOffers(resp6.data)
-            const resp7 = await axios.get('https://nehra.az/public/api/newproducts')
-            setProduct(resp7.data)
-            // setloader(false)
-        } catch (err) {
-            // Handle Error Here
-            console.error(err);
-            // setloader(false)
 
+            const respData = await axios.get('https://nehra.az/api/static_data')
+            setTopCards(respData.data.slayder)
+            setAnswerCard(respData.data.questions)
+            setSuppliersCard(respData.data.manufacturer_slider)
+            setSpecialOffers(respData.data.specials)
+            setAssortment(respData.data.assortment)
+            setProduct(respData.data.newproducts)
+            respData.data.banners.map(banner => banner.key === "first_banner" ? setBanners1(banner) : setBanners2(banner))
+        } catch (err) {
+            console.error(err);
         }
     };
     
-    useEffect(() => {
-            console.log("YESS")
-
-            sendGetRequests()
-            if (JSON.parse(sessionStorage.getItem('SecilmishProduct'))?.findIndex(x=> x.id === props.id) === undefined) {
-                sessionStorage.setItem('SecilmishProduct' , JSON.stringify([]))
-            }
-    }, [])
+    
 
 
     TopCards.map(bucket => ( topCards.push(             <CardSlider1 link={bucket.link} id={bucket.id} turndesc={bucket.turndesc} turnetrafli={bucket.turnetrafli}  turnoverlay={bucket.turnoverlay}  turntitle={bucket.turntitle}   name={bucket.name} image={bucket.image} desc={bucket.description}/>)))
@@ -106,13 +93,13 @@ function HomePage(props) {
     SpecialOffers.map(product =>( specialOffers.push(   <ItemCard product={product}       desc={ (lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)}    unitAd={ (lang === "AZ" && product?.unit.ad) || (lang === "EN" && product?.unit.ad_en) || (lang === "RU" && product?.unit.ad_ru)} price={Math.floor(product?.qiymet)}   />)))
     
     const bannerImg1 = {
-        backgroundImage:`url(https://nehra.az/storage/app/public/${Banners1[0]?.image})`,
+        backgroundImage:`url(https://nehra.az/storage/app/public/${Banners1.image})`,
         backgroundRepeat:'no-repeat',
         backgroundSize:'cover',
         backgroundPosition:'top center',
     }
     const bannerImg2 = {
-        backgroundImage:`url(https://nehra.az/storage/app/public/${Banners2[0]?.image})`,
+        backgroundImage:`url(https://nehra.az/storage/app/public/${Banners2.image})`,
         backgroundRepeat:'no-repeat',
         backgroundSize:'cover',
         backgroundPosition:'top center',
@@ -135,6 +122,8 @@ function HomePage(props) {
         setOpen2(false);
     };
 
+
+
     return (
 
         <div className="homePage">
@@ -145,12 +134,12 @@ function HomePage(props) {
             
             <div className="perfectSet" style={bannerImg1}>
                 <div className="textCont2">
-                    <h4 className="title2">{Banners1[0]?.title}</h4>
-                    <p className="desc">{Banners1[0]?.description}</p>
-                    <a href={`${Banners1[0]?.link}`} className='perectSetCont'><Button1 value={(lang === "AZ" && `Ətraflı`) || (lang === "EN" && `More`) || (lang === "RU" && `Eще`)} color="#285999"/></a>
+                    <h4 className="title2">{Banners1?.title}</h4>
+                    <p className="desc">{Banners1?.description}</p>
+                    <a href={`${Banners1?.link}`} className='perectSetCont'><Button1 value={(lang === "AZ" && `Ətraflı`) || (lang === "EN" && `More`) || (lang === "RU" && `Eще`)} color="#285999"/></a>
                 </div>
                 {
-                    Banners1[0]?.video_switcher === 1 && 
+                    Banners1?.video_switcher === 1 && 
                     <div className="videoModalBtn">
                         <button onClick={() => handleOpen2()}><PlayArrowRoundedIcon/></button>
                         <Modal  
@@ -163,7 +152,7 @@ function HomePage(props) {
                             <div className='videoModalCont'>
                                 <div className='videoModal'>
                                     <div className="btnCont"> <button onClick={() => handleClose2()} className="close">x</button></div>
-                                    <iframe width="100%" height="600" src={`https://www.youtube.com/embed/${Banners1[0].video_link}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <iframe width="100%" height="600" src={`https://www.youtube.com/embed/${Banners1.video_link}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </div>
                             </div>
                         }
@@ -183,12 +172,12 @@ function HomePage(props) {
            
             <div className="perfectSet" style={bannerImg2}>
                 <div className="textCont2">
-                    <h4 className="title2">{Banners2[0]?.title}</h4>
-                    <p className="desc">{Banners2[0]?.description}</p>
-                    <a href={`${Banners2[0]?.link}`} className='perectSetCont'><Button1 value={(lang === "AZ" && `Ətraflı`) || (lang === "EN" && `More`) || (lang === "RU" && `Eще`)} color="#285999"/></a>
+                    <h4 className="title2">{Banners2?.title}</h4>
+                    <p className="desc">{Banners2?.description}</p>
+                    <a href={`${Banners2?.link}`} className='perectSetCont'><Button1 value={(lang === "AZ" && `Ətraflı`) || (lang === "EN" && `More`) || (lang === "RU" && `Eще`)} color="#285999"/></a>
                 </div>
                 {
-                    Banners2[0]?.video_switcher === 1 && 
+                    Banners2?.video_switcher === 1 && 
                     <div className="videoModalBtn">
                         <button onClick={() => handleOpen()}><PlayArrowRoundedIcon/></button>
                         <Modal  
@@ -201,7 +190,7 @@ function HomePage(props) {
                             <div className='videoModalCont'>
                                 <div className='videoModal'>
                                     <div className="btnCont"> <button onClick={() => handleClose()} className="close">x</button></div>
-                                    <iframe width="100%" height="600" src={`https://www.youtube.com/embed/${Banners2[0].video_link}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <iframe width="100%" height="600" src={`https://www.youtube.com/embed/${Banners2.video_link}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </div>
                             </div>
                         }
@@ -214,7 +203,7 @@ function HomePage(props) {
             <div className="ourAssortment">
                 <p className="title3">{lang === "AZ" && `Çeşidlərimiz` || lang === "EN" && `Our assortments` || lang === "RU" && `Наш ассортимент`}</p>
                 <div className="assortmentCont">
-                    {props.assortmentArr}
+                    {Assortment.map(assortment=> <AssortmentCard id={assortment.id} title={assortment.name} desc={assortment.count} image={assortment.thumb}/>)}
                 </div>
             </div>
 

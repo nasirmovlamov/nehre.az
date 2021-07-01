@@ -3,7 +3,7 @@ import React,{useState,useContext} from 'react'
 import { useEffect } from 'react'
 import { useParams } from 'react-router'
 import "../assets/css/selectedSupllier.css"
-import About from './About'
+import About from '../pages/About'
 import Certificate from './Certificate'
 import Description from './Description'
 import Products from './Products'
