@@ -13,7 +13,7 @@ function SearchResult(props) {
   
     const [loader, setloader] = useState(true)
     const [SearchResult, setSearchResult] = useState([])
-
+    
     useEffect(() => {
         setSearchResult()
         setloader(true)
@@ -26,7 +26,7 @@ function SearchResult(props) {
     return (
         <div className="searchResult">
             <p className='resultTitle'>{(lang === "AZ" && `Axtarışınıza uyğun nəticələr`) || (lang === "EN" && `Results matching your search`) || (lang === "RU" && `Результаты, соответствующие вашему поиску`)} </p>
-            { loader === true ? <div className="loader"><ReactLoading type={"bubbles"} color={"#2d5d9b"} height={27} width={125} /></div> : (  SearchResult?.length >= 1 ? <div className="items">{SearchResult.map(product =>  <ItemCard delivery={product?.delivery}  NumberOfGoods={props?.NumberOfGoods}  modalOpener3={props.modalOpener3} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={product?.seller_data?.name}  unitType={product?.unit.id} price={money === "₼" ? product?.qiymet : Math.floor(product?.qiymet / 1.7)} weight={product?.ceki_hecm}   discount={product?.discount} productModal={props?.productModal}  star={product?.starsall}/>)}</div> : <p className='resultNot'>{lang === "AZ" && `Axtarışınıza uyğun nəticə tapılmadı` || lang === "EN" && `No results found for your search` || lang === "RU" && `По вашему запросу ничего не найдено`} </p>)}
+            { loader === true ? <div className="loader"><ReactLoading type={"bubbles"} color={"#2d5d9b"} height={27} width={125} /></div> : (  SearchResult?.length >= 1 ? <div className="items">{SearchResult.map(product =>  <ItemCard product={product}/>)}</div> : <p className='resultNot'>{lang === "AZ" && `Axtarışınıza uyğun nəticə tapılmadı` || lang === "EN" && `No results found for your search` || lang === "RU" && `По вашему запросу ничего не найдено`} </p>)}
         </div>
     )
 }

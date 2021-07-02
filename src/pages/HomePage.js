@@ -139,8 +139,8 @@ function HomePage(props) {
     TopCards.map(bucket => ( topCards.push(             <CardSlider1 link={bucket.link} id={bucket.id} turndesc={bucket.turndesc} turnetrafli={bucket.turnetrafli}  turnoverlay={bucket.turnoverlay}  turntitle={bucket.turntitle}   name={bucket.name} image={bucket.image} desc={bucket.description}/>)))
     SuppliersCard.map(supply => ( suppliersCard.push(   <SupplierCard id={supply.id} image={supply.avatar} title={supply.name} supplier={supply.type_id} image2={testImg6} image3={testImg7}/>   )))
     AnswerCard.map(question => ( answerCard.push(       <AnswersCard  answer={question.description} question={question.name} />)))
-    NewProducts.map(product =>  ( newItems.push(        <ItemCard product={product}          price={Math.floor(product?.qiymet)}   />)))
-    SpecialOffers.map(product =>( specialOffers.push(   <ItemCard product={product}           price={Math.floor(product?.qiymet)}   />)))
+    NewProducts.map(product =>  ( newItems.push(        <ItemCard product={product} />)))
+    SpecialOffers.map(product =>( specialOffers.push(   <ItemCard product={product} />)))
     
     const bannerImg1 = {
         backgroundImage:`url(https://nehra.az/storage/app/public/${Banners1.image})`,

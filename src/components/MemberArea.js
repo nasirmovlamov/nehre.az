@@ -61,20 +61,17 @@ const stylesForSwiper = makeStyles({
   },
 });
 
-function output  () {
+
+function MemberArea(props) {
+  function output  () {
     localStorage.clear()
     sessionStorage.clear()
     window.location.href ='/'
-}
-function MemberArea(props) {
+  }
 
   const context = useContext(ProductListingContext)
-  const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
-
+  const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,loader, setloader, StaticData,setStaticData} = context
   const memberMQ = useMediaQuery("(min-width:900px)");
-  const [UserData, setUserData] = useState(JSON.parse(localStorage.getItem('LoginUserData')))
-  
-
   const url = window.location.href;
   const lastSegment = url.split("/").pop();
  
@@ -331,7 +328,7 @@ function MemberArea(props) {
               <PasswordUpdate />
             </Route>
             <Route path="/memberarea/address/edit/:id">
-                <AddressEdit UserId={UserData.id}/>
+                <AddressEdit />
             </Route>
             <Route path="/memberarea/address/add">
                 <AddAddress/>
@@ -359,13 +356,13 @@ function MemberArea(props) {
             </Route>
             
             <Route path="/memberarea/reviews">
-                <MemberAreaReviews UserId={UserData.id}/>
+                <MemberAreaReviews />
             </Route>
             <Route path="/memberarea/output">
                 {output}
             </Route>
             <Route path="/memberarea/">
-              <Contacts />
+              <Contacts/>
             </Route>
           </Switch>
         </main>

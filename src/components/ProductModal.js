@@ -244,9 +244,9 @@ function ProductModal(props) {
                                 <button className="button" style={checker ===3 ? styleChanger: null}   id="btnLink3" onClick={() => clickHandler(3)}> {(lang === "AZ" && `Sertifikatlar`) || (lang === "EN" && `Certificates`) || (lang === "RU" && `Сертификаты`)} </button>
                                 <hr/>
                                 <div className="linkComponent">
-                                    {/* {checker === 1 ? <Description ProductSimilar={ProductSimilar}  Product={Product !== [] && Product}/> : "" } */}
-                                    {/* {checker === 2 ? <Reviews  post_id={props.id} product={true}/> : ""}
-                                    {checker === 3 ? <Certificates Product={Product}/> : ""} */}
+                                    {checker === 1 ? <Description ProductSimilar={ProductSimilar}  Product={ Product}/> : "" }
+                                    {checker === 2 ? <Reviews  post_id={Product.id} product={true}/> : ""}
+                                    {checker === 3 ? <Certificates Product={Product}/> : ""}
                                 </div>
                             </div>
                         </div>

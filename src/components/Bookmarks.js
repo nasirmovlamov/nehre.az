@@ -8,13 +8,12 @@ function Bookmarks() {
     const context = useContext(ProductListingContext)
     const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
   
-    var bookmarks = JSON.parse(sessionStorage.getItem('SecilmishProduct'))
     return (
         <div className="cabinetCont bookmarks ">
             <p className="title">{lang === "AZ" && `Seçilmiş məhsullar` || lang === "EN" && `Selected Products` || lang === "RU" && `Избранные продукты`}</p>
             {/* <p className="selection"><button className="button"><HelpOutlineIcon/> Assortment for: <p>all dates <ArrowRightIcon/></p> </button></p> */}
             <div className="gridCont1">
-                {bookmarks !== null && bookmarks.map(product => <ItemCard  delivery={product?.delivery} cardId={product?.id}   image={product?.thumb}  title={product?.title}  desc={product?.desc}  unitType={product?.unitType} price={money === "₼" ? product?.qiymet : Math.floor(product?.qiymet / 1.7)} weight={product?.ceki_hecm}   discount={product?.discount} star={product?.starsall} bonus={product?.bonus}/>)}
+                {SelectedsProduct.map(product => <ItemCard product={product.product}/>)}
             </div>
         </div>
     )

@@ -21,6 +21,7 @@ import SearchResult from './components/SearchResult';
 import SelectedSupplier from './components/SelectedSupplier';
 import Suppliers from './components/Suppliers';
 import Contacts from './components/Contacts';
+import MemberArea from './components/MemberArea';
 
 
 
@@ -32,6 +33,7 @@ function App() {
           <Layout>
             <Switch>
               <Route   exact  path="/">                 <HomePage />                </Route>
+              <Route   path="/memberarea">              <MemberArea  />               </Route>
               <Route   path="/combos/:slug" >           <Combo/>                    </Route>
               <Route   path="/category/:id">            <ProductListingPage />      </Route>
               <Route   path="/about" >                  <About/>                    </Route>
@@ -44,7 +46,6 @@ function App() {
               <Route   path="/search" >                 <SearchResult/>             </Route>
               <Route   path="/suppliers/:id" >          <SelectedSupplier/>         </Route>
               <Route   path="/suppliers" >              <Suppliers/>                </Route>
-              <Route   path="/memberarea">              <Contacts  />               </Route>
               <Route   path="*">                        <F04  />                    </Route>
             </Switch> 
           </Layout>

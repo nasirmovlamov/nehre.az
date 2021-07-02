@@ -115,7 +115,7 @@ function ProductListingPage(props) {
             <div className="productsCont">
                 {
                   loader === true ? <div className="loader"><ReactLoading type={"bubbles"} color={"#2d5d9b"} height={27} width={125} /></div> :
-                  ( ProductData.length >= 1 ? ProductData.map(product =>  <ItemCard delivery={product?.delivery} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={ (lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)}  unitType={product?.unit.unit_id} unitId={product?.unit.id}  unitAd={ (lang === "AZ" && product?.unit.ad) || (lang === "EN" && product?.unit.ad_en) || (lang === "RU" && product?.unit.ad_ru)} price={Math.floor(product?.qiymet)} weight={product?.ceki_hecm}   discount={product?.discount} productModal={props?.productModal} bonus={product.cashback} star={product?.starsall}/>) : "Məhsul stokda mövcud deyil ")
+                  ( ProductData.length >= 1 ? ProductData.map(product =>  <ItemCard product={product} />) : "Məhsul stokda mövcud deyil ")
                 }
             </div>
         </div>

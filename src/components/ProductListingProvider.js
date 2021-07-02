@@ -12,7 +12,10 @@ export const ProductListingContext = createContext()
 export function ProductListingProvider(props) {
     const notifyAddBasket = () => toast.info((lang === "AZ" && `Məhsul səbətə əlavə edildi` || lang === "EN" && `The product has added to the cart` || lang === "RU" && `Товар добавлен в корзину`) , {draggable: true, autoClose: 1000,});
     const notifyRemoveBasket = () => toast.info((lang === "AZ" && `Məhsul səbətdən çıxarıldı` || lang === "EN" && `The product was removed from the basket` || lang === "RU" && `Товар удален из корзины`)  , {draggable: true, autoClose: 1000,});
-    const [UserData, setUserData] = useState(null)
+    const notifyLogin = () => toast.warning((lang === "AZ" && `Hesabınıza daxil olun!` || lang === "EN" && `Log in to your account!` || lang === "RU" && `Войдите в свою учетную запись!`) , {draggable: true,});
+    
+
+    const [UserData, setUserData] = useState({})
 
 
 
@@ -157,7 +160,6 @@ export function ProductListingProvider(props) {
             FinalWeightCartAdd = weightChecker(weight , unitType, 'add' , 0)
             let productAddcartdata = [...ProdutData , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType, bonus:bonus, product:product}]
             setProdutData(productAddcartdata)
-            console.log(UserData)
             if (UserData !== null) {
                 addCart(productAddcartdata , FinalPriceCartAdd, FinalWeightCartAdd, FinalGoodsCartAdd, FinalBonusCartAdd, uniqueDates)
             }
@@ -253,51 +255,9 @@ export function ProductListingProvider(props) {
             
         }
     }
-    const selectItem = (num , product) => {
-        // const notify2 = (rate) => toast.success(`Seçilmişlərdən çıxarıldı` , {draggable: true,autoClose: 1000});
-        // const notify1 = (rate) => toast.success(`Seçilmişlərə Əlavə olundu` , {draggable: true,autoClose: 1000});
-        // if(UserData?.id !== undefined)
-        // {  
-        //     if(sessionStorage.getItem('SecilmishProduct') === null)
-        //     {
-        //         sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
-        //         var selecteds = []  
-        //         selecteds = [...selecteds , {id:product.id , delivery: product.delivery,    thumb:product.thumb,  title:product.title, desc: ((lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)),  unitType:product.unit.id,  qiymet:props.price , ceki_hecm:product.ceki_hecm , discount:product.discount,  starsall:product.starsall, bonus:product.cashback}]
-        //         sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
-        //         setSelectedsProduct(selecteds)
-        //         axios.post('https://nehra.az/public/api/addstring' , {user_id:UserData?.id , string:JSON.stringify(selecteds)} , headers)
-        //         notify1()
-        //         return 0 
-        //     }        
-        //     else 
-        //     {
-        //         var selecteds = JSON.parse(sessionStorage.getItem('SecilmishProduct'))
-        //     }
-        //     var index = selecteds.findIndex(x=> x.id === num)
-        //     if (index === -1) {
-        //         selecteds = [...selecteds , {id:product.id , delivery: product.delivery,    thumb:product.thumb,  title:product.title, desc: ((lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)),  unitType:product.unit.id,  qiymet:props.price , ceki_hecm:product.ceki_hecm , discount:product.discount,  starsall:product.starsall, bonus:product.cashback}]
-        //         sessionStorage.setItem('SecilmishProduct' , JSON.stringify(selecteds))
-        //         setSelectedsProduct(selecteds)
-        //         axios.post('https://nehra.az/public/api/addstring' , {user_id:UserData?.id , string:JSON.stringify(selecteds)} , headers)
-        //         setindexSelected(1)
-        //         notify1()
-        //     }
-        //     else 
-        //     {
-        //         var newArr = selecteds.filter((item) => item.id !== num)
-        //         sessionStorage.setItem('SecilmishProduct' , JSON.stringify(newArr))
-        //         setSelectedsProduct(newArr)
-        //         axios.post('https://nehra.az/public/api/addstring' , {user_id:UserData?.id , string:JSON.stringify(newArr)}  , headers)
-        //         setindexSelected(-1)
-        //         notify2()
-        //     }
-        // }
-        // else 
-        // {
-        //     notifyLogin()
-        //     OpenLoginF()
-        // }
-    }
+
+
+    
 
     //#region PRDUCTMODAL
     const [open, setOpen] = React.useState(false);
@@ -397,7 +357,7 @@ export function ProductListingProvider(props) {
 
 
     return (
-        <ProductListingContext.Provider value={{ProdutData:ProdutData, setProdutData:setProdutData, FinalPrice:FinalPrice, setFinalPrice:setFinalPrice, FinalWeight:FinalWeight, setFinalWeight:setFinalWeight,FinalGoods:FinalGoods, setFinalGoods:setFinalGoods, addItem:addItem, removeItem:removeItem, lang:lang , setlang:setlang,  money:money , langArr:langArr, DateGoods:DateGoods,setDateGoods:setDateGoods , SelectedsProduct:SelectedsProduct, setSelectedsProduct:setSelectedsProduct, OpenLoginF:OpenLoginF,CloseLoginF:CloseLoginF, setOpenLogin:setOpenLogin , OpenLogin:OpenLogin, handleOpenPM:handleOpenPM, handleClosePM:handleClosePM, modalIdsetter:modalIdsetter, modalId:modalId, FinalBonus:FinalBonus, setFinalBonus:setFinalBonus,selectItem:selectItem,discountHandler:discountHandler , setmoney:setmoney, UserData:UserData, setUserData:setUserData, clearBucket:clearBucket, setMinOrder:setMinOrder, MinOrder:MinOrder, setMinOrder:setMinOrder, setItems:setItems , Items:Items , setloader:setloader , loader:loader, deleteCard:deleteCard,StaticData:StaticData, setStaticData:setStaticData , modalId:modalId}}>
+        <ProductListingContext.Provider value={{ProdutData:ProdutData, setProdutData:setProdutData, FinalPrice:FinalPrice, setFinalPrice:setFinalPrice, FinalWeight:FinalWeight, setFinalWeight:setFinalWeight,FinalGoods:FinalGoods, setFinalGoods:setFinalGoods, addItem:addItem, removeItem:removeItem, lang:lang , setlang:setlang,  money:money , langArr:langArr, DateGoods:DateGoods,setDateGoods:setDateGoods , SelectedsProduct:SelectedsProduct, setSelectedsProduct:setSelectedsProduct, OpenLoginF:OpenLoginF,CloseLoginF:CloseLoginF, setOpenLogin:setOpenLogin , OpenLogin:OpenLogin, handleOpenPM:handleOpenPM, handleClosePM:handleClosePM, modalIdsetter:modalIdsetter, modalId:modalId, FinalBonus:FinalBonus, setFinalBonus:setFinalBonus,discountHandler:discountHandler , setmoney:setmoney, UserData:UserData, setUserData:setUserData, clearBucket:clearBucket, setMinOrder:setMinOrder, MinOrder:MinOrder, setMinOrder:setMinOrder, setItems:setItems , Items:Items , setloader:setloader , loader:loader, deleteCard:deleteCard,StaticData:StaticData, setStaticData:setStaticData , modalId:modalId}}>
             {props.children}
             <div className="modalCont">
                 <Modal  

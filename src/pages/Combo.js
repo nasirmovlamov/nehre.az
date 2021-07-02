@@ -40,7 +40,7 @@ function Combo(props) {
 
 
     const [CategoryData, setCategoryData] = useState()
-    const [ProductData, setProductData] = useState([0])
+    const [ProductData, setProductData] = useState([])
     const sendGetRequestCategory = async () => {
       try {
           const resp = await axios.get(`https://nehra.az/public/api/combo/${slug}`)
@@ -92,7 +92,7 @@ function Combo(props) {
         var datesCombo = []
         var productsCombo = []
 
-        const addItemCombo  = (num,price , weight , unitType , dates , name) => {
+        const addItemCombo  = (num,price , weight , unitType , dates , name , product) => {
             if (parseInt(unitType) === 4) {
               WholeWeight  += (parseFloat(weight) / 1000)
             }
@@ -110,9 +110,8 @@ function Combo(props) {
             datesCombo = uniqueDates
             localStorage.setItem('DateGoods' , (JSON.stringify(uniqueDates)))
             var index = ProdutData.findIndex(x=> x.id === num);
-            console.log(index)
             if (index === -1) {
-                productsCombo = [...productsCombo , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType}]
+                productsCombo = [...productsCombo , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType , product}]
             }
             else 
             {
@@ -139,7 +138,7 @@ function Combo(props) {
         notifyAddBasket()
 
         for (let i = 0; i < ProductData.length; i++) {
-          addItemCombo(ProductData[i].id , discountHandler(ProductData[i].discount , ProductData[i].qiymet) , parseFloat(ProductData[i].ceki_hecm) ,  ProductData[i]?.unit?.unit_id ,  ProductData[i].delivery ,  ProductData[i].title)
+          addItemCombo(ProductData[i].id , discountHandler(ProductData[i].discount , ProductData[i].qiymet) , parseFloat(ProductData[i].ceki_hecm) ,  ProductData[i]?.unit?.unit_id ,  ProductData[i].delivery ,  ProductData[i].title , ProductData[i])
         }
         
         setFinalPrice((parseInt(WholePrice)))
@@ -178,7 +177,7 @@ function Combo(props) {
                 {
                   loader === true ? <div className="loader"><ReactLoading type={"bubbles"} color={"#2d5d9b"} height={27} width={125} /></div> 
                   :
-                  ( ProductData.length >= 1 ? ProductData.map(product =>  <ItemCard delivery={product?.delivery} cardId={product?.id} image={product?.thumb}  title={product?.title}  desc={ (lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru)}  unitType={product?.unit.unit_id}  unitAd={ (lang === "AZ" && product?.unit.ad) || (lang === "EN" && product?.unit.ad_en) || (lang === "RU" && product?.unit.ad_ru)} price={Math.floor(product?.qiymet)} weight={product?.ceki_hecm}   discount={product?.discount} productModal={props?.productModal} bonus={product.cashback} star={product?.starsall}/>) :  ((lang === "AZ" && `Məhsul stokda mövcud deyil `) || (lang === "EN" && `The product is not available in stock`) || (lang === "RU" && `Товара нет в наличии`)))
+                  ( ProductData.length >= 1 ? ProductData.map(product =>  <ItemCard product={product} btnDisabled={true}/>) :  ((lang === "AZ" && `Məhsul stokda mövcud deyil `) || (lang === "EN" && `The product is not available in stock`) || (lang === "RU" && `Товара нет в наличии`)))
                 }
             </div>
 

@@ -22,16 +22,26 @@ toast.configure()
 
 
 function Contacts(props) {
-    const notify = () => toast.info(lang === "AZ" && `Məlumatlar yeniləndi!` || lang === "EN" && `Information updated!` || lang === "RU" && `Информация обновлена!`);
     const context = useContext(ProductListingContext)
-    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+    const {SelectedsProduct, ProdutData, addItem,modalIdsetter,removeItem,lang,money, discountHandler, UserData , setSelectedsProduct, OpenLoginF} = context
+    const notify = () => toast.info(lang === "AZ" && `Məlumatlar yeniləndi!` || lang === "EN" && `Information updated!` || lang === "RU" && `Информация обновлена!`);
   
     
-    const pageData = Data[`profile-${lang}`]
-    const validate = pageData.validation
-    const formText = pageData.formText
+    const [pageData, setpageData] = useState()
+    const [validate, setvalidate] = useState({})
+    const [formText, setformText] = useState({})
+    useEffect(() => {
+        if (lang !== undefined) {
+            console.log(lang)
+            console.log(UserData)
+            const text = Data[`profile-${lang}`]
+            setpageData(text) 
+            setvalidate(text.validation)
+            setvalidate(text.formText)
+        }
+    }, [])
+    
 
-    const [UserData, setUserData] = useState(0)
     const phoneRegExp = /([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/
     const [selectedDate, setSelectedDate] = React.useState(new Date('2000-08-18T21:11:54'));
 
@@ -77,7 +87,7 @@ function Contacts(props) {
         try {
             const res = await axios.post('https://nehra.az/public/api/updateuser', dt  , headers )
             setloader(false) 
-            localStorage.setItem("LoginUserData" , JSON.stringify(res.data))
+            localStorage.setItem("UoginUserData" , JSON.stringify(res.data))
             notify()
             console.log("ys")
         } catch (error) {
@@ -98,10 +108,8 @@ function Contacts(props) {
 
     
     useEffect(() => {
-        const userData= JSON.parse(localStorage.getItem('LoginUserData'))
-        setUserData(userData)
-        setinitialValues({... initialValues , name: userData.name , email:userData.email, phone:userData.phone})
-        setSelectedDate(userData.birthdate)
+        setinitialValues({... initialValues , name: UserData.name , email:UserData.email, phone:UserData.phone})
+        setSelectedDate(UserData.birthdate)
     } , [])
 
     const onChangePhone = (e) =>{

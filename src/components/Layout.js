@@ -201,6 +201,7 @@ const Layout = ({ children }) => {
       if(JSON.parse(localStorage.getItem('LoginUserData')) !== null)
       { 
         resp  = await axios.get(`https://nehra.az/public/api/settings?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
+        setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
         setMinOrder(resp.data.min_order_amount)
         setNumber1(resp.data.phone1) 
         setNumber2(resp.data.phone2)
@@ -208,17 +209,15 @@ const Layout = ({ children }) => {
         setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
         setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
         setSelectedsProduct(JSON.parse(resp.data.selected.text))
-
         if(resp.data.cart.text !== null)
         {
           const dataparsed = JSON.parse(resp.data.cart.text)
-          setSelectedsProduct(sessionStorage.getItem('SecilmishProduct') !== null ? JSON.parse(sessionStorage.getItem('SecilmishProduct')) : [])
           setMinOrder()
           if(dataparsed !== undefined && dataparsed !== null && dataparsed !== "")
           {
             setProdutData((dataparsed.product      !== null  && dataparsed.product      !== undefined && dataparsed.product      !== "")   ?  dataparsed.product  : [])
-            setFinalPrice((dataparsed.FinalPrice   !== null  && dataparsed.FinalPrice   !== undefined && dataparsed.FinalPrice   !== "")   ?  parseInt(dataparsed.FinalPrice)  : 0)
-            setFinalWeight((dataparsed.FinalWeight !== null  && dataparsed.FinalWeight  !== undefined && dataparsed.FinalWeight  !== "")   ?  parseInt(dataparsed.FinalWeight)  : 0)
+            setFinalPrice((dataparsed.FinalPrice   !== null  && dataparsed.FinalPrice   !== undefined && dataparsed.FinalPrice   !== "")   ?  parseFloat(dataparsed.FinalPrice)  : 0)
+            setFinalWeight((dataparsed.FinalWeight !== null  && dataparsed.FinalWeight  !== undefined && dataparsed.FinalWeight  !== "")   ?  parseFloat(dataparsed.FinalWeight)  : 0)
             setFinalGoods((dataparsed.FinalGoods   !== null  && dataparsed.FinalGoods   !== undefined && dataparsed.FinalGoods   !== "")   ?  parseInt(dataparsed.FinalGoods)  : 0)
             setFinalBonus((dataparsed.FinalBonus   !== null  && dataparsed.FinalBonus   !== undefined && dataparsed.FinalBonus   !== "")   ?  parseInt(dataparsed.FinalBonus)  : 0)
             setDateGoods((dataparsed.DateGoods     !== null  && dataparsed.DateGoods    !== undefined && dataparsed.DateGoods    !== "")   ?  dataparsed.DateGoods  : [])
@@ -250,7 +249,8 @@ const Layout = ({ children }) => {
         setMinOrder(resp.data.min_order_amount)
         setNumber1(resp.data.phone1) 
         setNumber2(resp.data.phone2)
-        setSelectedsProduct(sessionStorage.getItem('SecilmishProduct') !== null ? JSON.parse(sessionStorage.getItem('SecilmishProduct')) : [])
+        console.log(resp.data)
+        setSelectedsProduct()
 
         setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
         setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
@@ -265,11 +265,6 @@ const Layout = ({ children }) => {
     }
   };
   useEffect(  () => {
-    console.log("Lyout")
-    if(JSON.parse(localStorage.getItem('LoginUserData')) !== null)
-    {
-      setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
-    }
     sendGetRequest10()
     scrollChecker()
   }, [])

@@ -33,11 +33,11 @@ import Rating from '@material-ui/lab/Rating';
 function ItemCard(props) {
     const {product} = props 
     const context = useContext(ProductListingContext)
-    const {SelectedsProduct, ProdutData, selectItem,addItem,modalIdsetter,removeItem,lang,money, discountHandler, UserData} = context
+    const {SelectedsProduct, ProdutData, addItem,modalIdsetter,removeItem,lang,money, discountHandler, UserData , setSelectedsProduct, OpenLoginF} = context
     const [valueR, setvalueR] = useState()
+    const notifyLogin = () => toast.warning((lang === "AZ" && `Hesabınıza daxil olun!` || lang === "EN" && `Log in to your account!` || lang === "RU" && `Войдите в свою учетную запись!`) , {draggable: true,});
     
 
-    const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
 
     //#region trash 
     // const [state, setState] = React.useState({
@@ -88,19 +88,72 @@ function ItemCard(props) {
     //#endregion
     
     //#region Select ITEM  //Select ITEM
-    // const [indexSelected, setindexSelected] = useState(SelectedsProduct?.findIndex(x=> x.id === product.id) !== undefined ? SelectedsProduct?.findIndex(x=> x.id === product.id) : -1)
-    // useEffect(() => {
-    //     var selecteds = SelectedsProduct
-    //     setindexSelected(selecteds?.findIndex(x=> x.id === props.cardItem))
-    // }, [SelectedsProduct])
+    const [indexSelected, setindexSelected] = useState(SelectedsProduct?.findIndex(x=> x.id === product.id) !== undefined ? SelectedsProduct?.findIndex(x=> x.id === product.id) : -1)
+    useEffect(() => {
+        setindexSelected(SelectedsProduct?.findIndex(x=> x.id === product.id))
+        // setindexSelected()
+        console.log(UserData)
+    }, [SelectedsProduct])
     //#endregion  Select ITEM  //Select ITEM
-    console.log(props.product)
+
+    const selectItem = (product) => {
+        const num = parseInt(product.id)
+        const price = parseFloat(discountHandler(product))
+        const weight = parseFloat(product.ceki_hecm)
+        const unitType = parseInt(product.unit.unit_id)
+        const dates = product.delivery
+        const name = product.title
+        const bonus = parseInt(product.bonus)
+        const notify2 = (rate) => toast.success((lang === "AZ" && `Seçilmişlərdən çıxarıldı` || lang === "EN" && `Removed from favorites` || lang === "RU" && `Удалено из избранного`) , {draggable: true,autoClose: 1000});
+        const notify1 = (rate) => toast.success((lang === "AZ" && `Seçilmişlərə Əlavə olundu` || lang === "EN" && `Added to favorites` || lang === "RU" && `Добавлено в избранное`) , {draggable: true,autoClose: 1000});
+        
+        if(UserData?.id !== null)
+        {  
+            // console.log(SelectedsProduct)
+            if(SelectedsProduct.length === 0 )
+            {
+                var selecteds = []  
+                selecteds = [...selecteds , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType, bonus:bonus, product:product}]
+                setSelectedsProduct(selecteds)
+                axios.post('https://nehra.az/public/api/addstring' , {user_id:UserData?.id , string:JSON.stringify(selecteds)} )
+                notify1()
+                console.log('first1');
+                return 0 
+            }         
+            else 
+            {
+                var selecteds = SelectedsProduct
+            }
+            var index = selecteds.findIndex(x=> x.id === num)
+
+            if (index === -1) {
+                selecteds = [...selecteds , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType, bonus:bonus, product:product}]
+                setSelectedsProduct(selecteds)
+                axios.post('https://nehra.az/public/api/addstring' , {user_id:UserData.id , string:JSON.stringify(selecteds)} )
+                notify1()
+            }
+            else 
+            {
+                var newArr = selecteds.filter((item) => item.id !== num)
+                setSelectedsProduct(newArr)
+                axios.post('https://nehra.az/public/api/addstring' , {user_id:UserData.id , string:JSON.stringify(newArr)} )
+                notify2()
+            }
+        }
+        else 
+        {
+            notifyLogin()
+            OpenLoginF()
+        }
+    }
+
+
     return (
         <div key={product.id} className="itemCard">
             <button  type="button"  className="imgCont" style={imgHandler}>
                 <div className="valueAndBtn"> 
                     {ProdutData[ProdutData?.findIndex(x=> x.id === product.id)]?.count > 0 && <div className='valueBtn'>{ProdutData[ProdutData.findIndex(x=> x.id === product.id)]?.count}</div>}
-                    <div className="iconAndBtn"> <button onClick={() => selectItem(product.id)} className="favIco"> {SelectedsProduct.findIndex(x=> x.id === product.id) === -1 ? <StarBorderIcon/> :  <StarIcon/>}</button></div>
+                    <div className="iconAndBtn"> <button onClick={() => selectItem(product)} className="favIco"> {indexSelected === -1 ?  <StarBorderIcon/> :  <StarIcon/>}</button></div>
                 </div>
 
                 <div className="overlayImg">
@@ -135,7 +188,6 @@ function ItemCard(props) {
                 {!props.btnDisable && <BuyButton functionAdd={() => addItem(product)}   cardPrice={discountHandler(product)}/>}
             </div>
 
-           
         </div>
     )
 }
