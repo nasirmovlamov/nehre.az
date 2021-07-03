@@ -56,7 +56,7 @@ import Loader from './Loader'
 
 const Layout = ({ children }) => {
     const context = useContext(ProductListingContext)
-  const {UserData , setUserData , ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader} = context
+  const {UserData , setUserData , ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader , UserStatus, setUserStatus ,  setnumber2, setnumber1, number1, number2 , setTopCategory, TopCategory} = context
   const styleScrollBtn = useRef(null);
   // const TopNavbar = useMediaQuery('(min-width:600px)');
   const MidNavbar = useMediaQuery('(min-width:622px)');
@@ -95,12 +95,6 @@ const Layout = ({ children }) => {
     });
 
 
-
-
-  const [TopCategory, setTopCategory] = useState([])
-  
-  
-  
 
   const styleBtn =  {
     position: "fixed",
@@ -188,89 +182,16 @@ const Layout = ({ children }) => {
     setOpen5(true);
   }
   
-  const [number1, setNumber1] = useState(0)
-  const [number2, setNumber2] = useState(0)
-  
-  
-  
-  
-  const sendGetRequest10 = async () => {
-    try {
-      setloader(true)
-      let resp = ""
-      if(JSON.parse(localStorage.getItem('LoginUserData')) !== null)
-      { 
-        resp  = await axios.get(`https://nehra.az/public/api/settings?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
-        setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
-        setMinOrder(resp.data.min_order_amount)
-        setNumber1(resp.data.phone1) 
-        setNumber2(resp.data.phone2)
-        setTopCategory(resp.data.featuredcats)
-        setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
-        setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
-        setSelectedsProduct(JSON.parse(resp.data.selected.text))
-        if(resp.data.cart.text !== null)
-        {
-          const dataparsed = JSON.parse(resp.data.cart.text)
-          setMinOrder()
-          if(dataparsed !== undefined && dataparsed !== null && dataparsed !== "")
-          {
-            setProdutData((dataparsed.product      !== null  && dataparsed.product      !== undefined && dataparsed.product      !== "")   ?  dataparsed.product  : [])
-            setFinalPrice((dataparsed.FinalPrice   !== null  && dataparsed.FinalPrice   !== undefined && dataparsed.FinalPrice   !== "")   ?  parseFloat(dataparsed.FinalPrice)  : 0)
-            setFinalWeight((dataparsed.FinalWeight !== null  && dataparsed.FinalWeight  !== undefined && dataparsed.FinalWeight  !== "")   ?  parseFloat(dataparsed.FinalWeight)  : 0)
-            setFinalGoods((dataparsed.FinalGoods   !== null  && dataparsed.FinalGoods   !== undefined && dataparsed.FinalGoods   !== "")   ?  parseInt(dataparsed.FinalGoods)  : 0)
-            setFinalBonus((dataparsed.FinalBonus   !== null  && dataparsed.FinalBonus   !== undefined && dataparsed.FinalBonus   !== "")   ?  parseInt(dataparsed.FinalBonus)  : 0)
-            setDateGoods((dataparsed.DateGoods     !== null  && dataparsed.DateGoods    !== undefined && dataparsed.DateGoods    !== "")   ?  dataparsed.DateGoods  : [])
-            setItems((dataparsed.product      !== null  && dataparsed.product      !== undefined && dataparsed.product      !== "")   ?  dataparsed.product  : [])
-          }
-        }
-        else 
-        {
-            setProdutData([])
-            setFinalPrice(0)
-            setFinalWeight(0)
-            setFinalGoods(0)
-            setFinalBonus(0)
-            setDateGoods([])
-            setItems([])
-        }
-      }
-      else 
-      {
-        setProdutData(localStorage.getItem('ProdutData')  !== null   ?  JSON.parse(localStorage.getItem('ProdutData')) : [])
-        setFinalPrice(localStorage.getItem('FinalPrice')!== null   ?  parseFloat(localStorage.getItem('FinalPrice')) : 0 )
-        setFinalWeight(localStorage.getItem('FinalWeight') !== null ? parseFloat(localStorage.getItem('FinalWeight')) : 0)
-        setFinalGoods(localStorage.getItem('FinalGoods')   !== null  ?  parseInt(localStorage.getItem('FinalGoods')) : 0)
-        setFinalBonus(localStorage.getItem('FinalBonus')   !== null  ?  parseInt(localStorage.getItem('FinalBonus')) : 0)
-        setDateGoods(localStorage.getItem('DateGoods')  !== null  ?  JSON.parse(localStorage.getItem('DateGoods')) : [])
-        setItems(localStorage.getItem('ProdutData')  !== null   ?  JSON.parse(localStorage.getItem('ProdutData')) : [])
-        resp = await axios.get(`https://nehra.az/public/api/settings`)
-        setTopCategory(resp.data.featuredcats)
-        setMinOrder(resp.data.min_order_amount)
-        setNumber1(resp.data.phone1) 
-        setNumber2(resp.data.phone2)
-        console.log(resp.data)
-        setSelectedsProduct()
-
-        setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
-        setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
-      }
-      setloader(false)
-    } 
-    catch (err) {
-      console.error(err);
-      setTimeout(() => {
-        sendGetRequest10()
-      }, 60000);
-    }
-  };
-  useEffect(  () => {
-    sendGetRequest10()
-    scrollChecker()
+ 
+  useEffect(   () => {
+      scrollChecker()
   }, [])
+    
   
 
-  const scrollChecker = async () => {
+
+
+  const scrollChecker =  () => {
     window.addEventListener("scroll", function(){
       if (window.scrollY > 121)
       {
@@ -342,16 +263,14 @@ const Layout = ({ children }) => {
 
     return (
     <>
-        <Loader loader={loader}/>
         <div className="AllCont">
           <ScrolltoTop/>
-
           {/* <button type="button" ref={styleScrollBtn} style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button> */}
           {!MidNavbar &&  <button type="button" className='checkMBtnC' style={checkMBtn} onClick={() => handleOpen()}><ShoppingBasketIcon width='60px' height='60px'/> {FinalPrice > 0 && (FinalPrice + " ₼")}</button> }
-          <TopNavbar TopCategory={TopCategory} number2={number2} number1={number1} UserData={UserData}  modalOpener={handleOpen} modalOpener3={handleOpen3}/>
+          <TopNavbar modalOpener={handleOpen} modalOpener3={handleOpen3}/>
           {MidNavbar && <Navbar/>}
           <header id="header" className="header">
-              <TopNavbarPart2  number2={number2} number1={number1} UserData={UserData}   modalOpener={handleOpen} modalOpener3={handleOpen3}/>
+              <TopNavbarPart2 modalOpener={handleOpen} modalOpener3={handleOpen3}/>
               {MidNavbar && <DownNavbar  TopCategory={TopCategory}/>}
           </header>
               {children}
@@ -401,7 +320,6 @@ const Layout = ({ children }) => {
             {<AuthSmsL functionClose={() => handleCloseSMS() }  tillCount={tillCount}/>}
         </Modal>
         </div>
-        }
         </>
     );
 };

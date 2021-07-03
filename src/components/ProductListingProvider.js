@@ -16,7 +16,9 @@ export function ProductListingProvider(props) {
     
 
     const [UserData, setUserData] = useState({})
-
+    const [UserStatus, setUserStatus] = useState(0)
+    
+   
 
 
     //#region Default Values
@@ -29,6 +31,9 @@ export function ProductListingProvider(props) {
     const [FinalGoods, setFinalGoods] = useState(0)
     const [FinalBonus, setFinalBonus] = useState(0)
     const [DateGoods, setDateGoods] = useState([])
+    const [TopCategory, setTopCategory] = useState([])
+    const [number1, setnumber1] = useState("")
+    const [number2, setnumber2] = useState("")
     const [SelectedsProduct, setSelectedsProduct] = useState([])
     const langArr = ["AZ" , "EN" , "RU"]
     const [lang, setlang] = useState()
@@ -45,8 +50,8 @@ export function ProductListingProvider(props) {
     const CloseLoginF = () =>{
         setOpenLogin(false)
     }
-    
-   
+
+  
 
     const discountHandler = (product) => {
         if (product.discount !== null) {
@@ -357,7 +362,7 @@ export function ProductListingProvider(props) {
 
 
     return (
-        <ProductListingContext.Provider value={{ProdutData:ProdutData, setProdutData:setProdutData, FinalPrice:FinalPrice, setFinalPrice:setFinalPrice, FinalWeight:FinalWeight, setFinalWeight:setFinalWeight,FinalGoods:FinalGoods, setFinalGoods:setFinalGoods, addItem:addItem, removeItem:removeItem, lang:lang , setlang:setlang,  money:money , langArr:langArr, DateGoods:DateGoods,setDateGoods:setDateGoods , SelectedsProduct:SelectedsProduct, setSelectedsProduct:setSelectedsProduct, OpenLoginF:OpenLoginF,CloseLoginF:CloseLoginF, setOpenLogin:setOpenLogin , OpenLogin:OpenLogin, handleOpenPM:handleOpenPM, handleClosePM:handleClosePM, modalIdsetter:modalIdsetter, modalId:modalId, FinalBonus:FinalBonus, setFinalBonus:setFinalBonus,discountHandler:discountHandler , setmoney:setmoney, UserData:UserData, setUserData:setUserData, clearBucket:clearBucket, setMinOrder:setMinOrder, MinOrder:MinOrder, setMinOrder:setMinOrder, setItems:setItems , Items:Items , setloader:setloader , loader:loader, deleteCard:deleteCard,StaticData:StaticData, setStaticData:setStaticData , modalId:modalId}}>
+        <ProductListingContext.Provider value={{ProdutData:ProdutData, setProdutData:setProdutData, FinalPrice:FinalPrice, setFinalPrice:setFinalPrice, FinalWeight:FinalWeight, setFinalWeight:setFinalWeight,FinalGoods:FinalGoods, setFinalGoods:setFinalGoods, addItem:addItem, removeItem:removeItem, lang:lang , setlang:setlang,  money:money , langArr:langArr, DateGoods:DateGoods,setDateGoods:setDateGoods , SelectedsProduct:SelectedsProduct, setSelectedsProduct:setSelectedsProduct, OpenLoginF:OpenLoginF,CloseLoginF:CloseLoginF, setOpenLogin:setOpenLogin , OpenLogin:OpenLogin, handleOpenPM:handleOpenPM, handleClosePM:handleClosePM, modalIdsetter:modalIdsetter, modalId:modalId, FinalBonus:FinalBonus, setFinalBonus:setFinalBonus,discountHandler:discountHandler , setmoney:setmoney, UserData:UserData, setUserData:setUserData, clearBucket:clearBucket, setMinOrder:setMinOrder, MinOrder:MinOrder, setMinOrder:setMinOrder, setItems:setItems , Items:Items , setloader:setloader , loader:loader, deleteCard:deleteCard,StaticData:StaticData, setStaticData:setStaticData , modalId:modalId, UserStatus:UserStatus, setUserStatus:setUserStatus, setnumber2:setnumber2, setnumber1:setnumber1, number1:number1, number2:number2 , setTopCategory:setTopCategory, TopCategory:TopCategory}}>
             {props.children}
             <div className="modalCont">
                 <Modal  

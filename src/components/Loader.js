@@ -6,9 +6,7 @@ function Loader({loader}) {
     return (
         <React.Fragment>
         {
-            loader ? 
             <div className='loaderPage'>
-            
                 <div className="loaderImgCont">
                     {/* <img src={logo} width='200px' height='auto' alt="" /> */}
                     <div class="snippet" data-title=".dot-flashing">
@@ -18,9 +16,7 @@ function Loader({loader}) {
                     </div>
                 </div>
             </div>
-            :
-            ""
-            }
+        }
         </React.Fragment>
     )
 }

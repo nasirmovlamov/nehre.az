@@ -35,6 +35,7 @@ import ContactMailIcon from '@material-ui/icons/ContactMail';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const stylesForSwiper = makeStyles({
     list: {
       width: "80%",
@@ -62,17 +63,16 @@ function TopNavbar(props) {
     const enableMobile = useMediaQuery('(min-width:650px)') 
     const elements = useMediaQuery('(min-width:650px)') 
     const context = useContext(ProductListingContext)
-    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+    const {UserData , setUserData , ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader , UserStatus, setUserStatus ,  setnumber2, setnumber1, number1, number2 , setTopCategory, TopCategory} = context
   
     const notifyLogin = () => toast.warning( ((lang === "AZ" && `Hesabınıza daxil olun!`) || (lang === "EN" && `Enter your account!`) || (lang === "RU" && `Войдите в свой аккаунт!`)) , {draggable: true,});
     
-    const [UserData, setUserData] = useState(0)
-    useEffect(() => {
-        if (UserData?.id === undefined) {
-            setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
-        }
-    })
+
     
+
+
+
+
 
     const [drop1, setdrop1] = useState(false)
     const [drop2, setdrop2] = useState(false)
@@ -183,7 +183,7 @@ function TopNavbar(props) {
                 <div className="assortmentDrawer">
                         <button onClick={() => DrawerAssort()} className="title"><WidgetsIcon /> <p>  {(lang === "AZ" && `Məhsul Çeşidləri`) || (lang === "EN" && `Product Assortments`) || (lang === "RU" && `Ассортимент продукции`)}</p> <ArrowDropUpIcon/></button>
                         <div className='assortmentCont' id='assrtDrawId'>
-                            {props.TopCategory.map(element => <a href={`/category/${element.id}`}>{(lang === "AZ" && element.name_az) || (lang === "EN" && element.name_en) || (lang === "RU" && element.name_ru)}</a>)}
+                            {TopCategory.map(element => <a href={`/category/${element.id}`}>{(lang === "AZ" && element.name_az) || (lang === "EN" && element.name_en) || (lang === "RU" && element.name_ru)}</a>)}
                         </div >
                 </div>
 
@@ -202,8 +202,8 @@ function TopNavbar(props) {
 
             <div className="drawerCard">
                 <div className='phoneCont'>
-                    <p className="phone">{props.number1}</p>
-                    <p className="phone">{props.number2}</p>
+                    <p className="phone">{number1}</p>
+                    <p className="phone">{number2}</p>
                 </div>
                 <p className="location"> {(lang === "AZ" && `Bakı , Azerbaijan `) || (lang === "EN" && `Baku, Azerbaijan`) || (lang === "RU" && `Баку, Азербайджан`)}</p>
                 <p className="email">nehra@info.az</p>
@@ -260,8 +260,8 @@ function TopNavbar(props) {
                             }
 
                             {enableMobile && <div className="phoneCont">
-                                <p className="phone"> <PhoneIcon/> <a href={`tel:${props.number1}`}>{props.number2}</a> </p>
-                                <p className="phone"> <WhatsAppIcon/> <a href={`https://api.whatsapp.com/send/?phone=%2B994556800055&text&app_absent=0`}>{props.number1}</a></p>
+                                <p className="phone"> <PhoneIcon/> <a href={`tel:${number1}`}>{number2}</a> </p>
+                                <p className="phone"> <WhatsAppIcon/> <a href={`https://api.whatsapp.com/send/?phone=%2B994556800055&text&app_absent=0`}>{number1}</a></p>
                             </div>}
 
                             <div className="selection">

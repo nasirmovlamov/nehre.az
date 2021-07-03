@@ -33,24 +33,13 @@ function TopNavbarPart2(props) {
 
 
     const context = useContext(ProductListingContext)
-    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+    const {UserData , setUserData , ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader , UserStatus, setUserStatus ,  setnumber2, setnumber1, number1, number2 , setTopCategory, TopCategory} = context
 
     
     const [drop1, setdrop1] = useState(false)
     const [drop2, setdrop2] = useState(false)
-    const [number1, setNumber1] = useState(0)
-    const [number2, setNumber2] = useState(0)
     const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
-    const sendGetRequest7 = async () => {
-        try {
-            const resp = await axios.get('https://nehra.az/public/api/settings')
-            setNumber1(resp.data.phone1) 
-            setNumber2(resp.data.phone2)
-        } catch (err) {
-            // Handle Error Here
-            console.error(err);
-        }
-    };
+    
     function myFunction1(num) {
         if (num === false) {
             setdrop1(true)
@@ -127,8 +116,8 @@ function TopNavbarPart2(props) {
                         <form className="inputAndIcon" action='search' onSubmit={() => searchHandler()}> 
                            {phoneNumbersMQ && 
                            <div className="phoneCont">
-                                <p className="phone"> <PhoneIcon/> <a href={`tel:${props.number2}`}>{props.number2}</a></p>
-                                <p className="phone"> <WhatsAppIcon/> <a href='https://api.whatsapp.com/send?phone=994556800055'>{props.number1} </a></p>
+                                <p className="phone"> <PhoneIcon/> <a href={`tel:${number2}`}>{number2}</a></p>
+                                <p className="phone"> <WhatsAppIcon/> <a href='https://api.whatsapp.com/send?phone=994556800055'>{number1} </a></p>
                             </div>}
                             {searchBottomMQ &&
                             <>

@@ -49,15 +49,15 @@ function HomePage(props) {
     const context = useContext(ProductListingContext)
     const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,loader, setloader, StaticData,setStaticData} = context
     
-    useEffect(  () => {
+    useEffect( async () => {
         let staticContent = localStorage.getItem('staticContent')
         if(staticContent !== null)
         {
-            withoutReq(JSON.parse(staticContent))
+            await withoutReq(JSON.parse(staticContent))
         }
         else 
         {
-            sendGetRequests()
+            await sendGetRequests()
         }
     }, [])
 

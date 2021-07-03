@@ -92,7 +92,6 @@ function ItemCard(props) {
     useEffect(() => {
         setindexSelected(SelectedsProduct?.findIndex(x=> x.id === product.id))
         // setindexSelected()
-        console.log(UserData)
     }, [SelectedsProduct])
     //#endregion  Select ITEM  //Select ITEM
 

@@ -27,18 +27,17 @@ function Contacts(props) {
     const notify = () => toast.info(lang === "AZ" && `Məlumatlar yeniləndi!` || lang === "EN" && `Information updated!` || lang === "RU" && `Информация обновлена!`);
   
     
-    const [pageData, setpageData] = useState()
+    const [pageData, setpageData] = useState({})
     const [validate, setvalidate] = useState({})
     const [formText, setformText] = useState({})
+    
     useEffect(() => {
-        if (lang !== undefined) {
-            console.log(lang)
-            console.log(UserData)
-            const text = Data[`profile-${lang}`]
-            setpageData(text) 
-            setvalidate(text.validation)
-            setvalidate(text.formText)
-        }
+        const text = Data[`profile-${lang}`]
+        setpageData(text) 
+        setvalidate(text.validation)
+        setformText(text.formText)
+        setinitialValues({... initialValues , name: UserData.name , email:UserData.email, phone:UserData.phone})
+        setSelectedDate(UserData.birthdate)
     }, [])
     
 
@@ -105,12 +104,6 @@ function Contacts(props) {
         setOpen(false);
     }
     //#endregion Modal
-
-    
-    useEffect(() => {
-        setinitialValues({... initialValues , name: UserData.name , email:UserData.email, phone:UserData.phone})
-        setSelectedDate(UserData.birthdate)
-    } , [])
 
     const onChangePhone = (e) =>{
         const value = e.target.value.replace(/\D/g, "");
