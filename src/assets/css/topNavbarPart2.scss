@@ -8,14 +8,9 @@
     background-color: #f0f4f5;
     z-index: 5;
     align-items: center;
-    overflow: hidden;
-    height: 0px;
+    // overflow: hidden;
+    // height: 0px;
     
-    #logoNehre
-    {
-        opacity: 0;
-        pointer-events: none;
-    }
     .css-1wlk0hk-MuiAvatar-root
     {
         border-radius: 3px;
@@ -106,6 +101,78 @@
                 }
             }
         }
+        .BtnUser
+            {
+                display: flex;
+                align-items: center;
+                column-gap: 5px;
+                height: 36px;
+                margin-top: 1px;
+                border: none;
+                background-color: #8682ab;
+                color: white;
+                border-radius: 5px;
+                overflow: hidden;
+                transition: 0.3s;
+                border: 1px solid white;
+
+                &:hover 
+                {
+                    background-color: white;
+                    border: 1px solid #8682ab;
+                    svg 
+                    {
+                        color: #8682ab;
+                    }
+                }
+                svg 
+                {
+                    transition: 0.3s;
+                    color: white;
+                }
+                button 
+                {
+                    background-color: transparent;
+                    border: none;
+                    padding: 0px !important;
+                }
+            }
+            .BtnBookmarks
+            {
+                display: flex;
+                align-items: center;
+                column-gap: 5px;
+                height: 36px;
+                margin-top: 1px;
+                border: none;
+                background-color: #ec6275;
+                color: white;
+                border-radius: 5px;
+                overflow: hidden;
+                border: 1px solid white;
+                transition: 0.3s;
+                &:hover 
+                {
+                    background-color: white;
+                    border: 1px solid #ec6275;
+                    svg 
+                    {
+                        color: #ec6275;
+                    }
+                }
+                svg 
+                {
+                    transition: 0.3s;
+                    color: white;
+                }
+                button 
+                {
+                    background-color: transparent;
+                    border: none;
+                    padding: 0px !important;
+                }
+            }
+
         .BtnCheckout
         {
             display: flex;
@@ -118,9 +185,21 @@
             color: white;
             border-radius: 5px;
             overflow: hidden;
-
+            border: 1px solid white;
+            transition: 0.3s;
+            &:hover 
+            {
+                background-color: white;
+                border: 1px solid #7dbf2a;
+                color: #7dbf2a;
+                svg 
+                {
+                    color: #7dbf2a;
+                }
+            }
             svg 
             {
+                transition: 0.3s;
                 color: white;
             }
             button 
@@ -130,6 +209,8 @@
                 padding: 0px !important;
             }
         }
+
+        
         .selection
         {
             display: flex;

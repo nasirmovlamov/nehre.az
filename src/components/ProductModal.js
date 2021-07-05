@@ -136,7 +136,7 @@ function ProductModal(props) {
     }
 
     const sendReview = async () => {
-        const resp = await axios.post('https://nehra.az/api/postreview', {post_id: parseInt(props.id), star_count:parseInt(sendStar), user_id: parseInt(JSON.parse(localStorage.getItem('LoginUserData')).id) , review:reviewAbout} )
+        const resp = await axios.post('https://nehra.az/api/postreview', {post_id: parseInt(modalId), star_count:parseInt(sendStar), user_id: parseInt(JSON.parse(localStorage.getItem('LoginUserData')).id) , review:reviewAbout} )
         if(resp.status === 200 )
         {
             notify(sendStar)
@@ -188,7 +188,7 @@ function ProductModal(props) {
             <div className="productModal">
                 {valueReq < 100 ? <div className="progress"><CircularProgress variant="determinate" value={valueReq} /></div> : 
                 <>
-                <div className="buttonCont"><button onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
+                <div className="buttonCont"><button onClick={() => handleClosePM()} className="removeModalBtn">×</button></div>
                 <div className="sliderAndAbout">
                     <div className="sliderCont">
                         {imagescard.length > 0 && <OurSlider itemShow1={1} itemShow2={1} itemShow3={1} itemShow4={1} elements={imagescard} numOfSld={1}/>}
@@ -209,7 +209,7 @@ function ProductModal(props) {
                         <div className="reviewCont">
                             <div className="starsAndReviews"><Rating value={valueR} onChange={(event , newValue) => ratingHandler(newValue)}/>  <div className="reviews">  {(lang === "AZ" && `Şərh sayı - `) || (lang === "EN" && `Reviews - `) || (lang === "RU" && `Отзывы - `)} {Product?.reviews?.length}</div>
                             <div className='reviewSendCont'><textarea value={reviewAbout} onChange={(e) => setreviewAbout(e.target.value)} type="text" placeholder={(lang === "AZ" && `Fikrinizi bildirin`) || (lang === "EN" && `Let us know what you think`) || (lang === "RU" && `Поделитесь с нами вашими мыслями`)}/>  <div className="buttonContReviewSend"><div className="rateCont"><Rating value={sendStar} onChange={(e , newvalue) => setsendStar(newvalue)} name="read-only"/> {sendStar} {(lang === "AZ" && `Ulduz göndərilir`) || (lang === "EN" && `Star is sending`) || (lang === "RU" && `Звезда отправляет`)} </div>  <div className="Buttons"> <button onClick={()=>sendReview()} className='submit'>{(lang === "AZ" && `Göndər`) || (lang === "EN" && `Send`) || (lang === "RU" && `Отправить`)}</button><button onClick={() => cancelReviewSend()} className='cancel'>{(lang === "AZ" && `Ləğv et `) || (lang === "EN" && `Cancel`) || (lang === "RU" && `Отмена`)}</button></div></div> </div></div>
-                            <button onClick={() => selectItem(props.id)} className="favorites">{SelectedsProduct.findIndex(x=> x.id === props.id) === -1 ? <FavoriteBorderIcon/> :  <FavoriteIcon/>}</button> 
+                            <button onClick={() => selectItem(modalId)} className="favorites">{SelectedsProduct.findIndex(x=> x.id === modalId) === -1 ? <FavoriteBorderIcon/> :  <FavoriteIcon/>}</button> 
                         </div>
                         <p className="desc">
                             {(lang === "AZ" && Product?.description_az) || (lang === "EN" && Product?.description_en) || (lang === "RU" && Product?.description_ru)}

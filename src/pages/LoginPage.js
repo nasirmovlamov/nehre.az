@@ -16,14 +16,14 @@ toast.configure()
 
 function LoginPage(props) {
     const context = useContext(ProductListingContext)
-    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+    const {ProdutData, openRegisterF , closeRegisterF , setUserData , setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
   
     const notify = () => toast.info(lang === "AZ" && `Hesabınıza daxil oldunuz!` || lang === "EN" && `You have logged in to your account!` || lang === "RU" && `Уведомление удалено!`);
     // const notifyW = () => toast.error("Daxil etdiyiniz məlumatlar yanlışdır!");
     const [loader, setloader] = useState(false)
     const clickHandler = () => {
-        props.functionClose()
-        props.registerFunc()
+        CloseLoginF()
+        openRegisterF()
     }
 
     const token = Cookies.getItem('XSRF-TOKEN')
@@ -35,7 +35,7 @@ function LoginPage(props) {
     const onSubmit =  (values) => {
         setloader(true)
         axios.post('https://nehra.az/public/api/check', { email: values.email ,  password: values.password }  , headers )
-         .then(res => (setloader(false) , res.status === 200 && console.log(res)  , localStorage.setItem("LoginUserData" , JSON.stringify(res.data.user)) , props.functionClose() , notify())) 
+         .then(res => (setloader(false) , res.status === 200 && console.log(res)  , localStorage.setItem("LoginUserData" , JSON.stringify(res.data.user)) , setUserData(res.data.user) , CloseLoginF() , notify())) 
          .catch(err => (setError(true) , setloader(false)))
     }
 
@@ -68,7 +68,7 @@ function LoginPage(props) {
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} validateOnChange={true} validateOnBlur={false}>
             <Form className="loginPage" action='/' method="POST">
-                <div className="buttonCont"><button type='button' onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
+                <div className="buttonCont"><button type='button' onClick={() => CloseLoginF()} className="removeModalBtn">×</button></div>
                 <p className="title">{lang === "AZ" && `Giriş` || lang === "EN" && `Login` || lang === "RU" && `Aвторизоваться`}</p>
                 <Field className="inputLogin" name="email" placeholder={lang === "AZ" && `Elektron poçt` || lang === "EN" && `Email` || lang === "RU" && `Электронное письмо`}/>
                 <div className="errors"><ErrorMessage name="email"/></div>
@@ -84,7 +84,7 @@ function LoginPage(props) {
                     open={open}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description">
-                    {<ForgotPass  functionClose={() => handleClose() } openPassChange={() => handleOpen2()}  functionCloseLogin={() => props.functionClose()} />}
+                    {<ForgotPass  functionClose={() => handleClose() } openPassChange={() => handleOpen2()}  functionCloseLogin={() => CloseLoginF()} />}
                 </Modal>
                 
                 <Modal  
@@ -92,7 +92,7 @@ function LoginPage(props) {
                     open={open2}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description">
-                    {<NewPass  functionClose={() => handleClose2() }  functionCloseLogin={() => props.functionClose()} />}
+                    {<NewPass  functionClose={() => handleClose2() }  functionCloseLogin={() => CloseLoginF()} />}
                 </Modal>
             </Form>
         </Formik>

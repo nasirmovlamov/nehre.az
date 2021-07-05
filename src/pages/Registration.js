@@ -27,7 +27,8 @@ import AuthSms from '../components/AuthSms';
 toast.configure()
 function Registration(props) {
     const context = useContext(ProductListingContext)
-    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+    const {ProdutData, openRegisterF , setUserData , closeRegisterF , setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+
   
     const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!");
     const notify = () => toast.info("Hesabınız müvəfəqiyyətlə yaradıldı!");
@@ -67,7 +68,7 @@ function Registration(props) {
         }
         dt.append('auth_type' , 1)
         axios.post('https://nehra.az/public/api/login', dt , headers)
-        .then(res => (setloader(false) , res.status === 200 && (localStorage.setItem("LoginUserData" , JSON.stringify(res.data)) ,  notify() ,  handleOpen() ) ) ) 
+        .then(res => (setloader(false) , res.status === 200 && (localStorage.setItem("LoginUserData" , JSON.stringify(res.data)) ,  setUserData(res.data),  notify() ,  handleOpen() ) ) ) 
         .catch(err => (setloader(false) , setError(true)))
     }
 
@@ -132,7 +133,7 @@ function Registration(props) {
     
     return (
         <div  className="registrationPage">
-            <div className="buttonCont"><button type='button' onClick={() => props.functionCloseReg()} className="removeModalBtn">×</button></div>
+            <div className="buttonCont"><button type='button' onClick={() => closeRegisterF()} className="removeModalBtn">×</button></div>
             <p className="title">{lang === "AZ" && `Qeydiyyat` || lang === "EN" && `Registration` || lang === "RU" && `Регистрация`}</p>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} validateOnChange={true} validateOnBlur={false}>
@@ -187,7 +188,7 @@ function Registration(props) {
                 open={open}
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description">
-                {<AuthSms UserId={userId} functionClose={() => handleClose() }  functionCloseReg={() => props.functionCloseReg()} />}
+                {<AuthSms UserId={userId} functionClose={() => handleClose() }  functionCloseReg={() => closeRegisterF()} />}
             </Modal>
         </div>
     )

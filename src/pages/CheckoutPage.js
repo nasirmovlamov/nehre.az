@@ -19,11 +19,13 @@ import EventBusyIcon from '@material-ui/icons/EventBusy';
 import DoneIcon from '@material-ui/icons/Done';
 import 'moment/locale/az';
 import 'moment/locale/ru';
+import Data from '../assets/language/address.json'
 
 function CheckoutPage(props) {
 
     const context = useContext(ProductListingContext)
-    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+    const {ProdutData,openCheckoutF, closeCheckoutF, setProdutData, closeBucketF, openBucketF, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,clearBucket ,setItems, setMinOrder, Items, MinOrder} = context
+    const staticData = Data[`address-${lang}`]
   
     const notify = () => toast.info("Nuş olsun!");
 
@@ -140,91 +142,7 @@ function CheckoutPage(props) {
     const [Error, setError] = useState(false)
 
 
-    const onSubmit =  (values) => {
-        setloader(true)
-        const vrt2 = (id , element) => {
-            for (let i = 0; i < nondeliveryProducts.length; i++) {
-                if(id === nondeliveryProducts[i])
-                {
-                    return element
-                }
-            }
-        }
-        var newarr = ProdutData.map((element, index ) =>  vrt2(element.id , element))
-        newarr = newarr.filter(element => element !== undefined)
-        var dates = []
-        var WholeCost = 0
-        var WholeWeight = 0
-        var WholeCount = 0
-        for (let i = 0; i < newarr.length; i++) {
-            WholeCost += (parseInt(newarr[i].cost) * parseInt(newarr[i].count) )
-            console.log(newarr[i].unitType);
-
-            if (parseInt(newarr[i].unitType) === 4) {
-                WholeWeight += (parseFloat(newarr[i].weight / 1000) * parseInt(newarr[i].count))
-            }
-            else 
-            {
-                WholeWeight += (parseFloat(newarr[i].weight) * parseInt(newarr[i].count))
-            }
-
-            WholeCount +=  parseInt(newarr[i].count)
-            for (let j = 0; j < newarr[i]?.date?.length; j++) {
-                dates.push(newarr[i]?.date[j])
-            }
-        }
-       
-        
-       
-        let uniqueDates = [...new Set(dates)];
-
-        setFinalPrice(WholeCost)
-        setFinalGoods(WholeCount)
-        setProdutData(newarr)
-        setFinalWeight(WholeWeight)
-
-        localStorage.setItem('FinalWeight' ,WholeWeight)
-        localStorage.setItem('FinalGoods' ,  WholeCount)
-        localStorage.setItem('FinalPrice' , WholeCost)
-        localStorage.setItem('DateGoods' , JSON.stringify(uniqueDates))
-        localStorage.setItem('ProdutData' , JSON.stringify(newarr))
-
-        const vrt = (id , element) => {
-            for (let i = 0; i < deliveryProducts.length; i++) {
-                if(id === deliveryProducts[i])
-                {
-                    return element
-                }
-            }
-        }
-        var newarr2 = ProdutData.map((element, index ) =>  vrt(element.id , element))
-        newarr2 = newarr2.filter(element => element !== undefined)
-        var productsName = newarr2.map(element => element.name)
-        var DeliveryDates = []
-        var DeliveryCost = 0
-        var DeliveryWeight = 0
-        var DeliveryCount = 0
-        for (let i = 0; i < newarr2.length; i++) {
-            DeliveryCost += (parseInt(newarr2[i].cost) * parseInt(newarr2[i].count) )
-            if (parseInt(newarr2[i].unitType) === 4) {
-                DeliveryWeight += (parseFloat(newarr2[i].weight / 1000) * parseInt(newarr2[i].count))
-            }
-            else 
-            {
-                DeliveryWeight += (parseFloat(newarr2[i].weight) * parseInt(newarr2[i].count))
-            }
-
-            DeliveryCount +=  parseInt(newarr2[i].count)
-            for (let j = 0; j < newarr2[i]?.date?.length; j++) {
-                DeliveryDates.push(newarr2[i]?.date[j])
-            }
-        }
-
-        setDateGoods(dates)
-        axios.post('https://jsonplaceholder.typicode.com/posts', {address: addressC !== "" ? addressC : addressR , payment_type:paymentType , total_price: DeliveryCost ,  weight:DeliveryWeight  , total_count: DeliveryCount , product_data: productsName, user_id:props.UserId}  , headers )
-         .then(res => (setloader(false) , console.log(res) , props.functionClose())) 
-
-    }
+    
 
     const initialValues = {
         // name:'',
@@ -238,7 +156,7 @@ function CheckoutPage(props) {
     
     useEffect(() => {
         axios.get(`https://nehra.az/public/api/getaddress?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
-            .then(res => (setaddress(res.data) , setaddressR(res?.data[0]?.adres)))
+            .then(res => (setaddress(res.data) ,setaddressselect(res.data[0].id) , setaddressR(res?.data[0]?.adres)))
         clickHandler2(DateGoods[0])
         axios.get('https://nehra.az/public/api/getcities')
             .then(resp => (setcities(resp.data) , setcity(resp.data[0].id) ))
@@ -250,7 +168,7 @@ function CheckoutPage(props) {
 
 
 
-moment.locale(sessionStorage.getItem('lang'))
+moment.locale(lang)
 //Date Problems
     const today = new Date()
     const tomorrow = new Date()
@@ -293,7 +211,6 @@ moment.locale(sessionStorage.getItem('lang'))
     var newarr = ProdutData.map((element, index ) =>  vrt(element.id , element))
     newarr = newarr.filter(element => element !== undefined)
 
-
     const [selectCity, setselectCity] = useState()
     const [rayon, setrayon] = useState()
     const onChange = (e) => {
@@ -328,34 +245,152 @@ moment.locale(sessionStorage.getItem('lang'))
     }
 
 
+    console.log(address)
 
+
+
+    const onSubmit =  (values) => {
+        setloader(true)
+        const vrt2 = (id , element) => {
+            for (let i = 0; i < nondeliveryProducts.length; i++) {
+                if(id === nondeliveryProducts[i])
+                {
+                    return element
+                }
+            }
+        }
+        let newarr = ProdutData.map((element, index ) =>  vrt2(element.id , element))
+        console.log(nondeliveryProducts)
+        newarr = newarr.filter(element => element !== undefined)
+        let dates = []
+        let WholeCost = 0
+        let WholeWeight = 0
+        let WholeCount = 0
+        let WholeBonus = 0
+        for (let i = 0; i < newarr.length; i++) {
+            let bonus = 0
+            if (newarr[i].product?.category_data?.cashback > 0 && newarr[i].product?.category_data !== null) {
+                bonus = parseInt(newarr[i].product.category_data.cashback)
+            }
+            else 
+            {
+                bonus = parseInt(newarr[i].product.cashback)
+            }
+
+            WholeBonus += parseInt(bonus)
+            WholeCost += (parseInt(newarr[i].cost) * parseInt(newarr[i].count))
+            console.log(newarr[i].unitType);
+
+            if (parseInt(newarr[i].unitType) === 4) {
+                WholeWeight += (parseFloat(newarr[i].weight / 1000) * parseInt(newarr[i].count))
+            }
+            else 
+            {
+                WholeWeight += (parseFloat(newarr[i].weight) * parseInt(newarr[i].count))
+            }
+
+            WholeCount +=  parseInt(newarr[i].count)
+            for (let j = 0; j < newarr[i]?.date?.length; j++) {
+                dates.push(newarr[i]?.date[j])
+            }
+        }
+       
+        
+       
+        let uniqueDates = [...new Set(dates)];
+        console.log(WholeBonus)
+        // console.log(uniqueDates)
+        // console.log(WholeCost)
+        // console.log(WholeCount)
+        // console.log(newarr)
+        // console.log(WholeWeight)
+
+        setDateGoods(uniqueDates)
+        setFinalPrice(WholeCost)
+        setFinalGoods(WholeCount)
+        setProdutData(newarr)
+        setFinalWeight(WholeWeight)
+
+        localStorage.setItem('FinalWeight' ,WholeWeight)
+        localStorage.setItem('FinalGoods' ,  WholeCount)
+        localStorage.setItem('FinalPrice' , WholeCost)
+        localStorage.setItem('DateGoods' , JSON.stringify(uniqueDates))
+        localStorage.setItem('ProdutData' , JSON.stringify(newarr))
+
+        const vrt = (id , element) => {
+            for (let i = 0; i < deliveryProducts.length; i++) {
+                if(id === deliveryProducts[i])
+                {
+                    return element
+                }
+            }
+        }
+        let newarr2 = ProdutData.map((element, index ) =>  vrt(element.id , element))
+        newarr2 = newarr2.filter(element => element !== undefined)
+        let productsName = newarr2.map(element => element.name)
+        let productsId = newarr2.map(element => element.id)
+        let DeliveryDates = []
+        let DeliveryCost = 0
+        let DeliveryWeight = 0
+        let DeliveryCount = 0
+        for (let i = 0; i < newarr2.length; i++) {
+            DeliveryCost += (parseInt(newarr2[i].cost) * parseInt(newarr2[i].count) )
+            if (parseInt(newarr2[i].unitType) === 4) {
+                DeliveryWeight += (parseFloat(newarr2[i].weight / 1000) * parseInt(newarr2[i].count))
+            }
+            else 
+            {
+                DeliveryWeight += (parseFloat(newarr2[i].weight) * parseInt(newarr2[i].count))
+            }
+
+            DeliveryCount +=  parseInt(newarr2[i].count)
+            for (let j = 0; j < newarr2[i]?.date?.length; j++) {
+                DeliveryDates.push(newarr2[i]?.date[j])
+            }
+        }
+        DeliveryDates = [...new Set(DeliveryDates)];
+
+        // console.log(DeliveryDates)
+        // console.log(DeliveryCost)
+        // console.log(DeliveryWeight)
+        // console.log(DeliveryCount)
+        // console.log(productsName)
+        // console.log(productsId)
+        // setDateGoods(dates)
+        axios.post('https://jsonplaceholder.typicode.com/posts', {address: addressselect , payment_type:paymentType , total_price: DeliveryCost ,  weight:DeliveryWeight  , total_count: DeliveryCount , product_data: productsName, user_id:props.UserId}  , headers )
+         .then(res => (setloader(false) , console.log(res) , closeCheckoutF())) 
+
+    }
+
+
+    const [addressselect, setaddressselect] = useState()
     return (
         
         <div className="checkoutPage">
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} validateOnChange={true} validateOnBlur={false}>
                 <Form  method="POST">
-                    <div className="buttonCont"><button onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
+                    <div className="buttonCont"><button onClick={closeCheckoutF} className="removeModalBtn">×</button></div>
                     
                     <div className="deliveryAddress">
                         <p className="title titleBB">{lang === "AZ" && `Çatdırılma ünvanı seçin` || lang === "EN" && `Select delivery Address` || lang === "RU" && `Выберите адрес доставки`}</p>
                         <div className="errors">
-                            {address?.length > 0 && <select className='addressElement' name="" id="">{address?.map((address , index) => <option value="" > Ünvan - {address?.adres} |  Şəhər - {address?.city?.name} | Rayon - {address?.rayon}</option> )}</select>}
+                            {address?.length > 0 && <select className='addressElement' name="" onChange={(e) => setaddressselect(e.target.value)}>{address?.map((address , index) => <option value={address.id} >{address.city.name}  {address.rayon !== null && (` , ${ staticData.street}`)} {address.rayon} {address.ev !== null && ` , ${staticData.home}`} {address.ev} </option> )}</select>}
                             <div className='addAddressBtn'>
-                                <button type='button' className='btn' onClick={() => setaddressAdd(true)}> <AddCircleIcon/> Yeni ünvan əlavə edin</button> {addressAdd &&<button type='button' onClick={() => setaddressAdd(false)} className='btn'>x</button>}</div>
+                                <button type='button' className='btn' onClick={() => setaddressAdd(true)}> <AddCircleIcon/>{lang === "AZ" && ` Yeni ünvan əlavə edin` || lang === "EN" && `Add a new address` || lang === "RU" && `добавить новый адрес`}</button> {addressAdd &&<button type='button' onClick={() => setaddressAdd(false)} className='btn'>x</button>}</div>
                                 {
                                     addressAdd &&
                                     <div className='addAddress'> 
                                         <div className='addAddressInputs'> 
                                             <select type="text"  value={city}       onChange={(e) => setcity(e.target.value)}> {(cities?.length > 0 && cities!==undefined) && cities?.map(element => <option value={element.id}>{element.name}</option>)}</select> 
-                                            <input  type="text"  value={rayon}      onChange={onChangeRayon}  placeholder={(lang === "AZ" && `Rayon qeyd edin`) || (lang === "EN" && `Enter the district`) || (lang === "RU" && `Введите район`)}  className="inputRayon"/>
-                                            <input  type="text"  value={ev}         onChange={(e) => setev(e.target.value)}  placeholder={(lang === "AZ" && `Ev`) || (lang === "EN" && `Enter the district`) || (lang === "RU" && `Введите район`)}  className="inputLittle"/>
-                                            <input  type="text"  value={square}     onChange={(e) => setsquare(e.target.value)}  placeholder={(lang === "AZ" && `Block`) || (lang === "EN" && `Enter the district`) || (lang === "RU" && `Введите район`)}  className="inputLittle"/>
-                                            <input  type="text"  value={floor}      onChange={(e) => setfloor(e.target.value)}  placeholder={(lang === "AZ" && `Mərtəbə`) || (lang === "EN" && `Enter the district`) || (lang === "RU" && `Введите район`)}  className="inputLittle"/>
-                                            <input  type="text"  value={menzil}     onChange={(e) => setmenzil(e.target.value)}  placeholder={(lang === "AZ" && `Mənzil`) || (lang === "EN" && `Enter the district`) || (lang === "RU" && `Введите район`)}  className="inputLittle"/>
-                                            <input  type="text"  value={intercome}  onChange={(e) => setintercome(e.target.value)}  placeholder={(lang === "AZ" && `intercome`) || (lang === "EN" && `Enter the district`) || (lang === "RU" && `Введите район`)}  className="inputLittle"/>
-                                            <input  type="text"  value={note}       onChange={(e) => setnote(e.target.value)}  placeholder={(lang === "AZ" && `note`) || (lang === "EN" && `Enter the district`) || (lang === "RU" && `Введите район`)}  className="inputNote"/>
+                                            <input  type="text"  value={rayon}      onChange={onChangeRayon}  placeholder={(lang === "AZ" && `Küçəni qeyd edin`) || (lang === "EN" && `Enter the street name`) || (lang === "RU" && `Введите название улицы`)}  className="inputRayon"/>
+                                            <input  type="text"  value={ev}         onChange={(e) => setev(e.target.value)}  placeholder={(lang === "AZ" && `Ev`) || (lang === "EN" && `Home`) || (lang === "RU" && `Дом`)}  className="inputLittle"/>
+                                            <input  type="text"  value={square}     onChange={(e) => setsquare(e.target.value)}  placeholder={(lang === "AZ" && `Blok`) || (lang === "EN" && `Entrance`) || (lang === "RU" && `Подъезд`)}  className="inputLittle"/>
+                                            <input  type="text"  value={floor}      onChange={(e) => setfloor(e.target.value)}  placeholder={(lang === "AZ" && `Mərtəbə`) || (lang === "EN" && `Floor`) || (lang === "RU" && `Этаж`)}  className="inputLittle"/>
+                                            <input  type="text"  value={menzil}     onChange={(e) => setmenzil(e.target.value)}  placeholder={(lang === "AZ" && `Mənzil`) || (lang === "EN" && `Sq.`) || (lang === "RU" && `Кв.`)}  className="inputLittle"/>
+                                            <input  type="text"  value={intercome}  onChange={(e) => setintercome(e.target.value)}  placeholder={(lang === "AZ" && `İnterkom`) || (lang === "EN" && `Intercom`) || (lang === "RU" && `Домофон`)}  className="inputLittle"/>
+                                            <input  type="text"  value={note}       onChange={(e) => setnote(e.target.value)}  placeholder={(lang === "AZ" && `Qeyd`) || (lang === "EN" && `Note`) || (lang === "RU" && `Комментарий`)}  className="inputNote"/>
                                         </div>
-                                        <div className="submitCont"><button onClick={createAddress} type="checkbox" className='submitBtn' type='button'>Əlavə et</button></div>
+                                        <div className="submitCont"><button onClick={createAddress} type="checkbox" className='submitBtn' type='button'>{lang === "AZ" && `Əlavə et` || lang === "EN" && `Add` || lang === "RU" && `Добавлять`}</button></div>
                                     </div>
                                 }
                         </div>
@@ -398,7 +433,7 @@ moment.locale(sessionStorage.getItem('lang'))
                         </select>
                     </div>
                     <div className='btnCont btnContForLoader'>
-                        <button type='submit' className="goToPayment" >{lang === "AZ" && `Təsdiqlə` || lang === "EN" && `Submit` || lang === "RU" && `Утвердить`}</button>
+                        <button type='submit' disabled={deliveryProducts.length > 0 ? false : true} className="goToPayment" >{lang === "AZ" && `Təsdiqlə` || lang === "EN" && `Submit` || lang === "RU" && `Утвердить`}</button>
                         <div className="loaderCont">{ loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={17} width={75} />}</div>
                     </div>
                 </Form>

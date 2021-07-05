@@ -38,7 +38,7 @@ function TopNavbarPart2(props) {
     
     const [drop1, setdrop1] = useState(false)
     const [drop2, setdrop2] = useState(false)
-    const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
+    const notifyLogin = () => toast.warning( ((lang === "AZ" && `Hesabınıza daxil olun!`) || (lang === "EN" && `Enter your account!`) || (lang === "RU" && `Войдите в свой аккаунт!`)) , {draggable: true,});
     
     function myFunction1(num) {
         if (num === false) {
@@ -110,61 +110,7 @@ function TopNavbarPart2(props) {
 
     return (
         <div className="downPart" id="downPart">
-            <div className="downCont" id="downCont">
-                    <Link to="/"  id="logoNehre"><img src={logoNehre2} alt="" width="100" height="auto"/></Link>
-                    <div className="searchAndIcons">
-                        <form className="inputAndIcon" action='search' onSubmit={() => searchHandler()}> 
-                           {phoneNumbersMQ && 
-                           <div className="phoneCont">
-                                <p className="phone"> <PhoneIcon/> <a href={`tel:${number2}`}>{number2}</a></p>
-                                <p className="phone"> <WhatsAppIcon/> <a href='https://api.whatsapp.com/send?phone=994556800055'>{number1} </a></p>
-                            </div>}
-                            {searchBottomMQ &&
-                            <>
-                            <input  onChange={(e) => searchChange(e)} type="text" placeholder={(lang === "AZ" && `Axtarış`) || (lang === "EN" && `Search`) || (lang === "RU" && `Поиск`)}/>
-                            <button type='submit' className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
-                            </>}
-                        </form>
-
-                        <div className="selection">
-                            {/*  */}
-                            {elements && <a >
-                                    <div className="shoppingBtnDiv" onMouseLeave={() => langChangerMouseLeave1()}>
-                                        <button onClick={() => myFunction1(drop1)} onBlur={() => myFunctionBlur1(drop1)} className="shoppingBtn1 dropbtn">{money}</button>
-                                        {drop1 && 
-                                            <div id="myDropdown" className="dropdown-content">
-                                                <button onClick={() => moneyChanger()}>{money === "₼" ? "$" : "₼"}</button>
-                                            </div>
-                                        }
-                                    </div>
-                                </a>}
-                                {/*  */}
-                                {elements &&<a >
-                                    <div className="shoppingBtnDiv2" onMouseLeave={() => langChangerMouseLeave2()}>
-                                        <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} className="shoppingBtn2 mainLang">{lang}</button>
-                                        {drop2 && <div id="myDropdown" className="dropdown-content">
-                                            {(lang === "AZ" || lang === "az")  ? "" : <button onClick={() => languageChanger(langArr[0])}><a className='btnInside' href='/locale/az'> {langArr[0]}  </a></button> }
-                                            {(lang === "EN" || lang === "en")  ? "" : <button onClick={() => languageChanger(langArr[1])}><a className='btnInside' href='/locale/en'> {langArr[1]}  </a></button> }
-                                            {(lang === "RU" || lang === "ru")  ? "" : <button onClick={() => languageChanger(langArr[2])}><a className='btnInside' href='/locale/ru'> {langArr[2]} </a></button>}
-                                        </div>}
-                                    </div>
-                                </a>}
-                            {/*  */}
-                            <a >
-                                <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}>{ (JSON.parse(localStorage.getItem('LoginUserData'))?.id !== null && JSON.parse(localStorage.getItem('LoginUserData'))?.id !== undefined)  ?  <ContactMailIcon/> : <PersonIcon/> }</button> 
-                            </a>
-                            {/*  */}
-                            {(elements && (JSON.parse(localStorage.getItem('LoginUserData'))?.id !== null && JSON.parse(localStorage.getItem('LoginUserData'))?.id !== undefined)) &&
-                            <Link className='bookmarksLL' to={"/memberarea/bookmarks"}>
-                                <StarIcon/> 
-                            </Link>}
-                            {elements &&
-                            <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={() => props.modalOpener()} >  
-                                    <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {money === "₼" ? FinalPrice :(FinalPrice / 1.7).toFixed(1)} {money}</span>} 
-                            </button>}
-                        </div>
-                    </div>
-            </div>    
+            
         </div>
     )
 }

@@ -30,7 +30,7 @@ export const ProtectedRoute =  ({
         <Route
         {...rest}
         render={props => {
-        if (status) {
+        if (UserStatus) {
           return <Component {...props} />;
         } else {
           return (

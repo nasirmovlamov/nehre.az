@@ -28,12 +28,22 @@ function Routing() {
     const {UserData , setUserData , ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader , UserStatus, setUserStatus ,  setnumber2, setnumber1, number1, number2 , setTopCategory, TopCategory} = context
     const sendGetRequest10 = async () => {
         setloader(true)
-
         try {
           let resp = ""
           if(JSON.parse(localStorage.getItem('LoginUserData')) !== null)
           { 
-            resp  = await axios.get(`https://nehra.az/public/api/settings?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
+            //#region Status setting 
+            const respStatus  = await axios.get(`https://nehra.az/public/api/checkstatus?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
+              if(respStatus.data === 0)
+              {
+                setUserStatus(false)
+              }
+              else 
+              {
+                setUserStatus(true)
+              }
+            //#endregion Status setting 
+            resp  = await axios.get(`https://nehra.az/public/api/settings?user_id=${JSON.parse(localStorage.getItem('LoginUserData'))?.id}`)
             setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
             setMinOrder(resp.data.min_order_amount)
             setnumber1(resp.data.phone1) 
@@ -42,7 +52,6 @@ function Routing() {
             setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
             setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
             setSelectedsProduct(JSON.parse(resp.data.selected.text))
-            
             if(resp.data.cart.text !== null)
             {
               const dataparsed = JSON.parse(resp.data.cart.text)
@@ -69,7 +78,7 @@ function Routing() {
                 setItems([])
             }
           }
-          else 
+          else if (JSON.parse(localStorage.getItem('LoginUserData')) === null)
           {
             setProdutData(localStorage.getItem('ProdutData')  !== null   ?  JSON.parse(localStorage.getItem('ProdutData')) : [])
             setFinalPrice(localStorage.getItem('FinalPrice')!== null   ?  parseFloat(localStorage.getItem('FinalPrice')) : 0 )
@@ -78,6 +87,7 @@ function Routing() {
             setFinalBonus(localStorage.getItem('FinalBonus')   !== null  ?  parseInt(localStorage.getItem('FinalBonus')) : 0)
             setDateGoods(localStorage.getItem('DateGoods')  !== null  ?  JSON.parse(localStorage.getItem('DateGoods')) : [])
             setItems(localStorage.getItem('ProdutData')  !== null   ?  JSON.parse(localStorage.getItem('ProdutData')) : [])
+            console.log('not')
             resp = await axios.get(`https://nehra.az/public/api/settings`)
             setTopCategory(resp.data.featuredcats)
             setMinOrder(resp.data.min_order_amount)
@@ -86,10 +96,13 @@ function Routing() {
             setSelectedsProduct()
             setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
             setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
+            setUserStatus(false)
           }
+          else 
+          {}
             setloader(false)
-
         } 
+        
         catch (err) {
           console.error(err);
             setloader(false)

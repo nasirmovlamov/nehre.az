@@ -14,6 +14,8 @@
       -ms-flex-align: center;
           align-items: center;
   padding-left: 50px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
   padding-right: 50px;
 }
 
@@ -165,13 +167,112 @@
   color: white;
   border-radius: 5px;
   overflow: hidden;
+  border: 1px solid white;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.topNavbar .searchAndIcons .BtnCheckout:hover {
+  background-color: white;
+  border: 1px solid #7dbf2a;
+  color: #7dbf2a;
+}
+
+.topNavbar .searchAndIcons .BtnCheckout:hover svg {
+  color: #7dbf2a;
 }
 
 .topNavbar .searchAndIcons .BtnCheckout svg {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
   color: white;
 }
 
 .topNavbar .searchAndIcons .BtnCheckout button {
+  background-color: transparent;
+  border: none;
+  padding: 0px !important;
+}
+
+.topNavbar .searchAndIcons .BtnUser {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 5px;
+          column-gap: 5px;
+  height: 36px;
+  margin-top: 1px;
+  border: none;
+  background-color: #8682ab;
+  color: white;
+  border-radius: 5px;
+  overflow: hidden;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  border: 1px solid white;
+}
+
+.topNavbar .searchAndIcons .BtnUser:hover {
+  background-color: white;
+  border: 1px solid #8682ab;
+}
+
+.topNavbar .searchAndIcons .BtnUser:hover svg {
+  color: #8682ab;
+}
+
+.topNavbar .searchAndIcons .BtnUser svg {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  color: white;
+}
+
+.topNavbar .searchAndIcons .BtnUser button {
+  background-color: transparent;
+  border: none;
+  padding: 0px !important;
+}
+
+.topNavbar .searchAndIcons .BtnBookmarks {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 5px;
+          column-gap: 5px;
+  height: 36px;
+  margin-top: 1px;
+  border: none;
+  background-color: #ec6275;
+  color: white;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid white;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.topNavbar .searchAndIcons .BtnBookmarks:hover {
+  background-color: white;
+  border: 1px solid #ec6275;
+}
+
+.topNavbar .searchAndIcons .BtnBookmarks:hover svg {
+  color: #ec6275;
+}
+
+.topNavbar .searchAndIcons .BtnBookmarks svg {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  color: white;
+}
+
+.topNavbar .searchAndIcons .BtnBookmarks button {
   background-color: transparent;
   border: none;
   padding: 0px !important;

@@ -47,17 +47,12 @@ import Modal from '@material-ui/core/Modal';
 function HomePage(props) {
     
     const context = useContext(ProductListingContext)
-    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,loader, setloader, StaticData,setStaticData} = context
+    const {setBanners1,setSuppliersCard,setProduct,SuppliersCard,NewProducts,Banners1,Banners2,setAssortment,Assortment,setAnswerCard,AnswerCard,setSpecialOffers,SpecialOffers,TopCards,setTopCards,setBanners2, ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,loader, setloader, StaticData,setStaticData} = context
     
     useEffect( async () => {
-        let staticContent = localStorage.getItem('staticContent')
-        if(staticContent !== null)
+        if(TopCards.length === 0)
         {
-            await withoutReq(JSON.parse(staticContent))
-        }
-        else 
-        {
-            await sendGetRequests()
+            await   dataRenew()
         }
     }, [])
 
@@ -66,75 +61,24 @@ function HomePage(props) {
     const specialOffers = []
     const suppliersCard = []
     const answerCard = []
-    const [TopCards, setTopCards] = useState([])
-    const [NewProducts, setProduct] = useState([])
-    const [SpecialOffers, setSpecialOffers] = useState([])
-    const [SuppliersCard, setSuppliersCard] = useState([])
-    const [AnswerCard, setAnswerCard] = useState([])
-    const [Banners1, setBanners1] = useState([])
-    const [Banners2, setBanners2] = useState([])
-    const [Assortment, setAssortment] = useState([])
     
-    const dataRenew = async (renew , data) => {
-        if (renew) {
+    
+    const dataRenew = async (data) => {
+        try {
             const respData = await axios.get('https://nehra.az/api/static_data')
+            respData.data.banners.map(banner => banner.key === "first_banner" ? setBanners1(banner) : setBanners2(banner))        
             setTopCards(respData.data.slayder)
             setAnswerCard(respData.data.questions)
             setSuppliersCard(respData.data.manufacturer_slider)
             setSpecialOffers(respData.data.specials)
             setAssortment(respData.data.assortment)
             setProduct(respData.data.newproducts)
-            respData.data.banners.map(banner => banner.key === "first_banner" ? setBanners1(banner) : setBanners2(banner))
-            localStorage.setItem('staticContent' , JSON.stringify(respData.data))
-        }
-        else 
-        {
-            setTopCards(data.slayder)
-            setAnswerCard(data.questions)
-            setSuppliersCard(data.manufacturer_slider)
-            setSpecialOffers(data.specials)
-            setAssortment(data.assortment)
-            setProduct(data.newproducts)
-            data.banners.map(banner => banner.key === "first_banner" ? setBanners1(banner) : setBanners2(banner))
+        } catch (error) {
+            console.log(error)
         }
     }
 
-    const sendGetRequests = async () => {
-        try {
-
-            let staticContent = localStorage.getItem('staticContent')
-            if(staticContent !== null)
-            {
-                withoutReq(JSON.parse(staticContent))
-            }
-            else 
-            {
-                const respData = await axios.get('https://nehra.az/api/static_data')
-                setStaticData(respData.data)
-                localStorage.setItem('staticContent' , JSON.stringify(respData.data))
-                dataRenew(false , respData.data)
-            }
-
-        } catch (err) {
-            console.error(err);
-        }
-    };
-    const withoutReq = async (staticContent) => {
-        try {
-            setTopCards(staticContent.slayder)
-            setAnswerCard(staticContent.questions)
-            setSuppliersCard(staticContent.manufacturer_slider)
-            setSpecialOffers(staticContent.specials)
-            setAssortment(staticContent.assortment)
-            setProduct(staticContent.newproducts)
-            staticContent.banners.map(banner => banner.key === "first_banner" ? setBanners1(banner) : setBanners2(banner))
-            dataRenew(true, null)
-        } catch (err) {
-            localStorage.removeItem('staicContent')
-            sendGetRequests()
-            console.error(err);
-        }
-    };
+   
     
     TopCards.map(bucket => ( topCards.push(             <CardSlider1 link={bucket.link} id={bucket.id} turndesc={bucket.turndesc} turnetrafli={bucket.turnetrafli}  turnoverlay={bucket.turnoverlay}  turntitle={bucket.turntitle}   name={bucket.name} image={bucket.image} desc={bucket.description}/>)))
     SuppliersCard.map(supply => ( suppliersCard.push(   <SupplierCard id={supply.id} image={supply.avatar} title={supply.name} supplier={supply.type_id} image2={testImg6} image3={testImg7}/>   )))

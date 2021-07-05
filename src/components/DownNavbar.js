@@ -1,4 +1,4 @@
-import React , {useContext} from 'react'
+import React , {useContext, useEffect, useState} from 'react'
 import "../assets/css/downNavbar.css"
 import milkImg from "../assets/images/milk.png"
 import meatImg from "../assets/images/meat.png"
@@ -21,18 +21,29 @@ import {
   } from "react-router-dom";
 function DownNavbar(props) {
     const context = useContext(ProductListingContext)
-    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
-  
+    const {ProdutData, setProdutData, FinalPrice, TopCategory, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+
+
+
+    const styleHide = {
+        height: '0px'
+    }
+    const styleimgHide = {
+        transform: 'scale(0)'
+    }
+
+    
+    
     const clickHandler = (num) => {
-        for (let i = 1; i < props.TopCategory.length; i++) {
+        for (let i = 1; i < TopCategory.length; i++) {
             document?.getElementById(`btnNav${i}`)?.setAttribute('style' , "border-bottom: 4px solid transparent;")
         }
         document?.getElementById(`btnNav${num}`)?.setAttribute('style' , "border-bottom: 4px solid #285999w;")
     }
     const TopCatArr = []
-    if(props.TopCategory.length !== 0)
+    if(TopCategory.length !== 0)
     {
-        props.TopCategory.map(element  => TopCatArr.push(<Link className='linkDrp' to={`/category/${element.id}`}><button  id={`btnNav${element.id}`} onClick={() => clickHandler(element.id)} className="buttonNav" > <div id="downNavImgCont" className="imgCont"> <img id="downNavImg" src={`https://nehra.az/storage/app/public/${element.image}`} alt="" width="70px" height="auto"/></div>  <span>{lang === "AZ" && element.name_az || lang === "EN" && element.name_en || lang === "RU" && element.name_ru}</span>  </button></Link>))
+        TopCategory.map(element  => TopCatArr.push(<Link className='linkDrp' to={`/category/${element.id}`}><button  id={`btnNav${element.id}`} onClick={() => clickHandler(element.id)} className="buttonNav" >  <div id="downNavImgCont" style={props.scrollValue > 0 ? styleHide : {}} className="imgCont"> <img style={props.scrollValue > 0 ? styleimgHide : {}} id="downNavImg" src={`https://nehra.az/storage/app/public/${element.image}`} alt="" width="70px" height="auto"/></div>  <span>{lang === "AZ" && element.name_az || lang === "EN" && element.name_en || lang === "RU" && element.name_ru}</span>  </button></Link>))
     }
     
     var settings = {
@@ -64,6 +75,8 @@ function DownNavbar(props) {
         }
         ]
     };
+
+    
     return (
         <div className="navCont">
             <nav className="downNavbar">

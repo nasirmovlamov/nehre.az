@@ -14,13 +14,6 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  overflow: hidden;
-  height: 0px;
-}
-
-.downPart #logoNehre {
-  opacity: 0;
-  pointer-events: none;
 }
 
 .downPart .css-1wlk0hk-MuiAvatar-root {
@@ -149,6 +142,90 @@
   color: gray;
 }
 
+.downPart .downCont .BtnUser {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 5px;
+          column-gap: 5px;
+  height: 36px;
+  margin-top: 1px;
+  border: none;
+  background-color: #8682ab;
+  color: white;
+  border-radius: 5px;
+  overflow: hidden;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  border: 1px solid white;
+}
+
+.downPart .downCont .BtnUser:hover {
+  background-color: white;
+  border: 1px solid #8682ab;
+}
+
+.downPart .downCont .BtnUser:hover svg {
+  color: #8682ab;
+}
+
+.downPart .downCont .BtnUser svg {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  color: white;
+}
+
+.downPart .downCont .BtnUser button {
+  background-color: transparent;
+  border: none;
+  padding: 0px !important;
+}
+
+.downPart .downCont .BtnBookmarks {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 5px;
+          column-gap: 5px;
+  height: 36px;
+  margin-top: 1px;
+  border: none;
+  background-color: #ec6275;
+  color: white;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid white;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.downPart .downCont .BtnBookmarks:hover {
+  background-color: white;
+  border: 1px solid #ec6275;
+}
+
+.downPart .downCont .BtnBookmarks:hover svg {
+  color: #ec6275;
+}
+
+.downPart .downCont .BtnBookmarks svg {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  color: white;
+}
+
+.downPart .downCont .BtnBookmarks button {
+  background-color: transparent;
+  border: none;
+  padding: 0px !important;
+}
+
 .downPart .downCont .BtnCheckout {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -165,9 +242,24 @@
   color: white;
   border-radius: 5px;
   overflow: hidden;
+  border: 1px solid white;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.downPart .downCont .BtnCheckout:hover {
+  background-color: white;
+  border: 1px solid #7dbf2a;
+  color: #7dbf2a;
+}
+
+.downPart .downCont .BtnCheckout:hover svg {
+  color: #7dbf2a;
 }
 
 .downPart .downCont .BtnCheckout svg {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
   color: white;
 }
 

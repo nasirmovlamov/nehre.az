@@ -9,8 +9,15 @@
     padding-right: 30%;
     background:#e6e7e9;
     padding-top: 8px;
+    transition: 0.3s;
+    // transition-delay: 0.3s;
+    p 
+    {
+        transition: 0.3s;
+    }
     a 
     {
+        transition: 0.3s;
         &:hover 
         {
                 border-bottom: 8px solid gray;
@@ -106,7 +113,7 @@
             a
             {
                 
-                &:nth-child(4)
+                &:nth-child(3)
                 {
                     border-radius: 0px 0px 10px 10px ;
                 }

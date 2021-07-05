@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useContext} from 'react'
 import "../assets/css/topNavbar.css"
 import logoNehre from "../assets/images/Loqo_nehre.png"
-import logoNehre3 from "../assets/images/logoNehre2.png"
 import element from "../assets/images/element.png"
 import azn from "../assets/images/azn.png"
 import dil from "../assets/images/dil.png"
 import member from "../assets/images/member.png"
 import sebet from "../assets/images/Sebet.png"
 import searchIcon from "../assets/images/searchIcon.png"
-import {Link} from "react-router-dom"
+import {Link, useHistory} from "react-router-dom"
 import PhoneIcon from '@material-ui/icons/Phone';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
@@ -34,6 +33,9 @@ import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { authcheck } from '../pages/Auth'
+import logoNehre2 from "../assets/images/logoNehre2.png"
+import logoNehre3 from "../assets/images/logoNehre2.png"
 
 
 const stylesForSwiper = makeStyles({
@@ -62,17 +64,18 @@ function TopNavbar(props) {
     const searchTopMQ = useMediaQuery('(min-width:1000px)');
     const enableMobile = useMediaQuery('(min-width:650px)') 
     const elements = useMediaQuery('(min-width:650px)') 
+    const phoneNumbersMQ = useMediaQuery('(min-width:1050px)');
+    const searchBottomMQ = useMediaQuery('(min-width:786px)');
+
+
+    const history = useHistory()
     const context = useContext(ProductListingContext)
-    const {UserData , setUserData , ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader , UserStatus, setUserStatus ,  setnumber2, setnumber1, number1, number2 , setTopCategory, TopCategory} = context
-  
+    const {UserData ,   notifyAuth, setUserData ,  ProdutData, setProdutData, FinalPrice, setFinalPrice, openBucketF, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader , UserStatus, setUserStatus ,  setnumber2, setnumber1, number1, number2 , setTopCategory, TopCategory} = context
+
+
+
     const notifyLogin = () => toast.warning( ((lang === "AZ" && `Hesabınıza daxil olun!`) || (lang === "EN" && `Enter your account!`) || (lang === "RU" && `Войдите в свой аккаунт!`)) , {draggable: true,});
-    
-
-    
-
-
-
-
+   
 
     const [drop1, setdrop1] = useState(false)
     const [drop2, setdrop2] = useState(false)
@@ -243,96 +246,186 @@ function TopNavbar(props) {
     );
 
     
+
+    const memberCheck = async (link) => {
+        if(UserStatus)
+        {
+            history.push(link)
+        }
+        else 
+        {
+            notifyAuth()
+        }
+    } 
+
+
+    const styleHide={
+        height:"0px",
+        overflow:"hidden",
+    }
+
+
     return (
-        <div className="topNavbar">
-                <div className="topPart">    
-                    {leftImgMQ && <Link to="/" className='imgLinkTop'><img src={logoNehre} alt="" width="140" height="auto"/></Link>}
-                    {!leftImgMQ && <Link to="/" ><img src={logoNehre3} alt="" width="100" height="auto"/></Link>}
-                    <div className="phoneAndSearch">
+        <> 
+        
+            <div style={props.scrollValue === 0 ? {} : styleHide}   className="topNavbar">
+                    <div className="topPart">    
+                        {leftImgMQ && <Link to="/" className='imgLinkTop'><img src={logoNehre} alt="" width="140" height="auto"/></Link>}
+                        {!leftImgMQ && <Link to="/" ><img src={logoNehre2} alt="" width="100" height="auto"/></Link>}
+                        <div className="phoneAndSearch">
 
-                        <div className="searchAndIcons">
-                            {
-                                searchTopMQ && 
-                                <form action='search' onSubmit={() => searchHandler()}  className="inputAndIcon">
-                                    <input onChange={(e) => searchChange(e)} type="text" placeholder={(lang === "AZ" && `Axtarış`) || (lang === "EN" && `Search`) || (lang === "RU" && `Поиск`)}/>
-                                    <button type='button'  className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
-                                </form>
-                            }
-
-                            {enableMobile && <div className="phoneCont">
-                                <p className="phone"> <PhoneIcon/> <a href={`tel:${number1}`}>{number2}</a> </p>
-                                <p className="phone"> <WhatsAppIcon/> <a href={`https://api.whatsapp.com/send/?phone=%2B994556800055&text&app_absent=0`}>{number1}</a></p>
-                            </div>}
-
-                            <div className="selection">
-                                {elements &&<a>
-                                    <div className="shoppingBtnDiv" onMouseLeave={() => langChangerMouseLeave1()}> 
-                                        <button onClick={() => myFunction1(drop1)} onBlur={() => myFunctionBlur1(drop1)} className="shoppingBtn1 dropbtn">{money}</button>
-                                        {drop1 && 
-                                            <div id="myDropdown" className="dropdown-content">
-                                                <button onClick={() => moneyChanger()}>{money === "₼" ? "$" : "₼"}</button>
-                                            </div>
-                                        }
-                                    </div>
-                                </a>}
-                                {/*  */}
-                                {elements &&<a >
-                                    <div className="shoppingBtnDiv2" onMouseLeave={() => langChangerMouseLeave2()}>
-                                            <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} className="shoppingBtn2 mainLang">{lang}</button>
-                                            {drop2 && <div id="myDropdown" className="dropdown-content">
-                                                {(lang === "AZ" || lang === "az") ? "" : <button onClick={() => languageChanger(langArr[0])}> <a className='btnInside' href="/locale/az">  {langArr[0]}  </a></button>}
-                                                {(lang === "EN" || lang === "en") ? "" : <button onClick={() => languageChanger(langArr[1])}> <a className='btnInside' href="/locale/en">  {langArr[1]}  </a></button>}
-                                                {(lang === "RU" || lang === "ru") ? "" : <button onClick={() => languageChanger(langArr[2])}> <a className='btnInside' href="/locale/ru">  {langArr[2]}  </a></button>}
-                                            </div>}
-                                    </div>
-                                </a>}
-                                {/*  */}
-
-                                { 
-                                    !elements && 
-                                    <div>
-                                        {
-                                            <React.Fragment key={'top'}>
-                                                <button className='searchIcon' onClick={toggleDrawer1('top', true)}><SearchIcon/></button>
-                                                <Drawer anchor={'top'} open={state1['top']} onClose={toggleDrawer1('top', false)}>
-                                                    {list1('top')}
-                                                </Drawer> 
-                                            </React.Fragment>
-                                        }
-                                    </div>
+                        
+                            <div className="searchAndIcons">
+                                {
+                                    searchTopMQ && 
+                                    <form action='search' onSubmit={() => searchHandler()}  className="inputAndIcon">
+                                        <input onChange={(e) => searchChange(e)} type="text" placeholder={(lang === "AZ" && `Axtarış`) || (lang === "EN" && `Search`) || (lang === "RU" && `Поиск`)}/>
+                                        <button type='button'  className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
+                                    </form>
                                 }
-                                <Link to={`/`}>
-                                     <button className="shoppingBtn shoppingBtn3" onClick={() => props.modalOpener3()}>{ (JSON.parse(localStorage.getItem('LoginUserData'))?.id !== null && JSON.parse(localStorage.getItem('LoginUserData'))?.id !== undefined)  ?  <ContactMailIcon/> : <PersonIcon/> }</button>    
-                                </Link>
-                                {/*  */}
-                                {(elements  && (JSON.parse(localStorage.getItem('LoginUserData'))?.id !== null && JSON.parse(localStorage.getItem('LoginUserData'))?.id !== undefined)) && <Link className='bookmarkMember' to="/memberarea/bookmarks">
-                                    <StarIcon/> 
-                                </Link>}
-                                {elements && <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={() => props.modalOpener()} >  
-                                    <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {money === "₼" ?  FinalPrice : ( FinalPrice / 1.7).toFixed(1)} {money}</span>} 
-                                </button>}
-                                { 
-                                    !elements && 
-                                    <div>
-                                        {
-                                            <React.Fragment key={'right'}>
-                                                <Hamburger color="#00252E" toggled={state['right']} toggle={state['right'] ? toggleDrawer('right', false) : toggleDrawer('right', true)} />
-                                                <Drawer anchor={'right'} open={state['right']} onClose={toggleDrawer('right', false)}>
-                                                    {list('right')}
-                                                </Drawer> 
-                                            </React.Fragment>
-                                        }
-                                    </div>
-                                }
+
+                                {enableMobile && <div className="phoneCont">
+                                    <p className="phone"> <PhoneIcon/> <a href={`tel:${number1}`}>{number2}</a> </p>
+                                    <p className="phone"> <WhatsAppIcon/> <a href={`https://api.whatsapp.com/send/?phone=%2B994556800055&text&app_absent=0`}>{number1}</a></p>
+                                </div>}
+
+                                <div className="selection">
+                                    {elements &&<a>
+                                        <div className="shoppingBtnDiv" onMouseLeave={() => langChangerMouseLeave1()}> 
+                                            <button onClick={() => myFunction1(drop1)} onBlur={() => myFunctionBlur1(drop1)} className="shoppingBtn1 dropbtn">{money}</button>
+                                            {drop1 && 
+                                                <div id="myDropdown" className="dropdown-content">
+                                                    <button onClick={() => moneyChanger()}>{money === "₼" ? "$" : "₼"}</button>
+                                                </div>
+                                            }
+                                        </div>
+                                    </a>}
+                                    {elements &&<a >
+                                        <div className="shoppingBtnDiv2" onMouseLeave={() => langChangerMouseLeave2()}>
+                                                <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} className="shoppingBtn2 mainLang">{lang}</button>
+                                                {drop2 && <div id="myDropdown" className="dropdown-content">
+                                                    {(lang === "AZ" || lang === "az") ? "" : <button onClick={() => languageChanger(langArr[0])}> <a className='btnInside' href="/locale/az">  {langArr[0]}  </a></button>}
+                                                    {(lang === "EN" || lang === "en") ? "" : <button onClick={() => languageChanger(langArr[1])}> <a className='btnInside' href="/locale/en">  {langArr[1]}  </a></button>}
+                                                    {(lang === "RU" || lang === "ru") ? "" : <button onClick={() => languageChanger(langArr[2])}> <a className='btnInside' href="/locale/ru">  {langArr[2]}  </a></button>}
+                                                </div>}
+                                        </div>
+                                    </a>}
+
+                                    { 
+                                        !elements && 
+                                        <div>
+                                            {
+                                                <React.Fragment key={'top'}>
+                                                    <button className='searchIcon' onClick={toggleDrawer1('top', true)}><SearchIcon/></button>
+                                                    <Drawer anchor={'top'} open={state1['top']} onClose={toggleDrawer1('top', false)}>
+                                                        {list1('top')}
+                                                    </Drawer> 
+                                                </React.Fragment>
+                                            }
+                                        </div>
+                                    }
+                                    {UserData?.id !== undefined &&
+                                    <button className="shoppingBtn shoppingBtn4 BtnUser" onClick={() => memberCheck('/memberarea')} >
+                                        {  <ContactMailIcon/> }
+                                    </button>}
+
+                                    {UserData?.id === undefined &&<button className="shoppingBtn shoppingBtn4 BtnUser" onClick={OpenLoginF} >
+                                        {<PersonIcon/> }
+                                    </button>}
+
+                                    {elements  && <button className='bookmarkMember BtnBookmarks' onClick={() => memberCheck('/memberarea/bookmarks')}>
+                                        <StarIcon/> 
+                                    </button>}
+
+
+                                    {elements && <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={openBucketF} >  
+                                        <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {money === "₼" ?  FinalPrice : ( FinalPrice / 1.7).toFixed(1)} {money}</span>} 
+                                    </button>}
+                                    { 
+                                        !elements && 
+                                        <div>
+                                            {
+                                                <React.Fragment key={'right'}>
+                                                    <Hamburger color="#00252E" toggled={state['right']} toggle={state['right'] ? toggleDrawer('right', false) : toggleDrawer('right', true)} />
+                                                    <Drawer anchor={'right'} open={state['right']} onClose={toggleDrawer('right', false)}>
+                                                        {list('right')}
+                                                    </Drawer> 
+                                                </React.Fragment>
+                                            }
+                                        </div>
+                                    }
+                                </div>
                             </div>
                         </div>
+                        {rightImgMQ && <div className="imgAndLinks">
+                            <img src={element} alt="" width="150" height="auto"/>
+                        </div>}
                     </div>
-                    {rightImgMQ && <div className="imgAndLinks">
-                        <img src={element} alt="" width="150" height="auto"/>
-                    </div>}
-                </div>
-                
-        </div>
+                    
+            </div>
+        
+
+            <div style={props.scrollValue === 0 ? styleHide : {}}  className="downPart" id="downPart">
+                <div className="downCont" id="downCont">
+                        <Link to="/"  id="logoNehre"><img src={logoNehre3} alt="" width="100" height="auto"/></Link>
+                        <div className="searchAndIcons">
+                            <form className="inputAndIcon" action='search' onSubmit={() => searchHandler()}> 
+                            {phoneNumbersMQ && 
+                            <div className="phoneCont">
+                                    <p className="phone"> <PhoneIcon/> <a href={`tel:${number2}`}>{number2}</a></p>
+                                    <p className="phone"> <WhatsAppIcon/> <a href='https://api.whatsapp.com/send?phone=994556800055'>{number1} </a></p>
+                                </div>}
+                                {searchBottomMQ &&
+                                <>
+                                <input  onChange={(e) => searchChange(e)} type="text" placeholder={(lang === "AZ" && `Axtarış`) || (lang === "EN" && `Search`) || (lang === "RU" && `Поиск`)}/>
+                                <button type='submit' className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
+                                </>}
+                            </form>
+
+                            <div className="selection">
+                                {elements && <a >
+                                        <div className="shoppingBtnDiv" onMouseLeave={() => langChangerMouseLeave1()}>
+                                            <button onClick={() => myFunction1(drop1)} onBlur={() => myFunctionBlur1(drop1)} className="shoppingBtn1 dropbtn">{money}</button>
+                                            {drop1 && 
+                                                <div id="myDropdown" className="dropdown-content">
+                                                    <button onClick={() => moneyChanger()}>{money === "₼" ? "$" : "₼"}</button>
+                                                </div>
+                                            }
+                                        </div>
+                                    </a>}
+                                {elements &&<a >
+                                        <div className="shoppingBtnDiv2" onMouseLeave={() => langChangerMouseLeave2()}>
+                                            <button onClick={() => myFunction2(drop2)} onBlur={() => myFunctionBlur2(drop1)} className="shoppingBtn2 mainLang">{lang}</button>
+                                            {drop2 && <div id="myDropdown" className="dropdown-content">
+                                                {(lang === "AZ" || lang === "az")  ? "" : <button onClick={() => languageChanger(langArr[0])}><a className='btnInside' href='/locale/az'> {langArr[0]}  </a></button> }
+                                                {(lang === "EN" || lang === "en")  ? "" : <button onClick={() => languageChanger(langArr[1])}><a className='btnInside' href='/locale/en'> {langArr[1]}  </a></button> }
+                                                {(lang === "RU" || lang === "ru")  ? "" : <button onClick={() => languageChanger(langArr[2])}><a className='btnInside' href='/locale/ru'> {langArr[2]} </a></button>}
+                                            </div>}
+                                        </div>
+                                    </a>}
+                                {UserData?.id !== undefined &&
+                                <button className="shoppingBtn shoppingBtn4 BtnUser" onClick={() => memberCheck('/memberarea')} >
+                                    {  <ContactMailIcon/> }
+                                </button>}
+
+                                {UserData?.id === undefined &&<button className="shoppingBtn shoppingBtn4 BtnUser" onClick={OpenLoginF} >
+                                    {<PersonIcon/> }
+                                </button>}
+
+                                {elements  && <button className='bookmarkMember BtnBookmarks' onClick={() => memberCheck('/memberarea/bookmarks')}>
+                                    <StarIcon/> 
+                                </button>}
+                                {elements &&
+                                <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={openBucketF} >  
+                                        <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {money === "₼" ? FinalPrice :(FinalPrice / 1.7).toFixed(1)} {money}</span>} 
+                                </button>}
+                            </div>
+                        </div>
+                </div>    
+            </div>
+        </>
+
+
     )
 }
 

@@ -14,9 +14,18 @@
   padding-right: 30%;
   background: #e6e7e9;
   padding-top: 8px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.navbar p {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .navbar a {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
   width: 100px;
   border-bottom: 8px solid transparent;
   text-decoration: none;
@@ -167,7 +176,7 @@
   opacity: 0;
 }
 
-.navbar .dropCont .dropMenu a:nth-child(4) {
+.navbar .dropCont .dropMenu a:nth-child(3) {
   border-radius: 0px 0px 10px 10px;
 }
 

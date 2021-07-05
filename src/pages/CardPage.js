@@ -25,12 +25,11 @@ import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 
 function CardPage(props) {
     const context = useContext(ProductListingContext)
-    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,clearBucket ,setItems, setMinOrder, Items, MinOrder} = context
+    const {ProdutData,openCheckoutF, setProdutData, closeBucketF, openBucketF, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,clearBucket ,setItems, setMinOrder, Items, MinOrder} = context
   
     const functionHandler = () => {
-        if(props.UserId)
-        props.functionOpenCheckoutPage()
-        props.functionClose()
+        openBucketF()
+        closeBucketF()
     }
     const [loader, setloader] = useState(false)
     
@@ -64,7 +63,6 @@ function CardPage(props) {
 
     const dateSorter = () => {
         var sortedArr = []
-        console.log(DateGoods);
         for (let i = 1; i <= 7; i++) {
             if (DateGoods.includes(String(i))) {
                 const tomorrow = new Date(today)
@@ -114,7 +112,7 @@ function CardPage(props) {
             <aside className="aside">
                 <div className="mainPart">
                     <div className="topPart">
-                        <div className="buttonCont"><button onClick={() => props.functionClose()} className="removeModalBtn">×</button></div>
+                        <div className="buttonCont"><button onClick={() => closeBucketF()} className="removeModalBtn">×</button></div>
                         <p className="text1"><img width="12px" src={clock} alt=""/> {lang === "AZ" && `Ən tez çatdırılma müddəti` || lang === "EN" && `Delivery soon` || lang === "RU" && `Доставка скоро`} </p>
                         <p className="text">{nextDelivery}</p>
                     </div>
@@ -123,7 +121,7 @@ function CardPage(props) {
                         <div className="goods"><p className="key">{lang === "AZ" && `Ümumi paketin çəkisi` || lang === "EN" && `Weight Parcel` || lang === "RU" && `Вес посылки`}</p> <p className="value ">{Math.abs(FinalWeight.toFixed(2))} {(lang === "AZ" && `kq`) || (lang === "EN" && 'kq') || (lang === "RU" && 'кг')}</p> </div> 
                         <div className="goods"><p className="key">{lang === "AZ" && `Ümumi məhsulların sayı` || lang === "EN" && `Total number of products` || lang === "RU" && `Общее количество продуктов`} </p> <p className="value ">{FinalGoods}</p> </div> 
                         <div className="cost"><p className="key"> {lang === "AZ" && `Yükun Qiymət` || lang === "EN" && `Final Price` || lang === "RU" && `Окончательная цена`}</p> <p className="value value2"> {money === '₼' ? FinalPrice : ((money === "₼" ? FinalPrice : (FinalPrice / 1.7)).toFixed(1) )} {money} </p> </div> 
-                        <Button1 disabled={FinalPrice < MinOrder ? true : false} value={lang === "AZ" && `Ödəniş səhifəsinə keçid edin` || lang === "EN" && `Go to payment` || lang === "RU" && `Перейти к оплате`} color="#085096" function={props.functionOpenCheckoutPage} /> 
+                        <Button1 disabled={FinalPrice < MinOrder ? true : false} value={lang === "AZ" && `Ödəniş səhifəsinə keçid edin` || lang === "EN" && `Go to payment` || lang === "RU" && `Перейти к оплате`} color="#085096" function={openCheckoutF} /> 
                         <p className="cashback">{lang === "AZ" && `Alacağınız ümumi bonus` || lang === "EN" && `Bonus` || lang === "RU" && `Бонус`}  {money === '₼' ? FinalBonus : (FinalBonus/1.7).toFixed(2)}  {money} </p>
                     </div>
                 </div>

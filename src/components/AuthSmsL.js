@@ -10,7 +10,7 @@ import Cookies from 'js-cookie';
 
 function AuthSms(props) {
     const context = useContext(ProductListingContext)
-    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+    const {ProdutData,setUserStatus, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
   
     const [Phone, setPhone] = useState(JSON.parse(localStorage.getItem('LoginUserData')).phone)
     const notify = () => toast.info(lang === "AZ" && `Hesabınız Təsdiqləndi!` || lang === "EN" && `Your account has been confirmed!` || lang === "RU" && `Ваш аккаунт подтвержден!`);
@@ -22,7 +22,7 @@ function AuthSms(props) {
     const onSubmit = () =>{
         if (code !== "" && code !== undefined && code !== null) {
             axios.get(`https://nehra.az/qeydiyyat/sms/${code}`)
-                .then(res=> (res.status === 200 && (notify() , props.functionClose()  , sessionStorage.setItem('status' , 1))) )
+                .then(res=> (res.status === 200 && (notify() , props.functionClose() , setUserStatus(true) , sessionStorage.setItem('status' , 1))) )
         }
     }
     const [err, seterr] = useState(false)
