@@ -98,11 +98,18 @@ const context = useContext(ProductListingContext)
     //   });
     } 
 
+    const scrollStyle = {
+        height:'105px'
+    }
+    const scrollStaticStyle = {
+        height:'310px'
+    }
+
     return (
         <>
             {/* <button type="button" ref={styleScrollBtn} style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button> */}
             {!MidNavbar &&  <button type="button" className='checkMBtnC' style={checkMBtn} /*onClick={() => handleOpen()}*/><ShoppingBasketIcon width='60px' height='60px'/> {FinalPrice > 0 && (FinalPrice + " ₼")}</button> }
-            <header id="header" className="header">
+            <header style={scrollValue === 0 ? scrollStaticStyle : scrollStyle} id="header" className="header">
               <TopNavbar  scrollValue={scrollValue}/>
               {MidNavbar && <Navbar scrollValue={scrollValue}/>}
               {MidNavbar && <DownNavbar scrollValue={scrollValue} />}

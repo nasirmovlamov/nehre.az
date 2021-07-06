@@ -102,6 +102,7 @@ export function ProductListingProvider(props) {
                     FinalBonus:FinalBonus,
                     DateGoods:DateGoods
                 }
+                console.log(string)
                 const resp = await axios.post('https://nehra.az/public/api/addcart' ,{user_id: UserData.id,  string:JSON.stringify(string)})
             }
         } 
@@ -155,7 +156,6 @@ export function ProductListingProvider(props) {
 
         const addItem = (product) => {
             notifyAddBasket()
-            //#region Add Cart Values
             const num = parseInt(product.id)
             const price = parseFloat(discountHandler(product))
             const weight = parseFloat(product.ceki_hecm)
@@ -439,7 +439,6 @@ export function ProductListingProvider(props) {
             if(UserData?.id !== undefined)
             {
                 setopenCheckout(true);
-                console.log(DateGoods)
             }
             else 
             {
@@ -507,7 +506,7 @@ export function ProductListingProvider(props) {
     
 
     return (
-        <ProductListingContext.Provider value={{ProdutData:ProdutData, setProdutData:setProdutData, FinalPrice:FinalPrice, setFinalPrice:setFinalPrice, FinalWeight:FinalWeight, setFinalWeight:setFinalWeight,FinalGoods:FinalGoods, setFinalGoods:setFinalGoods, addItem:addItem, removeItem:removeItem, lang:lang , setlang:setlang,  money:money , langArr:langArr, DateGoods:DateGoods,setDateGoods:setDateGoods , SelectedsProduct:SelectedsProduct, setSelectedsProduct:setSelectedsProduct, OpenLoginF:OpenLoginF,CloseLoginF:CloseLoginF, setOpenLogin:setOpenLogin , OpenLogin:OpenLogin, handleOpenPM:handleOpenPM, handleClosePM:handleClosePM, modalIdsetter:modalIdsetter, modalId:modalId, FinalBonus:FinalBonus, setFinalBonus:setFinalBonus,discountHandler:discountHandler , setmoney:setmoney, UserData:UserData, setUserData:setUserData, clearBucket:clearBucket, setMinOrder:setMinOrder, MinOrder:MinOrder, setMinOrder:setMinOrder, setItems:setItems , Items:Items , setloader:setloader , loader:loader, deleteCard:deleteCard,StaticData:StaticData, setStaticData:setStaticData , modalId:modalId, UserStatus:UserStatus, setUserStatus:setUserStatus, setnumber2:setnumber2, setnumber1:setnumber1, number1:number1, number2:number2 , setTopCategory:setTopCategory, TopCategory:TopCategory ,openCheckoutF:openCheckoutF, closeCheckoutF:closeCheckoutF, closeRegisterF:closeRegisterF, openRegisterF:openRegisterF, openBucketF:openBucketF, closeBucketF:closeBucketF, notifyAuth:notifyAuth, setProduct:setProduct, NewProducts:NewProducts,  setTopCards:setTopCards, TopCards:TopCards, SpecialOffers:SpecialOffers, setSpecialOffers:setSpecialOffers,AnswerCard:AnswerCard, setAnswerCard:setAnswerCard,Assortment:Assortment,setAssortment:setAssortment, Banners1:Banners1,setBanners1:setBanners1,Banners2:Banners2,setBanners2:setBanners2,SuppliersCard:SuppliersCard,setSuppliersCard:setSuppliersCard}}>
+        <ProductListingContext.Provider value={{ProdutData:ProdutData, addCart:addCart, setProdutData:setProdutData, FinalPrice:FinalPrice, setFinalPrice:setFinalPrice, FinalWeight:FinalWeight, setFinalWeight:setFinalWeight,FinalGoods:FinalGoods, setFinalGoods:setFinalGoods, addItem:addItem, removeItem:removeItem, lang:lang , setlang:setlang,  money:money , langArr:langArr, DateGoods:DateGoods,setDateGoods:setDateGoods , SelectedsProduct:SelectedsProduct, setSelectedsProduct:setSelectedsProduct, OpenLoginF:OpenLoginF,CloseLoginF:CloseLoginF, setOpenLogin:setOpenLogin , OpenLogin:OpenLogin, handleOpenPM:handleOpenPM, handleClosePM:handleClosePM, modalIdsetter:modalIdsetter, modalId:modalId, FinalBonus:FinalBonus, setFinalBonus:setFinalBonus,discountHandler:discountHandler , setmoney:setmoney, UserData:UserData, setUserData:setUserData, clearBucket:clearBucket, setMinOrder:setMinOrder, MinOrder:MinOrder, setMinOrder:setMinOrder, setItems:setItems , Items:Items , setloader:setloader , loader:loader, deleteCard:deleteCard,StaticData:StaticData, setStaticData:setStaticData , modalId:modalId, UserStatus:UserStatus, setUserStatus:setUserStatus, setnumber2:setnumber2, setnumber1:setnumber1, number1:number1, number2:number2 , setTopCategory:setTopCategory, TopCategory:TopCategory ,openCheckoutF:openCheckoutF, closeCheckoutF:closeCheckoutF, closeRegisterF:closeRegisterF, openRegisterF:openRegisterF, openBucketF:openBucketF, closeBucketF:closeBucketF, notifyAuth:notifyAuth, setProduct:setProduct, NewProducts:NewProducts,  setTopCards:setTopCards, TopCards:TopCards, SpecialOffers:SpecialOffers, setSpecialOffers:setSpecialOffers,AnswerCard:AnswerCard, setAnswerCard:setAnswerCard,Assortment:Assortment,setAssortment:setAssortment, Banners1:Banners1,setBanners1:setBanners1,Banners2:Banners2,setBanners2:setBanners2,SuppliersCard:SuppliersCard,setSuppliersCard:setSuppliersCard}}>
             {props.children}
             <div className="modalCont">
 

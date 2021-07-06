@@ -19,6 +19,7 @@ function LoginPage(props) {
     const {UserStatus , loader, setloader, setMinOrder,setnumber1, setnumber2,setTopCategory,setmoney, setUserStatus ,setItems,  ProdutData, openRegisterF , closeRegisterF , setUserData , setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
   
     const notify = () => toast.info(lang === "AZ" && `Hesabınıza daxil oldunuz!` || lang === "EN" && `You have logged in to your account!` || lang === "RU" && `Уведомление удалено!`);
+    const notifyWarn = () => toast.warn(lang === "AZ" && `Məlumatları düzgün daxil edin!` || lang === "EN" && `Enter the information correctly!` || lang === "RU" && `Введите информацию правильно!`);
     // const notifyW = () => toast.error("Daxil etdiyiniz məlumatlar yanlışdır!");
     const clickHandler = () => {
         CloseLoginF()
@@ -118,14 +119,17 @@ function LoginPage(props) {
       };
 
     const onSubmit = async (values) => {
+      try {
         const res = await axios.post('https://nehra.az/public/api/check', { email: values.email ,  password: values.password }  , headers )
         setloader(false)
-        console.log(res) 
         localStorage.setItem("LoginUserData" , JSON.stringify(res.data.user)) 
         setUserData(res.data.user) 
         sendGetRequest10()
         CloseLoginF() 
         notify() 
+      } catch (error) {
+        notifyWarn()
+      }
     }
 
     const initialValues = {

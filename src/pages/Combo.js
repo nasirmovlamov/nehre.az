@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   }));  
 function Combo(props) {
     const context = useContext(ProductListingContext)
-    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+    const {ProdutData,addCart, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
     
     const [loader, setloader] = useState(false)
     let { slug } = useParams();
@@ -89,6 +89,7 @@ function Combo(props) {
         var WholeWeight = FinalWeight
         var WholePrice = FinalPrice
         var WholeGoods = FinalGoods
+        var WholeBonus = FinalBonus
         var datesCombo = []
         var productsCombo = []
 
@@ -100,15 +101,27 @@ function Combo(props) {
             {
               WholeWeight += parseFloat(weight)
             }
+            let bonus = 0
+            if (product?.category_data?.cashback > 0 && product?.category_data !== null) {
+              bonus = parseInt(product.category_data.cashback)
+            }
+            else 
+            {
+                bonus = parseInt(product.cashback)
+            }
+            WholeBonus += bonus
             WholePrice += parseInt(price)
             WholeGoods += 1
 
-            var arrayA = DateGoods;
-            var arrayB = dates;
-            var newArray = arrayA.concat(arrayB.filter(x => !arrayA.some(y => y === x)))
+            // #region setterfunctions 
+            let arrayA = DateGoods;
+            let arrayB = dates;
+            let newArray = arrayA.concat(arrayB.filter(x => !arrayA.some(y => y === x)))
             let uniqueDates = [...new Set(newArray)];
-            datesCombo = uniqueDates
-            localStorage.setItem('DateGoods' , (JSON.stringify(uniqueDates)))
+            // #endregion setterfunctions 
+
+            datesCombo.push(...uniqueDates)
+
             var index = ProdutData.findIndex(x=> x.id === num);
             if (index === -1) {
                 productsCombo = [...productsCombo , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType , product}]
@@ -122,7 +135,6 @@ function Combo(props) {
             
             
           }  
-          
           const discountHandler = (discount , mainprice) => {
             if (discount !== 0 && discount !== null) {
               var discountPrice = 0;
@@ -140,16 +152,22 @@ function Combo(props) {
         for (let i = 0; i < ProductData.length; i++) {
           addItemCombo(ProductData[i].id , discountHandler(ProductData[i].discount , ProductData[i].qiymet) , parseFloat(ProductData[i].ceki_hecm) ,  ProductData[i]?.unit?.unit_id ,  ProductData[i].delivery ,  ProductData[i].title , ProductData[i])
         }
+        let uniquedatesCombo = [...new Set(datesCombo)];
         
         setFinalPrice((parseInt(WholePrice)))
         setFinalWeight((parseFloat(WholeWeight)))
         setProdutData((productsCombo))
         setFinalGoods((parseInt(WholeGoods)))
-        setDateGoods(datesCombo)
-        
-        localStorage.setItem('FinalGoods' , (parseInt(WholeGoods)))
-        localStorage.setItem('FinalPrice' , (parseInt(WholePrice)))
-        localStorage.setItem('FinalWeight' , (parseFloat(WholeWeight)))
+        setDateGoods(uniquedatesCombo)
+        console.log(uniquedatesCombo)
+        setFinalBonus(WholeBonus)
+
+        addCart(productsCombo , WholePrice, WholeWeight, WholeGoods, WholeBonus,datesCombo )
+
+
+        // localStorage.setItem('FinalGoods' , (parseInt(WholeGoods)))
+        // localStorage.setItem('FinalPrice' , (parseInt(WholePrice)))
+        // localStorage.setItem('FinalWeight' , (parseFloat(WholeWeight)))
       }
 
     const comboImage =  {

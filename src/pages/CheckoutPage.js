@@ -24,7 +24,7 @@ import Data from '../assets/language/address.json'
 function CheckoutPage(props) {
 
     const context = useContext(ProductListingContext)
-    const {ProdutData,openCheckoutF, closeCheckoutF, setProdutData, closeBucketF, openBucketF, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,clearBucket ,setItems, setMinOrder, Items, MinOrder} = context
+    const {ProdutData,openCheckoutF,UserData, closeCheckoutF, addCart, setProdutData, closeBucketF, openBucketF, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,clearBucket ,setItems, setMinOrder, Items, MinOrder} = context
     const staticData = Data[`address-${lang}`]
   
     const notify = () => toast.info("Nuş olsun!");
@@ -104,7 +104,6 @@ function CheckoutPage(props) {
         var dateIds = []
         var nondateIds = []
         const dateChecker = (date , id) => {
-            console.log(date);
             for (let i = 0; i < date.length; i++) {
                 const today = new Date()
                 const elementday = new Date()
@@ -168,8 +167,8 @@ function CheckoutPage(props) {
 
 
 
-moment.locale(lang)
-//Date Problems
+    moment.locale(lang)
+    //Date Problems
     const today = new Date()
     const tomorrow = new Date()
     tomorrow.setDate(today.getDate() + 1)
@@ -245,11 +244,11 @@ moment.locale(lang)
     }
 
 
-    console.log(address)
 
 
 
-    const onSubmit =  (values) => {
+
+    const onSubmit = async (values) => {
         setloader(true)
         const vrt2 = (id , element) => {
             for (let i = 0; i < nondeliveryProducts.length; i++) {
@@ -260,7 +259,6 @@ moment.locale(lang)
             }
         }
         let newarr = ProdutData.map((element, index ) =>  vrt2(element.id , element))
-        console.log(nondeliveryProducts)
         newarr = newarr.filter(element => element !== undefined)
         let dates = []
         let WholeCost = 0
@@ -269,8 +267,6 @@ moment.locale(lang)
         let WholeBonus = 0
         for (let i = 0; i < newarr.length; i++) {
             let bonus = 0
-            console.log("1" + newarr[i].product?.category_data?.cashback)
-            console.log("2" + newarr[i].product.cashback)
             if (newarr[i].product?.category_data?.cashback > 0 && newarr[i].product?.category_data !== null) {
                 bonus = parseInt(newarr[i].product.category_data.cashback)
             }
@@ -295,24 +291,18 @@ moment.locale(lang)
                 dates.push(newarr[i]?.date[j])
             }
         }
-       
-        
+
        
         let uniqueDates = [...new Set(dates)];
-        console.log(WholeBonus)
-        // console.log(uniqueDates)
-        // console.log(WholeCost)
-        // console.log(WholeCount)
-        // console.log(newarr)
-        // console.log(WholeWeight)
 
+        addCart(newarr , WholeCost , WholeWeight, WholeCount, WholeBonus, uniqueDates)
+        
         setDateGoods(uniqueDates)
         setFinalPrice(WholeCost)
         setFinalGoods(WholeCount)
         setProdutData(newarr)
         setFinalWeight(WholeWeight)
         setFinalBonus(WholeBonus)
-
         localStorage.setItem('FinalWeight' ,WholeWeight)
         localStorage.setItem('FinalGoods' ,  WholeCount)
         localStorage.setItem('FinalPrice' , WholeCost)
@@ -335,8 +325,20 @@ moment.locale(lang)
         let DeliveryCost = 0
         let DeliveryWeight = 0
         let DeliveryCount = 0
+        let DeliveryBonus = 0
         for (let i = 0; i < newarr2.length; i++) {
             DeliveryCost += (parseInt(newarr2[i].cost) * parseInt(newarr2[i].count) )
+            let deliveryBonus = 0 
+            console.log(newarr2)
+            if (newarr2[i].product?.category_data?.cashback > 0 && newarr2[i].product?.category_data !== null) {
+                deliveryBonus = parseInt(newarr2[i].product.category_data.cashback)  * parseInt(newarr2[i].count)
+            }
+            else 
+            {
+                deliveryBonus = parseInt(newarr2[i].product.cashback) * parseInt(newarr2[i].count)
+            }
+            DeliveryBonus += deliveryBonus
+            
             if (parseInt(newarr2[i].unitType) === 4) {
                 DeliveryWeight += (parseFloat(newarr2[i].weight / 1000) * parseInt(newarr2[i].count))
             }
@@ -352,15 +354,23 @@ moment.locale(lang)
         }
         DeliveryDates = [...new Set(DeliveryDates)];
 
-        // console.log(DeliveryDates)
-        // console.log(DeliveryCost)
-        // console.log(DeliveryWeight)
-        // console.log(DeliveryCount)
-        // console.log(productsName)
-        // console.log(productsId)
         // setDateGoods(dates)
-        axios.post('https://jsonplaceholder.typicode.com/posts', {address: addressselect , payment_type:paymentType , total_price: DeliveryCost ,  weight:DeliveryWeight  , total_count: DeliveryCount , product_data: productsName, user_id:props.UserId}  , headers )
-         .then(res => (setloader(false) , console.log(res) , closeCheckoutF())) 
+        // console.log(DeliveryBonus)
+        const postdata = {
+            address: addressselect , 
+            payment_type:paymentType , 
+            total_price: DeliveryCost ,  
+            weight:DeliveryWeight  , 
+            total_count: DeliveryCount , 
+            product_data: productsName, 
+            products_id:productsId, 
+            user_id:UserData.id,
+            bonus: DeliveryBonus
+        }
+        console.log()
+        const res = await axios.post('https://nehra.az/api/payment', postdata  , headers )
+        setloader(false) 
+        closeCheckoutF()
 
     }
 

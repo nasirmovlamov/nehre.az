@@ -59,6 +59,7 @@ const stylesForSwiper1 = makeStyles({
 
 
 function TopNavbar(props) {
+    const history = useHistory()
     const rightImgMQ = useMediaQuery('(min-width:1260px)');
     const leftImgMQ = useMediaQuery('(min-width:1100px)');
     const searchTopMQ = useMediaQuery('(min-width:1000px)');
@@ -66,9 +67,6 @@ function TopNavbar(props) {
     const elements = useMediaQuery('(min-width:650px)') 
     const phoneNumbersMQ = useMediaQuery('(min-width:1050px)');
     const searchBottomMQ = useMediaQuery('(min-width:786px)');
-
-
-    const history = useHistory()
     const context = useContext(ProductListingContext)
     const {UserData ,   notifyAuth, setUserData ,  ProdutData, setProdutData, FinalPrice, setFinalPrice, openBucketF, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader , UserStatus, setUserStatus ,  setnumber2, setnumber1, number1, number2 , setTopCategory, TopCategory} = context
 

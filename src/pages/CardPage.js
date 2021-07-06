@@ -89,7 +89,7 @@ function CardPage(props) {
 
     return (
         <div className="cardCont">
-            {console.log(MinOrder)}
+           
             <main className="mainSide">
                 <p className="title">
                     <p className="basketTitle">{lang === "AZ" && `Səbət` || lang === "EN" && `Basket` || lang === "RU" && `Корзина`} {FinalPrice < parseInt(MinOrder)   ?  <div className="minOrder"> <InfoIcon/> {lang === "AZ" && ` Minimum sifariş qiyməti` || lang === "EN" && `Minimum` || lang === "RU" && `Минимум`} {money === '₼' ? MinOrder : Math.floor(MinOrder / 1.7) } {money}</div> : " " }</p>

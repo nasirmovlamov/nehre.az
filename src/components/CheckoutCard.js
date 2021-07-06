@@ -60,7 +60,7 @@ function CheckoutCard(props) {
                                 <Skeleton variant="rect" width={104} height={100} animation="wave"/>
                             }
                             <div className="aboutItem">
-                                {console.log(product?.title)}
+                            
                                 <p className="title">{product.title}</p>
                                 <p className="priceAndWeight">{ money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.cost  : (ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.cost  / 1.7).toFixed(1)} {money}  / {((product?.unit?.id === 2 || product?.unit?.id === 4 || product?.unit?.id === 1) ? product?.ceki_hecm : 1 ) + " " + (lang === "AZ" && product?.unit?.ad  ) || (lang === "EN" && product?.unit?.ad_en) || (lang === "RU" && product?.unit?.ad_ru)}</p>
                                 <div className="dates">
