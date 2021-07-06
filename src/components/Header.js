@@ -50,7 +50,7 @@ const context = useContext(ProductListingContext)
         window.onscroll = () => {
             setscrollValue(window.scrollY)
         }
-
+       
     }, [])
   
     const scrollChecker =  () => {

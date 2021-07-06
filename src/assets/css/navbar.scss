@@ -17,7 +17,7 @@
     }
     a 
     {
-        transition: 0.3s;
+        // transition: 0.3s;
         &:hover 
         {
                 border-bottom: 8px solid gray;
@@ -128,7 +128,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                transition: 0.3s;
+                // transition: 0.3s;
                 border: 1px solid transparent;
                 opacity: 0;
                 &:hover 

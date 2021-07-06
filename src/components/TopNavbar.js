@@ -333,12 +333,12 @@ function TopNavbar(props) {
                                         {<PersonIcon/> }
                                     </button>}
 
-                                    {elements  && <button className='bookmarkMember BtnBookmarks' onClick={() => memberCheck('/memberarea/bookmarks')}>
+                                    {(elements  && UserData?.id !== undefined)  && <button className='bookmarkMember BtnBookmarks' onClick={() => memberCheck('/memberarea/bookmarks')}>
                                         <StarIcon/> 
                                     </button>}
 
 
-                                    {elements && <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={openBucketF} >  
+                                    {elements  && <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={openBucketF} >  
                                         <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {money === "₼" ?  FinalPrice : ( FinalPrice / 1.7).toFixed(1)} {money}</span>} 
                                     </button>}
                                     { 
@@ -412,7 +412,7 @@ function TopNavbar(props) {
                                     {<PersonIcon/> }
                                 </button>}
 
-                                {elements  && <button className='bookmarkMember BtnBookmarks' onClick={() => memberCheck('/memberarea/bookmarks')}>
+                                {(elements && UserData?.id !== undefined)  && <button className='bookmarkMember BtnBookmarks' onClick={() => memberCheck('/memberarea/bookmarks')}>
                                     <StarIcon/> 
                                 </button>}
                                 {elements &&

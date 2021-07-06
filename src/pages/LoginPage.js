@@ -16,11 +16,10 @@ toast.configure()
 
 function LoginPage(props) {
     const context = useContext(ProductListingContext)
-    const {ProdutData, openRegisterF , closeRegisterF , setUserData , setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+    const {UserStatus , loader, setloader, setMinOrder,setnumber1, setnumber2,setTopCategory,setmoney, setUserStatus ,setItems,  ProdutData, openRegisterF , closeRegisterF , setUserData , setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
   
     const notify = () => toast.info(lang === "AZ" && `Hesabınıza daxil oldunuz!` || lang === "EN" && `You have logged in to your account!` || lang === "RU" && `Уведомление удалено!`);
     // const notifyW = () => toast.error("Daxil etdiyiniz məlumatlar yanlışdır!");
-    const [loader, setloader] = useState(false)
     const clickHandler = () => {
         CloseLoginF()
         openRegisterF()
@@ -32,11 +31,101 @@ function LoginPage(props) {
     }
 
     const [Error, setError] = useState(false)
-    const onSubmit =  (values) => {
+    const sendGetRequest10 = async () => {
         setloader(true)
-        axios.post('https://nehra.az/public/api/check', { email: values.email ,  password: values.password }  , headers )
-         .then(res => (setloader(false) , res.status === 200 && console.log(res)  , localStorage.setItem("LoginUserData" , JSON.stringify(res.data.user)) , setUserData(res.data.user) , CloseLoginF() , notify())) 
-         .catch(err => (setError(true) , setloader(false)))
+        try {
+          let resp = ""
+          if(JSON.parse(localStorage.getItem('LoginUserData')) !== null)
+          { 
+            //#region Status setting 
+            const respStatus  = await axios.get(`https://nehra.az/public/api/checkstatus?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
+              if(respStatus.data === 0)
+              {
+                setUserStatus(false)
+              }
+              else 
+              {
+                setUserStatus(true)
+              }
+            //#endregion Status setting 
+            resp  = await axios.get(`https://nehra.az/public/api/settings?user_id=${JSON.parse(localStorage.getItem('LoginUserData'))?.id}`)
+            setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
+            setMinOrder(resp.data.min_order_amount)
+            setnumber1(resp.data.phone1) 
+            setnumber2(resp.data.phone2)
+            setTopCategory(resp.data.featuredcats)
+            setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
+            setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
+            setSelectedsProduct(JSON.parse(resp.data.selected.text))
+            if(resp.data.cart.text !== null)
+            {
+              const dataparsed = JSON.parse(resp.data.cart.text)
+              setMinOrder()
+              if(dataparsed !== undefined && dataparsed !== null && dataparsed !== "")
+              {
+                setProdutData((dataparsed.product      !== null  && dataparsed.product      !== undefined && dataparsed.product      !== "")   ?  dataparsed.product  : [])
+                setFinalPrice((dataparsed.FinalPrice   !== null  && dataparsed.FinalPrice   !== undefined && dataparsed.FinalPrice   !== "")   ?  parseFloat(dataparsed.FinalPrice)  : 0)
+                setFinalWeight((dataparsed.FinalWeight !== null  && dataparsed.FinalWeight  !== undefined && dataparsed.FinalWeight  !== "")   ?  parseFloat(dataparsed.FinalWeight)  : 0)
+                setFinalGoods((dataparsed.FinalGoods   !== null  && dataparsed.FinalGoods   !== undefined && dataparsed.FinalGoods   !== "")   ?  parseInt(dataparsed.FinalGoods)  : 0)
+                setFinalBonus((dataparsed.FinalBonus   !== null  && dataparsed.FinalBonus   !== undefined && dataparsed.FinalBonus   !== "")   ?  parseInt(dataparsed.FinalBonus)  : 0)
+                setDateGoods((dataparsed.DateGoods     !== null  && dataparsed.DateGoods    !== undefined && dataparsed.DateGoods    !== "")   ?  dataparsed.DateGoods  : [])
+                setItems((dataparsed.product      !== null  && dataparsed.product      !== undefined && dataparsed.product      !== "")   ?  dataparsed.product  : [])
+              }
+            }
+            else 
+            {
+                setProdutData([])
+                setFinalPrice(0)
+                setFinalWeight(0)
+                setFinalGoods(0)
+                setFinalBonus(0)
+                setDateGoods([])
+                setItems([])
+            }
+          }
+          else if (JSON.parse(localStorage.getItem('LoginUserData')) === null)
+          {
+            setProdutData(localStorage.getItem('ProdutData')  !== null   ?  JSON.parse(localStorage.getItem('ProdutData')) : [])
+            setFinalPrice(localStorage.getItem('FinalPrice')!== null   ?  parseFloat(localStorage.getItem('FinalPrice')) : 0 )
+            setFinalWeight(localStorage.getItem('FinalWeight') !== null ? parseFloat(localStorage.getItem('FinalWeight')) : 0)
+            setFinalGoods(localStorage.getItem('FinalGoods')   !== null  ?  parseInt(localStorage.getItem('FinalGoods')) : 0)
+            setFinalBonus(localStorage.getItem('FinalBonus')   !== null  ?  parseInt(localStorage.getItem('FinalBonus')) : 0)
+            setDateGoods(localStorage.getItem('DateGoods')  !== null  ?  JSON.parse(localStorage.getItem('DateGoods')) : [])
+            setItems(localStorage.getItem('ProdutData')  !== null   ?  JSON.parse(localStorage.getItem('ProdutData')) : [])
+            console.log('not')
+            resp = await axios.get(`https://nehra.az/public/api/settings`)
+            setTopCategory(resp.data.featuredcats)
+            setMinOrder(resp.data.min_order_amount)
+            setnumber1(resp.data.phone1) 
+            setnumber2(resp.data.phone2)
+            setSelectedsProduct()
+            setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
+            setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
+            setUserStatus(false)
+          }
+          else 
+          {}
+            setloader(false)
+        } 
+        
+        catch (err) {
+          console.error(err);
+            setloader(false)
+          setTimeout(() => {
+            sendGetRequest10()
+          }, 60000);
+        }
+      };
+
+    const onSubmit = async (values) => {
+        const res = await axios.post('https://nehra.az/public/api/check', { email: values.email ,  password: values.password }  , headers )
+        setloader(false)
+        console.log(res) 
+        localStorage.setItem("LoginUserData" , JSON.stringify(res.data.user)) 
+        setUserData(res.data.user) 
+        sendGetRequest10()
+        CloseLoginF() 
+        notify() 
     }
 
     const initialValues = {

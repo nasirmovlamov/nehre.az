@@ -54,6 +54,8 @@ function HomePage(props) {
         {
             await   dataRenew()
         }
+        console.log("%cDayan\u0131n!", "font-size: 50px; color: red; -webkit-text-stroke:1px black; font-weight: bold;")
+        console.log("%cBrauzerin bu funksionall\u0131\u011f\u0131 proqram\xe7\u0131lar \xfc\xe7\xfcn n\u0259z\u0259rd\u0259 tutulmu\u015fdur. \u018fg\u0259r kimsl\u0259rs\u0259 siz\u0259 h\u0259r hans\u0131 bir funksionall\u0131\u011f\u0131 aktiv etm\u0259k v\u0259 ya kimins\u0259 hesab\u0131na m\xfcdaxil\u0259 etm\u0259k ad\u0131 il\u0259 bura n\u0259 is\u0259 kopyalay\u0131b yap\u0131\u015fd\u0131rma\u011f\u0131 deyibs\u0259, bu f\u0131r\u0131ldaq\xe7\u0131l\u0131qd\u0131r v\u0259 onlara sizin hesab\u0131n\u0131za m\xfcdaxil\u0259 etm\u0259k imkan\u0131 yaradacaqd\u0131r.", "font-size: 16px;")
     }, [])
 
     const topCards = []

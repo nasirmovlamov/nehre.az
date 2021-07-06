@@ -39,7 +39,7 @@ function Contacts(props) {
         setinitialValues({... initialValues , name: UserData.name , email:UserData.email, phone:UserData.phone})
         setSelectedDate(UserData.birthdate)
     }, [])
-    
+
 
     const phoneRegExp = /([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/
     const [selectedDate, setSelectedDate] = React.useState(new Date('2000-08-18T21:11:54'));
@@ -86,7 +86,7 @@ function Contacts(props) {
         try {
             const res = await axios.post('https://nehra.az/public/api/updateuser', dt  , headers )
             setloader(false) 
-            localStorage.setItem("UoginUserData" , JSON.stringify(res.data))
+            localStorage.setItem("LoginUserData" , JSON.stringify(res.data))
             notify()
             console.log("ys")
         } catch (error) {

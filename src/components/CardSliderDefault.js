@@ -2,7 +2,7 @@ import React from 'react'
 import "../assets/css/cardSlider1.css"
 import Button1 from './Button1'
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from '@material-ui/core/Skeleton';
 
 function CardSliderDefault(props) {
     

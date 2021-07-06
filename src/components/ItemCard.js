@@ -19,7 +19,7 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import axios from 'axios';
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from '@material-ui/core/Skeleton';
 import {ProductListingContext} from '../components/ProductListingProvider'
 import defP from '../assets/images/defP.png'
 import {ToastContainer, toast} from 'react-toastify';
@@ -27,7 +27,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookies'
 import DateCropLang from './DateCropLang';
 import DateSelect from './DateMoment'
-import Rating from '@material-ui/lab/Rating';
+import Rating from '@material-ui/core/Rating';
 
 
 function ItemCard(props) {

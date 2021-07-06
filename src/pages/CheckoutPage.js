@@ -269,6 +269,8 @@ moment.locale(lang)
         let WholeBonus = 0
         for (let i = 0; i < newarr.length; i++) {
             let bonus = 0
+            console.log("1" + newarr[i].product?.category_data?.cashback)
+            console.log("2" + newarr[i].product.cashback)
             if (newarr[i].product?.category_data?.cashback > 0 && newarr[i].product?.category_data !== null) {
                 bonus = parseInt(newarr[i].product.category_data.cashback)
             }
@@ -277,9 +279,8 @@ moment.locale(lang)
                 bonus = parseInt(newarr[i].product.cashback)
             }
 
-            WholeBonus += parseInt(bonus)
+            WholeBonus += (parseInt(bonus) * parseInt(newarr[i].count))
             WholeCost += (parseInt(newarr[i].cost) * parseInt(newarr[i].count))
-            console.log(newarr[i].unitType);
 
             if (parseInt(newarr[i].unitType) === 4) {
                 WholeWeight += (parseFloat(newarr[i].weight / 1000) * parseInt(newarr[i].count))
@@ -310,6 +311,7 @@ moment.locale(lang)
         setFinalGoods(WholeCount)
         setProdutData(newarr)
         setFinalWeight(WholeWeight)
+        setFinalBonus(WholeBonus)
 
         localStorage.setItem('FinalWeight' ,WholeWeight)
         localStorage.setItem('FinalGoods' ,  WholeCount)

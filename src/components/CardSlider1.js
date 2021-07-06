@@ -1,7 +1,7 @@
 import React, { useRef, useContext } from 'react'
 import "../assets/css/cardSlider1.css"
 import Button1 from './Button1'
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from '@material-ui/core/Skeleton';
 import {ProductListingContext} from '../components/ProductListingProvider'
 
 function CardSlider1(props) {

@@ -6,6 +6,18 @@
   background-color: #085096;
   color: white;
   font-size: 18px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.moreAbout:hover {
+  border: none;
+  width: 120px;
+  height: 40px;
+  border-radius: 25px;
+  background-color: #2d83d8;
+  color: white;
+  font-size: 18px;
 }
 
 .moreAbout:disabled {

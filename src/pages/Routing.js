@@ -55,7 +55,6 @@ function Routing() {
             if(resp.data.cart.text !== null)
             {
               const dataparsed = JSON.parse(resp.data.cart.text)
-              setMinOrder()
               if(dataparsed !== undefined && dataparsed !== null && dataparsed !== "")
               {
                 setProdutData((dataparsed.product      !== null  && dataparsed.product      !== undefined && dataparsed.product      !== "")   ?  dataparsed.product  : [])
@@ -87,13 +86,12 @@ function Routing() {
             setFinalBonus(localStorage.getItem('FinalBonus')   !== null  ?  parseInt(localStorage.getItem('FinalBonus')) : 0)
             setDateGoods(localStorage.getItem('DateGoods')  !== null  ?  JSON.parse(localStorage.getItem('DateGoods')) : [])
             setItems(localStorage.getItem('ProdutData')  !== null   ?  JSON.parse(localStorage.getItem('ProdutData')) : [])
-            console.log('not')
             resp = await axios.get(`https://nehra.az/public/api/settings`)
             setTopCategory(resp.data.featuredcats)
             setMinOrder(resp.data.min_order_amount)
             setnumber1(resp.data.phone1) 
             setnumber2(resp.data.phone2)
-            setSelectedsProduct()
+            setSelectedsProduct([])
             setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
             setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
             setUserStatus(false)

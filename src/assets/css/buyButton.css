@@ -13,10 +13,16 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .buyButton img {
   -webkit-filter: invert(100%);
           filter: invert(100%);
+}
+
+.buyButton:hover {
+  background-color: #7edb0d;
 }
 /*# sourceMappingURL=buyButton.css.map */

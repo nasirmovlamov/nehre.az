@@ -24,8 +24,6 @@
 }
 
 .navbar a {
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
   width: 100px;
   border-bottom: 8px solid transparent;
   text-decoration: none;
@@ -170,8 +168,6 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
   border: 1px solid transparent;
   opacity: 0;
 }

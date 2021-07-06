@@ -13,7 +13,7 @@ import _ from 'lodash'
 import axios from 'axios';
 import {ProductListingContext} from '../components/ProductListingProvider'
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from '@material-ui/core/Skeleton';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import moment from 'moment';
 import 'moment/locale/az';
