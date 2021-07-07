@@ -91,7 +91,7 @@ function Combo(props) {
         var WholeGoods = FinalGoods
         var WholeBonus = FinalBonus
         var datesCombo = []
-        var productsCombo = []
+        var productsCombo = ProdutData
 
         const addItemCombo  = (num,price , weight , unitType , dates , name , product) => {
             if (parseInt(unitType) === 4) {
@@ -124,11 +124,12 @@ function Combo(props) {
 
             var index = ProdutData.findIndex(x=> x.id === num);
             if (index === -1) {
+                console.log(product)
                 productsCombo = [...productsCombo , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType , product}]
             }
             else 
             {
-                var newArr = [... ProdutData]
+                var newArr = [... productsCombo]
                 newArr[index].count++
                 productsCombo = newArr
             }
@@ -156,12 +157,11 @@ function Combo(props) {
         
         setFinalPrice((parseInt(WholePrice)))
         setFinalWeight((parseFloat(WholeWeight)))
-        setProdutData((productsCombo))
+        setProdutData(productsCombo)
         setFinalGoods((parseInt(WholeGoods)))
         setDateGoods(uniquedatesCombo)
-        console.log(uniquedatesCombo)
         setFinalBonus(WholeBonus)
-
+        console.log(productsCombo)
         addCart(productsCombo , WholePrice, WholeWeight, WholeGoods, WholeBonus,datesCombo )
 
 
