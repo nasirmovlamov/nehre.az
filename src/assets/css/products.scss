@@ -6,8 +6,20 @@
     grid-gap: 30px;
     padding-bottom: 50px;
     padding-top: 50px;
+    
     .overlayImg
     {
         width: 12%;
+    }
+}
+@media screen and (max-width:650px) {
+    .products
+    {
+        width: 100%;
+        display: flex;
+        flex-wrap:wrap;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
     }
 }

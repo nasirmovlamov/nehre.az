@@ -12,13 +12,25 @@
     display: flex;
     z-index: 1;
     flex-direction: column;
+    .buttonCont
+    {
+        display: flex;
+        width: 100%;
+        height: auto;
+        justify-content: flex-end;
+        button 
+        {
+            display: flex;
+        }
+    }
     .phoneCont
     {
         display: flex;
+        width: 100%;
         color: black;
         input 
         {
-            width: 285px !important;
+            // width: 285px !important;
         }
         span 
         {
@@ -82,19 +94,16 @@
     }
     .removeModalBtn 
     {
-        float: right;
         border: none;
         font-size: 45px;
         color: rgba(0,0,0,0.5);
         transition: 0.2s color;
         background-color: transparent;
         height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        width: 40px;
         padding: 0px;
         margin: 0px;
-        margin-right: -30px;
+        // margin-right: -30px;
         &:hover 
         {
             color:  rgba(0,0,0,0.8);
@@ -111,7 +120,7 @@
     .login
     {
         margin-top: 20px;
-        width: 304px;
+        width: 100%;
         font-size: 18px;
         height: auto;
         display: grid;
@@ -119,10 +128,10 @@
         font-family: 'DaxlineR';
         .value 
         {
-            width: 304px;
+            width: 95%;
             height: 36px;
             font-size: 15px;
-            padding-left: 20px;
+            padding-left: 5%;
             border: none;
             background-color: #F2F0ED;
             border-radius: 5px;
@@ -200,7 +209,12 @@
         margin-top: 0px;
         display: flex;
         flex-direction: column;
+        align-items: flex-start;
         row-gap: 5px;
+        input 
+        {
+            width: 100%;
+        }
     }
     .authType
     {
@@ -217,4 +231,14 @@
 
     }
 
+}
+
+
+@media screen and (max-width:650px) {
+    .registrationPage
+    {
+        width: 95% !important;
+        padding-left: 2.5%;
+        padding-right: 2.5%;
+    }
 }

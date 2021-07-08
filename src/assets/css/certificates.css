@@ -143,4 +143,31 @@
   color: white;
   z-index: 2;
 }
+
+@media screen and (max-width: 600px) {
+  .imageCert {
+    border: 1px solid white;
+    width: 100%;
+    padding: 0px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .imageCert .close, .imageCert .download {
+    width: 100%;
+  }
+  .imageCert img {
+    width: 100%;
+  }
+}
 /*# sourceMappingURL=certificates.css.map */

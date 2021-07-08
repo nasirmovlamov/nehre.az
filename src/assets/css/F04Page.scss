@@ -10,4 +10,13 @@
     justify-content: center;
     align-items: center;
     row-gap: 50px;
+    @media screen and (max-width:650px) {
+        text-align: center;
+        font-size: 18px;
+        img 
+        {
+            width: 310px;
+            height: auto;
+        }
+    }
 }

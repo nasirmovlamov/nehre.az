@@ -26,7 +26,7 @@ function Bonuses() {
     return (
         <div className="cabinetCont address deposites bonuses">
         <p className="title"> {lang === "AZ" && `Bonuslar` || lang === "EN" && ` Bonuses` || lang === "RU" && `Бонусы`}</p>
-        <p className="myAdress ">{lang === "AZ" && `Cari Bonusunuz ` || lang === "EN" && `Your Current Bonuse is  ` || lang === "RU" && `Ваш текущий бонус`}<span className="money"> 10$ </span></p>
+        <p className="myAdress ">{lang === "AZ" && `Cari Bonusunuz ` || lang === "EN" && `Your Current Bonuse is  ` || lang === "RU" && `Ваш текущий бонус`}<span className="money"> 0 {money}</span></p>
         <table>
                 <tr className="start"> <td>{lang === "AZ" && `Tarix` || lang === "EN" && `Date` || lang === "RU" && `Дата`}</td> <td>{lang === "AZ" && `Qiymət` || lang === "EN" && `Price` || lang === "RU" && `Цена`}</td> </tr>
                 {Deposites.length > 0 ?

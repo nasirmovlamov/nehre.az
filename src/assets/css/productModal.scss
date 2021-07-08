@@ -413,7 +413,8 @@
     {
         padding-left: 2.5%;
         padding-right: 2.5%;
-        margin-top: 20px;
+        // margin-top: 20px;
+        padding-top: 20px;
         background-color: #f0f4f5;
         .button 
         {
@@ -493,6 +494,7 @@
             flex-wrap: wrap;
             justify-content: center;
             padding-right: 0px;
+            background-color: white;
             margin-right: 0px;
             width: 100%;
             .sliderCont

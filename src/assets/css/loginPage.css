@@ -23,6 +23,12 @@
 }
 
 .loginPage .buttonCont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -ms-flex-item-align: end;
       align-self: flex-end;
   width: 40px;
@@ -129,5 +135,13 @@
   font-family: 'DaxlineR';
   margin-top: 4px;
   color: #085096;
+}
+
+@media screen and (max-width: 650px) {
+  .loginPage {
+    width: 95% !important;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+  }
 }
 /*# sourceMappingURL=loginPage.css.map */

@@ -216,7 +216,7 @@
                     display: flex;
                     align-items: center;
                     padding: 5px;
-                    font-family: 'DaxlinePro';
+                    font-family: 'DaxlineR';
                     color: gray;
                     border-radius: 5px;
                     .buttons
@@ -690,7 +690,7 @@
         .menu
         {
             width: 90%;
-            height: 22px;
+            // height: 22px;
             padding: 13px;
             padding-left: 5%;
             padding-right: 5%;
@@ -698,17 +698,21 @@
             justify-content: space-between;
             align-items: center;
             text-align: center;
+            overflow: hidden;
             border-bottom: 1px solid lightgray;
             p 
             {
                 font-size: 20px;
+                width: 220px;
+                display: flex;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
                 font-family: "DaxlineR";
                 width: 100%;
                 color: gray;
                 margin: 0px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+               
             }
             button 
             {

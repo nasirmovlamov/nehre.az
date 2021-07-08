@@ -6,8 +6,6 @@
       justify-content: space-around;
   width: 1200px;
   background: #F6F6F6;
-  position: -webkit-sticky;
-  position: sticky;
   top: 30px;
 }
 

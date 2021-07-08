@@ -218,11 +218,20 @@ a, button
         border-radius: 30px;
         padding: 50px;
         padding-top: 0px;
+        &:hover
+        {
+            .title3
+            {
+                color: #ff7a2c;
+            }
+        }
         .title3
         {
             text-align: start;
             font-size: 40px;
+            font-family: 'DaxlineR';
             margin-bottom: 15px;
+            color: #3d332d;
         }
         .assortmentCont
         {
@@ -254,14 +263,14 @@ a, button
         {
             font-size:15px;
             color: rgba(255,255,255,0.8);
-            font-family: "DaxlinePro";
+            font-family: "DaxlineR";
             margin-top: 30px;
         }
         .titleBanner
         {
             font-size: 40px;
             color: white;
-            font-family: "DaxlinePro";
+            font-family: "DaxlineR";
         }
     }
 
@@ -283,7 +292,7 @@ a, button
             color: #3d332d;
             text-align: start;
             font-size: 40px;
-            font-family: "DaxlinePro";
+            font-family: "DaxlineR";
             margin-bottom: 0;
             margin-top: 30px;
             font-weight: 700;
@@ -331,6 +340,7 @@ a, button
         }
         .itemsCont , .ourAssortment
         {
+            width: 95%;
             padding: 0px;
             padding-top: 24px;
             padding-bottom: 24px;
@@ -343,10 +353,10 @@ a, button
             .title3
             {
                 margin-top: 0px;
-                color: #3d332d;
+                // color: white;
                 text-align: start;
                 font-size: 40px;
-                font-family: "DaxlinePro";
+                font-family: "DaxlineR";
                 font-weight: 700;
             }
         }
@@ -383,6 +393,9 @@ a, button
         }
         .perfectSet
         {
+            display: flex;
+            justify-content: center;
+            width: 100%;
             .textCont2
             {
                 .title2
@@ -392,6 +405,7 @@ a, button
                     color: #3D332D;
                 }
                 text-align: center;
+                display: none;
             }
             .desc 
             {
@@ -429,18 +443,9 @@ a, button
                 color: #3d332d;
                 text-align: start;
                 font-size: 40px;
-                font-family: "DaxlinePro";
+                font-family: "DaxlineR";
                 font-weight: 700;
             }
         }
-    }
-}
-//Enable Moble
-@media screen and (max-width:650px) {
-    .homePage 
-    {
-        
-        
-        
     }
 }

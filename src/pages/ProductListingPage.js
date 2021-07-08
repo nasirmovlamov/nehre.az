@@ -44,7 +44,8 @@ function ProductListingPage(props) {
       try {
           const resp = await axios.get(`https://nehra.az/public/api/category/${id}`)
           setCategoryData(resp.data)
-          setProductData(resp.data.products_of_cat)
+          setProductData(resp.data.main_cat_products)
+          setProductData([...ProductData , resp.data.top])
       } catch (err) {
           // Handle Error Here
           console.error(err);
@@ -55,8 +56,17 @@ function ProductListingPage(props) {
       setProductData([])
       try {
           const resp = await axios.get(`https://nehra.az/public/api/category/${id} + ${parameter !== "" ? `?parameter=${parameter}` : ""}`)
-          setloader(false)
-          setProductData(resp.data.products_of_cat)
+          if(resp.data.main === 1)
+          {
+            setProductData(resp.data.main_cat_products)
+            setProductData([...ProductData , resp.data.top])
+            setloader(false)
+          }
+          else 
+          {
+            setloader(false)
+            setProductData(resp.data.products_of_cat)
+          }
       } catch (err) {
           setloader(false)
           console.error(err);

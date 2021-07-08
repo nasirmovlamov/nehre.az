@@ -155,4 +155,18 @@
   padding-left: 20px;
   padding-right: 20px;
 }
+
+@media screen and (max-width: 650px) {
+  .contactCont123 .text {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: start !important;
+        -ms-flex-align: start !important;
+            align-items: flex-start !important;
+  }
+}
 /*# sourceMappingURL=contact.css.map */

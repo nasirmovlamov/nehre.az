@@ -33,7 +33,7 @@ function Description(props) {
             <div className="descAbout">
                 <div className="part1">
                     
-                    { (Product?.ceki_hecm !== null) && <p className="textCont"><p className="label">{(lang === "AZ" && `Çəki`) || (lang === "EN" && `Weight`) || (lang === "RU" && `Масса`)}:</p> <p className="value">{Product?.ceki_hecm + " " + (parseInt(Product?.unit?.id) === 1 &&  ((lang === "AZ" && `kq`) || (lang === "EN" && 'kq') || (lang === "RU" && 'кг')) || parseInt(Product?.unit?.id) === 4 &&  ((lang === "AZ" && `gr`) || (lang === "EN" && 'gr') || (lang === "RU" && 'гр'))|| parseInt(Product?.unit?.id) === 2 && ((lang === "AZ" && `l`) || (lang === "EN" && 'l') || (lang === "RU" && 'л')) )}</p></p>}
+                    { (Product?.ceki_hecm !== null) && <p className="textCont"><p className="label">{(lang === "AZ" && `Çəki`) || (lang === "EN" && `Weight`) || (lang === "RU" && `Масса`)}:</p> <p className="value">{((Product.unit.id === 2 || Product.unit.id === 4 || Product.unit.id === 1) ? Product?.ceki_hecm : 1 ) + " " + ((lang === "AZ" && Product?.unit.ad) || (lang === "EN" && Product?.unit.ad_en) || (lang === "RU" && Product?.unit.ad_ru))} </p></p>}
                     
                     
                     

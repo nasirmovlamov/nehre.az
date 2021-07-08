@@ -95,17 +95,16 @@ function CheckoutCard(props) {
                                 <div className='mobileCheckout'>
                                     <div className="btnCont">
                                         <Button1 function={() => removeItem(product)} value={<RemoveIcon/>} color="#085096"/>
-                                        <p className="priceValue">{ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.count}</p>
+                                        <p className="priceValue">{product?.id !== undefined ? (ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.count) : 0}</p>
                                         <Button1 function={() => addItem(product)} value={<AddIcon/>}  color="#085096"/>
-                                        {console.log(product)}
                                     </div>
-                                    <p className="price">{product?.id !== undefined  ? (money === "₼" ? (ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.count *  ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.cost) : (ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.count * ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.cost / 1.7).toFixed(1) ) : 0}   {money}</p>
+                                    <p className="price">{ProdutData[ProdutData.findIndex(x=> x.id === product?.id)] !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.count *  (money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.cost : (ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.cost / 1.7))).toFixed(1) : 0}  {money}</p>
                                     <button onClick={() => deleteCard(product)} className="delete"><DeleteIcon/></button>
                                 </div>    
                             }
                             
-                        </div>
-                        <hr/>
+            </div>
+            <hr/>
         </>
     )
 }

@@ -12,6 +12,28 @@
     top: 0px;
     
 }
+.scrollToTop
+{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: #7dbf2a;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    bottom: 50px;
+    right: 50px;
+    color: white;
+    z-index: 3000;
+    svg 
+    {
+        width: 45px;
+        height: 45px;
+    }
+}
 .Toastify__toast-container
 {
     width: 350px !important;
@@ -88,7 +110,6 @@
 @media screen and (max-width:622px) {
     .header
     {
-        height: 0px !important;
-        
+        height:auto !important;
     }
 }

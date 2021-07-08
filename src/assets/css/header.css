@@ -18,6 +18,37 @@
   top: 0px;
 }
 
+.scrollToTop {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background-color: #7dbf2a;
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  bottom: 50px;
+  right: 50px;
+  color: white;
+  z-index: 3000;
+}
+
+.scrollToTop svg {
+  width: 45px;
+  height: 45px;
+}
+
 .Toastify__toast-container {
   width: 350px !important;
 }
@@ -113,7 +144,7 @@
 
 @media screen and (max-width: 622px) {
   .header {
-    height: 0px !important;
+    height: auto !important;
   }
 }
 /*# sourceMappingURL=header.css.map */

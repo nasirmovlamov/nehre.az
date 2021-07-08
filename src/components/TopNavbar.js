@@ -417,6 +417,7 @@ function TopNavbar(props) {
                                 <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={openBucketF} >  
                                         <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {money === "₼" ? FinalPrice :(FinalPrice / 1.7).toFixed(1)} {money}</span>} 
                                 </button>}
+                                
                             </div>
                         </div>
                 </div>    

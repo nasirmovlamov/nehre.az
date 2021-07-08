@@ -277,7 +277,7 @@
   display: flex;
   align-items: center;
   padding: 5px;
-  font-family: 'DaxlinePro';
+  font-family: 'DaxlineR';
   color: gray;
   border-radius: 5px;
 }
@@ -814,7 +814,6 @@
   }
   .swiperCMember .menu {
     width: 90%;
-    height: 22px;
     padding: 13px;
     padding-left: 5%;
     padding-right: 5%;
@@ -828,23 +827,22 @@
         -ms-flex-align: center;
             align-items: center;
     text-align: center;
+    overflow: hidden;
     border-bottom: 1px solid lightgray;
   }
   .swiperCMember .menu p {
     font-size: 20px;
+    width: 220px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-family: "DaxlineR";
     width: 100%;
     color: gray;
     margin: 0px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
   }
   .swiperCMember .menu button {
     font-size: 20px;

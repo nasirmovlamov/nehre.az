@@ -103,10 +103,7 @@ function Routing() {
         
         catch (err) {
           console.error(err);
-            setloader(false)
-          setTimeout(() => {
-            sendGetRequest10()
-          }, 60000);
+          setloader(false)
         }
       };
     useEffect(   () => {

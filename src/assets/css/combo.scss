@@ -201,10 +201,26 @@
     }
 }
 
+@media screen and (max-width:1250px) {
+    .comboPage
+    {
+        width: 90%;
+    }
+}
+
 @media screen and (max-width:650px) {
     .productPage
     {
         width: 90%;
     }
-
+    .comboPage
+    {
+        width: 95%;
+    }
+    .productsCont
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }

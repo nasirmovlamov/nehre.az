@@ -119,3 +119,15 @@
     }
     
 }
+
+@media screen and (max-width:650px) {
+    .contactCont123
+    {
+        .text 
+        {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start !important;
+        }
+    }
+}

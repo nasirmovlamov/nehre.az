@@ -20,4 +20,15 @@
           align-items: center;
   row-gap: 50px;
 }
+
+@media screen and (max-width: 650px) {
+  .F04Page {
+    text-align: center;
+    font-size: 18px;
+  }
+  .F04Page img {
+    width: 310px;
+    height: auto;
+  }
+}
 /*# sourceMappingURL=F04Page.css.map */

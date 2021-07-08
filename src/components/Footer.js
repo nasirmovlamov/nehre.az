@@ -16,7 +16,6 @@ function Footer() {
             <div className="footerCont">
                 <div className='elementsCont'> 
                     <h3>{(lang === "AZ" && `Müştərilər üçün`) || (lang === "EN" && `For customers`) || (lang === "RU" && `Заказчикам`)} </h3>
-                    <a href='/reviews'>{(lang === "AZ" && `Rəylər`) || (lang === "EN" && `Reviews`) || (lang === "RU" && `Отзывы`)} </a>
                     <a href='/bonuses'>{(lang === "AZ" && `Bonuslar`) || (lang === "EN" && `Bonuses`) || (lang === "RU" && `Бонусы`)}  </a>
                     <a href='/privacy-policy' >{(lang === "AZ" && `Məxfilik Siyasəti`) || (lang === "EN" && `Privacy Policy`) || (lang === "RU" && `Политика конфиденциальности`)}  </a>
                 </div>

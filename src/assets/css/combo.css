@@ -241,9 +241,30 @@
   background-color: #113d77;
 }
 
+@media screen and (max-width: 1250px) {
+  .comboPage {
+    width: 90%;
+  }
+}
+
 @media screen and (max-width: 650px) {
   .productPage {
     width: 90%;
+  }
+  .comboPage {
+    width: 95%;
+  }
+  .productsCont {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
 }
 /*# sourceMappingURL=combo.css.map */

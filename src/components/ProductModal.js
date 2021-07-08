@@ -54,10 +54,9 @@ function ProductModal(props) {
         const token = Cookies.getItem('XSRF-TOKEN')
         const [ProductSimilar, setProductSimilar] = useState([])
         const {ProdutData, discountHandler, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus, UserData} = context
-      
         const notify = (rate) => toast.success(`${rate === null ? 5 : rate}   Ulduz göndərildi` , {draggable: true,});
         const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
-        
+        const [totalreview, settotalreview] = useState(0)
     //#endregion VALUES 
     
     // #region CSSSTYLE
@@ -90,7 +89,12 @@ function ProductModal(props) {
             const resp1 = await axios.get(`https://nehra.az/public/api/getsimillars/${id}/${resp?.data?.category_data?.id}`)
             setvalueReq(99)
             setProductSimilar(resp1.data) 
+            const res =  await axios.get(`https://nehra.az/api/reviews?post_id=${id}`)
+            settotalreview(res.data.total)
+            
             setvalueReq(100)
+
+
         }
 
         const clickValueHandler = (num) => {
@@ -252,7 +256,7 @@ function ProductModal(props) {
                     <div className="aboutCont">
                         <p className="titleItem">{lang === "AZ" && Product?.title_az || lang === "EN" && Product?.title_en || lang === "RU" && Product?.title_ru}</p>
                         <div className="reviewCont">
-                            <div className="starsAndReviews"><Rating value={valueR} onChange={(event , newValue) => ratingHandler(newValue)}/>  <div className="reviews">  {(lang === "AZ" && `Şərh sayı - `) || (lang === "EN" && `Reviews - `) || (lang === "RU" && `Отзывы - `)} {Product?.reviews?.length}</div>
+                            <div className="starsAndReviews"><Rating value={valueR} onChange={(event , newValue) => ratingHandler(newValue)}/>  <div className="reviews">  {(lang === "AZ" && `Şərh sayı - `) || (lang === "EN" && `Reviews - `) || (lang === "RU" && `Отзывы - `)} {totalreview}</div>
                             <div className='reviewSendCont'><textarea value={reviewAbout} onChange={(e) => setreviewAbout(e.target.value)} type="text" placeholder={(lang === "AZ" && `Fikrinizi bildirin`) || (lang === "EN" && `Let us know what you think`) || (lang === "RU" && `Поделитесь с нами вашими мыслями`)}/>  <div className="buttonContReviewSend"><div className="rateCont"><Rating value={sendStar} onChange={(e , newvalue) => setsendStar(newvalue)} name="read-only"/> {sendStar} {(lang === "AZ" && `Ulduz göndərilir`) || (lang === "EN" && `Star is sending`) || (lang === "RU" && `Звезда отправляет`)} </div>  <div className="Buttons"> <button onClick={()=>sendReview()} className='submit'>{(lang === "AZ" && `Göndər`) || (lang === "EN" && `Send`) || (lang === "RU" && `Отправить`)}</button><button onClick={() => cancelReviewSend()} className='cancel'>{(lang === "AZ" && `Ləğv et `) || (lang === "EN" && `Cancel`) || (lang === "RU" && `Отмена`)}</button></div></div> </div></div>
                             <button onClick={() => selectItem(Product)} className="favorites">{indexSelected === -1 ?  <FavoriteBorderIcon/> :  <FavoriteIcon/>}</button> 
                         </div>

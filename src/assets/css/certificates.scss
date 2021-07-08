@@ -99,3 +99,24 @@
         }
     }
 }
+
+@media screen and (max-width:600px) {
+    .imageCert
+    {
+        border: 1px solid white;
+        width: 100%;
+        padding: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        .close , .download
+        {
+            width: 100%;
+        }
+        img 
+        {
+            width: 100%;
+        }
+    }
+}

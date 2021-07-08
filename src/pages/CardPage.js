@@ -22,11 +22,14 @@ import { set } from 'js-cookie'
 import 'moment/locale/az';
 import 'moment/locale/ru';
 import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function CardPage(props) {
     const context = useContext(ProductListingContext)
-    const {ProdutData,openCheckoutF, setProdutData, closeBucketF, openBucketF, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,clearBucket ,setItems, setMinOrder, Items, MinOrder} = context
-  
+    const {ProdutData, UserStatus , openCheckoutF, setProdutData, closeBucketF, openBucketF, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,clearBucket ,setItems, setMinOrder, Items, MinOrder} = context
+    const notifyLogin = () => toast.warning((lang === "AZ" && `Hesabınıza daxil olun!` || lang === "EN" && `Log in to your account!` || lang === "RU" && `Войдите в свою учетную запись!`) , {draggable: true,});
+
     const functionHandler = () => {
         openBucketF()
         closeBucketF()
@@ -85,7 +88,17 @@ function CardPage(props) {
 
 
 
-
+    const goCheckout = () => {
+        if (UserStatus) {
+            openCheckoutF()
+        }
+        else 
+        {
+            notifyLogin()
+            closeBucketF()
+            OpenLoginF()
+        }
+    }
 
     return (
         <div className="cardCont">
@@ -121,7 +134,7 @@ function CardPage(props) {
                         <div className="goods"><p className="key">{lang === "AZ" && `Ümumi paketin çəkisi` || lang === "EN" && `Weight Parcel` || lang === "RU" && `Вес посылки`}</p> <p className="value ">{Math.abs(FinalWeight.toFixed(2))} {(lang === "AZ" && `kq`) || (lang === "EN" && 'kq') || (lang === "RU" && 'кг')}</p> </div> 
                         <div className="goods"><p className="key">{lang === "AZ" && `Ümumi məhsulların sayı` || lang === "EN" && `Total number of products` || lang === "RU" && `Общее количество продуктов`} </p> <p className="value ">{FinalGoods}</p> </div> 
                         <div className="cost"><p className="key"> {lang === "AZ" && `Yükun Qiymət` || lang === "EN" && `Final Price` || lang === "RU" && `Окончательная цена`}</p> <p className="value value2"> {money === '₼' ? FinalPrice : ((money === "₼" ? FinalPrice : (FinalPrice / 1.7)).toFixed(1) )} {money} </p> </div> 
-                        <Button1 disabled={FinalPrice < MinOrder ? true : false} value={lang === "AZ" && `Ödəniş səhifəsinə keçid edin` || lang === "EN" && `Go to payment` || lang === "RU" && `Перейти к оплате`} color="#085096" function={openCheckoutF} /> 
+                        <Button1 disabled={FinalPrice < MinOrder ? true : false} value={lang === "AZ" && `Ödəniş səhifəsinə keçid edin` || lang === "EN" && `Go to payment` || lang === "RU" && `Перейти к оплате`} color="#085096" function={goCheckout} /> 
                         <p className="cashback">{lang === "AZ" && `Alacağınız ümumi bonus` || lang === "EN" && `Bonus` || lang === "RU" && `Бонус`}  {money === '₼' ? FinalBonus : (FinalBonus/1.7).toFixed(2)}  {money} </p>
                     </div>
                 </div>

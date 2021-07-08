@@ -8,12 +8,12 @@ import TopNavbarPart2 from './TopNavbarPart2'
 import {ProductListingProvider} from './ProductListingProvider'
 import {ProductListingContext} from '../components/ProductListingProvider'
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 function Header() {
 const context = useContext(ProductListingContext)
 
 
-  const {UserData , setUserData , ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader , UserStatus, setUserStatus ,  setnumber2, setnumber1, number1, number2 , setTopCategory, TopCategory} = context
+  const {UserData , setUserData , openBucketF, ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader , UserStatus, setUserStatus ,  setnumber2, setnumber1, number1, number2 , setTopCategory, TopCategory} = context
 
   const [scrollValue, setscrollValue] = useState(0)
 
@@ -50,7 +50,6 @@ const context = useContext(ProductListingContext)
         window.onscroll = () => {
             setscrollValue(window.scrollY)
         }
-       
     }, [])
   
     const scrollChecker =  () => {
@@ -99,16 +98,27 @@ const context = useContext(ProductListingContext)
     } 
 
     const scrollStyle = {
-        height:'105px'
+        height:'105px',
+        position:'fixed'
     }
     const scrollStaticStyle = {
-        height:'310px'
+        height:'310px',
+    }
+
+    const scrollBtnhide = {
+        display: 'none',
+    }
+    const scrollBtnshow = {
+        display: 'flex',
+    }
+    const scrolltoTop = () => {
+        window.scrollTo(0,0)
     }
 
     return (
         <>
-            {/* <button type="button" ref={styleScrollBtn} style={styleBtn} onClick={() => scrolltoTop()}><img src={arrowScroll} width="30px" height="auto"/></button> */}
-            {!MidNavbar &&  <button type="button" className='checkMBtnC' style={checkMBtn} /*onClick={() => handleOpen()}*/><ShoppingBasketIcon width='60px' height='60px'/> {FinalPrice > 0 && (FinalPrice + " ₼")}</button> }
+            <button type="button"  className='scrollToTop' style={scrollValue < 100 ? scrollBtnhide : scrollBtnshow} onClick={() => scrolltoTop()}><ExpandLessIcon/></button>
+            {!MidNavbar &&  <button type="button"  onClick={openBucketF} className='checkMBtnC' style={checkMBtn} /*onClick={() => handleOpen()}*/><ShoppingBasketIcon width='60px' height='60px'/> {FinalPrice > 0 && (FinalPrice + " ₼")}</button> }
             <header style={scrollValue === 0 ? scrollStaticStyle : scrollStyle} id="header" className="header">
               <TopNavbar  scrollValue={scrollValue}/>
               {MidNavbar && <Navbar scrollValue={scrollValue}/>}

@@ -103,6 +103,7 @@ export function ProductListingProvider(props) {
                     DateGoods:DateGoods
                 }
                 console.log(string)
+                setTimeout(() => {}, 300);
                 const resp = await axios.post('https://nehra.az/public/api/addcart' ,{user_id: UserData.id,  string:JSON.stringify(string)})
             }
         } 
