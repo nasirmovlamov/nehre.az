@@ -47,7 +47,7 @@ function ForgetPassword() {
     }
 
     return (
-        <div className="ForgetPasswordPage"> 
+        <div className="ForgetPasswordPage pagescroll"> 
             <div className="formSubmit">
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} validateOnChange={true} validateOnBlur={false}>
                 <Form className="cabinetCont contactCont">

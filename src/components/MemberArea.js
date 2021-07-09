@@ -226,7 +226,7 @@ function MemberArea(props) {
   
 
   return (
-      <div className="memberAreaCont">
+      <div className="memberAreaCont pagescroll">
         {!memberMQ && (
           <React.Fragment key={"left"}>
             <button

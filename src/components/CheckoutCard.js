@@ -61,8 +61,8 @@ function CheckoutCard(props) {
                             }
                             <div className="aboutItem">
                             
-                                <p className="title">{product.title}</p>
-                                <p className="priceAndWeight">{ money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.cost  : (ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.cost  / 1.7).toFixed(1)} {money}  / {((product?.unit?.id === 2 || product?.unit?.id === 4 || product?.unit?.id === 1) ? product?.ceki_hecm : 1 ) + " " + (lang === "AZ" && product?.unit?.ad  ) || (lang === "EN" && product?.unit?.ad_en) || (lang === "RU" && product?.unit?.ad_ru)}</p>
+                                <p className="title">{(lang === "AZ" && product.title  ) || (lang === "EN" && product.title_en) || (lang === "RU" && product.title_ru)}</p>
+                                <p className="priceAndWeight">{ money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost  : (ProdutData[ProdutData.findIndex(x=>x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost  / 1.7).toFixed(1)} {money}  / {((product?.unit?.id === 2 || product?.unit?.id === 4 || product?.unit?.id === 1) ? product?.ceki_hecm : 1 ) + " " + (lang === "AZ" && product?.unit?.ad  ) || (lang === "EN" && product?.unit?.ad_en) || (lang === "RU" && product?.unit?.ad_ru)}</p>
                                 <div className="dates">
                                 {product.delivery?.map(delivery =>
                                 <>
@@ -79,12 +79,12 @@ function CheckoutCard(props) {
                                 !checkoutMobile &&
                                 <>
                                     <div className="btnCont">
-                                        {ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.count && <Button1 function={() => removeItem(product)} value={<RemoveIcon/>} color="#085096"/>}
-                                        <p className="priceValue">{product?.id !== undefined ? (ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.count) : 0}</p>
+                                        {ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.count && <Button1 function={() => removeItem(product)} value={<RemoveIcon/>} color="#085096"/>}
+                                        <p className="priceValue">{(ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.count)}</p>
                                         <Button1 function={() => addItem(product)} value={<AddIcon/>}  color="#085096"/>
                                     </div>
 
-                                    <p className="price">{ProdutData[ProdutData.findIndex(x=> x.id === product?.id)] !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.count *  (money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.cost : (ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.cost / 1.7))).toFixed(1) : 0}  {money}</p>
+                                    <p className="price">{ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)] !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.count *  (money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost : (ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost / 1.7))).toFixed(1) : 0}  {money}</p>
                                     <button onClick={() => deleteCard(product)} className="delete"><DeleteIcon/></button>
                                 </>    
                             }
@@ -95,10 +95,10 @@ function CheckoutCard(props) {
                                 <div className='mobileCheckout'>
                                     <div className="btnCont">
                                         <Button1 function={() => removeItem(product)} value={<RemoveIcon/>} color="#085096"/>
-                                        <p className="priceValue">{product?.id !== undefined ? (ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.count) : 0}</p>
+                                        <p className="priceValue">{product?.id !== undefined ? (ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.count) : 0}</p>
                                         <Button1 function={() => addItem(product)} value={<AddIcon/>}  color="#085096"/>
                                     </div>
-                                    <p className="price">{ProdutData[ProdutData.findIndex(x=> x.id === product?.id)] !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.count *  (money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.cost : (ProdutData[ProdutData.findIndex(x=> x.id === product?.id)]?.cost / 1.7))).toFixed(1) : 0}  {money}</p>
+                                    <p className="price">{ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)] !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.count *  (money === "₼" ? ProdutData[ProdutData.findIndex(x=>  x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost : (ProdutData[ProdutData.findIndex(x=>  x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost / 1.7))).toFixed(1) : 0}  {money}</p>
                                     <button onClick={() => deleteCard(product)} className="delete"><DeleteIcon/></button>
                                 </div>    
                             }

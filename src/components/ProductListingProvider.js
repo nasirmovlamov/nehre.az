@@ -157,7 +157,11 @@ export function ProductListingProvider(props) {
 
         const addItem = (product) => {
             notifyAddBasket()
-            const num = parseInt(product.id)
+            let num = parseInt(product.id)
+            if(product.hasOwnProperty("combo_id"))
+            {
+                num = parseInt(product.combo_id)
+            }
             const price = parseFloat(discountHandler(product))
             const weight = parseFloat(product.ceki_hecm)
             const unitType = parseInt(product.unit.unit_id)
@@ -196,11 +200,24 @@ export function ProductListingProvider(props) {
             setDateGoods(uniqueDates)
             
             let index = ProdutData.findIndex(x=> x.id === num);
+            if(product.hasOwnProperty("combo_id"))
+            {
+                index = ProdutData.findIndex(x=> x?.combo_id === num);
+            }
             if (index === -1) {
                 weightChecker(weight , unitType, 'add' , 0)
                 // product , FinalPrice, FinalWeight, FinalGoods, FinalBonus, DateGoods
                 FinalWeightCartAdd = weightChecker(weight , unitType, 'add' , 0)
-                let productAddcartdata = [...ProdutData , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType, bonus:bonus, product:product}]
+                let productAddcartdata = []
+                if(product.hasOwnProperty("combo_id"))
+                {
+                    productAddcartdata = [...ProdutData , {combo_id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType, bonus:bonus, product:product}]
+                }
+                else 
+                {
+                    productAddcartdata = [...ProdutData , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType, bonus:bonus, product:product}]
+                }
+                console.log(productAddcartdata)
                 setProdutData(productAddcartdata)
                 if (UserData !== null) {
                     addCart(productAddcartdata , FinalPriceCartAdd, FinalWeightCartAdd, FinalGoodsCartAdd, FinalBonusCartAdd, uniqueDates)
@@ -241,14 +258,19 @@ export function ProductListingProvider(props) {
         const removeItem = (product) => {
             notifyRemoveBasket()
             //#region Add Cart Values
-            const num = product.id
+            let num = product.id
+            if(product.hasOwnProperty("combo_id"))
+            {
+                num = parseInt(product.combo_id)
+            }
             const price = discountHandler(product)
             const weight = product.ceki_hecm
+            console.log(product)
             const unitType = product.unit.unit_id
             const dates = product.delivery
             const name = product.title
             let bonus = 0
-            
+
             if (product?.category_data?.cashback > 0 && product?.category_data !== null) {
                 bonus = product.category_data.cashback
             }else 
@@ -263,12 +285,14 @@ export function ProductListingProvider(props) {
             let DateGoodsCartAdd = []
         
             //#endregion Add Cart Values
-            
             let index = ProdutData.findIndex(x=> x.id === num);
+            if(product.hasOwnProperty("combo_id"))
+            {
+                index = ProdutData.findIndex(x=> x.combo_id === num);
+            }
             if (ProdutData[index].count > 0) {
                 let uniqueDates = []
                 let dateall = []
-                
                 FinalPriceCartAdd = FinalPrice - parseInt(price)
                 FinalGoodsCartAdd = FinalGoods - 1
                 FinalBonusCartAdd = FinalBonus - parseInt(bonus)
@@ -277,10 +301,7 @@ export function ProductListingProvider(props) {
                 newArr = newArr.filter(element => element.count !== 0)
                 let productAddcartdata = newArr
                 setProdutData(productAddcartdata)
-                console.log("count" + ProdutData[index].count)
-
                 for (let i = 0; i < productAddcartdata.length; i++) {
-                    console.log('productAddcartdata[i].product.delivery' + productAddcartdata[i].product.delivery)
                     dateall.push(...productAddcartdata[i].product.delivery)
                 }
                 console.log("dateall" + dateall)
@@ -337,7 +358,11 @@ export function ProductListingProvider(props) {
         const deleteCard = (product) => {
             notifyRemoveBasket()
             //#region Add Cart Values
-            const num = parseInt(product.id)
+            let num = parseInt(product.id)
+            if(product.hasOwnProperty("combo_id"))
+            {
+                num = parseInt(product.combo_id)
+            }
             const price = parseFloat(discountHandler(product))
             const weight = parseFloat(product.ceki_hecm)
             const unitType = parseInt(product.unit.unit_id)
@@ -360,7 +385,10 @@ export function ProductListingProvider(props) {
             let FinalBonusCartAdd = 0
             let DateGoodsCartAdd = []
             var index = ProdutData.findIndex(x=> x.id === num);
-            
+            if(product.hasOwnProperty("combo_id"))
+            {
+                index = ProdutData.findIndex(x=> x.combo_id === num);
+            }
             //#endregion Add Cart Values
 
 
@@ -371,12 +399,21 @@ export function ProductListingProvider(props) {
 
             weightChecker(weight , unitType , 'delete' , index)
             FinalWeightCartAdd = weightChecker(weight , unitType , 'delete', index)
-            
             let productAddcartdata = ProdutData.filter((item) => item.id !== num)
-            const filteredItems = Items.filter((item) => item.id !== num)
+            let filteredItems = Items.filter((item) => item.id !== num)
+            if(product.hasOwnProperty("combo_id"))
+            {
+                productAddcartdata = ProdutData.filter((item) => item.combo_id !== num)
+                filteredItems = Items.filter((item) => item.combo_id !== num)
+            }
+
             setProdutData(productAddcartdata)
             setItems(filteredItems)
-            var testarr = ProdutData.filter((item) => item.id !== num)
+            let testarr = ProdutData.filter((item) => item.id !== num)
+            if(product.hasOwnProperty("combo_id"))
+            {
+                testarr = ProdutData.filter((item) => item.combo_id !== num)
+            }
             for (let i = 0; i < testarr.length; i++) {
                 console.log('productAddcartdata[i].product.delivery' + testarr[i].product.delivery)
                 dateall.push(...testarr[i].product.delivery)

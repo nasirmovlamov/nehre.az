@@ -8,9 +8,9 @@ import CardSliderDefault from './CardSliderDefault';
 function OurSlider(props) {
     var settings = {
         infinite: true,
-        speed: 1000,
+        speed: 500,
         slidesToShow: props.numOfSld,
-        slidesToScroll: 1,
+        slidesToScroll: 2,
         initialSlide: 0,
         draggable:true,
         autoplay:true,
@@ -20,7 +20,7 @@ function OurSlider(props) {
                 breakpoint: 1655,
                 settings: {
                 slidesToShow: props.itemShow1,
-                slidesToScroll: 1,
+                slidesToScroll: 2,
                 initialSlide: 1
                 }
             },
@@ -28,7 +28,7 @@ function OurSlider(props) {
                 breakpoint: 1455,
                 settings: {
                 slidesToShow: props.itemShow2,
-                slidesToScroll: 1,
+                slidesToScroll:2,
                 initialSlide: 1
                 }
             },
@@ -44,7 +44,7 @@ function OurSlider(props) {
                 breakpoint: 600,
                 settings: {
                 slidesToShow: props.itemShow4,
-                slidesToScroll: 1,
+                slidesToScroll:1,
                 initialSlide: 1
                 }
             },

@@ -277,8 +277,9 @@
         {
             .itemCard
             {
-                box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
-
+                width: 250px;
+                height: 370px;
+                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
             }
             .selection
             {
@@ -326,7 +327,7 @@
             flex-direction: column;
             p 
             {
-                margin: 0px;
+                // margin: 0px;
             }
             .gridCont 
             {
@@ -528,13 +529,14 @@
         {
             .gridCont1
             {
+                display: flex;
+                flex-wrap: wrap;
+                column-gap: 10px;
+                row-gap: 20px;
                 margin-top: 20px;
-                display: grid;
-                grid-template-columns: repeat(3,1fr);
                 .itemCard
                 {
-                    transform: scale(0.9);
-                    margin-left: -5px;
+                    // transform: scale(0.9);
                 }
             }
         }
@@ -616,7 +618,7 @@
                 table 
                 {
                     text-align: start;
-                    margin-top: 20px;
+                    margin-top: 10px;
                     border-spacing: 0px;
                     .start
                     {

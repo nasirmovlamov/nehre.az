@@ -114,7 +114,7 @@ function CardPage(props) {
                             !loader 
                             &&
                             <>
-                                {ProdutData.map( product => <CheckoutCard product={product.product}       desc={ (lang === "AZ" && product.product?.seller_data?.name) || (lang === "EN" && product.product?.seller_data?.name_en) || (lang === "RU" && product.product?.seller_data?.name_ru)}   unitAd={ (lang === "AZ" && product.product?.unit.ad) || (lang === "EN" && product.product?.unit.ad_en) || (lang === "RU" && product.product?.unit.ad_ru)}  price={Math.floor(product.product?.qiymet)} />)}
+                                {ProdutData.map( product => <CheckoutCard product={product.product}    price={Math.floor(product.product?.qiymet)} />)}
                             </>
                         }
                         {loader &&  <div className="loader"><CircularProgress color="secondary" /></div>}

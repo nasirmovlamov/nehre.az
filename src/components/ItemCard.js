@@ -182,7 +182,7 @@ function ItemCard(props) {
                 <div className="starAndAbout">
                     <p className="dscPrc">{(product?.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{money === "₼" ? (product.qiymet) : (product.qiymet / 1.7).toFixed(1)} {money}</span></span>)}</p>
                     <p className="priceAndWeightItem"><span className="element1"  style={product?.discount !== null ? colorChang : {}}>{money === "₼" ? discountHandler(product) : (discountHandler(product) / 1.7).toFixed(1)}  {money}</span> / <span className="element2">{((product.unit.id === 2 || product.unit.id === 4 || product.unit.id === 1) ? product.ceki_hecm : 1 ) + " " + ((lang === "AZ" && product?.unit.ad) || (lang === "EN" && product?.unit.ad_en) || (lang === "RU" && product?.unit.ad_ru)) }</span> </p>
-                    <Rating name="read-only"  readOnly  value={product.starsall} /> 
+                    <Rating name="read-only" size="small"  readOnly  value={product.starsall} /> 
                 </div>   
                 {(!props.btnDisable)  && <BuyButton functionAdd={() => addItem(product)}   cardPrice={discountHandler(product)}/>}
             </div>

@@ -122,7 +122,7 @@ function HomePage(props) {
 
     return (
 
-        <div className="homePage">
+        <div className="homePage pagescroll">
             <div className="slider1">
                <OurSlider itemShow1={2} itemShow2={2} itemShow3={1} itemShow4={1} elements={topCards} speed={10000} numOfSld={2}/>
             </div>

@@ -52,7 +52,7 @@ function SelectedSupplier() {
    
 
     return (
-        <div className="selectedSupllierCont">
+        <div className="selectedSupllierCont pagescroll">
             <div className="selectedSupplier">
                 <p className="category"> <span>{(lang === "AZ" && `Əsas Səhifə`) || (lang === "EN" && `Homepage`) || (lang === "RU" && `Домашняя страница`)}  •  {(lang === "AZ" && `Tədarükçülər`) || (lang === "EN" && `Manufacturer`) || (lang === "RU" && `Производитель`)} •  {(lang === "AZ" && Supplier.name) || (lang === "EN" && Supplier.name_en) || (lang === "RU" && Supplier.name_ru)} </span> </p>
                 <div className="videoAndAbout">

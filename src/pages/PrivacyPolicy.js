@@ -7,7 +7,7 @@ function PrivacyPolicy() {
     const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
   
     return (
-        <div className="whoPage"> 
+        <div className="whoPage pagescroll"> 
             <div className="topPart">
                 <div className="titleProducts">
                         <p className="category"> <span> {lang === "AZ" && `Əsas Səhifə` || lang === "EN" && `Homepage` || lang === "RU" && `Домашняя страница`} • {lang === "AZ" && `Məxfilik Siyasəti` || lang === "EN" && `Privacy Policy` || lang === "RU" && `Политика конфиденциальности`}</span>  </p>

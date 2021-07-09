@@ -97,7 +97,7 @@ function ProductListingPage(props) {
 
     
     return (
-        <div className="productPage"> 
+        <div className="productPage pagescroll"> 
             <div className="topPart">
                 <div className="titleProducts">
                         <p className="category"> <span> {lang === "AZ" && `Əsas Səhifə` || lang === "EN" && `Homepage` || lang === "RU" && `Домашняя страница`}  • {lang === "AZ" && CategoryData?.category_data?.name || lang === "EN" && CategoryData?.category_data?.name_en || lang === "RU" && CategoryData?.category_data?.name_ru}</span>  </p>

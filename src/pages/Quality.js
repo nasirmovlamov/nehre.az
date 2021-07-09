@@ -9,7 +9,7 @@ function Quality() {
     const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
   
     return (
-        <div className="qualityPage"> 
+        <div className="qualityPage pagescroll"> 
             <div className="topPart">
                 <div className="titleProducts">
                         <p className="category"> <span> {lang === "AZ" && `Əsas Səhifə` || lang === "EN" && `Homepage` || lang === "RU" && `Домашняя страница`} • {lang === "AZ" && `Keyfiyyət` || lang === "EN" && `Quality` || lang === "RU" && `Качество`}</span>  </p>

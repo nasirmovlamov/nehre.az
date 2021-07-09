@@ -26,7 +26,7 @@ function Suppliers() {
     } , [])
     
     return (
-        <div className="suppliersCont" >
+        <div className="suppliersCont pagescroll" >
             
             <div className="suppliers">
                 <p className="category"> <span>{(lang === "AZ" && `Əsas Səhifə`) || (lang === "EN" && `Homepage`) || (lang === "RU" && `Домашняя страница`)}  •</span> <span> {(lang === "AZ" && `Tədarükçülər`) || (lang === "EN" && `Manufacturer`) || (lang === "RU" && `Производитель`)} </span></p>
