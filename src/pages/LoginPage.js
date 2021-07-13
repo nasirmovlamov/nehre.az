@@ -156,36 +156,38 @@ function LoginPage(props) {
         setOpen2(false);
     }
     return (
-        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} validateOnChange={true} validateOnBlur={false}>
-            <Form className="loginPage" action='/' method="POST">
-                <div className="buttonCont"><button type='button' onClick={() => CloseLoginF()} className="removeModalBtn">×</button></div>
-                <p className="title">{lang === "AZ" && `Giriş` || lang === "EN" && `Login` || lang === "RU" && `Aвторизоваться`}</p>
-                <Field className="inputLogin" name="email" placeholder={lang === "AZ" && `Elektron poçt` || lang === "EN" && `Email` || lang === "RU" && `Электронное письмо`}/>
-                <div className="errors"><ErrorMessage name="email"/></div>
-                <Field type="password" className="inputLogin" name="password" placeholder={lang === "AZ" && `Şifrəniz` || lang === "EN" && `Password` || lang === "RU" && `Пароль`}/>
-                <div className="errors"><ErrorMessage name="password"/></div>
-                <Button1 value={lang === "AZ" && `Daxil olun` || lang === "EN" && `Submit` || lang === "RU" && `Входить`} type="submit"/>
-                { Error && <p className="errors errorsAndForgot">{lang === "AZ" && `Daxil etdiyiniz məlumatlar yanlışdır. ` || lang === "EN" && `The information you entered is incorrect.` || lang === "RU" && `Введенная вами информация неверна.`}<button type='button' onClick={handleOpen} className='forgotPassBtn'>{lang === "AZ" && `Şifrəni unutmusunuz?` || lang === "EN" && `Forgot password?` || lang === "RU" && `забыл пароль?`}</button> </p>}
-                <p className="subTitle">{lang === "AZ" && `Hesabınız yoxdur? ` || lang === "EN" && `Not Account?` || lang === "RU" && `Не Аккаунт?`}<button className="regBtn" onClick={() => clickHandler()}>{lang === "AZ" && `Qeydiyyatdan keçin ` || lang === "EN" && `Create Account` || lang === "RU" && `Зарегистрироваться`}</button> </p>
-                {loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={17} width={75} />}
-                
-                <Modal  
-                    style={{display:"flex", justifyContent:"center",overflow:"auto"}}
-                    open={open}
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description">
-                    {<ForgotPass  functionClose={() => handleClose() } openPassChange={() => handleOpen2()}  functionCloseLogin={() => CloseLoginF()} />}
-                </Modal>
-                
-                <Modal  
-                    style={{display:"flex", justifyContent:"center",overflow:"auto"}}
-                    open={open2}
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description">
-                    {<NewPass  functionClose={() => handleClose2() }  functionCloseLogin={() => CloseLoginF()} />}
-                </Modal>
-            </Form>
-        </Formik>
+      <>
+          <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} validateOnChange={true} validateOnBlur={false}>
+              <Form className="loginPage" action='/' method="POST">
+                  <div className="buttonCont"><button type='button' onClick={() => CloseLoginF()} className="removeModalBtn">×</button></div>
+                  <p className="title">{lang === "AZ" && `Giriş` || lang === "EN" && `Login` || lang === "RU" && `Aвторизоваться`}</p>
+                  <Field className="inputLogin" name="email" placeholder={lang === "AZ" && `Elektron poçt` || lang === "EN" && `Email` || lang === "RU" && `Электронное письмо`}/>
+                  <div className="errors"><ErrorMessage name="email"/></div>
+                  <Field type="password" className="inputLogin" name="password" placeholder={lang === "AZ" && `Şifrəniz` || lang === "EN" && `Password` || lang === "RU" && `Пароль`}/>
+                  <div className="errors"><ErrorMessage name="password"/></div>
+                  <Button1 value={lang === "AZ" && `Daxil olun` || lang === "EN" && `Submit` || lang === "RU" && `Входить`} type="submit"/>
+                  { Error && <p className="errors errorsAndForgot">{lang === "AZ" && `Daxil etdiyiniz məlumatlar yanlışdır. ` || lang === "EN" && `The information you entered is incorrect.` || lang === "RU" && `Введенная вами информация неверна.`}<button type='button' onClick={handleOpen} className='forgotPassBtn'>{lang === "AZ" && `Şifrəni unutmusunuz?` || lang === "EN" && `Forgot password?` || lang === "RU" && `забыл пароль?`}</button> </p>}
+                  <p className="subTitle">{lang === "AZ" && `Hesabınız yoxdur? ` || lang === "EN" && `Not Account?` || lang === "RU" && `Не Аккаунт?`}<button className="regBtn" onClick={() => clickHandler()}>{lang === "AZ" && `Qeydiyyatdan keçin ` || lang === "EN" && `Create Account` || lang === "RU" && `Зарегистрироваться`}</button> </p>
+                  {loader && <ReactLoading type={"bubbles"} color={"lightblue"} height={17} width={75} />}
+              </Form>
+          </Formik>
+
+          <Modal  
+              style={{display:"flex", justifyContent:"center",overflow:"auto"}}
+              open={open}
+              aria-labelledby="simple-modal-title"
+              aria-describedby="simple-modal-description">
+              {<ForgotPass  functionClose={() => handleClose() } openPassChange={() => handleOpen2()}  functionCloseLogin={() => CloseLoginF()} />}
+          </Modal>
+          
+          <Modal  
+              style={{display:"flex", justifyContent:"center",overflow:"auto"}}
+              open={open2}
+              aria-labelledby="simple-modal-title"
+              aria-describedby="simple-modal-description">
+              {<NewPass  functionClose={() => handleClose2() }  functionCloseLogin={() => CloseLoginF()} />}
+          </Modal>
+        </>
     )
 }
 

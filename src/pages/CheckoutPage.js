@@ -310,11 +310,7 @@ function CheckoutPage(props) {
         setProdutData(newarr)
         setFinalWeight(WholeWeight)
         setFinalBonus(WholeBonus)
-        localStorage.setItem('FinalWeight' ,WholeWeight)
-        localStorage.setItem('FinalGoods' ,  WholeCount)
-        localStorage.setItem('FinalPrice' , WholeCost)
-        localStorage.setItem('DateGoods' , JSON.stringify(uniqueDates))
-        localStorage.setItem('ProdutData' , JSON.stringify(newarr))
+        
 
         const vrt = (id , element) => {
             for (let i = 0; i < deliveryProducts.length; i++) {
@@ -326,7 +322,8 @@ function CheckoutPage(props) {
         }
         let newarr2 = ProdutData.map((element, index ) =>  vrt(element.id , element))
         newarr2 = newarr2.filter(element => element !== undefined)
-        let productsName = newarr2.map(element => element)
+        let productsDataElements = []
+        newarr2.map(element => productsDataElements.push({id:element.id, combo_id:element.product.hasOwnProperty('combo_id') ? element.product.combo_id : null , count:element.count, cost:element.product.qiymet, discount:element.product.discount, name:element.product.name,unit:element.product.unit ,weight:element.product.ceki_hecm,bonus:element.product.cashback}))
         let productsId = newarr2.map(element => element.id)
         let DeliveryDates = []
         let DeliveryCost = 0
@@ -336,7 +333,6 @@ function CheckoutPage(props) {
         for (let i = 0; i < newarr2.length; i++) {
             DeliveryCost += (parseInt(newarr2[i].cost) * parseInt(newarr2[i].count) )
             let deliveryBonus = 0 
-            console.log(newarr2)
             if (newarr2[i].product?.category_data?.cashback > 0 && newarr2[i].product?.category_data !== null) {
                 deliveryBonus = parseInt(newarr2[i].product.category_data.cashback)  * parseInt(newarr2[i].count)
             }
@@ -363,24 +359,25 @@ function CheckoutPage(props) {
 
         // setDateGoods(dates)
         // console.log(DeliveryBonus)
-        console.log(deliveryDayISO)
         const postdata = {
             address: addressselect , 
             payment_type:paymentType , 
             total_price: DeliveryCost ,  
             weight:DeliveryWeight  , 
             total_count: DeliveryCount , 
-            product_data: productsName, 
+            product_data: productsDataElements, 
             products_id:productsId, 
             user_id:UserData.id,
             bonus: DeliveryBonus,
             delivery_date:deliveryDayISO.toISOString()
+            
         }
         try {
             const res = await axios.post('https://nehra.az/api/payment', postdata  , headers )
             notify()
             closeCheckoutF()
             setloader(false) 
+            window.location.href = res.data
         } catch (error) {
             closeCheckoutF()            
             setloader(false) 
@@ -390,6 +387,8 @@ function CheckoutPage(props) {
 
 
     const [addressselect, setaddressselect] = useState()
+
+    
     return (
         
         <div className="checkoutPage">

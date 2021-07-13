@@ -8,18 +8,25 @@ import {ProductListingContext} from '../components/ProductListingProvider'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../assets/css/forgetPassword.scss'
+import { useParams } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 function ForgetPassword() {
     const context = useContext(ProductListingContext)
-  const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
-
+    const {UserStatus , loader, setloader, setMinOrder,setnumber1, setnumber2,setTopCategory,setmoney, setUserStatus ,setItems,  ProdutData, openRegisterF , closeRegisterF , setUserData , setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+    const history = useHistory()
+    const {slug} = useParams()
     const notifyL = () => toast.info(lang === "AZ" && `Hesabınıza daxil oldunuz!` || lang === "EN" && `You have logged in to your account!` || lang === "RU" && `Вы вошли в свою учетную запись!`);
+    const notifyError = () => toast.warn(lang === "AZ" && `Yanlışlıq mövcuddur!` || lang === "EN" && `There is a mistake!` || lang === "RU" && `Ошибка!`);
 
-
-    useEffect(() => {
-        axios.get('https://nehra.az/api/checkremember')
-            .then(res=> console.log(res))
-            .catch(err => window.location.href = '/404')
+    useEffect(async () => {
+        try {
+            const res  = await axios.get(`https://nehra.az/api/checkremember?token=${slug}`)
+        } catch (error) {
+            notifyError()
+            setTimeout(() => {}, 1000);
+            history.push('/')
+        }
     }, [])
 
 
@@ -33,11 +40,99 @@ function ForgetPassword() {
     })
     
     const [Error, setError] = useState(false)
-    
-    const onSubmit =  (values) => {
-        axios.post('https://nehra.az/public/api/rememberpass', {password:values.password}  )
-        .then(res => res.status === 200 && (console.log(res.data) ,  localStorage.setItem("LoginUserData" , JSON.stringify(res.data))  , window.location.href = '/' , notifyL()))
-        .catch(err => setError(true))
+    const sendGetRequest10 = async () => {
+        setloader(true)
+        try {
+          let resp = ""
+          if(JSON.parse(localStorage.getItem('LoginUserData')) !== null)
+          { 
+            //#region Status setting 
+            const respStatus  = await axios.get(`https://nehra.az/public/api/checkstatus?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
+              if(respStatus.data === 0)
+              {
+                setUserStatus(false)
+              }
+              else 
+              {
+                setUserStatus(true)
+              }
+            //#endregion Status setting 
+            resp  = await axios.get(`https://nehra.az/public/api/settings?user_id=${JSON.parse(localStorage.getItem('LoginUserData'))?.id}`)
+            setUserData(JSON.parse(localStorage.getItem('LoginUserData')))
+            setMinOrder(resp.data.min_order_amount)
+            setnumber1(resp.data.phone1) 
+            setnumber2(resp.data.phone2)
+            setTopCategory(resp.data.featuredcats)
+            setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
+            setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
+            setSelectedsProduct(JSON.parse(resp.data.selected.text))
+            if(resp.data.cart.text !== null)
+            {
+              const dataparsed = JSON.parse(resp.data.cart.text)
+              setMinOrder()
+              if(dataparsed !== undefined && dataparsed !== null && dataparsed !== "")
+              {
+                setProdutData((dataparsed.product      !== null  && dataparsed.product      !== undefined && dataparsed.product      !== "")   ?  dataparsed.product  : [])
+                setFinalPrice((dataparsed.FinalPrice   !== null  && dataparsed.FinalPrice   !== undefined && dataparsed.FinalPrice   !== "")   ?  parseFloat(dataparsed.FinalPrice)  : 0)
+                setFinalWeight((dataparsed.FinalWeight !== null  && dataparsed.FinalWeight  !== undefined && dataparsed.FinalWeight  !== "")   ?  parseFloat(dataparsed.FinalWeight)  : 0)
+                setFinalGoods((dataparsed.FinalGoods   !== null  && dataparsed.FinalGoods   !== undefined && dataparsed.FinalGoods   !== "")   ?  parseInt(dataparsed.FinalGoods)  : 0)
+                setFinalBonus((dataparsed.FinalBonus   !== null  && dataparsed.FinalBonus   !== undefined && dataparsed.FinalBonus   !== "")   ?  parseInt(dataparsed.FinalBonus)  : 0)
+                setDateGoods((dataparsed.DateGoods     !== null  && dataparsed.DateGoods    !== undefined && dataparsed.DateGoods    !== "")   ?  dataparsed.DateGoods  : [])
+                setItems((dataparsed.product      !== null  && dataparsed.product      !== undefined && dataparsed.product      !== "")   ?  dataparsed.product  : [])
+              }
+            }
+            else 
+            {
+                setProdutData([])
+                setFinalPrice(0)
+                setFinalWeight(0)
+                setFinalGoods(0)
+                setFinalBonus(0)
+                setDateGoods([])
+                setItems([])
+            }
+          }
+          else if (JSON.parse(localStorage.getItem('LoginUserData')) === null)
+          {
+            setProdutData([])
+            setFinalPrice(0 )
+            setFinalWeight(0)
+            setFinalGoods(0)
+            setFinalBonus(0)
+            setDateGoods([])
+            setItems([])
+            console.log('not')
+            resp = await axios.get(`https://nehra.az/public/api/settings`)
+            setTopCategory(resp.data.featuredcats)
+            setMinOrder(resp.data.min_order_amount)
+            setnumber1(resp.data.phone1) 
+            setnumber2(resp.data.phone2)
+            setSelectedsProduct()
+            setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
+            setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
+            setUserStatus(false)
+          }
+          else 
+          {}
+            setloader(false)
+        } 
+        catch (err) {
+          setloader(false)
+          setError(true)
+        }
+      };
+    const onSubmit = async  (values) => {
+        try {
+            const res = await axios.post('https://nehra.az/public/api/rememberpass', {password:values.password , token:slug}  )
+            localStorage.setItem("LoginUserData" , JSON.stringify(res.data)) 
+            setUserData(res.data) 
+            sendGetRequest10()
+            notifyL()
+            history.push('/')
+        } catch (error) {
+            notifyError()
+            history.push('/')
+        }
     }
     
     const initialValues = {
@@ -53,27 +148,16 @@ function ForgetPassword() {
                 <Form className="cabinetCont contactCont">
                     <h1 className="title">{lang === "AZ" && `Şifrə` || lang === "EN" && `Password` || lang === "RU" && `Пароль`}</h1>
                     <div className="FlexContPass">
-                            {/* <label  className="key" >{lang === "AZ" && `Köhnə Şifrə` || lang === "EN" && `Password` || lang === "RU" && `Старый Пароль`} </label>                                  
-                            
-                            <div className="errors">
-                                <Field type="password" className="value" name="oldPassword" placeholder={lang === "AZ" && `Köhnə Şifrə` || lang === "EN" && `Old Password` || lang === "RU" && `Старый Пароль`} type="password"/>
-                                <ErrorMessage name="oldPassword"/>
-                            </div> */}
-
                             <label  className="key" >Şifrə</label>                                  
-                            
                             <div className="errors">
                                 <Field type="password" className="value" name="password" placeholder={lang === "AZ" && `Yeni Şifrə` || lang === "EN" && `New Password` || lang === "RU" && `Новый пароль`} type="password"/>
-                                <ErrorMessage name="password"/>
+                                <p className="error"><ErrorMessage name="password"/></p>
                             </div>
-                            
                             <label  className="key" >{lang === "AZ" && `Şifrəni Təsdiqlə` || lang === "EN" && `Confirm Password` || lang === "RU" && `Подтвердить Пароль`} </label>                        
-                           
                             <div className="errors">
                                 <Field type="password" className="value" name="confirmPassword" placeholder={lang === "AZ" && `Şifrəni Təsdiqlə` || lang === "EN" && `Confirm Password` || lang === "RU" && `Подтвердить Пароль`}  type="password"/>
-                                <ErrorMessage name="confirmPassword"/>
+                                <p className="error"><ErrorMessage name="confirmPassword"/></p>
                             </div>
-
                     </div>
                     <button className='submitBtn' type='submit' > save</button>
                 </Form>

@@ -111,8 +111,7 @@ function Routing() {
         const currentDate = new Date()
         console.log(currentDate.getDate() + "." +  (currentDate.getMonth() + 1 < 10 && 0)+ (currentDate.getMonth() + 1) + "." + currentDate.getFullYear())
         const headers= { 
-          'Accept':'text/xml',
-          "Access-Control-Allow-Origin": "*",
+          'Access-Control-Allow-Origin' :'*'
         }
         const currency = await axios.get(`https://www.cbar.az/currencies/${currentDate.getDate() + "." + (currentDate.getMonth() + 1 < 10 && 0) + (currentDate.getMonth() + 1) + "." + currentDate.getFullYear()}.xml` , headers)
         let parser = new DOMParser()
@@ -124,14 +123,13 @@ function Routing() {
       <>
                     {loader ? <Route path="/">   <Loader />   </Route> :
                     <Layout>
-                      {/* {console.log(currency)} */}
                             <Switch>
                                     <Route   exact  path="/">                 <HomePage />                </Route>
                                     <ProtectedRoute   path='/memberarea'  component={ MemberArea}/>
                                     <Route   path="/category/:id">            <ProductListingPage />      </Route>
                                     <Route   path="/about" >                  <About/>                    </Route>
                                     <Route   path="/elaqe" >                  <Contact/>                  </Route>
-                                    <Route   path="/forgetpassword" >  <ForgetPassword/>           </Route>
+                                    <Route   path="/forgetpassword/:slug" >  <ForgetPassword/>           </Route>
                                     <Route   path="/who" >                    <Who/>                      </Route>
                                     <Route   path="/privacy-policy" >         <PrivacyPolicy/>            </Route>
                                     <Route   path="/quality" >                <Quality/>                  </Route>
