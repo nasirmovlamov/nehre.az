@@ -68,7 +68,7 @@ function TopNavbar(props) {
     const phoneNumbersMQ = useMediaQuery('(min-width:1050px)');
     const searchBottomMQ = useMediaQuery('(min-width:786px)');
     const context = useContext(ProductListingContext)
-    const {UserData ,   notifyAuth, setUserData ,  ProdutData, setProdutData, FinalPrice, setFinalPrice, openBucketF, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader , UserStatus, setUserStatus ,  setnumber2, setnumber1, number1, number2 , setTopCategory, TopCategory} = context
+    const {UserData ,   notifyAuth,currency, setUserData ,  ProdutData, setProdutData, FinalPrice, setFinalPrice, openBucketF, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader , UserStatus, setUserStatus ,  setnumber2, setnumber1, number1, number2 , setTopCategory, TopCategory} = context
 
 
 
@@ -337,7 +337,7 @@ function TopNavbar(props) {
 
 
                                     {elements  && <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={openBucketF} >  
-                                        <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {money === "₼" ?  FinalPrice : ( FinalPrice / 1.7).toFixed(1)} {money}</span>} 
+                                        <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {money === "₼" ?  FinalPrice : ( FinalPrice / currency).toFixed(1)} {money}</span>} 
                                     </button>}
                                     { 
                                         !elements && 
@@ -415,7 +415,7 @@ function TopNavbar(props) {
                                 </button>}
                                 {elements &&
                                 <button className="shoppingBtn shoppingBtn4 BtnCheckout" onClick={openBucketF} >  
-                                        <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {money === "₼" ? FinalPrice :(FinalPrice / 1.7).toFixed(1)} {money}</span>} 
+                                        <button><ShoppingCartIcon/></button>    {FinalPrice > 0 &&<span className="price"> {money === "₼" ? FinalPrice :(FinalPrice / currency).toFixed(1)} {money}</span>} 
                                 </button>}
                                 
                             </div>

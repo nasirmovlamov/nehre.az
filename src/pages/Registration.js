@@ -153,13 +153,13 @@ function Registration(props) {
 
                     <label  className="key" >{lang === "AZ" && `Şifrə` || lang === "EN" && `Password` || lang === "RU" && `Пароль`}</label>                                  
                     <div className="errors">
-                        <Field type="password" className="value" name="password" placeholder="Parol" type="password"/>
+                        <Field type="password" className="value" name='password' placeholder={lang === "AZ" && `Şifrəni daxil edin` || lang === "EN" && `Enter the password` || lang === "RU" && `Введите пароль`}  type="password"/>
                         <ErrorMessage name="password"/>
                     </div>
 
                     <label  className="key" >{lang === "AZ" && `Şifrəni Təsdiqlə` || lang === "EN" && `Confirm Password` || lang === "RU" && `Подтвердить Пароль`} </label>                        
                     <div className="errors">
-                        <Field type="password" className="value" name="confirmPassword" placeholder={lang === "AZ" && `Şifrəni Təsdiqlə` || lang === "EN" && `Confirm Password` || lang === "RU" && `Подтвердить Пароль`} type="password"/>
+                        <Field type="password" className="value" name="confirmPassword" placeholder={lang === "AZ" && `Şifrəni təkrar daxil edin` || lang === "EN" && `Re-enter the password` || lang === "RU" && `Введите пароль еще раз`} type="password"/>
                         <ErrorMessage name="confirmPassword"/>
                     </div>
 

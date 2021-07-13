@@ -12,6 +12,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import _ from 'lodash'
 import axios from 'axios';
 import {ProductListingContext} from '../components/ProductListingProvider'
+import {Link, useLocation } from 'react-router-dom'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Skeleton from '@material-ui/core/Skeleton';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -20,10 +21,14 @@ import 'moment/locale/az';
 import 'moment/locale/ru';
 import DateCropLang from './DateCropLang';
 import DateSelect from './DateMoment'
-
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import { useHistory } from 'react-router-dom';
 function CheckoutCard(props) {
+    const history = useHistory()
+    const location = useLocation()
+    
     const context = useContext(ProductListingContext)
-    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,deleteCard,discountHandler} = context
+    const {ProdutData, currency, setProdutData,closeBucketF, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,deleteCard,discountHandler} = context
     const {product} = props
     
     const checkoutMobile = useMediaQuery('(max-width:600px)');
@@ -48,11 +53,15 @@ function CheckoutCard(props) {
         backgroundRepeat: 'no-repeat',
         backgroundSize: "cover",
     }
-
+   
     // console.log(props.delivery)
-    
+    const lookAt = (link) => {
+        history.push({ ...location, pathname: `/${product?.slug}` }) 
+        closeBucketF()
+    }
     return (
         <>
+        {console.log(ProdutData)}
             <div key={props.key} className="item">
                             {product?.thumb !== undefined ? 
                                 <div className="imgCont" style={imgHandler}></div>
@@ -62,7 +71,7 @@ function CheckoutCard(props) {
                             <div className="aboutItem">
                             
                                 <p className="title">{(lang === "AZ" && product.title  ) || (lang === "EN" && product.title_en) || (lang === "RU" && product.title_ru)}</p>
-                                <p className="priceAndWeight">{ money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost  : (ProdutData[ProdutData.findIndex(x=>x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost  / 1.7).toFixed(1)} {money}  / {((product?.unit?.id === 2 || product?.unit?.id === 4 || product?.unit?.id === 1) ? product?.ceki_hecm : 1 ) + " " + (lang === "AZ" && product?.unit?.ad  ) || (lang === "EN" && product?.unit?.ad_en) || (lang === "RU" && product?.unit?.ad_ru)}</p>
+                                <p className="priceAndWeight">{ money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost  : (ProdutData[ProdutData.findIndex(x=>x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost  / currency).toFixed(1)} {money}  / {((product?.unit?.id === 2 || product?.unit?.id === 4 || product?.unit?.id === 1) ? product?.ceki_hecm : 1 ) + " " + (lang === "AZ" && product?.unit?.ad  ) || (lang === "EN" && product?.unit?.ad_en) || (lang === "RU" && product?.unit?.ad_ru)}</p>
                                 <div className="dates">
                                 {product.delivery?.map(delivery =>
                                 <>
@@ -84,8 +93,11 @@ function CheckoutCard(props) {
                                         <Button1 function={() => addItem(product)} value={<AddIcon/>}  color="#085096"/>
                                     </div>
 
-                                    <p className="price">{ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)] !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.count *  (money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost : (ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost / 1.7))).toFixed(1) : 0}  {money}</p>
-                                    <button onClick={() => deleteCard(product)} className="delete"><DeleteIcon/></button>
+                                    <p className="price">{ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)] !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.count *  (money === "₼" ? ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost : (ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost / currency))).toFixed(1) : 0}  {money}</p>
+                                    <div className='eyeAndDelete'>
+                                        {<button onClick={() => deleteCard(product)} className="delete"><DeleteIcon/></button>}
+                                        {ProdutData[ProdutData.findIndex(x=> x.product.hasOwnProperty('combo_id') && x.product.combo_id === product?.id)] && <button  className="delete" onClick={() => lookAt(product.slug)}> <VisibilityIcon/> </button>}
+                                    </div>
                                 </>    
                             }
 
@@ -98,8 +110,11 @@ function CheckoutCard(props) {
                                         <p className="priceValue">{product?.id !== undefined ? (ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.count) : 0}</p>
                                         <Button1 function={() => addItem(product)} value={<AddIcon/>}  color="#085096"/>
                                     </div>
-                                    <p className="price">{ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)] !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.count *  (money === "₼" ? ProdutData[ProdutData.findIndex(x=>  x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost : (ProdutData[ProdutData.findIndex(x=>  x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost / 1.7))).toFixed(1) : 0}  {money}</p>
-                                    <button onClick={() => deleteCard(product)} className="delete"><DeleteIcon/></button>
+                                    <p className="price">{ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)] !== undefined ?  (ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.count *  (money === "₼" ? ProdutData[ProdutData.findIndex(x=>  x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost : (ProdutData[ProdutData.findIndex(x=>  x.hasOwnProperty('combo_id') ? x.combo_id === product?.combo_id :  x.id === product?.id)]?.cost / currency))).toFixed(1) : 0}  {money}</p>
+                                    <div className='eyeAndDelete'>
+                                        {<button onClick={() => deleteCard(product)} className="delete"><DeleteIcon/></button>}
+                                        {ProdutData[ProdutData.findIndex(x=> x.hasOwnProperty('combo_id') && x.combo_id === product?.combo_id)] && <button className="delete"  onClick={() => lookAt(product.slug)}> <VisibilityIcon/></button>}
+                                    </div>
                                 </div>    
                             }
                             

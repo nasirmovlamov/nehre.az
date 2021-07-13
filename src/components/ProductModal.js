@@ -53,9 +53,10 @@ function ProductModal(props) {
         const [value, setvalue] = useState(1)
         const token = Cookies.getItem('XSRF-TOKEN')
         const [ProductSimilar, setProductSimilar] = useState([])
-        const {ProdutData, discountHandler, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus, UserData} = context
+        const {ProdutData , currency,UserStatus, discountHandler, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus, UserData} = context
         const notify = (rate) => toast.success(`${rate === null ? 5 : rate}   Ulduz göndərildi` , {draggable: true,});
-        const notifyLogin = () => toast.warning(`Hesabınıza daxil olun!` , {draggable: true,});
+        const notifyLogin = () => toast.warning((lang === "AZ" && `Hesabınıza daxil olun!` || lang === "EN" && `Log in to your account!` || lang === "RU" && `Войдите в свою учетную запись!`) , {draggable: true,});
+
         const [totalreview, settotalreview] = useState(0)
     //#endregion VALUES 
     
@@ -231,6 +232,19 @@ function ProductModal(props) {
     }
     // #endregion SelectITEM
     
+
+
+    const checkLogin = (product) =>{
+        if(UserStatus)
+        {
+            selectItem(product)
+        }
+        else 
+        {
+            notifyLogin()
+            OpenLoginF()
+        }
+    }
     return (
 
         <div className='modalCont'>
@@ -258,7 +272,7 @@ function ProductModal(props) {
                         <div className="reviewCont">
                             <div className="starsAndReviews"><Rating value={valueR} onChange={(event , newValue) => ratingHandler(newValue)}/>  <div className="reviews">  {(lang === "AZ" && `Şərh sayı - `) || (lang === "EN" && `Reviews - `) || (lang === "RU" && `Отзывы - `)} {totalreview}</div>
                             <div className='reviewSendCont'><textarea value={reviewAbout} onChange={(e) => setreviewAbout(e.target.value)} type="text" placeholder={(lang === "AZ" && `Fikrinizi bildirin`) || (lang === "EN" && `Let us know what you think`) || (lang === "RU" && `Поделитесь с нами вашими мыслями`)}/>  <div className="buttonContReviewSend"><div className="rateCont"><Rating value={sendStar} onChange={(e , newvalue) => setsendStar(newvalue)} name="read-only"/> {sendStar} {(lang === "AZ" && `Ulduz göndərilir`) || (lang === "EN" && `Star is sending`) || (lang === "RU" && `Звезда отправляет`)} </div>  <div className="Buttons"> <button onClick={()=>sendReview()} className='submit'>{(lang === "AZ" && `Göndər`) || (lang === "EN" && `Send`) || (lang === "RU" && `Отправить`)}</button><button onClick={() => cancelReviewSend()} className='cancel'>{(lang === "AZ" && `Ləğv et `) || (lang === "EN" && `Cancel`) || (lang === "RU" && `Отмена`)}</button></div></div> </div></div>
-                            <button onClick={() => selectItem(Product)} className="favorites">{indexSelected === -1 ?  <FavoriteBorderIcon/> :  <FavoriteIcon/>}</button> 
+                            <button onClick={() => checkLogin(Product)} className="favorites">{indexSelected === -1 ?  <FavoriteBorderIcon/> :  <FavoriteIcon/>}</button> 
                         </div>
                         <p className="desc">
                             {(lang === "AZ" && Product?.description_az) || (lang === "EN" && Product?.description_en) || (lang === "RU" && Product?.description_ru)}
@@ -268,7 +282,7 @@ function ProductModal(props) {
                             { (lang === "EN" && Product?.terkibi_en  !== null && Product?.terkibi_en  !== undefined) && <> <span className="ingredientsText">{(`Ingredients`)}:</span> <span className="ingredientsFront">  {(lang === "EN" && Product?.terkibi_en)}  </span></>}
                             { (lang === "RU" && Product?.terkibi_ru  !== null && Product?.terkibi_ru  !== undefined) && <> <span className="ingredientsText">{(`Ингредиенты`)}:</span> <span className="ingredientsFront">  {(lang === "RU" && Product?.terkibi_ru)}  </span></>}
                         </p>
-                        <p className="priceCont"> <span className="priceText">  {(lang === "AZ" && `Qiyməti:`) || (lang === "EN" && `Price:`) || (lang === "RU" && `Цена:`)}</span>  <span className="price">{money === "₼" ? Product?.qiymet : (Product?.qiymet  / 1.7).toFixed(2)} {money} </span> - <span className="weight">{((Product.unit.id === 2 || Product.unit.id === 4 || Product.unit.id === 1) ? Product?.ceki_hecm : 1 ) + " " + ((lang === "AZ" && Product?.unit.ad) || (lang === "EN" && Product?.unit.ad_en) || (lang === "RU" && Product?.unit.ad_ru))}  </span></p>
+                        <p className="priceCont"> <span className="priceText">  {(lang === "AZ" && `Qiyməti:`) || (lang === "EN" && `Price:`) || (lang === "RU" && `Цена:`)}</span>  <span className="price">{money === "₼" ? Product?.qiymet : (Product?.qiymet  / currency).toFixed(2)} {money} </span> - <span className="weight">{((Product.unit.id === 2 || Product.unit.id === 4 || Product.unit.id === 1) ? Product?.ceki_hecm : 1 ) + " " + ((lang === "AZ" && Product?.unit.ad) || (lang === "EN" && Product?.unit.ad_en) || (lang === "RU" && Product?.unit.ad_ru))}  </span></p>
                         <div className="buttonsCont">
                             {
                                 ProdutData[ProdutData.findIndex(x=> x.id === Product?.id)]?.count && 

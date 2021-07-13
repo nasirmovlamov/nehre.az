@@ -13,6 +13,43 @@
   height: auto;
 }
 
+.comboPage .price {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.comboPage .priceContCombo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.comboPage .priceContCombo .normalPrice {
+  font-size: 15px;
+  color: red;
+  text-decoration: line-through;
+}
+
+.comboPage .priceContCombo .discountPrice {
+  font-size: 25px;
+}
+
+.comboPage .itemCard {
+  height: 360px !important;
+}
+
+.comboPage .itemCard .overlayImg {
+  height: 238px;
+}
+
 .comboPage .topPart {
   width: 100%;
   height: auto;

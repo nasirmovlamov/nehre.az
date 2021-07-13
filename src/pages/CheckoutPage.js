@@ -57,6 +57,7 @@ function CheckoutPage(props) {
     }
 
     const [deliveryDay, setdeliveryDay] = useState()
+    const [deliveryDayISO, setdeliveryDayISO] = useState()
     const [nondeliveryProducts, setnondeliveryProducts] = useState([])
     const [deliveryProducts, setdeliveryProducts] = useState([])
     const [deliveryy, setdeliveryy] = useState([])
@@ -100,7 +101,7 @@ function CheckoutPage(props) {
 
         var newdeliveryday = moment(deliveryday).format( 'dddd, D MMMM');
         setdeliveryDay(newdeliveryday)
-        
+        setdeliveryDayISO(deliveryday)
         var dateIds = []
         var nondateIds = []
         const dateChecker = (date , id) => {
@@ -108,8 +109,6 @@ function CheckoutPage(props) {
                 const today = new Date()
                 const elementday = new Date()
                 elementday.setDate(tomorrow.getDate() + (parseInt(date[i]) + 7 - tomorrow.getDay()) % 7);
-                
-
                 if(elementday.getDate()  < deliveryday.getDate() )
                 {
                     dateIds.push(id)
@@ -128,7 +127,7 @@ function CheckoutPage(props) {
                 }
             }
         }
-        ProdutData.map(elements => dateChecker(elements.date , elements.id))     
+        ProdutData.map(elements => dateChecker(elements.date ,( elements.hasOwnProperty('combo_id') ? elements.combo_id  :  elements.id)))     
         nondateIds = [...new Set(nondateIds)];   
         setdeliveryProducts(dateIds)
         setnondeliveryProducts(nondateIds)
@@ -153,9 +152,15 @@ function CheckoutPage(props) {
     })
     const [address, setaddress] = useState([])
     
-    useEffect(() => {
-        axios.get(`https://nehra.az/public/api/getaddress?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
-            .then(res => (setaddress(res.data) ,setaddressselect(res.data[0].id) , setaddressR(res?.data[0]?.adres)))
+    useEffect(async () => {
+        try {
+            const res = await axios.get(`https://nehra.az/public/api/getaddress?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
+            setaddress(res.data) 
+            setaddressselect(res.data[0]?.id) 
+            setaddressR(res?.data[0]?.adres)
+        } catch (error) {
+            
+        }
         clickHandler2(DateGoods[0])
         axios.get('https://nehra.az/public/api/getcities')
             .then(resp => (setcities(resp.data) , setcity(resp.data[0].id) ))
@@ -166,7 +171,7 @@ function CheckoutPage(props) {
 
 
 
-
+//#region date
     moment.locale(lang)
     //Date Problems
     const today = new Date()
@@ -195,6 +200,8 @@ function CheckoutPage(props) {
     var newfriday = moment(friday).format( 'dddd, D MMMM');
     var newsaturday = moment(saturday).format( 'dddd, D MMMM');
     var newsunday = moment(sunday).format( 'dddd, D MMMM');
+//#endregion date
+
 //Date Problems
    
     
@@ -319,7 +326,7 @@ function CheckoutPage(props) {
         }
         let newarr2 = ProdutData.map((element, index ) =>  vrt(element.id , element))
         newarr2 = newarr2.filter(element => element !== undefined)
-        let productsName = newarr2.map(element => element.name)
+        let productsName = newarr2.map(element => element)
         let productsId = newarr2.map(element => element.id)
         let DeliveryDates = []
         let DeliveryCost = 0
@@ -356,6 +363,7 @@ function CheckoutPage(props) {
 
         // setDateGoods(dates)
         // console.log(DeliveryBonus)
+        console.log(deliveryDayISO)
         const postdata = {
             address: addressselect , 
             payment_type:paymentType , 
@@ -365,12 +373,18 @@ function CheckoutPage(props) {
             product_data: productsName, 
             products_id:productsId, 
             user_id:UserData.id,
-            bonus: DeliveryBonus
+            bonus: DeliveryBonus,
+            delivery_date:deliveryDayISO.toISOString()
         }
-        console.log()
-        const res = await axios.post('https://nehra.az/api/payment', postdata  , headers )
-        setloader(false) 
-        closeCheckoutF()
+        try {
+            const res = await axios.post('https://nehra.az/api/payment', postdata  , headers )
+            notify()
+            closeCheckoutF()
+            setloader(false) 
+        } catch (error) {
+            closeCheckoutF()            
+            setloader(false) 
+        }
 
     }
 

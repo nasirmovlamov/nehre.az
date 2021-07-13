@@ -28,9 +28,11 @@ import Routing from './pages/Routing';
 function App() {
   
   return (
-    <ProductListingProvider>
-        <Routing/>
-    </ProductListingProvider>
+    <Router>
+      <ProductListingProvider>
+          <Routing/>
+      </ProductListingProvider>
+    </Router>
 
   );
 }

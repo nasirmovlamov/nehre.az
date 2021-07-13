@@ -50,11 +50,11 @@ const context = useContext(ProductListingContext)
         window.onscroll = () => {
             setscrollValue(window.scrollY)
             if (window.scrollY > 0) {
-                document.querySelector('.pagescroll').setAttribute('style', 'margin-top:110px')
+                document?.querySelector('.pagescroll').setAttribute('style', 'margin-top:110px')
             }
             else 
             {
-                document.querySelector('.pagescroll').setAttribute('style', 'margin-top:0px')
+                document?.querySelector('.pagescroll').setAttribute('style', 'margin-top:0px')
             }
         }
     }, [])

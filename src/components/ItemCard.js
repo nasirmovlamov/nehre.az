@@ -33,7 +33,7 @@ import Rating from '@material-ui/core/Rating';
 function ItemCard(props) {
     const {product} = props 
     const context = useContext(ProductListingContext)
-    const {SelectedsProduct, ProdutData, addItem,modalIdsetter,removeItem,lang,money, discountHandler, UserData , setSelectedsProduct, OpenLoginF} = context
+    const {SelectedsProduct,currency,UserStatus, ProdutData, addItem,modalIdsetter,removeItem,lang,money, discountHandler, UserData , setSelectedsProduct, OpenLoginF} = context
     const [valueR, setvalueR] = useState()
     const notifyLogin = () => toast.warning((lang === "AZ" && `Hesabınıza daxil olun!` || lang === "EN" && `Log in to your account!` || lang === "RU" && `Войдите в свою учетную запись!`) , {draggable: true,});
     
@@ -146,13 +146,24 @@ function ItemCard(props) {
         }
     }
 
+    const checkLogin = (product) =>{
+        if(UserStatus)
+        {
+            selectItem(product)
+        }
+        else 
+        {
+            notifyLogin()
+            OpenLoginF()
+        }
+    }
 
     return (
         <div key={product.id} className="itemCard">
             <button  type="button"  className="imgCont" style={imgHandler}>
                 <div className="valueAndBtn"> 
                     {ProdutData[ProdutData?.findIndex(x=> x.id === product.id)]?.count > 0 && <div className='valueBtn'>{ProdutData[ProdutData.findIndex(x=> x.id === product.id)]?.count}</div>}
-                    <div className="iconAndBtn"> <button onClick={() => selectItem(product)} className="favIco"> {indexSelected === -1 ?  <StarBorderIcon/> :  <StarIcon/>}</button></div>
+                    <div className="iconAndBtn"> <button onClick={() => checkLogin(product)} className="favIco"> {indexSelected === -1 ?  <StarBorderIcon/> :  <StarIcon/>}</button></div>
                 </div>
 
                 <div className="overlayImg">
@@ -180,11 +191,11 @@ function ItemCard(props) {
             <p className="subTitleItem">  {(lang === "EN" && `from`) || (lang === "RU" && `из`)} { ((lang === "AZ" && product?.seller_data?.name) || (lang === "EN" && product?.seller_data?.name_en) || (lang === "RU" && product?.seller_data?.name_ru))} {lang === "AZ" && `tərəfindən` }</p>
             <div className="textCont">
                 <div className="starAndAbout">
-                    <p className="dscPrc">{(product?.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{money === "₼" ? (product.qiymet) : (product.qiymet / 1.7).toFixed(1)} {money}</span></span>)}</p>
-                    <p className="priceAndWeightItem"><span className="element1"  style={product?.discount !== null ? colorChang : {}}>{money === "₼" ? discountHandler(product) : (discountHandler(product) / 1.7).toFixed(1)}  {money}</span> / <span className="element2">{((product.unit.id === 2 || product.unit.id === 4 || product.unit.id === 1) ? product.ceki_hecm : 1 ) + " " + ((lang === "AZ" && product?.unit.ad) || (lang === "EN" && product?.unit.ad_en) || (lang === "RU" && product?.unit.ad_ru)) }</span> </p>
+                    {!props.btnDisabled && <p className="dscPrc">{(product?.discount !== null) && (<span className="priceStriked"><span className="priceUnderStrike">{money === "₼" ? (product.qiymet) : (product.qiymet / currency).toFixed(1)} {money}</span></span>)}</p> }
+                    <p className="priceAndWeightItem">{!props.btnDisabled &&<span className="element1"  style={product?.discount !== null ? colorChang : {}}>{money === "₼" ? discountHandler(product) : (discountHandler(product) / currency).toFixed(1)}  {money} /</span>  } <span className="element2">{((product.unit.id === 2 || product.unit.id === 4 || product.unit.id === 1) ? product.ceki_hecm : 1 ) + " " + ((lang === "AZ" && product?.unit.ad) || (lang === "EN" && product?.unit.ad_en) || (lang === "RU" && product?.unit.ad_ru)) }</span> </p>
                     <Rating name="read-only" size="small"  readOnly  value={product.starsall} /> 
                 </div>   
-                {(!props.btnDisable)  && <BuyButton functionAdd={() => addItem(product)}   cardPrice={discountHandler(product)}/>}
+                { !props.btnDisabled && <BuyButton functionAdd={() => addItem(product)}   cardPrice={discountHandler(product)}/>}
             </div>
 
         </div>

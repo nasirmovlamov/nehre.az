@@ -66,6 +66,7 @@ export function ProductListingProvider(props) {
         const langArr = ["AZ" , "EN" , "RU"]
         const [lang, setlang] = useState()
         const [money, setmoney] = useState()
+        const [currency, setcurrency] = useState()
         const [MinOrder, setMinOrder] = useState()
         const [Items, setItems] = useState()
 
@@ -81,13 +82,13 @@ export function ProductListingProvider(props) {
 
     //#region Product Add Remove Delete DiscountHandler 
         const discountHandler = (product) => {
-            if (product.discount !== null) {
+            if (product?.discount !== null) {
                 var discountPrice = 0;
-                discountPrice =  Math.round( ((product.qiymet - (product.qiymet  * product.discount) / 100)) )
+                discountPrice =  Math.round( ((product?.qiymet - (product?.qiymet  * product?.discount) / 100)) )
                 return Math.floor(discountPrice);         
             } 
             else {
-                return Math.floor(product.qiymet)
+                return Math.floor(product?.qiymet)
             }
         }
 
@@ -158,10 +159,7 @@ export function ProductListingProvider(props) {
         const addItem = (product) => {
             notifyAddBasket()
             let num = parseInt(product.id)
-            if(product.hasOwnProperty("combo_id"))
-            {
-                num = parseInt(product.combo_id)
-            }
+            
             const price = parseFloat(discountHandler(product))
             const weight = parseFloat(product.ceki_hecm)
             const unitType = parseInt(product.unit.unit_id)
@@ -200,23 +198,13 @@ export function ProductListingProvider(props) {
             setDateGoods(uniqueDates)
             
             let index = ProdutData.findIndex(x=> x.id === num);
-            if(product.hasOwnProperty("combo_id"))
-            {
-                index = ProdutData.findIndex(x=> x?.combo_id === num);
-            }
+            
             if (index === -1) {
                 weightChecker(weight , unitType, 'add' , 0)
                 // product , FinalPrice, FinalWeight, FinalGoods, FinalBonus, DateGoods
                 FinalWeightCartAdd = weightChecker(weight , unitType, 'add' , 0)
                 let productAddcartdata = []
-                if(product.hasOwnProperty("combo_id"))
-                {
-                    productAddcartdata = [...ProdutData , {combo_id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType, bonus:bonus, product:product}]
-                }
-                else 
-                {
-                    productAddcartdata = [...ProdutData , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType, bonus:bonus, product:product}]
-                }
+                productAddcartdata = [...ProdutData , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType, bonus:bonus, product:product}]
                 console.log(productAddcartdata)
                 setProdutData(productAddcartdata)
                 if (UserData !== null) {
@@ -259,13 +247,9 @@ export function ProductListingProvider(props) {
             notifyRemoveBasket()
             //#region Add Cart Values
             let num = product.id
-            if(product.hasOwnProperty("combo_id"))
-            {
-                num = parseInt(product.combo_id)
-            }
+            
             const price = discountHandler(product)
             const weight = product.ceki_hecm
-            console.log(product)
             const unitType = product.unit.unit_id
             const dates = product.delivery
             const name = product.title
@@ -286,10 +270,7 @@ export function ProductListingProvider(props) {
         
             //#endregion Add Cart Values
             let index = ProdutData.findIndex(x=> x.id === num);
-            if(product.hasOwnProperty("combo_id"))
-            {
-                index = ProdutData.findIndex(x=> x.combo_id === num);
-            }
+            
             if (ProdutData[index].count > 0) {
                 let uniqueDates = []
                 let dateall = []
@@ -359,10 +340,7 @@ export function ProductListingProvider(props) {
             notifyRemoveBasket()
             //#region Add Cart Values
             let num = parseInt(product.id)
-            if(product.hasOwnProperty("combo_id"))
-            {
-                num = parseInt(product.combo_id)
-            }
+            
             const price = parseFloat(discountHandler(product))
             const weight = parseFloat(product.ceki_hecm)
             const unitType = parseInt(product.unit.unit_id)
@@ -385,10 +363,7 @@ export function ProductListingProvider(props) {
             let FinalBonusCartAdd = 0
             let DateGoodsCartAdd = []
             var index = ProdutData.findIndex(x=> x.id === num);
-            if(product.hasOwnProperty("combo_id"))
-            {
-                index = ProdutData.findIndex(x=> x.combo_id === num);
-            }
+            
             //#endregion Add Cart Values
 
 
@@ -401,19 +376,12 @@ export function ProductListingProvider(props) {
             FinalWeightCartAdd = weightChecker(weight , unitType , 'delete', index)
             let productAddcartdata = ProdutData.filter((item) => item.id !== num)
             let filteredItems = Items.filter((item) => item.id !== num)
-            if(product.hasOwnProperty("combo_id"))
-            {
-                productAddcartdata = ProdutData.filter((item) => item.combo_id !== num)
-                filteredItems = Items.filter((item) => item.combo_id !== num)
-            }
+            
 
             setProdutData(productAddcartdata)
             setItems(filteredItems)
             let testarr = ProdutData.filter((item) => item.id !== num)
-            if(product.hasOwnProperty("combo_id"))
-            {
-                testarr = ProdutData.filter((item) => item.combo_id !== num)
-            }
+            
             for (let i = 0; i < testarr.length; i++) {
                 console.log('productAddcartdata[i].product.delivery' + testarr[i].product.delivery)
                 dateall.push(...testarr[i].product.delivery)
@@ -544,7 +512,7 @@ export function ProductListingProvider(props) {
     
 
     return (
-        <ProductListingContext.Provider value={{ProdutData:ProdutData, addCart:addCart, setProdutData:setProdutData, FinalPrice:FinalPrice, setFinalPrice:setFinalPrice, FinalWeight:FinalWeight, setFinalWeight:setFinalWeight,FinalGoods:FinalGoods, setFinalGoods:setFinalGoods, addItem:addItem, removeItem:removeItem, lang:lang , setlang:setlang,  money:money , langArr:langArr, DateGoods:DateGoods,setDateGoods:setDateGoods , SelectedsProduct:SelectedsProduct, setSelectedsProduct:setSelectedsProduct, OpenLoginF:OpenLoginF,CloseLoginF:CloseLoginF, setOpenLogin:setOpenLogin , OpenLogin:OpenLogin, handleOpenPM:handleOpenPM, handleClosePM:handleClosePM, modalIdsetter:modalIdsetter, modalId:modalId, FinalBonus:FinalBonus, setFinalBonus:setFinalBonus,discountHandler:discountHandler , setmoney:setmoney, UserData:UserData, setUserData:setUserData, clearBucket:clearBucket, setMinOrder:setMinOrder, MinOrder:MinOrder, setMinOrder:setMinOrder, setItems:setItems , Items:Items , setloader:setloader , loader:loader, deleteCard:deleteCard,StaticData:StaticData, setStaticData:setStaticData , modalId:modalId, UserStatus:UserStatus, setUserStatus:setUserStatus, setnumber2:setnumber2, setnumber1:setnumber1, number1:number1, number2:number2 , setTopCategory:setTopCategory, TopCategory:TopCategory ,openCheckoutF:openCheckoutF, closeCheckoutF:closeCheckoutF, closeRegisterF:closeRegisterF, openRegisterF:openRegisterF, openBucketF:openBucketF, closeBucketF:closeBucketF, notifyAuth:notifyAuth, setProduct:setProduct, NewProducts:NewProducts,  setTopCards:setTopCards, TopCards:TopCards, SpecialOffers:SpecialOffers, setSpecialOffers:setSpecialOffers,AnswerCard:AnswerCard, setAnswerCard:setAnswerCard,Assortment:Assortment,setAssortment:setAssortment, Banners1:Banners1,setBanners1:setBanners1,Banners2:Banners2,setBanners2:setBanners2,SuppliersCard:SuppliersCard,setSuppliersCard:setSuppliersCard}}>
+        <ProductListingContext.Provider value={{ProdutData:ProdutData,currency:currency, setcurrency:setcurrency, addCart:addCart, setProdutData:setProdutData, FinalPrice:FinalPrice, setFinalPrice:setFinalPrice, FinalWeight:FinalWeight, setFinalWeight:setFinalWeight,FinalGoods:FinalGoods, setFinalGoods:setFinalGoods, addItem:addItem, removeItem:removeItem, lang:lang , setlang:setlang,  money:money , langArr:langArr, DateGoods:DateGoods,setDateGoods:setDateGoods , SelectedsProduct:SelectedsProduct, setSelectedsProduct:setSelectedsProduct, OpenLoginF:OpenLoginF,CloseLoginF:CloseLoginF, setOpenLogin:setOpenLogin , OpenLogin:OpenLogin, handleOpenPM:handleOpenPM, handleClosePM:handleClosePM, modalIdsetter:modalIdsetter, modalId:modalId, FinalBonus:FinalBonus, setFinalBonus:setFinalBonus,discountHandler:discountHandler , setmoney:setmoney, UserData:UserData, setUserData:setUserData, clearBucket:clearBucket, setMinOrder:setMinOrder, MinOrder:MinOrder, setMinOrder:setMinOrder, setItems:setItems , Items:Items , setloader:setloader , loader:loader, deleteCard:deleteCard,StaticData:StaticData, setStaticData:setStaticData , modalId:modalId, UserStatus:UserStatus, setUserStatus:setUserStatus, setnumber2:setnumber2, setnumber1:setnumber1, number1:number1, number2:number2 , setTopCategory:setTopCategory, TopCategory:TopCategory ,openCheckoutF:openCheckoutF, closeCheckoutF:closeCheckoutF, closeRegisterF:closeRegisterF, openRegisterF:openRegisterF, openBucketF:openBucketF, closeBucketF:closeBucketF, notifyAuth:notifyAuth, setProduct:setProduct, NewProducts:NewProducts,  setTopCards:setTopCards, TopCards:TopCards, SpecialOffers:SpecialOffers, setSpecialOffers:setSpecialOffers,AnswerCard:AnswerCard, setAnswerCard:setAnswerCard,Assortment:Assortment,setAssortment:setAssortment, Banners1:Banners1,setBanners1:setBanners1,Banners2:Banners2,setBanners2:setBanners2,SuppliersCard:SuppliersCard,setSuppliersCard:setSuppliersCard}}>
             {props.children}
             <div className="modalCont">
 

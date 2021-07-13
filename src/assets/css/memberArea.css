@@ -348,6 +348,15 @@
           box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
+.memberAreaCont main .bookmarks .itemCard .overlayImg {
+  width: 250px;
+  height: 242px;
+}
+
+.memberAreaCont main .bookmarks .itemCard .imgCont {
+  width: 250px;
+}
+
 .memberAreaCont main .bookmarks .selection {
   -ms-flex-item-align: start;
       align-self: flex-start;

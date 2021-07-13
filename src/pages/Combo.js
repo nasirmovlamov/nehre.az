@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   }));  
 function Combo(props) {
     const context = useContext(ProductListingContext)
-    const {ProdutData,addCart, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+    const {ProdutData, discountHandler,currency, addCart, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
     
     const [loader, setloader] = useState(false)
     let { slug } = useParams();
@@ -43,10 +43,12 @@ function Combo(props) {
 
     const [CategoryData, setCategoryData] = useState()
     const [ProductData, setProductData] = useState([])
+    const [PriceCombo, setPriceCombo] = useState()
     const sendGetRequestCategory = async () => {
       try {
           const resp = await axios.get(`https://nehra.az/public/api/combo/${slug}`)
           setCategoryData(resp.data)
+          setPriceCombo(discountHandler(resp.data.overview))
           setProductData(resp.data.products)
       } catch (err) {
           // Handle Error Here
@@ -67,7 +69,7 @@ function Combo(props) {
     };
     useEffect(() => {
       sendGetRequestCategory()
-    }, [])
+    }, [slug])
 
     const filterHandler = (num) => {
       var tags = document.querySelectorAll('.tag')
@@ -80,25 +82,25 @@ function Combo(props) {
 
    
     
-    const combo = {
-      combo_id:2,
-      qiymet:5,
-      cashback:7,
-      discount:2,
-      unit: {
-        id:4,
-        unit_id:4,
-        ad:'q',
-        ad_en:'g',
-        ad_ru:'г',
-      },
-      ceki_hecm:150,
-      delivery: ["6"],
-      title: "Combo Məhsulları",
-      title_en: "Combo Məhsulları en",
-      title_ru: "Combo Məhsulları ru",
-      thumb: CategoryData?.overvew.images
-    }
+    // const combo = {
+    //   combo_id:2,
+    //   qiymet:5,
+    //   cashback:7,
+    //   discount:2,
+    //   unit: {
+    //     id:4,
+    //     unit_id:4,
+    //     ad:'q',
+    //     ad_en:'g',
+    //     ad_ru:'г',
+    //   },
+    //   ceki_hecm:150,
+    //   delivery: ["6"],
+    //   title: "Combo Məhsulları",
+    //   title_en: "Combo Məhsulları en",
+    //   title_ru: "Combo Məhsulları ru",
+    //   thumb: CategoryData?.overview.images
+    // }
 
     const buyCombo = () => {
         const notifyAddBasket = () => toast.success(`Səbətə Əlavə olundu` , {draggable: true, autoClose: 1000,});
@@ -186,18 +188,19 @@ function Combo(props) {
         // localStorage.setItem('FinalWeight' , (parseFloat(WholeWeight)))
       }
     const comboImage =  {
-        backgroundImage: `url(https://nehra.az/storage/app/public/${CategoryData?.overvew.images})`,
+        backgroundImage: `url(https://nehra.az/storage/app/public/${CategoryData?.overview.thumb})`,
         backgroundPosition: 'center center',
     }
     const element = () => {
         console.log(ProdutData)
     }
+    
     return (
         <div className="comboPage pagescroll"> 
             <div className="topPart">
                 <div className="titleProducts">
-                        <p className="category"> <span> {(lang === "AZ" && `Əsas Səhifə`) || (lang === "EN" && `Homepage`) || (lang === "RU" && `Домашняя страница`)} • {lang === "AZ" && CategoryData?.overvew.name_az || lang === "EN" && CategoryData?.overvew.name_en || lang === "RU" && CategoryData?.overvew.name_ru }</span>  </p>
-                        <h2 className="categoryName">{lang === "AZ" && CategoryData?.overvew.name_az || lang === "EN" && CategoryData?.overvew.name_en || lang === "RU" && CategoryData?.overvew.name_ru }</h2>
+                        <p className="category"> <span> {(lang === "AZ" && `Əsas Səhifə`) || (lang === "EN" && `Homepage`) || (lang === "RU" && `Домашняя страница`)} • {lang === "AZ" && CategoryData?.overview.title || lang === "EN" && CategoryData?.overview.title_en || lang === "RU" && CategoryData?.overview.title_ru }</span>  </p>
+                        <h2 className="categoryName">{lang === "AZ" && CategoryData?.overview.title || lang === "EN" && CategoryData?.overview.title_en || lang === "RU" && CategoryData?.overview.title_ru }</h2>
                 </div>
             </div>
 
@@ -205,7 +208,7 @@ function Combo(props) {
             <div className="comboImage" style={comboImage}></div>
             
             <p className="comboDescription">
-              {lang === "AZ" && CategoryData?.overvew?.description_az || lang === "EN" && CategoryData?.overvew?.description_en || lang === "RU" && CategoryData?.overvew?.description_ru}
+              {lang === "AZ" && CategoryData?.overview?.description_az || lang === "EN" && CategoryData?.overview?.description_en || lang === "RU" && CategoryData?.overview?.description_ru}
             </p>
             <p className="comboItemsNum">{lang === "AZ" && "Comboya daxil olan məhsullar" || lang === "EN" && "Products included in the combination" || lang === "RU" && "Продукты, входящие в комбинацию"}</p>
             <div className="productsCont">
@@ -217,8 +220,21 @@ function Combo(props) {
             </div>
 
             <p className="buyComboCont">
-                <p className="price"> {(lang === "AZ" && `Dəstin qiyməti: `) || (lang === "EN" && `Price of combo`) || (lang === "RU" && `Цена комбо`)}<span className='number'> {money === "₼" ?  CategoryData?.overvew?.price :  (CategoryData?.overvew?.price / 1.7).toFixed(1)} {money} </span> </p>
-                <button onClick={() => addItem(combo)} className="buyCombo"> {(lang === "AZ" && `Dəsti Səbətə əlavə edin`) || (lang === "EN" && `Add  comb to the basket`) || (lang === "RU" && `Добавьте в корзину`)}</button>
+                <p className="price"> 
+                  {(lang === "AZ" && `Dəstin qiyməti: `) || (lang === "EN" && `Price of combo`) || (lang === "RU" && `Цена комбо`)}
+                  <span className='number'> 
+                    {money === "₼" ?  
+                      
+                      <div className='priceContCombo'>
+                        {CategoryData?.overview?.discount != 0 && <span className='normalPrice'>{CategoryData?.overview?.qiymet} {money} </span> } <span className='discountPrice'>{PriceCombo} {money} </span> 
+                      </div>   :  
+                      (CategoryData?.overview?.discount !== 0 &&
+                      <div className='priceContCombo'>
+                        <span>{(CategoryData?.overview?.qiymet / currency).toFixed(1)} {money} </span> <span>{(PriceCombo / currency).toFixed(1)} {money} </span> 
+                      </div>)} 
+                  </span> 
+                </p>
+                <button onClick={() => addItem(CategoryData?.overview)} className="buyCombo"> {(lang === "AZ" && `Dəsti Səbətə əlavə edin`) || (lang === "EN" && `Add  comb to the basket`) || (lang === "RU" && `Добавьте в корзину`)}</button>
             </p>
 
         </div>

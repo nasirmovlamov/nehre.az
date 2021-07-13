@@ -3,6 +3,7 @@ import "../assets/css/cardSlider1.css"
 import Button1 from './Button1'
 import Skeleton from '@material-ui/core/Skeleton';
 import {ProductListingContext} from '../components/ProductListingProvider'
+import {Link} from 'react-router-dom'
 
 function CardSlider1(props) {
     const context = useContext(ProductListingContext)
@@ -21,8 +22,7 @@ function CardSlider1(props) {
     //     inputDesc?.current?.setAttribute('style' , 'background-color:rgba(0,0,0,0);')
     // }
     return (
-        <a href={`${props.link}`}>
-            
+        <Link to={`${props.link}`}>
                 <div className="cardSlider1" style={imgHandler}>
                     <div className="cardSlider2"  >
                         <div className="textCont" ref={inputTitle}>
@@ -32,7 +32,7 @@ function CardSlider1(props) {
                         </div>
                     </div>
                 </div>
-        </a>
+        </Link>
     )
 }
 

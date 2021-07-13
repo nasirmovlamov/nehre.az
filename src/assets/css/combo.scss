@@ -5,7 +5,39 @@
     flex-direction: column;
     align-items: center;
     height: auto;
-
+    .number
+    {
+        // width: 200px;
+    }
+    .price
+    {
+        display: flex;
+        align-items: center;
+    }
+    .priceContCombo
+    {
+        display: flex;
+        margin-left: 10px;
+        align-items: center;
+        .normalPrice
+        {
+            font-size: 15px;
+            color: red  ;
+            text-decoration: line-through;
+        }
+        .discountPrice
+        {
+            font-size: 25px;
+        }
+    }
+    .itemCard
+    {
+        height: 360px !important;
+        .overlayImg 
+        {
+            height: 238px;
+        }
+    }
     .topPart
     {
 

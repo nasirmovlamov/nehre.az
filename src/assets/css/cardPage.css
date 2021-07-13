@@ -391,6 +391,18 @@
   padding-bottom: 20px;
 }
 
+.cardCont .mainSide .item .eyeAndDelete {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .cardCont .mainSide .item .imgCont {
   width: 104px;
   height: 100px;
@@ -408,7 +420,6 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  margin-left: -60px;
   height: 94px;
   width: 250px;
 }

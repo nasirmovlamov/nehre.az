@@ -25,7 +25,7 @@ import axios from 'axios';
 
 function Routing() {
     const context = useContext(ProductListingContext)
-    const {UserData , setUserData , ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader , UserStatus, setUserStatus ,  setnumber2, setnumber1, number1, number2 , setTopCategory, TopCategory} = context
+    const {UserData ,currency, setcurrency, setUserData , ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader , UserStatus, setUserStatus ,  setnumber2, setnumber1, number1, number2 , setTopCategory, TopCategory} = context
     const sendGetRequest10 = async () => {
         setloader(true)
         try {
@@ -79,13 +79,13 @@ function Routing() {
           }
           else if (JSON.parse(localStorage.getItem('LoginUserData')) === null)
           {
-            setProdutData(localStorage.getItem('ProdutData')  !== null   ?  JSON.parse(localStorage.getItem('ProdutData')) : [])
-            setFinalPrice(localStorage.getItem('FinalPrice')!== null   ?  parseFloat(localStorage.getItem('FinalPrice')) : 0 )
-            setFinalWeight(localStorage.getItem('FinalWeight') !== null ? parseFloat(localStorage.getItem('FinalWeight')) : 0)
-            setFinalGoods(localStorage.getItem('FinalGoods')   !== null  ?  parseInt(localStorage.getItem('FinalGoods')) : 0)
-            setFinalBonus(localStorage.getItem('FinalBonus')   !== null  ?  parseInt(localStorage.getItem('FinalBonus')) : 0)
-            setDateGoods(localStorage.getItem('DateGoods')  !== null  ?  JSON.parse(localStorage.getItem('DateGoods')) : [])
-            setItems(localStorage.getItem('ProdutData')  !== null   ?  JSON.parse(localStorage.getItem('ProdutData')) : [])
+            setProdutData([])
+            setFinalPrice(0 )
+            setFinalWeight(0)
+            setFinalGoods(0)
+            setFinalBonus(0)
+            setDateGoods([])
+            setItems([])
             resp = await axios.get(`https://nehra.az/public/api/settings`)
             setTopCategory(resp.data.featuredcats)
             setMinOrder(resp.data.min_order_amount)
@@ -98,31 +98,40 @@ function Routing() {
           }
           else 
           {}
-            setloader(false)
+          
+          setloader(false)
         } 
-        
         catch (err) {
           console.error(err);
           setloader(false)
         }
       };
-    useEffect(   () => {
-        sendGetRequest10()
-    }, [])
+    useEffect(  async  () => {
+        await sendGetRequest10()
+        const currentDate = new Date()
+        console.log(currentDate.getDate() + "." +  (currentDate.getMonth() + 1 < 10 && 0)+ (currentDate.getMonth() + 1) + "." + currentDate.getFullYear())
+        const headers= { 
+          'Accept':'text/xml',
+          "Access-Control-Allow-Origin": "*",
+        }
+        const currency = await axios.get(`https://www.cbar.az/currencies/${currentDate.getDate() + "." + (currentDate.getMonth() + 1 < 10 && 0) + (currentDate.getMonth() + 1) + "." + currentDate.getFullYear()}.xml` , headers)
+        let parser = new DOMParser()
+        let xmlDoc = parser.parseFromString(currency.data, 'text/xml')
+        setcurrency(parseFloat(xmlDoc.querySelectorAll('ValType')[1].querySelectorAll('Valute')[0].querySelector('Value').textContent))
+      }, [])
 
   return (
       <>
-        <Router>
                     {loader ? <Route path="/">   <Loader />   </Route> :
                     <Layout>
+                      {/* {console.log(currency)} */}
                             <Switch>
                                     <Route   exact  path="/">                 <HomePage />                </Route>
                                     <ProtectedRoute   path='/memberarea'  component={ MemberArea}/>
-                                    <Route   path="/combos/:slug" >           <Combo/>                    </Route>
                                     <Route   path="/category/:id">            <ProductListingPage />      </Route>
                                     <Route   path="/about" >                  <About/>                    </Route>
                                     <Route   path="/elaqe" >                  <Contact/>                  </Route>
-                                    <Route   path="/public/forgetpassword" >  <ForgetPassword/>           </Route>
+                                    <Route   path="/forgetpassword" >  <ForgetPassword/>           </Route>
                                     <Route   path="/who" >                    <Who/>                      </Route>
                                     <Route   path="/privacy-policy" >         <PrivacyPolicy/>            </Route>
                                     <Route   path="/quality" >                <Quality/>                  </Route>
@@ -130,11 +139,11 @@ function Routing() {
                                     <Route   path="/search" >                 <SearchResult/>             </Route>
                                     <Route   path="/suppliers/:id" >          <SelectedSupplier/>         </Route>
                                     <Route   path="/suppliers" >              <Suppliers/>                </Route>
+                                    <Route   path="/:slug" >           <Combo/>                    </Route>
                                     <Route   path="*">                        <F04  />                    </Route>
                             </Switch> 
                     </Layout>
                     }
-        </Router>
      </>
   );
 }

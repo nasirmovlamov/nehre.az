@@ -86,13 +86,13 @@ function LoginPage(props) {
           }
           else if (JSON.parse(localStorage.getItem('LoginUserData')) === null)
           {
-            setProdutData(localStorage.getItem('ProdutData')  !== null   ?  JSON.parse(localStorage.getItem('ProdutData')) : [])
-            setFinalPrice(localStorage.getItem('FinalPrice')!== null   ?  parseFloat(localStorage.getItem('FinalPrice')) : 0 )
-            setFinalWeight(localStorage.getItem('FinalWeight') !== null ? parseFloat(localStorage.getItem('FinalWeight')) : 0)
-            setFinalGoods(localStorage.getItem('FinalGoods')   !== null  ?  parseInt(localStorage.getItem('FinalGoods')) : 0)
-            setFinalBonus(localStorage.getItem('FinalBonus')   !== null  ?  parseInt(localStorage.getItem('FinalBonus')) : 0)
-            setDateGoods(localStorage.getItem('DateGoods')  !== null  ?  JSON.parse(localStorage.getItem('DateGoods')) : [])
-            setItems(localStorage.getItem('ProdutData')  !== null   ?  JSON.parse(localStorage.getItem('ProdutData')) : [])
+            setProdutData([])
+            setFinalPrice(0 )
+            setFinalWeight(0)
+            setFinalGoods(0)
+            setFinalBonus(0)
+            setDateGoods([])
+            setItems([])
             console.log('not')
             resp = await axios.get(`https://nehra.az/public/api/settings`)
             setTopCategory(resp.data.featuredcats)
@@ -108,13 +108,9 @@ function LoginPage(props) {
           {}
             setloader(false)
         } 
-        
         catch (err) {
-          console.error(err);
-            setloader(false)
-          setTimeout(() => {
-            sendGetRequest10()
-          }, 60000);
+          setloader(false)
+          setError(true)
         }
       };
 
@@ -129,6 +125,7 @@ function LoginPage(props) {
         notify() 
       } catch (error) {
         notifyWarn()
+        setError(true)
       }
     }
 
