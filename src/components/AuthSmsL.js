@@ -59,7 +59,7 @@ function AuthSms(props) {
             {(second !== 0 && tillCount !== null && tillCount <= 0) && <button className='moreAbout' onClick={() => onSubmit()} >{lang === "AZ" && `Təsdiqlə` || lang === "EN" && `Confirm` || lang === "RU" && `Подтверждать`}</button>}
             {second !== 0 && <>{minute < 10 && 0}{minute} : {showSecond < 10 && 0}{showSecond}</>}
             {second === 0 && <button onClick={() => resend()} className='moreAbout'>{lang === "AZ" && `Kodu yenidən göndər ` || lang === "EN" && `Resend the code` || lang === "RU" && `Отправить код еще раз`}</button>}
-            <p className='errorMessage'>{(tillCount > 0 && (tillCount/60) < 15) &&  (lang === "AZ" && ` ${tillCount/60} dəqiqə sonra yenidən cəhd edin` || lang === "EN" && `Please try again later after ${tillCount/60} minutes` || lang === "RU" && `Пожалуйста, повторите попытку позже`)}</p>
+            <p className='errorMessage'>{(tillCount > 0 && (tillCount/60) < 15) &&  (lang === "AZ" && ` ${tillCount/60} dəqiqə sonra yenidən cəhd edin` || lang === "EN" && `Please try again later after ${tillCount/60} minutes` || lang === "RU" && `Пожалуйста, попробуйте еще раз позже через  ${tillCount/60} минут`)}</p>
         </div>
     )
 }

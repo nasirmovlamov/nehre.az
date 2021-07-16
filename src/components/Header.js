@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import DownNavbar from './DownNavbar'
 import Navbar from './Navbar'
 import TopNavbar from './TopNavbar'
+import TopNavbarPart2 from './TopNavbarPart2'
 import {ProductListingProvider} from './ProductListingProvider'
 import {ProductListingContext} from '../components/ProductListingProvider'
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';

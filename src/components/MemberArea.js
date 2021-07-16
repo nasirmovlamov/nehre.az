@@ -70,15 +70,13 @@ function MemberArea(props) {
   }
 
   const context = useContext(ProductListingContext)
-  const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,loader, setloader, StaticData,setStaticData} = context
+  const {ProdutData, setProdutData, logout, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,loader, setloader, StaticData,setStaticData} = context
   const memberMQ = useMediaQuery("(min-width:900px)");
   const url = window.location.href;
   const lastSegment = url.split("/").pop();
  
 
-  const logOut = () => {
-    localStorage.clear();
-  };
+  
 
 //Swiper{
   const classes = stylesForSwiper();
@@ -172,7 +170,7 @@ function MemberArea(props) {
               id="btn8"
             >
               <AccountBalanceWalletIcon />
-              {(lang === "AZ" && `Depozitlər`) || (lang === "EN" && `Deposits`) || (lang === "RU" && `Депозиты`)}
+              {(lang === "AZ" && `Depozitlər`) || (lang === "EN" && `Deposites`) || (lang === "RU" && `Депозиты`)}
             </button>
           </Link>
           <Link to="/memberarea/free-shipping" className="freeShipping">
@@ -190,7 +188,7 @@ function MemberArea(props) {
           </Link>
           <hr />
           <a href="/">
-            <button onClick={logOut}>
+            <button onClick={logout}>
               <ExitToAppIcon />{(lang === "AZ" && ` Çıxış`) || (lang === "EN" && `Log out`) || (lang === "RU" && `Выйти`)}
             </button>
           </a>
@@ -297,7 +295,7 @@ function MemberArea(props) {
             <Link to="/memberarea/deposite" className="deposites">
               <button style={styler('/memberarea/deposite')}>
                 <AccountBalanceWalletIcon />
-                {(lang === "AZ" && `Depozitlər`) || (lang === "EN" && `Deposits`) || (lang === "RU" && `Депозиты`)}
+                {(lang === "AZ" && `Depozitlər`) || (lang === "EN" && `Deposites`) || (lang === "RU" && `Депозиты`)}
               </button>
             </Link>
 
@@ -315,7 +313,7 @@ function MemberArea(props) {
             </Link>
             <hr />
             <a href="/">
-              <button onClick={logOut}>
+              <button onClick={logout}>
                 <ExitToAppIcon /> 
                 {(lang === "AZ" && `Çıxış`) || (lang === "EN" && `Exit`) || (lang === "RU" && `Exit`)}
               </button>

@@ -159,7 +159,7 @@ function ForgetPassword() {
                                 <p className="error"><ErrorMessage name="confirmPassword"/></p>
                             </div>
                     </div>
-                    <button className='submitBtn' type='submit' > save</button>
+                    <button className='submitBtn' type='submit' > {(lang === "AZ" && `Yadda Saxla` || lang === "EN" && `Save` || lang === "RU" && `Сохранить`)}</button>
                 </Form>
             </Formik>
             </div>

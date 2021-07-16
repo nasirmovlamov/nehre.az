@@ -30,8 +30,8 @@ function Registration(props) {
     const {ProdutData, openRegisterF , setUserData , closeRegisterF , setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
 
   
-    const notifyW = () => toast.error("Daxil etdiyiniz məlumatları yanlışdır!");
-    const notify = () => toast.info("Hesabınız müvəfəqiyyətlə yaradıldı!");
+    const notifyW = () => toast.error((lang === "AZ" && "Daxil etdiyiniz məlumatları yanlışdır!" || lang === "EN" && `The information you entered is incorrect!` || lang === "RU" && `Введенная вами информация неверна!`));
+    const notify = () => toast.info((lang === "AZ" && "Hesabınız müvəfəqiyyətlə yaradıldı!" || lang === "EN" && `Your account has been successfully created!` || lang === "RU" && `Ваша учетная запись успешно создана!`));
 
   const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
   const token = Cookies.getItem('XSRF-TOKEN')

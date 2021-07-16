@@ -27,7 +27,7 @@ function CheckoutPage(props) {
     const {ProdutData,openCheckoutF,UserData, closeCheckoutF, addCart, setProdutData, closeBucketF, openBucketF, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,clearBucket ,setItems, setMinOrder, Items, MinOrder} = context
     const staticData = Data[`address-${lang}`]
   
-    const notify = () => toast.info("Nuş olsun!");
+    const notify = () => toast.info((lang === "AZ" && "Nuş olsun!" || lang === "EN" && `Bon Appetit!` || lang === "RU" && `Приятного аппетита!`));
 
     const [loader, setloader] = useState(false)
     const [selectedValue, setselectedValue] = useState(1)

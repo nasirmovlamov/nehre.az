@@ -31,7 +31,7 @@ function AddressEdit() {
     const [note, setnote] = useState()
 
 
-    const notifyAddress = (rate) => toast.success(((lang === "AZ" && `Ünvan yeniləndi!`) || (lang === "EN" && `Address updated!`) || (lang === "RU" && `Адрес обновлен!`)) , {draggable: true,});
+    const notifyAddress = (rate) => toast.info(((lang === "AZ" && `Ünvan yeniləndi!`) || (lang === "EN" && `Address updated!`) || (lang === "RU" && `Адрес обновлен!`)) , {draggable: true,});
     let { id } = useParams();
     let history = useHistory()
     
@@ -112,7 +112,7 @@ function AddressEdit() {
         <p className="title"> {(lang === "AZ" && `Mənim ünvanlarım`) || (lang === "EN" && `My addresses`) || (lang === "RU" && `Мои адреса`)}</p>
         <form  className="form">
             <div className="flexContAddress">
-                <div className="label"> {(lang === "AZ" && `Ünvan`) || (lang === "EN" && `Address`) || (lang === "RU" && `Адрес`)}</div>
+                {/* <div className="label"> {(lang === "AZ" && `Ünvan`) || (lang === "EN" && `Address`) || (lang === "RU" && `Адрес`)}</div> */}
                 <div className="againDiv">
                     {/* <div><input  type="text"  value={address}    onChange={onChange}       placeholder={(lang === "AZ" && `Dəqiq ünvan qeyd edin`) || (lang === "EN" && `Enter the exact address`) || (lang === "RU" && `Введите точный адрес`)}  className="input1"/></div> */}
                         <label htmlFor="city">{(lang === "AZ" && `Şəhər`) || (lang === "EN" && `City`) || (lang === "RU" && `Город`)}</label>

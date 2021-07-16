@@ -28,7 +28,7 @@ function Review(props) {
 
     return (
         <div className="review">
-            <Avatar className={classes.orange}>N</Avatar>
+            <Avatar className={classes.orange}>{props?.user_name.slice(0,1)}</Avatar>
             <div className='review_about'>
                 <p className="text">
                     {props?.user_name}

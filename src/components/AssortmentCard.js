@@ -18,7 +18,7 @@ function AssortmentCard(props) {
         <Link to={`/category/${props.id}`} className="assortmentCard" style={imgHandler}>
             <div  className="imgContAssortment"></div>
             <div className="overlay">
-                <p className="assortSubTitle">{props.desc}  {(lang === "AZ" && ` çox məhsulla xidmətinizdəyik`) || (lang === "EN" && ` with products , at your service`) || (lang === "RU" && ` с продуктами, к вашим услугам`)}</p>
+                <p className="assortSubTitle">{props.desc}  {(lang === "AZ" && `dan çox məhsulla xidmətinizdəyik`) || (lang === "EN" && ` with products , at your service`) || (lang === "RU" && ` с продуктами, к вашим услугам`)}</p>
                 <p className="assortTitle">{props.title}</p>
             </div>
         </Link>

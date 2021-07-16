@@ -64,7 +64,7 @@ function AuthSms(props) {
            
             +{Phone} <br/> {lang === "AZ" && `Nömrəsinə göndərilən kod` || lang === "EN" && `the code sent to the number` || lang === "RU" && `код, отправленный на номер`} 
             
-            <input disabled={(tillCount !== null && tillCount <= 0) ? false : true} onChange={(e) => onChange(e)} value={code} placeholder={"Telefon mörənizə göndərilən kodu daxil edin"} type="text" maxLength="6"/>
+            <input disabled={(tillCount !== null && tillCount <= 0) ? false : true} onChange={(e) => onChange(e)} value={code} placeholder={lang === "AZ" && "Telefon nömrənizə göndərilən kodu daxil edin" || lang === "EN" && `Enter the code that sent to your phone number` || lang === "RU" && `Введите код, отправленный на ваш номер телефона`} type="text" maxLength="6"/>
             
             <button className='moreAbout' disabled={(tillCount !== null && tillCount <= 0) ? false : true} onClick={() => onSubmit()} > {lang === "AZ" && `Təsdiqlə` || lang === "EN" && `Confirm` || lang === "RU" && `Подтверждать`} </button>
            
@@ -72,7 +72,7 @@ function AuthSms(props) {
            
             {second === 0 && <button  onClick={() => resend()} className='moreAbout'>{lang === "AZ" && `Kodu yenidən göndər ` || lang === "EN" && `Resend the code` || lang === "RU" && `Отправить код еще раз`}</button>}
             
-            {(tillCount !== null && tillCount > 0) && <p className='errorMessage'>{(tillCount !== null && tillCount > 0) && (lang === "AZ" && ` ${tillCount/60} dəqiqə sonra yenidən cəhd edin` || lang === "EN" && `Please try again later after ${tillCount/60} minutes` || lang === "RU" && `Пожалуйста, повторите попытку позже`)}</p>}
+            {(tillCount !== null && tillCount > 0) && <p className='errorMessage'>{(tillCount !== null && tillCount > 0) && (lang === "AZ" && ` ${tillCount/60} dəqiqə sonra yenidən cəhd edin` || lang === "EN" && `Please try again later after ${tillCount/60} minutes` || lang === "RU" && `Пожалуйста, попробуйте еще раз позже через  ${tillCount/60} минут`)}</p>}
         </div>
     )
 }

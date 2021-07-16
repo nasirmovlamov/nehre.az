@@ -1,3 +1,4 @@
+// #region imports
 import React, { useEffect, useState, useContext} from 'react'
 import "../assets/css/topNavbar.css"
 import logoNehre from "../assets/images/Loqo_nehre.png"
@@ -36,6 +37,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import { authcheck } from '../pages/Auth'
 import logoNehre2 from "../assets/images/logoNehre2.png"
 import logoNehre3 from "../assets/images/logoNehre2.png"
+// #endregion imports
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    changeValue,
+    changeSearcherData,
+    searchValue,
+    searchData,
+    GetSearchData
+} from './counter/counterSlice';
+
 
 
 const stylesForSwiper = makeStyles({
@@ -59,6 +70,7 @@ const stylesForSwiper1 = makeStyles({
 
 
 function TopNavbar(props) {
+    // #region variables
     const history = useHistory()
     const rightImgMQ = useMediaQuery('(min-width:1260px)');
     const leftImgMQ = useMediaQuery('(min-width:1100px)');
@@ -69,11 +81,10 @@ function TopNavbar(props) {
     const searchBottomMQ = useMediaQuery('(min-width:786px)');
     const context = useContext(ProductListingContext)
     const {UserData ,setSearchResult, SearchResult,   notifyAuth,currency, setUserData ,  ProdutData, setProdutData, FinalPrice, setFinalPrice, openBucketF, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader , UserStatus, setUserStatus ,  setnumber2, setnumber1, number1, number2 , setTopCategory, TopCategory} = context
-
-
     const notifyLogin = () => toast.warning( ((lang === "AZ" && `Hesabınıza daxil olun!`) || (lang === "EN" && `Enter your account!`) || (lang === "RU" && `Войдите в свой аккаунт!`)) , {draggable: true,});
-   
-
+    // #endregion variables
+    
+    //#region functions of Navbar
     const [drop1, setdrop1] = useState(false)
     const [drop2, setdrop2] = useState(false)
     function myFunction1(num) {
@@ -98,28 +109,31 @@ function TopNavbar(props) {
     function myFunctionBlur2()
     {
     }
-
+    
     const [moneyType, setmoneyType] = useState("₼")
-
+    
     const moneyChanger = () => {
         if(money === "₼")
         {
             sessionStorage.setItem('money' , "$")
-            window.location.reload();
+            setmoney("$")
+            // window.location.reload();
             setdrop1(false)
         }
         else 
         {
+            setmoney("₼")
             sessionStorage.setItem('money' , "₼")
-            window.location.reload();
+            // window.location.reload();
             setdrop1(false)
         }
     }
-
+    
     
     
     const languageChanger = (lang) => {
         sessionStorage.setItem('lang' , lang)
+        setlang(lang)
         window.location.href = `https://nehra.az/${lang}`
         window.location.reload();
     }
@@ -134,8 +148,8 @@ function TopNavbar(props) {
     const searchChange = (e) => {
         setSearchResult(e.target.value)
     }
-
-
+    
+    
     const searchHandler = (e) => {
         e.preventDefault()
         if(SearchResult !== "")
@@ -144,10 +158,12 @@ function TopNavbar(props) {
             history.push('/search')
         }
     }
+    //#endregion functions of Navbar
 
-
-
-
+    //#region Mobile Version things
+    
+    
+    
     const DrawerAssort = () => {
         if(document.querySelector('#assrtDrawId').style.height !== '' && document.querySelector('#assrtDrawId').style.height !== '0px')
         {
@@ -155,25 +171,25 @@ function TopNavbar(props) {
         }
         else 
         {
-            document.querySelector('#assrtDrawId').setAttribute('style' , `opacity:1;transition:1s;height:${props.assortmentArr.length * 35 + 'px'} !important;padding-top:5px;padding-bottom:5px;`);
+            document.querySelector('#assrtDrawId').setAttribute('style' , `opacity:1;transition:1s;height:${TopCategory.length * 35 + 'px'} !important;padding-top:5px;padding-bottom:5px;`);
         }
     }
 
     const classes = stylesForSwiper();
-      const [state, setState] = React.useState({
+    const [state, setState] = React.useState({
         top: false,
-      });
-  
-      const toggleDrawer = (anchor, open) => (event) => {
+    });
+    
+    const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
           return;
         }
         setState({ ...state, [anchor]: open });
-      };
-      const list = (anchor) => (
+    };
+    const list = (anchor) => (
         <div
         className={clsx(classes.list, {
-          [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+            [classes.fullList]: anchor === 'top' || anchor === 'bottom',
         })}
         role="presentation"
         // onClick={toggleDrawer(anchor, false)}
@@ -186,20 +202,20 @@ function TopNavbar(props) {
                 <div className="assortmentDrawer">
                         <button onClick={() => DrawerAssort()} className="title"><WidgetsIcon /> <p>  {(lang === "AZ" && `Məhsul Çeşidləri`) || (lang === "EN" && `Product Assortments`) || (lang === "RU" && `Ассортимент продукции`)}</p> <ArrowDropUpIcon/></button>
                         <div className='assortmentCont' id='assrtDrawId'>
-                            {TopCategory.map(element => <a href={`/category/${element.id}`}>{(lang === "AZ" && element.name_az) || (lang === "EN" && element.name_en) || (lang === "RU" && element.name_ru)}</a>)}
+                            {TopCategory.map(element => <Link to={`/category/${element.id}`}>{(lang === "AZ" && element.name_az) || (lang === "EN" && element.name_en) || (lang === "RU" && element.name_ru)}</Link>)}
                         </div >
                 </div>
 
                 <div className="links">
                         <Link to="/" id="homepage"> {(lang === "AZ" && `Əsas səhifə`) || (lang === "EN" && `Main page`) || (lang === "RU" && `Главная страница`)}</Link>
                         <Link to="/promotions"  id="promotions"> {(lang === "AZ" && `Endirimlər`) || (lang === "EN" && `Discounts`) || (lang === "RU" && `Скидки`)}</Link>
-                        <Link to="/about" id="about"> {(lang === "AZ" && `Haqqımızda`) || (lang === "EN" && `About us`) || (lang === "RU" && `О нас`)}</Link>
-                        <Link to="/contact" id="contact"> {(lang === "AZ" && `Əlaqə`) || (lang === "EN" && `Contact`) || (lang === "RU" && `Контакт`)}</Link>
+                        <Link to="/who" id="about"> {(lang === "AZ" && `Haqqımızda`) || (lang === "EN" && `About us`) || (lang === "RU" && `О нас`)}</Link>
+                        <Link to="/elaqe" id="contact"> {(lang === "AZ" && `Əlaqə`) || (lang === "EN" && `Contact`) || (lang === "RU" && `Контакт`)}</Link>
                 </div>
                 <div className="lang"> 
-                        <button>AZ</button>
-                        <button>EN</button>
-                        <button>RU</button>
+                        <button onClick={() => languageChanger(langArr[0])}>AZ</button>
+                        <button onClick={() => languageChanger(langArr[1])}>EN</button>
+                        <button onClick={() => languageChanger(langArr[2])}>RU</button>
                 </div>
             </div>
 
@@ -217,36 +233,36 @@ function TopNavbar(props) {
         </div>
     </div>
     );
-
+    
     const classes1 = stylesForSwiper1();
-      const [state1, setState1] = React.useState({
+    const [state1, setState1] = React.useState({
         top: false,
-      });
-  
-      const toggleDrawer1 = (anchor, open) => (event) => {
+    });
+    
+    const toggleDrawer1 = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-          return;
+            return;
         }
         setState1({ ...state, [anchor]: open });
-      };
-      const list1 = (anchor) => (
+    };
+    const list1 = (anchor) => (
         <div
         className={clsx(classes1.list, {
-          [classes1.fullList]: anchor === 'top' || anchor === 'bottom',
+            [classes1.fullList]: anchor === 'top' || anchor === 'bottom',
         })}
         role="presentation"
         onClick={toggleDrawer(anchor, false)}
         // onKeyDown={toggleDrawer(anchor, false)}
         >
-        <div className="searchSwiperCont">  
-            <div className='menu'> <p>Axtarış</p>  <button onClick={toggleDrawer1(anchor, false)}> &#10006;</button></div>  
-            <div className='search'> <input onChange={(e) => searchChange(e)} type="text" placeholder={lang === "AZ" && `Axtarış` || lang === "EN" && `Search` || lang === "RU" && `Поиск`}/> <button onClick={() => searchHandler()} className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button></div> 
-        </div>
+        <form onSubmit={(e) => onSubmit(e)} className="searchSwiperCont">  
+            <div className='menu'> <p>{(lang === "AZ" && "Axtarış" || lang === "EN" && `Search` || lang === "RU" && `Поиск`)}</p>  <button type='submit'> &#10006;</button></div>  
+            <div className='search'> <input onChange={(e) => dispatch(changeValue(e.target.value))} type="text" placeholder={lang === "AZ" && `Axtarış` || lang === "EN" && `Search` || lang === "RU" && `Поиск`}/> <button type='submit' className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button></div> 
+        </form>
     </div>
     );
-
     
-
+    
+    
     const memberCheck = async (link) => {
         if(UserStatus)
         {
@@ -257,29 +273,38 @@ function TopNavbar(props) {
             notifyAuth()
         }
     } 
-
-
+    
+    
     const styleHide={
         height:"0px",
         overflow:"hidden",
     }
-
+    //#endregion Mobile Version things
+    
+    
+    const searchValueTop = useSelector(searchValue);
+    const searchValueTopData = useSelector(searchData);
+    const dispatch = useDispatch();
+  
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        history.push('/search')
+        dispatch(GetSearchData(searchValueTop))
+    }
 
     return (
         <> 
-        
             <div style={props.scrollValue === 0 ? {} : styleHide}   className="topNavbar">
                     <div className="topPart">    
                         {leftImgMQ && <Link to="/" className='imgLinkTop'><img src={logoNehre} alt="" width="140" height="auto"/></Link>}
                         {!leftImgMQ && <Link to="/" ><img src={logoNehre2} alt="" width="100" height="auto"/></Link>}
                         <div className="phoneAndSearch">
-
                         
                             <div className="searchAndIcons">
                                 {
                                     searchTopMQ && 
-                                    <form action='search' onSubmit={(e) => searchHandler(e)}  className="inputAndIcon">
-                                        <input onChange={(e) => setSearchResult(e.target.value)} type="text" placeholder={(lang === "AZ" && `Axtarış`) || (lang === "EN" && `Search`) || (lang === "RU" && `Поиск`)}/>
+                                    <form  onSubmit={(e) => onSubmit(e)}  className="inputAndIcon">
+                                        <input onChange={(e) => dispatch(changeValue(e.target.value))} type="text" placeholder={(lang === "AZ" && `Axtarış`) || (lang === "EN" && `Search`) || (lang === "RU" && `Поиск`)}/>
                                         <button type='button'  className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
                                     </form>
                                 }
@@ -369,7 +394,7 @@ function TopNavbar(props) {
                 <div className="downCont" id="downCont">
                         <Link to="/"  id="logoNehre"><img src={logoNehre3} alt="" width="100" height="auto"/></Link>
                         <div className="searchAndIcons">
-                            <form className="inputAndIcon" action='search' onSubmit={(e) => searchHandler(e)}> 
+                            <form className="inputAndIcon" onSubmit={(e) => onSubmit(e)}  > 
                                 {phoneNumbersMQ && 
                                 <div className="phoneCont">
                                         <p className="phone"> <PhoneIcon/> <a href={`tel:${number2}`}>{number2}</a></p>
@@ -377,7 +402,7 @@ function TopNavbar(props) {
                                 </div>}
                                 {searchBottomMQ &&
                                 <>
-                                <input  onChange={(e) => setSearchResult(e.target.value)} type="text" placeholder={(lang === "AZ" && `Axtarış`) || (lang === "EN" && `Search`) || (lang === "RU" && `Поиск`)}/>
+                                <input  onChange={(e) => dispatch(changeValue(e.target.value))} type="text" placeholder={(lang === "AZ" && `Axtarış`) || (lang === "EN" && `Search`) || (lang === "RU" && `Поиск`)}/>
                                 <button type='submit' className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
                                 </>}
                             </form>

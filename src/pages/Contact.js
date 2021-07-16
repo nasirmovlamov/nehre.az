@@ -51,7 +51,7 @@ function Contact() {
                 <div className="flexC">
                     <h2>{lang === "AZ" && `Bizim Ünvan` || lang === "EN" && `Our address` || lang === "RU" && `Наш адресс`}</h2>
                     <p>{lang === "AZ" && `Siyəzən rayon Zarat kəndi` || lang === "EN" && `Zarat village of Siyazan region` || lang === "RU" && `Село Зарат Сиязанского района`}</p>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50813.48644554438!2d-115.83902651512547!3d37.251434614523255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80b81baaba3e8c81%3A0x970427e38e6237ae!2sArea%2051%2C%20NV%2C%20USA!5e0!3m2!1sen!2s!4v1624280403565!5m2!1sen!2s" width="100%" height="450" allowfullscreen="" loading="lazy"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13530.253397807128!2d49.27038622248594!3d40.948158636172046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x403737e93831a7dd%3A0x96283791645b2572!2sZarat!5e0!3m2!1sen!2s!4v1626433915600!5m2!1sen!2s" width="100%" height="450" allowfullscreen="" loading="lazy"></iframe>
                 </div>
 
                 <div className="flexC">

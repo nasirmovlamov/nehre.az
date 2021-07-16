@@ -6,6 +6,7 @@ import {
     BrowserRouter as Router,
     Switch,
     useParams,
+    useHistory,
   } from "react-router-dom";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -18,8 +19,8 @@ import DoneIcon from '@material-ui/icons/Done';
 function AddAddress() {
     const context = useContext(ProductListingContext)
     const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
-  
-    const notifyAddress = (rate) => toast.success(((lang === "AZ" && `Ünvan əlavə edildi!`) || (lang === "EN" && `Address added!`) || (lang === "RU" && `Адрес добавлен!`)) , {draggable: true,});
+    const history = useHistory()
+    const notifyAddress = (rate) => toast.info(((lang === "AZ" && `Ünvan əlavə edildi!`) || (lang === "EN" && `Address added!`) || (lang === "RU" && `Адрес добавлен!`)) , {draggable: true,});
 
     const [cities, setcities] = useState()
     const sendReq = async () => {
@@ -81,7 +82,7 @@ function AddAddress() {
             interkom:domofon, 
             qeyd:note})
             notifyAddress() 
-            window.location.href = '/memberarea/address/'
+            history.push('/memberarea/address/')
         } catch (error) {
             
         }
@@ -91,7 +92,7 @@ function AddAddress() {
         <p className="title"> {(lang === "AZ" && `Mənim ünvanlarım`) || (lang === "EN" && `My addresses`) || (lang === "RU" && `Мои адреса`)}</p>
         <form  className="form">
             <div className="flexContAddress">
-                <div className="label"> {(lang === "AZ" && `Ünvan`) || (lang === "EN" && `Address`) || (lang === "RU" && `Адрес`)}</div>
+                {/* <div className="label"> {(lang === "AZ" && `Ünvan`) || (lang === "EN" && `Address`) || (lang === "RU" && `Адрес`)}</div> */}
                 <div className="againDiv">
                     {/* <div><input  type="text"  value={address}    onChange={onChange}       placeholder={(lang === "AZ" && `Dəqiq ünvan qeyd edin`) || (lang === "EN" && `Enter the exact address`) || (lang === "RU" && `Введите точный адрес`)}  className="input1"/></div> */}
                         <label htmlFor="city">{(lang === "AZ" && `Şəhər`) || (lang === "EN" && `City`) || (lang === "RU" && `Город`)}</label>
@@ -100,7 +101,7 @@ function AddAddress() {
                         </select>
 
                         <label htmlFor="district">{(lang === "AZ" && `Küçə`) || (lang === "EN" && `Street`) || (lang === "RU" && `Улица`)}</label>
-                        <input className="inputCity" type="text"  value={rayon}  name='district'   onChange={onChangeRayon}  placeholder={(lang === "AZ" && `Rayon`) || (lang === "EN" && `District`) || (lang === "RU" && `Pайон`)}  />
+                        <input className="inputCity" type="text"  value={rayon}  name='district'   onChange={onChangeRayon}  placeholder={(lang === "AZ" && `Küçə`) || (lang === "EN" && `Street`) || (lang === "RU" && `Улица`)}  />
 
                         <label htmlFor="home">{(lang === "AZ" && `Ev`) || (lang === "EN" && `Home`) || (lang === "RU" && `Дом`)}</label>
                         <input  type="text"  value={ev}   name='home'     onChange={onChangeEv}  placeholder={(lang === "AZ" && `Ev`) || (lang === "EN" && `Home`) || (lang === "RU" && `Дом`)}  className="inputRayon"/>

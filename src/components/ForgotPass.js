@@ -13,7 +13,7 @@ function ForgotPass(props) {
     const context = useContext(ProductListingContext)
     const {ProdutData, setProdutData, FinalPrice,currency, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
   
-    const notify = () => toast.info(`Elektron poçtunuza link göndərildi!`);
+    const notify = () => toast.info((lang === "AZ" && `Elektron poçtunuza link göndərildi!`) || (lang === "EN" && `A link has been sent to your email!`) || (lang === "RU" && `На вашу электронную почту отправлена ​​ссылка!`));
 
     const changeEmail = (e) => {
         setemail(e.target.value)
@@ -43,7 +43,7 @@ function ForgotPass(props) {
             <Form className='authSms forgotPass' >
                 <div className='closeBtn'><button type='button' onClick={props.functionClose}>&#10006;</button></div>
                 <p className="title"> {(lang === "AZ" && `Şifrə yeniləmə`) || (lang === "EN" && `Password update`) || (lang === "RU" && `Обновление пароля`)}</p>
-                <Field name='email'  disabled={checker} placeholder={checker ? email : 'Emailinizi daxil edin' } type="text"  id=""/>
+                <Field name='email'  disabled={checker} placeholder={checker ? email : ((lang === "AZ" && 'Emailinizi daxil edin') || (lang === "EN" && `Enter your email`) || (lang === "RU" && `Введите адрес электронной почты`)) } type="text"  id=""/>
                 {checker && <p className='subTitle'> {(lang === "AZ" && `Elektron poçtunuza göndərilən linkə daxil olun.`) || (lang === "EN" && `Follow the link sent to your email.`) || (lang === "RU" && `Перейдите по ссылке, отправленной на вашу электронную почту.`)}</p>}
                 {!checker && <button type='submit' className='submitBtn'>{(lang === "AZ" && `Təsdiqlə`) || (lang === "EN" && `Submit`) || (lang === "RU" && `Представлять на рассмотрение`)}</button>}
             </Form>

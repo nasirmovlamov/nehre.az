@@ -23,6 +23,8 @@ import Contacts from './components/Contacts';
 import MemberArea from './components/MemberArea';
 import { ProtectedRoute } from './pages/Protected';
 import Routing from './pages/Routing';
+import { Provider } from 'react-redux';
+import { store } from './components/app/store';
 
 
 
@@ -30,9 +32,11 @@ function App() {
   
   return (
     <Router>
-      <ProductListingProvider>
-          <Routing/>
-      </ProductListingProvider>
+      <Provider store={store}>
+        <ProductListingProvider>
+            <Routing/>
+        </ProductListingProvider>
+      </Provider>
     </Router>
 
   );

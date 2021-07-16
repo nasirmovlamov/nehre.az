@@ -36,7 +36,7 @@ function Combo(props) {
     const classes = useStyles();
     const [age, setAge] = React.useState('');
     const handleChange = (event) => { setAge(event.target.value);};
-    const notifyAddBasket = () => toast.success(`Combo səbətə əlavə olundu` , {draggable: true, autoClose: 1000,});
+    const notifyAddBasket = () => toast.info((lang === "AZ" && `Combo səbətə əlavə olundu!` || lang === "EN" && `Combo added to cart!` || lang === "RU" && `Комбо добавлено в корзину!`) , {draggable: true, autoClose: 1000,});
 
     
 

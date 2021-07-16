@@ -54,7 +54,7 @@ function ProductModal(props) {
         const token = Cookies.getItem('XSRF-TOKEN')
         const [ProductSimilar, setProductSimilar] = useState([])
         const {ProdutData , currency,UserStatus, discountHandler, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus, UserData} = context
-        const notify = (rate) => toast.success(`${rate === null ? 5 : rate}   Ulduz göndərildi` , {draggable: true,});
+        const notify = (rate) => toast.success(`${rate === null ? 5 : rate} ${(lang === "AZ" && `Ulduz göndərildi` || lang === "EN" && `The star was sent` || lang === "RU" && `Звезда была отправлена`)}  ` , {draggable: true,});
         const notifyLogin = () => toast.warning((lang === "AZ" && `Hesabınıza daxil olun!` || lang === "EN" && `Log in to your account!` || lang === "RU" && `Войдите в свою учетную запись!`) , {draggable: true,});
 
         const [totalreview, settotalreview] = useState(0)
