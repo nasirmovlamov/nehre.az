@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom'
 import DownNavbar from './DownNavbar'
 import Navbar from './Navbar'
 import TopNavbar from './TopNavbar'
-import TopNavbarPart2 from './TopNavbarPart2'
 import {ProductListingProvider} from './ProductListingProvider'
 import {ProductListingContext} from '../components/ProductListingProvider'
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
@@ -113,10 +112,17 @@ const context = useContext(ProductListingContext)
     }
 
     const scrollBtnhide = {
-        display: 'none',
+        // display: 'none',
+        opacity: '0',
+        bottom:'90px',
+        transition: "1s",
+
     }
     const scrollBtnshow = {
-        display: 'flex',
+        // display: 'flex',
+        opacity: '1',
+        transition: "1s",
+        bottom: '50px'
     }
     const scrolltoTop = () => {
         window.scrollTo(0,0)

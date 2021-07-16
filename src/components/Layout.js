@@ -9,7 +9,6 @@ import Footer from './Footer'
 const Layout = ({ children }) => {
   const context = useContext(ProductListingContext)
   const {UserData , setUserData , ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader , UserStatus, setUserStatus ,  setnumber2, setnumber1, number1, number2 , setTopCategory, TopCategory} = context
-  // const TopNavbar = useMediaQuery('(min-width:600px)');
   
   const  scrolltoTop = () =>  {
     window.scroll(0,0)

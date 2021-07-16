@@ -68,8 +68,7 @@ function TopNavbar(props) {
     const phoneNumbersMQ = useMediaQuery('(min-width:1050px)');
     const searchBottomMQ = useMediaQuery('(min-width:786px)');
     const context = useContext(ProductListingContext)
-    const {UserData ,   notifyAuth,currency, setUserData ,  ProdutData, setProdutData, FinalPrice, setFinalPrice, openBucketF, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader , UserStatus, setUserStatus ,  setnumber2, setnumber1, number1, number2 , setTopCategory, TopCategory} = context
-
+    const {UserData ,setSearchResult, SearchResult,   notifyAuth,currency, setUserData ,  ProdutData, setProdutData, FinalPrice, setFinalPrice, openBucketF, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem,setmoney, setItems, setMinOrder,loader, setloader , UserStatus, setUserStatus ,  setnumber2, setnumber1, number1, number2 , setTopCategory, TopCategory} = context
 
 
     const notifyLogin = () => toast.warning( ((lang === "AZ" && `Hesabınıza daxil olun!`) || (lang === "EN" && `Enter your account!`) || (lang === "RU" && `Войдите в свой аккаунт!`)) , {draggable: true,});
@@ -133,13 +132,16 @@ function TopNavbar(props) {
     }
     const [searchResult, setsearchResult] = useState('')
     const searchChange = (e) => {
-        setsearchResult(e.target.value)
+        setSearchResult(e.target.value)
     }
-    const searchHandler = () => {
-        if(searchResult !== "")
+
+
+    const searchHandler = (e) => {
+        e.preventDefault()
+        if(SearchResult !== "")
         {
-            sessionStorage.setItem('searchResult' , searchResult)
-            window.location.href = '/search'
+            setSearchResult(searchResult)
+            history.push('/search')
         }
     }
 
@@ -276,8 +278,8 @@ function TopNavbar(props) {
                             <div className="searchAndIcons">
                                 {
                                     searchTopMQ && 
-                                    <form action='search' onSubmit={() => searchHandler()}  className="inputAndIcon">
-                                        <input onChange={(e) => searchChange(e)} type="text" placeholder={(lang === "AZ" && `Axtarış`) || (lang === "EN" && `Search`) || (lang === "RU" && `Поиск`)}/>
+                                    <form action='search' onSubmit={(e) => searchHandler(e)}  className="inputAndIcon">
+                                        <input onChange={(e) => setSearchResult(e.target.value)} type="text" placeholder={(lang === "AZ" && `Axtarış`) || (lang === "EN" && `Search`) || (lang === "RU" && `Поиск`)}/>
                                         <button type='button'  className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
                                     </form>
                                 }
@@ -367,15 +369,15 @@ function TopNavbar(props) {
                 <div className="downCont" id="downCont">
                         <Link to="/"  id="logoNehre"><img src={logoNehre3} alt="" width="100" height="auto"/></Link>
                         <div className="searchAndIcons">
-                            <form className="inputAndIcon" action='search' onSubmit={() => searchHandler()}> 
-                            {phoneNumbersMQ && 
-                            <div className="phoneCont">
-                                    <p className="phone"> <PhoneIcon/> <a href={`tel:${number2}`}>{number2}</a></p>
-                                    <p className="phone"> <WhatsAppIcon/> <a href='https://api.whatsapp.com/send?phone=994556800055'>{number1} </a></p>
+                            <form className="inputAndIcon" action='search' onSubmit={(e) => searchHandler(e)}> 
+                                {phoneNumbersMQ && 
+                                <div className="phoneCont">
+                                        <p className="phone"> <PhoneIcon/> <a href={`tel:${number2}`}>{number2}</a></p>
+                                        <p className="phone"> <WhatsAppIcon/> <a href='https://api.whatsapp.com/send?phone=994556800055'>{number1} </a></p>
                                 </div>}
                                 {searchBottomMQ &&
                                 <>
-                                <input  onChange={(e) => searchChange(e)} type="text" placeholder={(lang === "AZ" && `Axtarış`) || (lang === "EN" && `Search`) || (lang === "RU" && `Поиск`)}/>
+                                <input  onChange={(e) => setSearchResult(e.target.value)} type="text" placeholder={(lang === "AZ" && `Axtarış`) || (lang === "EN" && `Search`) || (lang === "RU" && `Поиск`)}/>
                                 <button type='submit' className="searchIcon"> <img src={searchIcon} alt="" width="20" height="auto" /></button>
                                 </>}
                             </form>
