@@ -162,8 +162,8 @@ function ItemCard(props) {
         <div key={product.id} className="itemCard">
             <button  type="button"  className="imgCont" style={imgHandler}>
                 <div className="valueAndBtn"> 
-                    {ProdutData[ProdutData?.findIndex(x=> x.id === product.id)]?.count > 0 && <div className='valueBtn'>{ProdutData[ProdutData.findIndex(x=> x.id === product.id)]?.count}</div>}
                     <div className="iconAndBtn"> <button onClick={() => checkLogin(product)} className="favIco"> {indexSelected === -1 ?  <StarBorderIcon/> :  <StarIcon/>}</button></div>
+                    {ProdutData[ProdutData?.findIndex(x=> x.id === product.id)]?.count > 0 && <div className='valueBtn'>{ProdutData[ProdutData.findIndex(x=> x.id === product.id)]?.count}</div>}
                 </div>
 
                 <div className="overlayImg">

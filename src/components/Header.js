@@ -105,7 +105,7 @@ const context = useContext(ProductListingContext)
     } 
 
     const scrollStyle = {
-        height:'105px',
+        height:'90px',
         position:'fixed'
     }
     const scrollStaticStyle = {

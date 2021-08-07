@@ -26,6 +26,7 @@ function AuthSms(props) {
     const [tillCount, settillCount] = useState(-1)  
 
     const onSubmit = () =>{
+        console.log(second)
         if (code !== ""  && code !== undefined  && second > 0) {
             axios.get(`https://nehra.az/qeydiyyat/sms/${code}`)
                  .then(res => (res.status ===200 && (settillCount(res.data) , props.functionClose(), setUserStatus(true) , props.functionCloseReg() , notify() , console.log(res.data) , res.data <= 0 && setsecond(90))) )

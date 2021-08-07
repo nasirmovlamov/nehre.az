@@ -91,7 +91,6 @@ function CheckoutPage(props) {
 
 
     const clickHandler2 = (num) => {
-
         const today = new Date() 
         const tomorrow = new Date(today)
         tomorrow.setDate(tomorrow.getDate() + 1);
@@ -104,19 +103,23 @@ function CheckoutPage(props) {
         setdeliveryDayISO(deliveryday)
         var dateIds = []
         var nondateIds = []
+        console.log(" DEliveryDay " + deliveryDayISO )
+
         const dateChecker = (date , id) => {
             for (let i = 0; i < date.length; i++) {
                 const today = new Date()
                 const elementday = new Date()
                 elementday.setDate(tomorrow.getDate() + (parseInt(date[i]) + 7 - tomorrow.getDay()) % 7);
-                if(elementday.getDate()  < deliveryday.getDate() )
+                if(elementday.getTime()  < deliveryday.getTime() || elementday.getDate()  === deliveryday.getDate())
                 {
+                    console.log(" Yes " + elementday )
                     dateIds.push(id)
                     nondateIds = nondateIds.filter(element => element !== id)
                     return 0 
                 }
-                else if(elementday.getDate()  > deliveryday.getDate() )
+                else if(elementday.getTime()  > deliveryday.getTime() )
                 {
+                    console.log(" NO " + elementday )
                     nondateIds.push(id)
                 }
                 else 
@@ -202,7 +205,7 @@ function CheckoutPage(props) {
     var newsunday = moment(sunday).format( 'dddd, D MMMM');
 //#endregion date
 
-//Date Problems
+//#region Date Problems
    
     
     const vrt = (id , element) => {
@@ -243,14 +246,13 @@ function CheckoutPage(props) {
                 qeyd:note
             })
             notifyAddress() 
-            console.log(resp)
             setaddress(resp.data)
         } catch (error) {
             
         }
     }
 
-
+//#endregion Date Problems
 
 
 
@@ -303,7 +305,6 @@ function CheckoutPage(props) {
         let uniqueDates = [...new Set(dates)];
 
         addCart(newarr , WholeCost , WholeWeight, WholeCount, WholeBonus, uniqueDates)
-        
         setDateGoods(uniqueDates)
         setFinalPrice(WholeCost)
         setFinalGoods(WholeCount)
@@ -369,8 +370,7 @@ function CheckoutPage(props) {
             products_id:productsId, 
             user_id:UserData.id,
             bonus: DeliveryBonus,
-            delivery_date:deliveryDayISO.toISOString()
-            
+            delivery_date:deliveryDayISO.toISOString()  
         }
         try {
             const res = await axios.post('https://nehra.az/api/payment', postdata  , headers )
@@ -385,7 +385,6 @@ function CheckoutPage(props) {
 
     }
 
-
     const [addressselect, setaddressselect] = useState()
 
     
@@ -399,7 +398,9 @@ function CheckoutPage(props) {
                     <div className="deliveryAddress">
                         <p className="title titleBB">{lang === "AZ" && `Çatdırılma ünvanı seçin` || lang === "EN" && `Select delivery Address` || lang === "RU" && `Выберите адрес доставки`}</p>
                         <div className="errors">
-                            {address?.length > 0 && <select className='addressElement' name="" onChange={(e) => setaddressselect(e.target.value)}>{address?.map((address , index) => <option value={address.id} >{address.city.name}  {address.rayon !== null && (` , ${ staticData.street}`)} {address.rayon} {address.ev !== null && ` , ${staticData.home}`} {address.ev} </option> )}</select>}
+                            {address?.length > 0 && <select className='addressElement' name="" onChange={(e) => setaddressselect(e.target.value)}>{address?.map((address , index) => <option key={address.id} value={address.id} > {console.log(address?.city?.name)} {address?.city?.name}  {address?.rayon !== null && (` , ${ staticData?.street}`)} {address?.rayon} {address?.ev !== null && ` , ${staticData?.home}`} {address?.ev} </option> )}</select>}
+                            {address?.length <= 5 &&
+                            <>
                             <div className='addAddressBtn'>
                                 <button type='button' className='btn' onClick={() => setaddressAdd(true)}> <AddCircleIcon/>{lang === "AZ" && ` Yeni ünvan əlavə edin` || lang === "EN" && `Add a new address` || lang === "RU" && `добавить новый адрес`}</button> {addressAdd &&<button type='button' onClick={() => setaddressAdd(false)} className='btn'>x</button>}</div>
                                 {
@@ -418,6 +419,7 @@ function CheckoutPage(props) {
                                         <div className="submitCont"><button onClick={createAddress} type="checkbox" className='submitBtn' type='button'>{lang === "AZ" && `Əlavə et` || lang === "EN" && `Add` || lang === "RU" && `Добавлять`}</button></div>
                                     </div>
                                 }
+                            </>}
                         </div>
                     </div>
 

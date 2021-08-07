@@ -91,11 +91,8 @@
 .cardSlider1 .textCont .desc {
   font-size: 15px;
   width: 100%;
-  text-overflow: ellipsis;
-  overflow: hidden;
   color: white;
   padding-left: 4%;
-  white-space: nowrap;
   font-family: "DaxlineR";
   padding-bottom: 8px;
   width: 92%;

@@ -52,6 +52,12 @@ function Routing() {
             setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
             setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
             setSelectedsProduct(JSON.parse(resp.data.selected.text))
+
+            const currentDate = new Date()
+            let parser = new DOMParser()
+            let xmlDoc = parser.parseFromString(resp.data.cbar, 'text/xml')
+            setcurrency(parseFloat(xmlDoc.querySelectorAll('ValType')[1].querySelectorAll('Valute')[0].querySelector('Value').textContent))
+            
             if(resp.data.cart.text !== null)
             {
               const dataparsed = JSON.parse(resp.data.cart.text)
@@ -95,6 +101,12 @@ function Routing() {
             setlang((resp.data.lang === "az" && "AZ") || (resp.data.lang === "en" && "EN") || (resp.data.lang === "ru" && "RU"))
             setmoney(sessionStorage.getItem('money') === null ? "₼" : sessionStorage.getItem('money'))
             setUserStatus(false)
+            const currentDate = new Date()
+            let parser = new DOMParser()
+            let xmlDoc = parser.parseFromString(resp.data.cbar, 'text/xml')
+            console.log(resp.data.cbar)
+            setcurrency(parseFloat(xmlDoc.querySelectorAll('ValType')[1].querySelectorAll('Valute')[0].querySelector('Value').textContent))
+            // console.log(parseFloat(xmlDoc.querySelectorAll('ValType')[1].querySelectorAll('Valute')[0].querySelector('Value').textContent))
           }
           else 
           {}
@@ -106,18 +118,10 @@ function Routing() {
           setloader(false)
         }
       };
+
     useEffect(  async  () => {
         await sendGetRequest10()
-        const currentDate = new Date()
-        console.log(currentDate.getDate() + "." +  (currentDate.getMonth() + 1 < 10 && 0)+ (currentDate.getMonth() + 1) + "." + currentDate.getFullYear())
-        const headers= { 
-          'Access-Control-Allow-Origin' :'*'
-        }
-        const currency = await axios.get(`https://www.cbar.az/currencies/${currentDate.getDate() + "." + (currentDate.getMonth() + 1 < 10 && 0) + (currentDate.getMonth() + 1) + "." + currentDate.getFullYear()}.xml` , headers)
-        let parser = new DOMParser()
-        let xmlDoc = parser.parseFromString(currency.data, 'text/xml')
-        setcurrency(parseFloat(xmlDoc.querySelectorAll('ValType')[1].querySelectorAll('Valute')[0].querySelector('Value').textContent))
-      }, [])
+    }, [])
 
   return (
       <>

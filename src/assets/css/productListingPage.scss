@@ -143,6 +143,18 @@
     .productPage
     {
         width: 90%;
+        padding-left: 2.5%;
+        padding-right: 2.5%;
+
+    }
+
+}
+@media screen and (max-width:1250px) {
+    .productPage
+    {
+        width: 90%;
+        padding-left: 2.5%;
+        padding-right: 2.5%;
     }
 
 }

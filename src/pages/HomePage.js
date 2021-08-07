@@ -124,7 +124,7 @@ function HomePage(props) {
 
         <div className="homePage pagescroll">
             <div className="slider1">
-               <OurSlider itemShow1={2} itemShow2={2} itemShow3={1} itemShow4={1} elements={topCards} speed={10000} numOfSld={2}/>
+               <OurSlider numOfchange={2} itemShow1={2} itemShow2={2} itemShow3={1} itemShow4={1} elements={topCards} speed={10000} numOfSld={2}/>
             </div>
             <p className="deliveryText">{lang === "AZ" && `Kəndlərimizdən evinizə təzə və təbii məhsulların çatdırılması!` || lang === "EN" && `Delivery of fresh and natural products from our villages to your home!` || lang === "RU" && `Доставка свежих и натуральных продуктов из наших деревень к вам домой!`}</p>
             
@@ -211,28 +211,28 @@ function HomePage(props) {
             <div className="itemsCont">
                 <Link to="/newitems"><p className="itemsTitle">{lang === "AZ" && `Yeni Məhsullarımız ` || lang === "EN" && `Our New Products` || lang === "RU" && `Наши новые продукты`}</p></Link>
                 <div className="itemSlider">     
-                    <OurSlider itemShow1={4} itemShow2={3} itemShow3={2} itemShow4={1} elements={newItems.map(item => item)} numOfSld={4}/>
+                    <OurSlider  numOfchange={4}  itemShow1={4} itemShow2={3} itemShow3={2} itemShow4={1} elements={newItems.map(item => item)} numOfSld={4}/>
                 </div>
             </div>
             
             <div className="itemsCont">
                 <Link to="/promotions"><p className="itemsTitle">{lang === "AZ" && `Xüsusi Təkliflərimiz ` || lang === "EN" && `Our Special Offers` || lang === "RU" && `Наши специальные предложения`}</p></Link>
                 <div className="itemSlider"> 
-                    <OurSlider itemShow1={4} itemShow2={3} itemShow3={2} itemShow4={1}  elements={specialOffers} numOfSld={4}/>
+                    <OurSlider  numOfchange={4}  itemShow1={4} itemShow2={3} itemShow3={2} itemShow4={1}  elements={specialOffers} numOfSld={4}/>
                 </div>
             </div>
 
             <div className="itemsCont">
                 <Link to="/suppliers"><p className="itemsTitle">{lang === "AZ" && `Bizim Kəndlilər ` || lang === "EN" && `Our Villagers` || lang === "RU" && `Наши жители`}</p></Link>
                 <div className="itemSlider">
-                    <OurSlider itemShow1={4} itemShow2={3} itemShow3={1} itemShow4={1}  elements={suppliersCard} numOfSld={3}/>
+                    <OurSlider  numOfchange={3}  itemShow1={3} itemShow2={3} itemShow3={2} itemShow4={1}  elements={suppliersCard} numOfSld={3}/>
                 </div>
             </div>
             
             <div className="itemsCont">
                 <p className="itemsTitle">{lang === "AZ" && `Çox verilən suallara cavab` || lang === "EN" && `Answers to frequently asked questions` || lang === "RU" && `Ответы на часто задаваемые вопросы`}</p>
                 <div className="itemSlider">
-                    <OurSlider itemShow1={2} itemShow2={2} itemShow3={2} itemShow4={1} elements={answerCard} numOfSld={4}/>  
+                    <OurSlider  numOfchange={4}  itemShow1={2} itemShow2={2} itemShow3={2} itemShow4={1} elements={answerCard} numOfSld={4}/>  
                 </div>
             </div>
 

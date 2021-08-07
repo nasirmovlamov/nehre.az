@@ -52,7 +52,7 @@ function DownNavbar(props) {
         infinite: true,
         speed: 250,
         slidesToShow: 8,
-        slidesToScroll: 1,
+        slidesToScroll: 8,
         initialSlide: 0,
         draggable:false,
         autoplay:false,
@@ -61,7 +61,7 @@ function DownNavbar(props) {
             breakpoint: 1200,
             settings: {
               slidesToShow: 4,
-              slidesToScroll: 1,
+              slidesToScroll: 4,
               initialSlide: 1
             }
         },
@@ -69,17 +69,22 @@ function DownNavbar(props) {
             breakpoint: 791,
             settings: {
               slidesToShow: 3,
-              slidesToScroll: 1,
+              slidesToScroll: 3,
               initialSlide: 1
             }
         }
         ]
     };
 
+    const navSize = {
+        height: props.scrollValue < 100 ? '131px' : '30px',
+        
+
+    }
     
     return (
         <div className="navCont">
-            <nav className="downNavbar">
+            <nav style={navSize} className="downNavbar">
                 <Slider {...settings}>
                     {TopCatArr.map((element, index) => <span key={index}>{element}</span>)}
                 </Slider>

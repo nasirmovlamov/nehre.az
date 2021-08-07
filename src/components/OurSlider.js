@@ -10,7 +10,7 @@ function OurSlider(props) {
         infinite: true,
         speed: 500,
         slidesToShow: props.numOfSld,
-        slidesToScroll: 2,
+        slidesToScroll: props.numOfchange,
         initialSlide: 0,
         draggable:true,
         autoplay:true,
@@ -20,7 +20,6 @@ function OurSlider(props) {
                 breakpoint: 1655,
                 settings: {
                 slidesToShow: props.itemShow1,
-                slidesToScroll: 2,
                 initialSlide: 1
                 }
             },
@@ -28,7 +27,7 @@ function OurSlider(props) {
                 breakpoint: 1455,
                 settings: {
                 slidesToShow: props.itemShow2,
-                slidesToScroll:2,
+                slidesToScroll:1,
                 initialSlide: 1
                 }
             },

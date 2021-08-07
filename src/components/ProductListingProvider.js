@@ -89,308 +89,214 @@ export function ProductListingProvider(props) {
                 }
             }
 
-            const addCart = async (product , FinalPrice, FinalWeight, FinalGoods, FinalBonus, DateGoods) => {
-                if(UserData !== null)
-                {
-                    const string = { 
-                        product: product,
-                        FinalPrice:FinalPrice,
-                        FinalWeight:FinalWeight,
-                        FinalGoods:FinalGoods,
-                        FinalBonus:FinalBonus,
-                        DateGoods:DateGoods
-                    }
-                    console.log(string)
-                    setTimeout(() => {}, 300);
-                    const resp = await axios.post('https://nehra.az/public/api/addcart' ,{user_id: UserData.id,  string:JSON.stringify(string)})
+        const addCart = async (product , FinalPrice, FinalWeight, FinalGoods, FinalBonus, DateGoods) => {
+            if(UserData !== null)
+            {
+                const string = { 
+                    product: product,
+                    FinalPrice:FinalPrice,
+                    FinalWeight:FinalWeight,
+                    FinalGoods:FinalGoods,
+                    FinalBonus:FinalBonus,
+                    DateGoods:DateGoods
                 }
-            } 
-            
-            const weightChecker = (weight , unitType, plus , index) => {
-                let return_weight = 0
-                if (parseInt(unitType) === 4) {
-                    if(plus ==='add')
-                    {
-                        return_weight = FinalWeight + (parseFloat(weight) / 1000)
-                        setFinalWeight(return_weight)
-                        localStorage.setItem('FinalWeight' , return_weight)
-                    }
-                    else if(plus ==='remove')
-                    {
-                        return_weight = FinalWeight - (parseFloat(weight) / 1000)
-                        setFinalWeight(return_weight)
-                        localStorage.setItem('FinalWeight' , (return_weight))
-                    }
-                    else 
-                    {
-                        return_weight = parseFloat(FinalWeight) - ((parseFloat(weight) / 1000) * parseInt(ProdutData[index]?.count)) 
-                        setFinalWeight(return_weight)
-                        localStorage.setItem('FinalWeight' , return_weight)
-                    }
-                    return return_weight
+                console.log(string)
+                setTimeout(() => {}, 300);
+                const resp = await axios.post('https://nehra.az/public/api/addcart' ,{user_id: UserData.id,  string:JSON.stringify(string)})
+            }
+        } 
+        
+        const weightChecker = (weight , unitType, plus , index) => {
+            let return_weight = 0
+            if (parseInt(unitType) === 4) {
+                if(plus ==='add')
+                {
+                    return_weight = FinalWeight + (parseFloat(weight) / 1000)
+                    setFinalWeight(return_weight)
+                    localStorage.setItem('FinalWeight' , return_weight)
+                }
+                else if(plus ==='remove')
+                {
+                    return_weight = FinalWeight - (parseFloat(weight) / 1000)
+                    setFinalWeight(return_weight)
+                    localStorage.setItem('FinalWeight' , (return_weight))
                 }
                 else 
                 {
-                    if(plus === 'add')
-                    {
-                        return_weight = parseFloat(FinalWeight) + parseFloat(weight)
-                        setFinalWeight(return_weight)
-                        localStorage.setItem('FinalWeight' , return_weight)
-                    }
-                    else if(plus ==='remove')
-                    {
-                        return_weight = parseFloat(FinalWeight) - parseFloat(weight)
-                        setFinalWeight(return_weight)
-                        localStorage.setItem('FinalWeight' , (return_weight))
-                    }
-                    else 
-                    {
-                        return_weight = parseFloat(FinalWeight) - ((parseFloat(weight)) * parseInt(ProdutData[index]?.count)) 
-                        setFinalWeight(return_weight)
-                        localStorage.setItem('FinalWeight' , return_weight)
-                    }
-                    return return_weight
+                    return_weight = parseFloat(FinalWeight) - ((parseFloat(weight) / 1000) * parseInt(ProdutData[index]?.count)) 
+                    setFinalWeight(return_weight)
+                    localStorage.setItem('FinalWeight' , return_weight)
                 }
+                return return_weight
             }
-            
-            const addItem = (product) => {
-                notifyAddBasket()
-                let num = parseInt(product.id)
-                
-                const price = parseFloat(discountHandler(product))
-                const weight = parseFloat(product.ceki_hecm)
-                const unitType = parseInt(product.unit.unit_id)
-                const dates = product.delivery
-                const name = product.title
-                let bonus = 0
-                if (product?.category_data?.cashback > 0 && product?.category_data !== null) {
-                    bonus = parseInt(product.category_data.cashback)
+            else 
+            {
+                if(plus === 'add')
+                {
+                    return_weight = parseFloat(FinalWeight) + parseFloat(weight)
+                    setFinalWeight(return_weight)
+                    localStorage.setItem('FinalWeight' , return_weight)
+                }
+                else if(plus ==='remove')
+                {
+                    return_weight = parseFloat(FinalWeight) - parseFloat(weight)
+                    setFinalWeight(return_weight)
+                    localStorage.setItem('FinalWeight' , (return_weight))
                 }
                 else 
                 {
-                    bonus = parseInt(product.cashback)
+                    return_weight = parseFloat(FinalWeight) - ((parseFloat(weight)) * parseInt(ProdutData[index]?.count)) 
+                    setFinalWeight(return_weight)
+                    localStorage.setItem('FinalWeight' , return_weight)
                 }
-                
-                let productCartAdd = {} 
-                let FinalPriceCartAdd = 0
-                let FinalWeightCartAdd = 0
-                let FinalGoodsCartAdd = 0
-                let FinalBonusCartAdd = 0
-                let DateGoodsCartAdd = []
-                FinalPriceCartAdd = FinalPrice + parseInt(price)
-                FinalGoodsCartAdd = FinalGoods + 1
-                
-                FinalBonusCartAdd = FinalBonus + parseInt(bonus)
-                //#endregion Add Cart Values
-                
-        // #region setterfunctions 
-                let arrayA = DateGoods;
-                let arrayB = dates;
-                let newArray = arrayA.concat(arrayB.filter(x => !arrayA.some(y => y === x)))
-                let uniqueDates = [...new Set(newArray)];
-                // #endregion setterfunctions 
-                setFinalPrice(FinalPriceCartAdd)
-                setFinalGoods(FinalGoodsCartAdd)
-                setFinalBonus(FinalBonusCartAdd)
-                setDateGoods(uniqueDates)
-                
-                let index = ProdutData.findIndex(x=> x.id === num);
-                
-                if (index === -1) {
-                    weightChecker(weight , unitType, 'add' , 0)
-                    // product , FinalPrice, FinalWeight, FinalGoods, FinalBonus, DateGoods
-                    FinalWeightCartAdd = weightChecker(weight , unitType, 'add' , 0)
-                    let productAddcartdata = []
-                    productAddcartdata = [...ProdutData , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType, bonus:bonus, product:product}]
-                    console.log(productAddcartdata)
-                    setProdutData(productAddcartdata)
-                    if (UserData !== null) {
-                        addCart(productAddcartdata , FinalPriceCartAdd, FinalWeightCartAdd, FinalGoodsCartAdd, FinalBonusCartAdd, uniqueDates)
-                    }
-                    else 
-                    {
-                        localStorage.setItem('FinalGoods' , FinalGoodsCartAdd)
-                        localStorage.setItem('FinalPrice' , FinalPriceCartAdd)
-                        localStorage.setItem('FinalBonus' , FinalBonusCartAdd)
-                        localStorage.setItem('DateGoods' ,  JSON.stringify(uniqueDates))
-                        localStorage.setItem('ProdutData' , JSON.stringify(productAddcartdata))
-                    }
+                return return_weight
+            }
+        }
+        
+        const addItem = (product) => {
+            notifyAddBasket()
+            let num = parseInt(product.id)
+            
+            const price = parseFloat(discountHandler(product))
+            const weight = parseFloat(product.ceki_hecm)
+            const unitType = parseInt(product.unit.unit_id)
+            const dates = product.delivery
+            const name = product.title
+            let bonus = 0
+            if (product?.category_data?.cashback > 0 && product?.category_data !== null) {
+                bonus = parseInt(product.category_data.cashback)
+            }
+            else 
+            {
+                bonus = parseInt(product.cashback)
+            }
+            
+            let productCartAdd = {} 
+            let FinalPriceCartAdd = 0
+            let FinalWeightCartAdd = 0
+            let FinalGoodsCartAdd = 0
+            let FinalBonusCartAdd = 0
+            let DateGoodsCartAdd = []
+            FinalPriceCartAdd = FinalPrice + parseInt(price)
+            FinalGoodsCartAdd = FinalGoods + 1
+            
+            FinalBonusCartAdd = FinalBonus + parseInt(bonus)
+            //#endregion Add Cart Values
+            
+    // #region setterfunctions 
+            let arrayA = DateGoods;
+            let arrayB = dates;
+            let newArray = arrayA.concat(arrayB.filter(x => !arrayA.some(y => y === x)))
+            let uniqueDates = [...new Set(newArray)];
+            // #endregion setterfunctions 
+            setFinalPrice(FinalPriceCartAdd)
+            setFinalGoods(FinalGoodsCartAdd)
+            setFinalBonus(FinalBonusCartAdd)
+            setDateGoods(uniqueDates)
+            
+            let index = ProdutData.findIndex(x=> x.id === num);
+            
+            if (index === -1) {
+                weightChecker(weight , unitType, 'add' , 0)
+                // product , FinalPrice, FinalWeight, FinalGoods, FinalBonus, DateGoods
+                FinalWeightCartAdd = weightChecker(weight , unitType, 'add' , 0)
+                let productAddcartdata = []
+                productAddcartdata = [...ProdutData , {id:num , count:1, cost:parseInt(price).toFixed(0) , date:dates, name:name, weight:weight, unitType:unitType, bonus:bonus, product:product}]
+                console.log(productAddcartdata)
+                setProdutData(productAddcartdata)
+                if (UserData !== null) {
+                    addCart(productAddcartdata , FinalPriceCartAdd, FinalWeightCartAdd, FinalGoodsCartAdd, FinalBonusCartAdd, uniqueDates)
                 }
                 else 
                 {
-                    
-                    let newArr = [...ProdutData]
-                    newArr[index].count++
-                    setProdutData(newArr)
-                    weightChecker(weight , unitType , 'add' , 0)
-                    FinalWeightCartAdd = weightChecker(weight , unitType , 'add' , 0)
-                    let productAddcartdata = newArr
-                    if (UserData !== null) {
-                        addCart(productAddcartdata , FinalPriceCartAdd, FinalWeightCartAdd, FinalGoodsCartAdd, FinalBonusCartAdd, uniqueDates)
-                    }
-                    else 
-                    {
-                        localStorage.setItem('FinalGoods' , FinalGoodsCartAdd)
-                        localStorage.setItem('FinalPrice' , FinalPriceCartAdd)
-                        localStorage.setItem('FinalBonus' , FinalBonusCartAdd)
-                        localStorage.setItem('DateGoods' ,  JSON.stringify(uniqueDates))
-                        localStorage.setItem('ProdutData' , JSON.stringify(productAddcartdata))
-                    }
+                    localStorage.setItem('FinalGoods' , FinalGoodsCartAdd)
+                    localStorage.setItem('FinalPrice' , FinalPriceCartAdd)
+                    localStorage.setItem('FinalBonus' , FinalBonusCartAdd)
+                    localStorage.setItem('DateGoods' ,  JSON.stringify(uniqueDates))
+                    localStorage.setItem('ProdutData' , JSON.stringify(productAddcartdata))
                 }
-                console.log(uniqueDates)
             }
-            
-            const removeItem = (product) => {
-                notifyRemoveBasket()
-                //#region Add Cart Values
-                let num = product.id
+            else 
+            {
                 
-                const price = discountHandler(product)
-                const weight = product.ceki_hecm
-                const unitType = product.unit.unit_id
-                const dates = product.delivery
-                const name = product.title
-                let bonus = 0
-                
-                if (product?.category_data?.cashback > 0 && product?.category_data !== null) {
-                    bonus = product.category_data.cashback
-                }else 
+                let newArr = [...ProdutData]
+                newArr[index].count++
+                setProdutData(newArr)
+                weightChecker(weight , unitType , 'add' , 0)
+                FinalWeightCartAdd = weightChecker(weight , unitType , 'add' , 0)
+                let productAddcartdata = newArr
+                if (UserData !== null) {
+                    addCart(productAddcartdata , FinalPriceCartAdd, FinalWeightCartAdd, FinalGoodsCartAdd, FinalBonusCartAdd, uniqueDates)
+                }
+                else 
                 {
-                    bonus = product.cashback
-                }
-                let productCartAdd = {} 
-                let FinalPriceCartAdd = 0
-                let FinalWeightCartAdd = 0
-                let FinalGoodsCartAdd = 0
-                let FinalBonusCartAdd = 0
-                let DateGoodsCartAdd = []
-                
-                //#endregion Add Cart Values
-                let index = ProdutData.findIndex(x=> x.id === num);
-                
-                if (ProdutData[index].count > 0) {
-                    let uniqueDates = []
-                    let dateall = []
-                    FinalPriceCartAdd = FinalPrice - parseInt(price)
-                    FinalGoodsCartAdd = FinalGoods - 1
-                    FinalBonusCartAdd = FinalBonus - parseInt(bonus)
-                    let newArr = [...ProdutData]
-                    newArr[index].count--
-                    newArr = newArr.filter(element => element.count !== 0)
-                    let productAddcartdata = newArr
-                    setProdutData(productAddcartdata)
-                    for (let i = 0; i < productAddcartdata.length; i++) {
-                        dateall.push(...productAddcartdata[i].product.delivery)
-                    }
-                    console.log("dateall" + dateall)
-                    uniqueDates = [...new Set(dateall)];
-                    console.log('unique ' + uniqueDates)
-                    // for (let i = 0; i < newArr.length; i++) {
-                        //     for (let i = 0; i < newArr[i]?.date?.length; i++) {
-                    //         dates.push(newArr[i]?.date[i])
-                    //     }
-                    // }
-                    setFinalPrice(FinalPriceCartAdd)
-                    setFinalGoods(FinalGoodsCartAdd)
-                    setFinalBonus(FinalBonusCartAdd)
-                    setDateGoods(uniqueDates)
-                    weightChecker(weight , unitType , 'remove' , 0)
-                    
-                    FinalWeightCartAdd = weightChecker(weight , unitType , 'remove' , 0)
-                    
-                    if (UserData !== null) {
-                        addCart(productAddcartdata , FinalPriceCartAdd, FinalWeightCartAdd, FinalGoodsCartAdd, FinalBonusCartAdd, uniqueDates)
-                    }
-                    else 
-                    {
-                        localStorage.setItem('FinalGoods' , FinalGoodsCartAdd)
-                        localStorage.setItem('FinalPrice' , FinalPriceCartAdd)
-                        localStorage.setItem('FinalBonus' , FinalBonusCartAdd)
-                        localStorage.setItem('DateGoods' ,  JSON.stringify(uniqueDates))
-                        localStorage.setItem('ProdutData' , JSON.stringify(productAddcartdata))
-                    }
-                    
+                    localStorage.setItem('FinalGoods' , FinalGoodsCartAdd)
+                    localStorage.setItem('FinalPrice' , FinalPriceCartAdd)
+                    localStorage.setItem('FinalBonus' , FinalBonusCartAdd)
+                    localStorage.setItem('DateGoods' ,  JSON.stringify(uniqueDates))
+                    localStorage.setItem('ProdutData' , JSON.stringify(productAddcartdata))
                 }
             }
+            console.log(uniqueDates)
+        }
+        
+        const removeItem = (product) => {
+            notifyRemoveBasket()
+            //#region Add Cart Values
+            let num = product.id
             
-            const clearBucket = async () => {
-                setFinalPrice(0)
-                setFinalGoods(0)
-                setFinalWeight(0)
-                setFinalBonus(0)
-                setProdutData([])
-                setDateGoods([])
-                setItems([])
-                localStorage.setItem('ProdutData' , JSON.stringify([]))
-                localStorage.setItem('FinalGoods' , (0))
-                localStorage.setItem('FinalPrice' , (0))
-                localStorage.setItem('FinalWeight' , (0))
-                localStorage.setItem('FinalBonus' , (0))
-                localStorage.setItem('DateGoods' , JSON.stringify([]))
-                if(UserData !== null)
-                {
-                    const resp = await axios.post('https://nehra.az/public/api/addcart' ,{user_id: UserData.id,  string:""})
-                }
+            const price = discountHandler(product)
+            const weight = product.ceki_hecm
+            const unitType = product.unit.unit_id
+            const dates = product.delivery
+            const name = product.title
+            let bonus = 0
+            
+            if (product?.category_data?.cashback > 0 && product?.category_data !== null) {
+                bonus = product.category_data.cashback
+            }else 
+            {
+                bonus = product.cashback
             }
+            let productCartAdd = {} 
+            let FinalPriceCartAdd = 0
+            let FinalWeightCartAdd = 0
+            let FinalGoodsCartAdd = 0
+            let FinalBonusCartAdd = 0
+            let DateGoodsCartAdd = []
             
-            const deleteCard = (product) => {
-                notifyRemoveBasket()
-                //#region Add Cart Values
-                let num = parseInt(product.id)
-                
-                const price = parseFloat(discountHandler(product))
-                const weight = parseFloat(product.ceki_hecm)
-                const unitType = parseInt(product.unit.unit_id)
-                const dates = product.delivery
-                const name = product.title
+            //#endregion Add Cart Values
+            let index = ProdutData.findIndex(x=> x.id === num);
+            
+            if (ProdutData[index].count > 0) {
                 let uniqueDates = []
                 let dateall = []
-                
-                let bonus = 0
-                if (product?.category_data?.cashback > 0 && product?.category_data !== null) {
-                    bonus = parseInt(product.category_data.cashback)
-                }else 
-                {
-                    bonus = parseInt(product.cashback)
-                }
-                let productCartAdd = {} 
-                let FinalPriceCartAdd = 0
-                let FinalWeightCartAdd = 0
-                let FinalGoodsCartAdd = 0
-                let FinalBonusCartAdd = 0
-                let DateGoodsCartAdd = []
-                var index = ProdutData.findIndex(x=> x.id === num);
-                
-                //#endregion Add Cart Values
-                
-
-                
-                FinalPriceCartAdd = parseFloat(FinalPrice) - parseFloat(price * ProdutData[index]?.count)
-                FinalGoodsCartAdd = parseInt(FinalGoods) - parseInt(ProdutData[index]?.count)
-                FinalBonusCartAdd = parseFloat(FinalBonus) - parseFloat(bonus * ProdutData[index]?.count)
-                
-                weightChecker(weight , unitType , 'delete' , index)
-                FinalWeightCartAdd = weightChecker(weight , unitType , 'delete', index)
-                let productAddcartdata = ProdutData.filter((item) => item.id !== num)
-                let filteredItems = Items.filter((item) => item.id !== num)
-                
-                
+                FinalPriceCartAdd = FinalPrice - parseInt(price)
+                FinalGoodsCartAdd = FinalGoods - 1
+                FinalBonusCartAdd = FinalBonus - parseInt(bonus)
+                let newArr = [...ProdutData]
+                newArr[index].count--
+                newArr = newArr.filter(element => element.count !== 0)
+                let productAddcartdata = newArr
                 setProdutData(productAddcartdata)
-                setItems(filteredItems)
-                let testarr = ProdutData.filter((item) => item.id !== num)
-                
-                for (let i = 0; i < testarr.length; i++) {
-                    console.log('productAddcartdata[i].product.delivery' + testarr[i].product.delivery)
-                    dateall.push(...testarr[i].product.delivery)
+                for (let i = 0; i < productAddcartdata.length; i++) {
+                    dateall.push(...productAddcartdata[i].product.delivery)
                 }
                 console.log("dateall" + dateall)
                 uniqueDates = [...new Set(dateall)];
                 console.log('unique ' + uniqueDates)
-                
-                setFinalBonus(FinalBonusCartAdd)
+                // for (let i = 0; i < newArr.length; i++) {
+                    //     for (let i = 0; i < newArr[i]?.date?.length; i++) {
+                //         dates.push(newArr[i]?.date[i])
+                //     }
+                // }
                 setFinalPrice(FinalPriceCartAdd)
                 setFinalGoods(FinalGoodsCartAdd)
+                setFinalBonus(FinalBonusCartAdd)
                 setDateGoods(uniqueDates)
+                weightChecker(weight , unitType , 'remove' , 0)
+                
+                FinalWeightCartAdd = weightChecker(weight , unitType , 'remove' , 0)
                 
                 if (UserData !== null) {
                     addCart(productAddcartdata , FinalPriceCartAdd, FinalWeightCartAdd, FinalGoodsCartAdd, FinalBonusCartAdd, uniqueDates)
@@ -403,10 +309,104 @@ export function ProductListingProvider(props) {
                     localStorage.setItem('DateGoods' ,  JSON.stringify(uniqueDates))
                     localStorage.setItem('ProdutData' , JSON.stringify(productAddcartdata))
                 }
-                console.log(uniqueDates)
                 
             }
-            //#endregion Product Functions
+        }
+        
+        const clearBucket = async () => {
+            setFinalPrice(0)
+            setFinalGoods(0)
+            setFinalWeight(0)
+            setFinalBonus(0)
+            setProdutData([])
+            setDateGoods([])
+            setItems([])
+            localStorage.setItem('ProdutData' , JSON.stringify([]))
+            localStorage.setItem('FinalGoods' , (0))
+            localStorage.setItem('FinalPrice' , (0))
+            localStorage.setItem('FinalWeight' , (0))
+            localStorage.setItem('FinalBonus' , (0))
+            localStorage.setItem('DateGoods' , JSON.stringify([]))
+            if(UserData !== null)
+            {
+                const resp = await axios.post('https://nehra.az/public/api/addcart' ,{user_id: UserData.id,  string:""})
+            }
+        }
+        
+        const deleteCard = (product) => {
+            notifyRemoveBasket()
+            //#region Add Cart Values
+            let num = parseInt(product.id)
+            
+            const price = parseFloat(discountHandler(product))
+            const weight = parseFloat(product.ceki_hecm)
+            const unitType = parseInt(product.unit.unit_id)
+            const dates = product.delivery
+            const name = product.title
+            let uniqueDates = []
+            let dateall = []
+            
+            let bonus = 0
+            if (product?.category_data?.cashback > 0 && product?.category_data !== null) {
+                bonus = parseInt(product.category_data.cashback)
+            }else 
+            {
+                bonus = parseInt(product.cashback)
+            }
+            let productCartAdd = {} 
+            let FinalPriceCartAdd = 0
+            let FinalWeightCartAdd = 0
+            let FinalGoodsCartAdd = 0
+            let FinalBonusCartAdd = 0
+            let DateGoodsCartAdd = []
+            var index = ProdutData.findIndex(x=> x.id === num);
+            
+            //#endregion Add Cart Values
+            
+
+            
+            FinalPriceCartAdd = parseFloat(FinalPrice) - parseFloat(price * ProdutData[index]?.count)
+            FinalGoodsCartAdd = parseInt(FinalGoods) - parseInt(ProdutData[index]?.count)
+            FinalBonusCartAdd = parseFloat(FinalBonus) - parseFloat(bonus * ProdutData[index]?.count)
+            
+            weightChecker(weight , unitType , 'delete' , index)
+            FinalWeightCartAdd = weightChecker(weight , unitType , 'delete', index)
+            let productAddcartdata = ProdutData.filter((item) => item.id !== num)
+            let filteredItems = Items.filter((item) => item.id !== num)
+            
+            
+            setProdutData(productAddcartdata)
+            setItems(filteredItems)
+            let testarr = ProdutData.filter((item) => item.id !== num)
+            
+            for (let i = 0; i < testarr.length; i++) {
+                console.log('productAddcartdata[i].product.delivery' + testarr[i].product.delivery)
+                dateall.push(...testarr[i].product.delivery)
+            }
+            console.log("dateall" + dateall)
+            uniqueDates = [...new Set(dateall)];
+            console.log('unique ' + uniqueDates)
+            
+            setFinalBonus(FinalBonusCartAdd)
+            setFinalPrice(FinalPriceCartAdd)
+            setFinalGoods(FinalGoodsCartAdd)
+            setDateGoods(uniqueDates)
+            
+            if (UserData !== null) {
+                addCart(productAddcartdata , FinalPriceCartAdd, FinalWeightCartAdd, FinalGoodsCartAdd, FinalBonusCartAdd, uniqueDates)
+            }
+            else 
+            {
+                localStorage.setItem('FinalGoods' , FinalGoodsCartAdd)
+                localStorage.setItem('FinalPrice' , FinalPriceCartAdd)
+                localStorage.setItem('FinalBonus' , FinalBonusCartAdd)
+                localStorage.setItem('DateGoods' ,  JSON.stringify(uniqueDates))
+                localStorage.setItem('ProdutData' , JSON.stringify(productAddcartdata))
+            }
+            console.log(uniqueDates)
+            
+        }
+        //#endregion Product Functions
             
     //#region PRDUCTMODAL
             const [open, setOpen] = React.useState(false);

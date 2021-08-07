@@ -254,7 +254,7 @@ function ProductModal(props) {
                 <div className="buttonCont"><button onClick={() => handleClosePM()} className="removeModalBtn">×</button></div>
                 <div className="sliderAndAbout">
                     <div className="sliderCont">
-                        {imagescard.length > 0 && <OurSlider itemShow1={1} itemShow2={1} itemShow3={1} itemShow4={1} elements={imagescard} numOfSld={1}/>}
+                        {imagescard.length > 0 && <OurSlider  numOfchange={1}  itemShow1={1} itemShow2={1} itemShow3={1} itemShow4={1} elements={imagescard} numOfSld={1}/>}
                         <div className="dates">
                             {Product.delivery?.map(delivery =>
                                 <>
