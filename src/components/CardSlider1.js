@@ -22,17 +22,15 @@ function CardSlider1(props) {
     //     inputDesc?.current?.setAttribute('style' , 'background-color:rgba(0,0,0,0);')
     // }
     return (
-        <Link to={`${props.link}`}>
-                <div className="cardSlider1" style={imgHandler}>
-                    <div className="cardSlider2"  >
-                        <div className="textCont" ref={inputTitle}>
-                            {parseInt(props?.turntitle) !== 0 ? <h4  className="title">{props.name}</h4> : ""}
-                            {parseInt(props?.turndesc) !== 0 ? <p className="desc">{props.desc}</p> : ""}
-                            {parseInt(props?.turnetrafli) !== 0 ?  <Button1 value={(lang === "AZ" && `Ətraflı`) || (lang === "EN" && `More`) || (lang === "RU" && `Eще`)} /> : "" }
-                        </div>
-                    </div>
+        <div className="cardSlider1" style={imgHandler}>
+            <div className="cardSlider2"  >
+                <div className="textCont" ref={inputTitle}>
+                    {parseInt(props?.turntitle) !== 0 ? <h4  className="title">{props.name}</h4> : ""}
+                    {parseInt(props?.turndesc) !== 0 ? <p className="desc">{props.desc}</p> : ""}
+                    <Link className="moreAbout" to={`${props.link}`}> {parseInt(props?.turnetrafli) !== 0 ?  <Button1 value={(lang === "AZ" && `Ətraflı`) || (lang === "EN" && `More`) || (lang === "RU" && `Eще`)} /> : "" }</Link>
                 </div>
-        </Link>
+            </div>
+        </div>
     )
 }
 
