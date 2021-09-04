@@ -22,6 +22,7 @@ function BalanceUp(props) {
         }
     }
     const onSubmit = (e) =>{
+        localStorage.setItem("paymentType" , "balance")
         if(amount !== '')
         {
             

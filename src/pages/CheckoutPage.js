@@ -28,6 +28,7 @@ function CheckoutPage(props) {
     const staticData = Data[`address-${lang}`]
   
     const notify = () => toast.info((lang === "AZ" && "Nuş olsun!" || lang === "EN" && `Bon Appetit!` || lang === "RU" && `Приятного аппетита!`));
+    const notifySelectAddress = () => toast.info((lang === "AZ" && "Address Seçin!" || lang === "EN" && `Select Address!` || lang === "RU" && `Выберите адрес!`));
 
     const [loader, setloader] = useState(false)
     const [selectedValue, setselectedValue] = useState(1)
@@ -77,7 +78,6 @@ function CheckoutPage(props) {
         if(newaddresscheck)
         {
             setnewaddresscheck(false)
-            console.log(newaddresscheck)
             return 0 
         }
         setnewaddresscheck(true)
@@ -94,17 +94,13 @@ function CheckoutPage(props) {
         const today = new Date() 
         const tomorrow = new Date(today)
         tomorrow.setDate(tomorrow.getDate() + 1);
-
         const deliveryday = new Date(tomorrow)      
         deliveryday.setDate(tomorrow.getDate() + ((parseInt(num) + 7 - tomorrow.getDay()) % 7));
-
         var newdeliveryday = moment(deliveryday).format( 'dddd, D MMMM');
         setdeliveryDay(newdeliveryday)
         setdeliveryDayISO(deliveryday)
         var dateIds = []
         var nondateIds = []
-        console.log(" DEliveryDay " + deliveryDayISO )
-
         const dateChecker = (date , id) => {
             for (let i = 0; i < date.length; i++) {
                 const today = new Date()
@@ -158,15 +154,23 @@ function CheckoutPage(props) {
     useEffect(async () => {
         try {
             const res = await axios.get(`https://nehra.az/public/api/getaddress?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
-            setaddress(res.data) 
-            setaddressselect(res.data[0]?.id) 
-            setaddressR(res?.data[0]?.adres)
+            if(res.data.length !== 0)
+            {
+                setaddress(res.data) 
+                setaddressselect(res.data[0]?.id) 
+                setaddressR(res?.data[0]?.adres)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+        clickHandler2(DateGoods[0])
+        try {
+            const resp = await axios.get('https://nehra.az/public/api/getcities')
+            setcities(resp.data)
+            setcity(resp.data[0].id) 
         } catch (error) {
             
         }
-        clickHandler2(DateGoods[0])
-        axios.get('https://nehra.az/public/api/getcities')
-            .then(resp => (setcities(resp.data) , setcity(resp.data[0].id) ))
             
     }, [])
 
@@ -246,7 +250,9 @@ function CheckoutPage(props) {
                 qeyd:note
             })
             notifyAddress() 
+            console.log(resp.data)
             setaddress(resp.data)
+            setaddressselect(resp.data[0].id)
         } catch (error) {
             
         }
@@ -258,7 +264,17 @@ function CheckoutPage(props) {
 
 
     const onSubmit = async (values) => {
-        setloader(true)
+        if(addressselect !== null)
+        {
+            setloader(true)
+        }
+        else 
+        {
+            notifySelectAddress()
+            setloader(false)
+            return 0
+        }
+        localStorage.setItem("paymentType" , "buyingstaff")
         const vrt2 = (id , element) => {
             for (let i = 0; i < nondeliveryProducts.length; i++) {
                 if(id === nondeliveryProducts[i])
@@ -325,7 +341,7 @@ function CheckoutPage(props) {
         newarr2 = newarr2.filter(element => element !== undefined)
         let productsDataElements = []
         newarr2.map(element => productsDataElements.push({id:element.id, combo_id:element.product.hasOwnProperty('combo_id') ? element.product.combo_id : null , count:element.count, cost:element.product.qiymet, discount:element.product.discount, name:element.product.name,unit:element.product.unit ,weight:element.product.ceki_hecm,bonus:element.product.cashback}))
-        let productsId = newarr2.map(element => element.id)
+        let products_object = newarr2.map(element => element)
         let DeliveryDates = []
         let DeliveryCost = 0
         let DeliveryWeight = 0
@@ -358,8 +374,6 @@ function CheckoutPage(props) {
         }
         DeliveryDates = [...new Set(DeliveryDates)];
 
-        // setDateGoods(dates)
-        // console.log(DeliveryBonus)
         const postdata = {
             address: addressselect , 
             payment_type:paymentType , 
@@ -367,25 +381,28 @@ function CheckoutPage(props) {
             weight:DeliveryWeight  , 
             total_count: DeliveryCount , 
             product_data: productsDataElements, 
-            products_id:productsId, 
+            products_object:products_object, 
             user_id:UserData.id,
             bonus: DeliveryBonus,
             delivery_date:deliveryDayISO.toISOString()  
         }
-        try {
-            const res = await axios.post('https://nehra.az/api/payment', postdata  , headers )
-            notify()
-            closeCheckoutF()
-            setloader(false) 
-            window.location.href = res.data
-        } catch (error) {
-            closeCheckoutF()            
-            setloader(false) 
-        }
+        
+            
+            try {
+                const res = await axios.post('https://nehra.az/api/payment', postdata  , headers )
+                notify()
+                closeCheckoutF()
+                setloader(false) 
+                window.location.href = res.data
+            } catch (error) {
+                closeCheckoutF()            
+                setloader(false) 
+            }
+        
 
     }
 
-    const [addressselect, setaddressselect] = useState()
+    const [addressselect, setaddressselect] = useState(null)
 
     
     return (

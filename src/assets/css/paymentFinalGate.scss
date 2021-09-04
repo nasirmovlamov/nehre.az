@@ -1,0 +1,97 @@
+.PaymentFinalGatePage {
+    width: 1200px;
+    min-height: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    font-family: 'DaxlineR';
+    .thankyouCont
+    {
+        color: black;
+        font-size: 55px;
+        margin-top: -30px;
+    }
+    .textCont
+    {
+        font-size: 20px;
+        margin-top: 10px;
+        color: green ;
+    }
+    .backToButtonDesign
+    {
+        position: relative;
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+        &:hover 
+        {
+            .circleForButton
+            {
+                transform: translateX(10px);
+            }
+            .outlineButton
+            {
+                transform: rotate(180deg);
+                
+            }
+            .backtoButton
+            {
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+            }
+        }
+        .circleForButton
+        {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: green ;
+            right: -30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            border: 1px solid gray;
+            position: relative;
+            transition: 0.3s;
+            cursor: pointer;
+            .outlineButton
+            {
+                transition: 0.3s;
+                transition-timing-function: ease-in-out;
+                width: 80%;
+                height: 80%;
+                border-radius: 50%;
+                border: 1px dashed lightgray;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                svg 
+                {
+                    width: 50px;
+                    height: 50px;
+                    color: green ;
+                    position: absolute;
+                }
+            }
+        }
+        .backtoButton
+        {
+            width: 234px;
+            transition: 0.4s;
+            height: 67px;
+            font-size: 25px;
+            border: none;
+            border-radius: 0px 40px 0px 0px;
+            background-color: green ;
+            color: white;
+        }
+    }
+    
+
+    @media screen and (max-width:1201px){
+        width: 100% !important;
+    }
+}
+
+

@@ -1,0 +1,123 @@
+.PaymentFinalGatePage {
+  width: 1200px;
+  min-height: 700px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 20px;
+  font-family: 'DaxlineR';
+}
+
+.PaymentFinalGatePage .thankyouCont {
+  color: black;
+  font-size: 55px;
+  margin-top: -30px;
+}
+
+.PaymentFinalGatePage .textCont {
+  font-size: 20px;
+  margin-top: 10px;
+  color: green;
+}
+
+.PaymentFinalGatePage .backToButtonDesign {
+  position: relative;
+  margin-top: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.PaymentFinalGatePage .backToButtonDesign:hover .circleForButton {
+  -webkit-transform: translateX(10px);
+          transform: translateX(10px);
+}
+
+.PaymentFinalGatePage .backToButtonDesign:hover .outlineButton {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.PaymentFinalGatePage .backToButtonDesign:hover .backtoButton {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.PaymentFinalGatePage .backToButtonDesign .circleForButton {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: green;
+  right: -30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: white;
+  border: 1px solid gray;
+  position: relative;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.PaymentFinalGatePage .backToButtonDesign .circleForButton .outlineButton {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  -webkit-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  border: 1px dashed lightgray;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.PaymentFinalGatePage .backToButtonDesign .circleForButton .outlineButton svg {
+  width: 50px;
+  height: 50px;
+  color: green;
+  position: absolute;
+}
+
+.PaymentFinalGatePage .backToButtonDesign .backtoButton {
+  width: 234px;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  height: 67px;
+  font-size: 25px;
+  border: none;
+  border-radius: 0px 40px 0px 0px;
+  background-color: green;
+  color: white;
+}
+
+@media screen and (max-width: 1201px) {
+  .PaymentFinalGatePage {
+    width: 100% !important;
+  }
+}
+/*# sourceMappingURL=paymentFinalGate.css.map */

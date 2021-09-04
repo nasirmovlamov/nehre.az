@@ -35,8 +35,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Rating from '@material-ui/lab/Rating';
 import Cookies from 'js-cookies'
-import { image } from '@tensorflow/tfjs';
-import StarIcon from '@material-ui/icons/Star';
+    import StarIcon from '@material-ui/icons/Star';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import LinearProgress from '@material-ui/core/LinearProgress';

@@ -21,6 +21,7 @@ import MemberArea from '../components/MemberArea';
 import { ProtectedRoute } from '../pages/Protected';
 import Loader from '../components/Loader';
 import axios from 'axios';
+import PaymentFinalGate from './PaymentFinalGate';
 
 
 function Routing() {
@@ -141,6 +142,7 @@ function Routing() {
                                     <Route   path="/search" >                 <SearchResult/>             </Route>
                                     <Route   path="/suppliers/:id" >          <SelectedSupplier/>         </Route>
                                     <Route   path="/suppliers" >              <Suppliers/>                </Route>
+                                    <Route   path="/payment-thankyou" >           <PaymentFinalGate/>                    </Route>
                                     <Route   path="/:slug" >           <Combo/>                    </Route>
                                     <Route   path="*">                        <F04  />                    </Route>
                             </Switch> 
