@@ -323,7 +323,7 @@ function MemberArea(props) {
         <main className="main" id="main">
           <Switch>
             <Route path="/memberarea/password">
-              <PasswordUpdate />
+                <PasswordUpdate />
             </Route>
             <Route path="/memberarea/address/edit/:id">
                 <AddressEdit />
@@ -335,10 +335,10 @@ function MemberArea(props) {
                 <Address/>
             </Route>
             <Route path="/memberarea/bookmarks">
-              <Bookmarks />
+                <Bookmarks />
             </Route>
             <Route path="/memberarea/orders">
-              <Orders />
+                <Orders />
             </Route>
             <Route path="/memberarea/reminders">
                 <Reminders/>
@@ -352,7 +352,6 @@ function MemberArea(props) {
             <Route path="/memberarea/free-shipping">
                 <Shipping/>
             </Route>
-            
             <Route path="/memberarea/reviews">
                 <MemberAreaReviews />
             </Route>
@@ -360,7 +359,7 @@ function MemberArea(props) {
                 {output}
             </Route>
             <Route path="/memberarea/">
-              <Contacts/>
+                <Contacts/>
             </Route>
           </Switch>
         </main>

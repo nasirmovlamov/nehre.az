@@ -131,6 +131,7 @@ function Routing() {
                             <Switch>
                                     <Route   exact  path="/">                 <HomePage />                </Route>
                                     <ProtectedRoute   path='/memberarea'  component={ MemberArea}/>
+                                    <Route   path="/teshekkurler" >           <PaymentFinalGate/>                    </Route>
                                     <Route   path="/category/:id">            <ProductListingPage />      </Route>
                                     <Route   path="/about" >                  <About/>                    </Route>
                                     <Route   path="/elaqe" >                  <Contact/>                  </Route>
@@ -142,7 +143,6 @@ function Routing() {
                                     <Route   path="/search" >                 <SearchResult/>             </Route>
                                     <Route   path="/suppliers/:id" >          <SelectedSupplier/>         </Route>
                                     <Route   path="/suppliers" >              <Suppliers/>                </Route>
-                                    <Route   path="/payment-thankyou" >           <PaymentFinalGate/>                    </Route>
                                     <Route   path="/:slug" >           <Combo/>                    </Route>
                                     <Route   path="*">                        <F04  />                    </Route>
                             </Switch> 

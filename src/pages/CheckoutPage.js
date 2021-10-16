@@ -151,19 +151,45 @@ function CheckoutPage(props) {
     })
     const [address, setaddress] = useState([])
     
-    useEffect(async () => {
+    const getalladdress = async () => {
         try {
             const res = await axios.get(`https://nehra.az/public/api/getaddress?user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
+            console.log("res.data")
+            console.log(res.data)
+            console.log(res.data.length)
+            
             if(res.data.length !== 0)
             {
                 setaddress(res.data) 
-                setaddressselect(res.data[0]?.id) 
-                setaddressR(res?.data[0]?.adres)
+                for (let i = 0; i < res.data.length; i++) {
+                    console.log(res.data[i].default_adress)
+                    if(res.data[i].default_adress === 1)
+                    {
+                        setaddressselect(res.data[i]?.id) 
+                        setaddressR(res?.data[i]?.adres)
+                        console.log(res.data)
+                        console.log(res.data[i]?.id)
+                        console.log("res.data[i]?.id")
+                    }
+                    else 
+                    {
+                        setaddressselect(res.data[0]?.id) 
+                        setaddressR(res?.data[0]?.adres)
+                    }
+                }
+                
             }
+            if(res.data.length < 1)
+                {
+                    setaddressselect(res.data[0]?.id) 
+                    setaddressR(res?.data[0]?.adres)
+                }
         } catch (error) {
             console.log(error)
         }
-        clickHandler2(DateGoods[0])
+    }
+
+    const getAllCitiesAndSelectDefault  = async () => {
         try {
             const resp = await axios.get('https://nehra.az/public/api/getcities')
             setcities(resp.data)
@@ -171,7 +197,11 @@ function CheckoutPage(props) {
         } catch (error) {
             
         }
-            
+    } 
+    useEffect(() => {
+        getalladdress()
+        clickHandler2(DateGoods[0])
+        getAllCitiesAndSelectDefault()
     }, [])
 
 
@@ -264,6 +294,7 @@ function CheckoutPage(props) {
 
 
     const onSubmit = async (values) => {
+        
         if(addressselect !== null)
         {
             setloader(true)
@@ -275,6 +306,7 @@ function CheckoutPage(props) {
             return 0
         }
         localStorage.setItem("paymentType" , "buyingstaff")
+        
         const vrt2 = (id , element) => {
             for (let i = 0; i < nondeliveryProducts.length; i++) {
                 if(id === nondeliveryProducts[i])
@@ -340,7 +372,20 @@ function CheckoutPage(props) {
         let newarr2 = ProdutData.map((element, index ) =>  vrt(element.id , element))
         newarr2 = newarr2.filter(element => element !== undefined)
         let productsDataElements = []
-        newarr2.map(element => productsDataElements.push({id:element.id, combo_id:element.product.hasOwnProperty('combo_id') ? element.product.combo_id : null , count:element.count, cost:element.product.qiymet, discount:element.product.discount, name:element.product.name,unit:element.product.unit ,weight:element.product.ceki_hecm,bonus:element.product.cashback}))
+        newarr2.map(element => productsDataElements.push({
+        name:element.name, 
+        id:element.id, 
+        combo_id:element.product.hasOwnProperty('combo_id') ? element.product.combo_id : null , 
+        count:element.count, 
+        cost:element.product.qiymet, 
+        discount:element.product.discount, 
+        unit:element.product.unit ,
+        weight:element.product.ceki_hecm,
+        bonus:element.product.cashback}))
+
+
+       
+       
         let products_object = newarr2.map(element => element)
         let DeliveryDates = []
         let DeliveryCost = 0
@@ -388,16 +433,17 @@ function CheckoutPage(props) {
         }
         
             
-            try {
-                const res = await axios.post('https://nehra.az/api/payment', postdata  , headers )
-                notify()
-                closeCheckoutF()
-                setloader(false) 
-                window.location.href = res.data
-            } catch (error) {
-                closeCheckoutF()            
-                setloader(false) 
-            }
+        try {
+            const res = await axios.post('https://nehra.az/api/payment', postdata  , headers )
+            notify()
+            closeCheckoutF()
+            setloader(false) 
+            window.location.href = res.data.link
+            localStorage.setItem("orderId" , res.data.order_id)
+        } catch (error) {
+            closeCheckoutF()            
+            setloader(false) 
+        }
         
 
     }
@@ -411,11 +457,18 @@ function CheckoutPage(props) {
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} validateOnChange={true} validateOnBlur={false}>
                 <Form  method="POST">
                     <div className="buttonCont"><button onClick={closeCheckoutF} className="removeModalBtn">×</button></div>
-                    
                     <div className="deliveryAddress">
                         <p className="title titleBB">{lang === "AZ" && `Çatdırılma ünvanı seçin` || lang === "EN" && `Select delivery Address` || lang === "RU" && `Выберите адрес доставки`}</p>
                         <div className="errors">
-                            {address?.length > 0 && <select className='addressElement' name="" onChange={(e) => setaddressselect(e.target.value)}>{address?.map((address , index) => <option key={address.id} value={address.id} > {console.log(address?.city?.name)} {address?.city?.name}  {address?.rayon !== null && (` , ${ staticData?.street}`)} {address?.rayon} {address?.ev !== null && ` , ${staticData?.home}`} {address?.ev} </option> )}</select>}
+                            {address?.length > 0 && 
+                            <select className='addressElement' name="" onChange={(e) => setaddressselect(e.target.value)}>{address?.map(
+                                (address , index) => 
+                                    <option selected={address.default_adress === 1} key={address.id} value={address.id} > 
+                                        {address?.city?.name}  {address?.rayon !== null && (` , ${ staticData?.street}`)} {address?.rayon} {address?.ev !== null && ` , ${staticData?.home}`} {address?.ev} 
+                                    </option>   
+                                )}
+                            </select>
+                            }
                             {address?.length <= 5 &&
                             <>
                             <div className='addAddressBtn'>

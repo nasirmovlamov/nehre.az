@@ -15,7 +15,7 @@ import Data from '../assets/language/address.json'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 function Address() {
     const context = useContext(ProductListingContext)
     const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
@@ -29,6 +29,11 @@ function Address() {
         setaddress(res.data)
     }, [])
 
+    const makeDefault = async(id) => {
+        const res = await axios.post(`https://nehra.az/public/api/makedefault?id=${id}&user_id=${JSON.parse(localStorage.getItem('LoginUserData')).id}`)
+        setaddress(res.data)
+    }
+
     const deleteAddress = async (id) => {
         notifyAddressDel()
         const res = await axios.post(`https://nehra.az/public/api/removeaddress` , {id:id , user_id:JSON.parse(localStorage.getItem('LoginUserData')).id})
@@ -39,9 +44,32 @@ function Address() {
     return (
         <div className="cabinetCont address">
             <p className="title"> {(lang === "AZ" && `Mənim Ünvanlarım`) || (lang === "EN" && `My Addresses`) || (lang === "RU" && `Мои Адреса`)}</p>
-            {address.length < 1 &&  <p className="myAdress">{(lang === "AZ" && `Hesabınızdakı ünvanların siyahısı boşdur.`) || (lang === "EN" && `The list of addresses in your account is empty. `) || (lang === "RU" && `Список адресов в вашем аккаунте пуст.`)}</p>}
+            {
+                address.length < 1 &&  
+                <p className="myAdress">
+                    {(lang === "AZ" && `Hesabınızdakı ünvanların siyahısı boşdur.`) || (lang === "EN" && `The list of addresses in your account is empty. `) || (lang === "RU" && `Список адресов в вашем аккаунте пуст.`)}
+                </p>
+            }
             <div className='allAddress'>
-                {address?.map((address , index) => <div key={address.user_id} className='addressElement'><p className='addressText'>{address.city.name}  {address.rayon !== null && (` , ${ staticData.street}`)} {address.rayon} {address.ev !== null && ` , ${staticData.home}`} {address.ev} </p>     <div className="buttons"><Link to={`/memberarea/address/edit/${address.id}`}>  <button className='editAddress'><EditIcon/></button></Link> <button className='removeAddress' onClick={() => deleteAddress(address.id)}><DeleteIcon/></button></div> </div>)}
+                {address?.map((address , index) => 
+                    <div key={address.user_id} className='addressElement'>
+                        <p className='addressText'>
+                            {address.city.name}  
+                            {address.rayon !== null && (` , ${ staticData.street}`)} 
+                            {address.rayon} 
+                            {address.ev !== null && ` , ${staticData.home}`} 
+                            {address.ev} 
+                        </p>     
+                        <div className="buttons">
+                            <Link to={`/memberarea/address/edit/${address.id}`}>  
+                            <button className='editAddress'><EditIcon/></button></Link> 
+                            <button  style={{width:"140px", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"15px", columnGap:"10px"}} onClick={() => makeDefault(address.id)} className='editAddress'>{address.default_adress === 0 ? ((lang === "AZ" && `Əsas ünvan et`) || (lang === "EN" && `Make Default`) || (lang === "RU" && `По умолчанию`)) : 
+                            (lang === "AZ" && <>Əsas ünvandır <CheckCircleIcon/></>) || (lang === "EN" && <>Default address <CheckCircleIcon/></>) || (lang === "RU" && <>Адрес по умолчанию <CheckCircleIcon/></>)
+                            } </button>
+                            <button className='removeAddress' onClick={() => deleteAddress(address.id)}><DeleteIcon/></button>
+                        </div> 
+                    </div>
+                )}
             </div>
             <Link to="/memberarea/address/add"><Button1 value={(lang === "AZ" && `Yeni Ünvan`) || (lang === "EN" && `New Address`) || (lang === "RU" && `Новый адрес`)} color="#285999"/></Link>
         </div>

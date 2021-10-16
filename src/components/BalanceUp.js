@@ -21,13 +21,19 @@ function BalanceUp(props) {
             seterror(false)
         }
     }
-    const onSubmit = (e) =>{
+    const onSubmit = async (e) =>{
         localStorage.setItem("paymentType" , "balance")
         if(amount !== '')
         {
-            
-            axios.post('https://nehra.az/public/api/topup', {user_id: props.userId , amount:amount} )
-                .then(res=> (console.log(res) , res.status === 200 && (notify() , props.functionClose() , setTimeout(() => { window.location.href = '/payment'}, 3000) )) )
+            const resp = axios.post('https://nehra.az/public/api/topup', {user_id: props.userId , amount:amount} )
+            try {
+                notify()
+                props.functionClose() 
+                // localStorage.setItem("orderId" , resp.data.order_id)
+                window.location.href = resp.data.link
+            } catch (error) {
+                window.location.href = '/' 
+            }
         }
         else 
         {

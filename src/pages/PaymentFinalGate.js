@@ -10,14 +10,19 @@ function PaymentFinalGate() {
 
 
     const sendPaymentUpdate = async () => {
+        if(localStorage.getItem("LoginUserData") === null && localStorage.getItem("paymentType") === null)
+        {
+            window.location.href = '/'
+            return 0
+        }
         const paymentType = localStorage.getItem("paymentType")
+        const order_id = localStorage.getItem("orderId")
         const id = JSON.parse(localStorage.getItem("LoginUserData")).id
-        
         if(localStorage.getItem("paymentType") === "buyingstaff")
         {
             
             try {
-                const resp = await axios.post("https://nehra.az/api/checkpayment" , {user_id: id, payment_type:paymentType})
+                const resp = await axios.post("https://nehra.az/api/checkpayment" , {user_id: id, payment_type:paymentType , order_id:order_id})
             } catch (error) {
                 window.location.href = '/'
             }
@@ -25,7 +30,7 @@ function PaymentFinalGate() {
         else 
         {
             try {
-                const resp = await axios.post("https://nehra.az/api/checkpayment/balance" , {user_id: id, payment_type:paymentType})
+                const resp = await axios.post("https://nehra.az/api/checkpayment/balance" , {user_id: id, payment_type:paymentType })
             } catch (error) {
                 window.location.href = '/'
             }
