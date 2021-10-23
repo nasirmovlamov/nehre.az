@@ -70,7 +70,16 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.id}
         </TableCell>
-        <TableCell align="right" style={{textAlign:"center" , width:"200px"}}>{row.order_status}</TableCell>
+        <TableCell align="right" style={{textAlign:"center" , width:"120px" , fontSize:"12px"}}>{row.order_status}</TableCell>
+        <TableCell align="right" style={{textAlign:"center" , width:"120px" , fontSize:"12px"}}>
+          {
+            row.payment_status==="paid" &&
+            <>{(lang === "AZ" && `Ödənilib`) || (lang === "EN" && `Paid`) || (lang === "RU" && `Оплаченный`)}</>
+            ||
+            row.payment_status==="notpaid" &&
+            <>{(lang === "AZ" && `Ödənilməyib`) || (lang === "EN" && `Not Paid`) || (lang === "RU" && `Не оплачен`)}</>
+          }
+        </TableCell>
         <TableCell align="right">{row.total} 	₼</TableCell>
         <TableCell align="right">{JSON.parse(row.products).length} {(lang === "AZ" && `Ədəd`) || (lang === "EN" && `Products`) || (lang === "RU" && `Продукты`)}</TableCell>
         <TableCell align="right" style={{textAlign:"center" , width:"100px"}}>{row.order_date}</TableCell>
@@ -97,14 +106,14 @@ function Row(props) {
                 </Button>
         </TableCell>
         <TableCell>
-            <div style={{display:"flex", alignItems:"center", justifyContent:"center", width:"120px" , height:"100%", columnGap:"10px"}}>
+            <div style={{display:"flex", alignItems:"center", justifyContent:"center", width:"70px" , height:"100%", columnGap:"10px"}}>
 
                 <Button 
                     onClick={() => cancelOrder(row.id)}  
-                    style={{display:"flex", alignItems:"center", margin:"0px",width:"100px", justifyContent:"center",textTransform:"none"}} 
+                    style={{display:"flex", alignItems:"center", margin:"0px",width:"90px", justifyContent:"center",textTransform:"none"}} 
                     variant="text" > 
                     <div 
-                    style={{margin:"0px", padding:"0px", display:"flex", alignItems:"center", justifyContent:"center" }}> 
+                    style={{width: "90px" , margin:"0px", padding:"0px", display:"flex", alignItems:"center", justifyContent:"center" }}> 
                     <div>{(lang === "AZ" && `Ləğv et`) || (lang === "EN" && `Cancel`) || (lang === "RU" && `Отмена`)}</div>
                     </div> 
                 </Button>
@@ -129,6 +138,7 @@ function Row(props) {
                     <TableCell>{(lang === "AZ" && `Qiymət`) || (lang === "EN" && `Price`) || (lang === "RU" && `Цена   `)} </TableCell>
                     <TableCell >{(lang === "AZ" && `Çəki`) || (lang === "EN" && `Weight`) || (lang === "RU" && `Масса`)}</TableCell>
                     <TableCell >{(lang === "AZ" && `Bonus`) || (lang === "EN" && `Bonus`) || (lang === "RU" && `Бонус`)}</TableCell>
+                    <TableCell >{(lang === "AZ" && `Məhsul Sayı`) || (lang === "EN" && `Number of pruducts`) || (lang === "RU" && `Количество продуктов`)}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -145,6 +155,7 @@ function Row(props) {
                         </TableCell>
                         <TableCell component="th" scope="row">{(historyRow.unit.id === 1 || historyRow.unit.id === 4 ) ?   historyRow.weight : historyRow.count }  {((lang === "AZ" && historyRow.unit.ad) || (lang === "EN" && historyRow.unit.ad_en) || (lang === "RU" && historyRow.unit.ad_ru))}</TableCell>
                         <TableCell component="th" scope="row">{historyRow.bonus } 	₼</TableCell>
+                        <TableCell component="th" scope="row" style={{textAlign:"center"}}>{historyRow.count } 	</TableCell>
                         {/* <TableCell align="right">Total price ($)</TableCell> */}
                         {/*
                         <TableCell align="right"><button> Cancel</button></TableCell>
@@ -194,11 +205,12 @@ function Orders() {
                 <Table aria-label="collapsible table">
                     <TableHead>
                     <TableRow>
-                        <TableCell > {(lang === "AZ" && `ID`) || (lang === "EN" && `ID`) || (lang === "RU" && `ИД`)}</TableCell>
-                        <TableCell> {(lang === "AZ" && `Status`) || (lang === "EN" && `Status`) || (lang === "RU" && `Cтатус`)} </TableCell>
-                        <TableCell align="right"> {(lang === "AZ" && `Qiymət`) || (lang === "EN" && `Price`) || (lang === "RU" && `Цена   `)}</TableCell>
-                        <TableCell align="right">{(lang === "AZ" && `Məhsullar`) || (lang === "EN" && `Products`) || (lang === "RU" && `Продукты`)} </TableCell>
-                        <TableCell align="right">{(lang === "AZ" && `Tarix`) || (lang === "EN" && `Date`) || (lang === "RU" && `Дата`)} </TableCell>
+                        <TableCell style={{fontSize:"12px" , textAlign:"center"}} > {(lang === "AZ" && `ID`) || (lang === "EN" && `ID`) || (lang === "RU" && `ИД`)}</TableCell>
+                        <TableCell style={{fontSize:"12px" , textAlign:"center"}}> {(lang === "AZ" && `Sifarişin statusu`) || (lang === "EN" && `Order status`) || (lang === "RU" && `Статус заказа`)} </TableCell>
+                        <TableCell style={{fontSize:"12px" , textAlign:"center"}}> {(lang === "AZ" && `Ödənişin statusu`) || (lang === "EN" && `Payment status`) || (lang === "RU" && `Статус платежа`)} </TableCell>
+                        <TableCell style={{fontSize:"12px" , textAlign:"center"}} > {(lang === "AZ" && `Qiymət`) || (lang === "EN" && `Price`) || (lang === "RU" && `Цена   `)}</TableCell>
+                        <TableCell style={{fontSize:"12px" , textAlign:"center"}} >{(lang === "AZ" && `Məhsullar`) || (lang === "EN" && `Products`) || (lang === "RU" && `Продукты`)} </TableCell>
+                        <TableCell style={{fontSize:"12px" , textAlign:"center"}} >{(lang === "AZ" && `Tarix`) || (lang === "EN" && `Date`) || (lang === "RU" && `Дата`)} </TableCell>
                     
                     </TableRow>
                     </TableHead>

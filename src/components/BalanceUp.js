@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function BalanceUp(props) {
     const context = useContext(ProductListingContext)
-    const {ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
+    const {UserData , ProdutData, setProdutData, FinalPrice, setFinalPrice, FinalWeight, setFinalWeight,FinalGoods, setFinalGoods, addItem, removeItem, lang , setlang,  money , langArr, DateGoods,setDateGoods , SelectedsProduct, setSelectedsProduct, OpenLoginF,CloseLoginF, setOpenLogin , OpenLogin, handleOpenPM, handleClosePM, modalIdsetter, modalId, FinalBonus, setFinalBonus,selectItem} = context
   
     const [amount, setamount] = useState()
     const [error, seterror] = useState(false)
@@ -25,14 +25,14 @@ function BalanceUp(props) {
         localStorage.setItem("paymentType" , "balance")
         if(amount !== '')
         {
-            const resp = axios.post('https://nehra.az/public/api/topup', {user_id: props.userId , amount:amount} )
             try {
+                const resp = await axios.post('https://nehra.az/public/api/topup', {user_id: UserData.id , amount:amount} )
+                console.log(resp)
                 notify()
                 props.functionClose() 
-                // localStorage.setItem("orderId" , resp.data.order_id)
-                window.location.href = resp.data.link
+                window.location.href = resp.data   
             } catch (error) {
-                window.location.href = '/' 
+                // window.location.href = '/' 
             }
         }
         else 

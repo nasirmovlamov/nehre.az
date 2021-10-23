@@ -25,14 +25,20 @@ function Contacts(props) {
     const context = useContext(ProductListingContext)
     const {SelectedsProduct, ProdutData, addItem,modalIdsetter,removeItem,lang,money, discountHandler, UserData , setSelectedsProduct, OpenLoginF} = context
     const notify = () => toast.info(lang === "AZ" && `Məlumatlar yeniləndi!` || lang === "EN" && `Information updated!` || lang === "RU" && `Информация обновлена!`);
-  
+    const [userBalance, setuserBalance] = useState()
     
     const [pageData, setpageData] = useState({})
     const [validate, setvalidate] = useState({})
     const [formText, setformText] = useState({})
     
+    const getBalance = async () => {
+        const resp = await axios.post('https://nehra.az/api/getbalance' , {user_id:UserData.id})
+        setuserBalance(resp.data)
+    }
+
     useEffect(() => {
         const text = Data[`profile-${lang}`]
+        getBalance()
         setpageData(text) 
         setvalidate(text.validation)
         setformText(text.formText)
@@ -148,8 +154,8 @@ function Contacts(props) {
                         <div className="text"> 
                             {formText.balance}
                         </div>
-                        <div className='balanceUpbtn'>
-                            <p className="valueBalance"><span>{UserData.balance === null ? 0 : UserData.balance}</span>  AZN</p>  
+                        <div className='balanceUpbtn'>{}
+                            <p className="valueBalance"><span>{userBalance}</span>  AZN</p>  
                             <button onClick={() => handleOpen()} type='button' className='balanceBtn'> <AddCircleIcon/> Balansı artır</button>
                         </div>
                     </div>

@@ -29,6 +29,8 @@ function CheckoutPage(props) {
   
     const notify = () => toast.info((lang === "AZ" && "Nuş olsun!" || lang === "EN" && `Bon Appetit!` || lang === "RU" && `Приятного аппетита!`));
     const notifySelectAddress = () => toast.info((lang === "AZ" && "Address Seçin!" || lang === "EN" && `Select Address!` || lang === "RU" && `Выберите адрес!`));
+    const notifyMinimumOrder = () => toast.info((lang === "AZ" && "Minimum sifariş qiyməti 30 manatdır!" || lang === "EN" && `The minimum order price is 30 manat!` || lang === "RU" && `Минимальная цена заказа составляет 30 манат!`));
+    const notifyBalansError = (text) => toast.info(text);
 
     const [loader, setloader] = useState(false)
     const [selectedValue, setselectedValue] = useState(1)
@@ -83,11 +85,7 @@ function CheckoutPage(props) {
         setnewaddresscheck(true)
     }
     
-    const [addressR, setaddressR] = useState([])
-    const onChangeAddressR = (e) => {
-        setaddressR(e.target.value)
-        setaddressC("")
-    }
+    
 
 
     const clickHandler2 = (num) => {
@@ -158,7 +156,7 @@ function CheckoutPage(props) {
             console.log(res.data)
             console.log(res.data.length)
             
-            if(res.data.length !== 0)
+            if(res.data.length > 0 && res.data.length  !== undefined)
             {
                 setaddress(res.data) 
                 for (let i = 0; i < res.data.length; i++) {
@@ -166,24 +164,18 @@ function CheckoutPage(props) {
                     if(res.data[i].default_adress === 1)
                     {
                         setaddressselect(res.data[i]?.id) 
-                        setaddressR(res?.data[i]?.adres)
-                        console.log(res.data)
-                        console.log(res.data[i]?.id)
-                        console.log("res.data[i]?.id")
                     }
                     else 
                     {
                         setaddressselect(res.data[0]?.id) 
-                        setaddressR(res?.data[0]?.adres)
                     }
                 }
                 
             }
-            if(res.data.length < 1)
-                {
-                    setaddressselect(res.data[0]?.id) 
-                    setaddressR(res?.data[0]?.adres)
-                }
+            else
+            {
+                setaddressselect(null) 
+            }
         } catch (error) {
             console.log(error)
         }
@@ -294,17 +286,8 @@ function CheckoutPage(props) {
 
 
     const onSubmit = async (values) => {
+        let oldProductData = ProdutData
         
-        if(addressselect !== null)
-        {
-            setloader(true)
-        }
-        else 
-        {
-            notifySelectAddress()
-            setloader(false)
-            return 0
-        }
         localStorage.setItem("paymentType" , "buyingstaff")
         
         const vrt2 = (id , element) => {
@@ -352,13 +335,34 @@ function CheckoutPage(props) {
        
         let uniqueDates = [...new Set(dates)];
 
-        addCart(newarr , WholeCost , WholeWeight, WholeCount, WholeBonus, uniqueDates)
-        setDateGoods(uniqueDates)
-        setFinalPrice(WholeCost)
-        setFinalGoods(WholeCount)
-        setProdutData(newarr)
-        setFinalWeight(WholeWeight)
-        setFinalBonus(WholeBonus)
+        console.log("Payment Type")
+        console.log(paymentType)
+
+        if(paymentType == 3 || paymentType == 4 )
+        {
+            setDateGoods(uniqueDates)
+            setFinalPrice(WholeCost)
+            setFinalGoods(WholeCount)
+            setProdutData(newarr)
+            setFinalWeight(WholeWeight)
+            setFinalBonus(WholeBonus)
+            addCart(newarr , WholeCost , WholeWeight, WholeCount, WholeBonus, uniqueDates)
+        }
+
+        const order_product_details_remover = {
+            uniqueDates:uniqueDates,
+            WholeCost:WholeCost,
+            WholeCount:WholeCount,
+            oldProductData:oldProductData,
+            WholeWeight:WholeWeight,
+            WholeBonus:WholeBonus,
+            NewProducts: newarr
+        }
+
+          
+        
+
+
         
 
         const vrt = (id , element) => {
@@ -429,19 +433,47 @@ function CheckoutPage(props) {
             products_object:products_object, 
             user_id:UserData.id,
             bonus: DeliveryBonus,
-            delivery_date:deliveryDayISO.toISOString()  
+            delivery_date:deliveryDayISO.toISOString() ,
+            ordered_products: JSON.stringify(order_product_details_remover)
         }
         
-            
+        if(DeliveryCost < 30)
+        {
+            notifyMinimumOrder()
+            setloader(false) 
+            return 0
+        }
+        if(addressselect === null)
+        {
+            notifySelectAddress()
+            setloader(false)
+            return 0
+        }
+      
         try {
             const res = await axios.post('https://nehra.az/api/payment', postdata  , headers )
             notify()
             closeCheckoutF()
             setloader(false) 
+            if(paymentType == 2)
+            {
+                setDateGoods(uniqueDates)
+                setFinalPrice(WholeCost)
+                setFinalGoods(WholeCount)
+                setProdutData(newarr)
+                setFinalWeight(WholeWeight)
+                setFinalBonus(WholeBonus)
+                addCart(newarr , WholeCost , WholeWeight, WholeCount, WholeBonus, uniqueDates)
+            }
             window.location.href = res.data.link
             localStorage.setItem("orderId" , res.data.order_id)
         } catch (error) {
-            closeCheckoutF()            
+            console.log(error.response.data)
+            if(paymentType == 2)
+            {
+                notifyBalansError(error.response.data.message)
+            }
+            // closeCheckoutF()            
             setloader(false) 
         }
         
