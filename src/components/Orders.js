@@ -85,26 +85,16 @@ function Row(props) {
         <TableCell align="right">{JSON.parse(row.products).length} {(lang === "AZ" && `Ədəd`) || (lang === "EN" && `Products`) || (lang === "RU" && `Продукты`)}</TableCell>
         <TableCell align="right" style={{textAlign:"center" , width:"100px"}}>{row.order_date}</TableCell>
         <TableCell>
-                {/* <button
-                    style={{marginTop:"0px"}}
-                    aria-label="expand row"
-                    size="small"
-                    
-                   
-                >
-                    
-                    
-                </button> */}
-                <Button 
-                    onClick={() => setOpen(!open)}  
-                    style={{display:"flex", alignItems:"center", margin:"0px",width:"100px", justifyContent:"center",textTransform:"none"}} 
-                    variant="outlined" > 
-                    <div 
-                    style={{margin:"0px", padding:"0px", display:"flex", alignItems:"center", justifyContent:"center" }}> 
-                    <div>{(lang === "AZ" && `Ətraflı`) || (lang === "EN" && `More`) || (lang === "RU" && `Eще`)}</div>
-                    </div> 
-                    {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                </Button>
+              <Button 
+                  onClick={() => setOpen(!open)}  
+                  style={{display:"flex", alignItems:"center", margin:"0px",width:"100px", justifyContent:"center",textTransform:"none"}} 
+                  variant="outlined" > 
+                  <div 
+                  style={{margin:"0px", padding:"0px", display:"flex", alignItems:"center", justifyContent:"center" }}> 
+                  <div>{(lang === "AZ" && `Ətraflı`) || (lang === "EN" && `More`) || (lang === "RU" && `Eще`)}</div>
+                  </div> 
+                  {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+              </Button>
         </TableCell>
 
 
