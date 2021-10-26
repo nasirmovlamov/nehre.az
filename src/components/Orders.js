@@ -58,6 +58,7 @@ function Row(props) {
         try {
             const resp  = await axios.post("https://nehra.az/api/cancelorder" , {id:id})
             notifyCancel()
+            sendOrderRequest()
         } catch (error) {
             notifyError()
         }
@@ -105,7 +106,11 @@ function Row(props) {
                     {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </Button>
         </TableCell>
-        <TableCell>
+
+
+        {
+          row.payment_status==="notpaid" &&
+          <TableCell>
             <div style={{display:"flex", alignItems:"center", justifyContent:"center", width:"70px" , height:"100%", columnGap:"10px"}}>
 
                 <Button 
@@ -121,7 +126,8 @@ function Row(props) {
                    Pay
                 </button> */}
             </div>
-        </TableCell>
+          </TableCell>
+        }
         
       </TableRow>
       <TableRow>
@@ -216,7 +222,7 @@ function Orders() {
                     </TableHead>
                     <TableBody>
                     {Orders.map((order) => (
-                        <Row  row={order} />
+                        <Row sendOrderRequest={sendOrderRequest} row={order} />
                     ))}
                     </TableBody>
                 </Table>
